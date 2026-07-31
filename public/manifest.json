@@ -1,0 +1,29 @@
+{
+  "short_name": "SBN KASBI",
+  "name": "SBN KASBI PT Victory Chingluh Indonesia",
+  "description": "Sistem Informasi & Database Independen Serikat Buruh Nasional (SBN) KASBI PT Victory Chingluh Indonesia",
+  "icons": [
+    {
+      "src": "/fsbn_logo.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=192&auto=format&fit=crop&q=80",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=512&auto=format&fit=crop&q=80",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "background_color": "#020617",
+  "theme_color": "#dc2626",
+  "display": "standalone",
+  "orientation": "portrait"
+}

@@ -1,0 +1,169 @@
+{
+  "version": 1,
+  "collections": {
+    "members": {
+      "entity": {
+        "fields": {
+          "id": { "type": "string" },
+          "nomorAnggota": { "type": "string" },
+          "nik": { "type": "string" },
+          "namaLengkap": { "type": "string" },
+          "jenisKelamin": { "type": "string" },
+          "tempatLahir": { "type": "string" },
+          "tanggalLahir": { "type": "string" },
+          "alamat": { "type": "string" },
+          "nomorHp": { "type": "string" },
+          "email": { "type": "string" },
+          "departemen": { "type": "string" },
+          "bagian": { "type": "string" },
+          "jabatanKerja": { "type": "string" },
+          "shift": { "type": "string" },
+          "statusKerja": { "type": "string" },
+          "statusKeanggotaan": { "type": "string" },
+          "tanggalBergabung": { "type": "string" },
+          "fotoUrl": { "type": "string" },
+          "updatedAt": { "type": "string" }
+        }
+      }
+    },
+    "advocacyCases": {
+      "entity": {
+        "fields": {
+          "id": { "type": "string" },
+          "nomorKasus": { "type": "string" },
+          "memberId": { "type": "string" },
+          "namaAnggota": { "type": "string" },
+          "departemen": { "type": "string" },
+          "judulKasus": { "type": "string" },
+          "kategori": { "type": "string" },
+          "status": { "type": "string" },
+          "tingkatLanjut": { "type": "string" },
+          "tanggalMasuk": { "type": "string" },
+          "kronologi": { "type": "string" },
+          "solusiHarapan": { "type": "string" },
+          "pendamping1": { "type": "string" },
+          "pendamping2": { "type": "string" },
+          "catatanAdvokasi": { "type": "string" },
+          "updatedAt": { "type": "string" }
+        }
+      }
+    },
+    "sickVisits": {
+      "entity": {
+        "fields": {
+          "id": { "type": "string" },
+          "nomorPendampingan": { "type": "string" },
+          "memberId": { "type": "string" },
+          "namaAnggota": { "type": "string" },
+          "departemen": { "type": "string" },
+          "diagnosaSakit": { "type": "string" },
+          "lokasi": { "type": "string" },
+          "namaRumahSakit": { "type": "string" },
+          "tanggalSakit": { "type": "string" },
+          "tanggalKunjungan": { "type": "string" },
+          "statusKondisi": { "type": "string" },
+          "bantuanDiberikan": { "type": "string" },
+          "petugasKunjungan": { "type": "string" },
+          "catatanKunjungan": { "type": "string" },
+          "updatedAt": { "type": "string" }
+        }
+      }
+    },
+    "agendas": {
+      "entity": {
+        "fields": {
+          "id": { "type": "string" },
+          "judul": { "type": "string" },
+          "jenis": { "type": "string" },
+          "tanggalWaktu": { "type": "string" },
+          "lokasi": { "type": "string" },
+          "penanggungJawab": { "type": "string" },
+          "deskripsi": { "type": "string" },
+          "targetPeserta": { "type": "string" },
+          "status": { "type": "string" },
+          "updatedAt": { "type": "string" }
+        }
+      }
+    },
+    "sembakoEvents": {
+      "entity": {
+        "fields": {
+          "id": { "type": "string" },
+          "namaEvent": { "type": "string" },
+          "tahun": { "type": "number" },
+          "tanggalMulai": { "type": "string" },
+          "tanggalSelesai": { "type": "string" },
+          "totalPenerima": { "type": "number" },
+          "totalSudahAmbil": { "type": "number" },
+          "keterangan": { "type": "string" },
+          "status": { "type": "string text" }
+        }
+      }
+    },
+    "sembakoClaims": {
+      "entity": {
+        "fields": {
+          "id": { "type": "string" },
+          "eventId": { "type": "string" },
+          "memberId": { "type": "string" },
+          "nomorAnggota": { "type": "string" },
+          "namaLengkap": { "type": "string" },
+          "departemen": { "type": "string" },
+          "qrCodeString": { "type": "string" },
+          "status": { "type": "string" },
+          "petugasScan": { "type": "string" },
+          "updatedAt": { "type": "string" }
+        }
+      }
+    },
+    "users": {
+      "entity": {
+        "fields": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "role": { "type": "string" },
+          "jabatan": { "type": "string" },
+          "email": { "type": "string" },
+          "avatar": { "type": "string" }
+        }
+      }
+    },
+    "auditLogs": {
+      "entity": {
+        "fields": {
+          "id": { "type": "string" },
+          "timestamp": { "type": "string" },
+          "user": { "type": "string" },
+          "role": { "type": "string" },
+          "module": { "type": "string" },
+          "action": { "type": "string text" },
+          "details": { "type": "string text" }
+        }
+      }
+    },
+    "vehicleLogs": {
+      "entity": {
+        "fields": {
+          "id": { "type": "string" },
+          "nomorLog": { "type": "string" },
+          "kendaraan": { "type": "string" },
+          "platNomor": { "type": "string" },
+          "memberId": { "type": "string" },
+          "namaPemakai": { "type": "string" },
+          "departemenPemakai": { "type": "string" },
+          "petugasSerahTerima": { "type": "string" },
+          "tujuan": { "type": "string text" },
+          "tanggalMulai": { "type": "string" },
+          "jamMulai": { "type": "string" },
+          "tanggalSelesai": { "type": "string" },
+          "jamSelesai": { "type": "string" },
+          "kondisiAwal": { "type": "string text" },
+          "kondisiKembali": { "type": "string text" },
+          "status": { "type": "string" },
+          "catatan": { "type": "string text" },
+          "updatedAt": { "type": "string" }
+        }
+      }
+    }
+  }
+}
