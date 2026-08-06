@@ -17,6 +17,7 @@ export interface UserAccount {
   department?: string;
   phoneNumber?: string;
   isSuperAdmin?: boolean;
+  lastActive?: string;
 }
 
 export const checkIsSuperAdmin = (user?: UserAccount | null): boolean => {
@@ -218,19 +219,48 @@ export interface AuditLog {
   timestamp: string;
   userNama: string;
   userRole: UserRole;
-  modul: 'Data Anggota' | 'Advokasi' | 'Anggota Sakit' | 'Agenda' | 'Sembako' | 'Kendaraan' | 'Keuangan' | 'Sistem';
+  modul: 'Data Anggota' | 'Advokasi' | 'Anggota Sakit' | 'Agenda' | 'Sembako' | 'Kendaraan' | 'Keuangan' | 'Penggalangan Dana' | 'Sistem';
   aksi: string;
   detail: string;
 }
 
-export type VehicleType = 'Mitsubishi Xpander' | 'Toyota Avanza';
+export type FamilyRelationship = 'Anggota' | 'Anak' | 'Istri' | 'Suami' | 'Orang Tua';
+export type HealthCondition = 'Sakit' | 'Meninggal';
+export type CampaignStatus = 'Sedang Berjalan' | 'Selesai' | 'Ditutup';
+
+export interface FundraisingCampaign {
+  id: string;
+  nomorPenggalangan: string; // e.g. DANA-2026-001
+  memberId: string;
+  namaAnggota: string;
+  nikAnggota: string;
+  departemen: string;
+  nomorHp: string;
+  hubungan: FamilyRelationship;
+  kondisi: HealthCondition;
+  keterangan: string;
+  picMemberId?: string;
+  picNama: string;
+  picNik: string;
+  tanggalDigalang: string; // YYYY-MM-DD
+  jumlahTerkumpul: number; // Nominal rupiah
+  isDidampingiKeRs: boolean; // Apakah Anggota ini sakit didampingi ke RS oleh pengurus atau tidak
+  status: CampaignStatus;
+  dibuatOleh: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export type VehicleType = 'Mitsubishi Xpander' | 'Daihatsu Xenia';
 export type VehicleStatus = 'Sedang Digunakan' | 'Sudah Kembali' | 'Dibatalkan';
+export type ParkingLocation = 'Mabes' | 'JV A' | 'JV B';
 
 export interface VehicleLog {
   id: string;
   nomorLog: string; // e.g. MOB-2026-001
   kendaraan: VehicleType;
   platNomor: string; // e.g. B 1928 SBN
+  lokasiParkir?: ParkingLocation; // Mabes, JV A, JV B
   memberId: string;
   namaPemakai: string; // Siapa yang memakai
   departemenPemakai: string;
@@ -246,3 +276,5 @@ export interface VehicleLog {
   catatan?: string;
   updatedAt: string;
 }
+
+

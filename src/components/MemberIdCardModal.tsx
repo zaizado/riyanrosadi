@@ -11,6 +11,8 @@ import {
 } from 'lucide-react';
 import { Member } from '../types';
 import { FsbnLogo } from './FsbnLogo';
+import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
+import { compressImage } from '../lib/imageUtils';
 
 interface MemberIdCardModalProps {
   member: Member;
@@ -65,10 +67,10 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
   const [customSequence, setCustomSequence] = useState<string>(getSequenceNumber(initialMember));
   const [jabatan, setJabatan] = useState<string>(initialMember.jabatan || 'ANGGOTA');
   const [fotoUrl, setFotoUrl] = useState<string>(
-    initialMember.fotoUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400'
+    initialMember.fotoUrl || cheAvatar
   );
-  const [logoFsbnUrl, setLogoFsbnUrl] = useState<string | null>(null);
-  const [logoKasbiUrl, setLogoKasbiUrl] = useState<string | null>(null);
+  const [logoFsbnUrl, setLogoFsbnUrl] = useState<string | null>('/fsbn_logo.svg');
+  const [logoKasbiUrl, setLogoKasbiUrl] = useState<string | null>('/kasbi_logo.svg');
 
   // Edit toggles
   const [isEditingKta, setIsEditingKta] = useState(false);
@@ -80,7 +82,7 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
     setCustomSequence(getSequenceNumber(initialMember));
     setJabatan(initialMember.jabatan || 'ANGGOTA');
     setFotoUrl(
-      initialMember.fotoUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400'
+      initialMember.fotoUrl || cheAvatar
     );
   }, [initialMember]);
 
@@ -91,49 +93,42 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
       setCustomSequence(getSequenceNumber(found));
       setJabatan(found.jabatan || 'ANGGOTA');
       setFotoUrl(
-        found.fotoUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400'
+        found.fotoUrl || cheAvatar
       );
     }
   };
 
-  // Photo Upload Handler
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Photo Upload Handler with compression
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const result = reader.result as string;
-        setFotoUrl(result);
-        if (onUpdateMember && selectedMember) {
-          onUpdateMember({
-            ...selectedMember,
-            fotoUrl: result
-          });
-        }
-      };
-      reader.readAsDataURL(file);
+      const compressed = await compressImage(file, 350, 350, 0.75);
+      setFotoUrl(compressed);
+      if (onUpdateMember && selectedMember) {
+        onUpdateMember({
+          ...selectedMember,
+          fotoUrl: compressed
+        });
+      }
+      e.target.value = '';
     }
   };
 
-  const handleLogoFsbnUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLogoFsbnUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setLogoFsbnUrl(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      const compressed = await compressImage(file, 200, 200, 0.75);
+      setLogoFsbnUrl(compressed);
+      e.target.value = '';
     }
   };
 
-  const handleLogoKasbiUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLogoKasbiUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setLogoKasbiUrl(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      const compressed = await compressImage(file, 200, 200, 0.75);
+      setLogoKasbiUrl(compressed);
+      e.target.value = '';
     }
   };
 
@@ -177,14 +172,24 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
     if (activeSide === 'front') {
       // FRONT PORTRAIT
       // Top Header Box FSBN (Left)
-      ctx.fillStyle = '#ff0000';
+      ctx.fillStyle = '#dc2626';
       ctx.fillRect(30, 30, 95, 95);
       ctx.strokeRect(30, 30, 95, 95);
+      const fsbnImg = new Image();
+      fsbnImg.src = logoFsbnUrl || '/fsbn_logo.svg';
+      try {
+        ctx.drawImage(fsbnImg, 32, 32, 91, 91);
+      } catch (e) {}
 
       // Top Header Box KASBI (Right)
-      ctx.fillStyle = '#ff0000';
+      ctx.fillStyle = '#000000';
       ctx.fillRect(513, 30, 95, 95);
       ctx.strokeRect(513, 30, 95, 95);
+      const kasbiImg = new Image();
+      kasbiImg.src = logoKasbiUrl || '/kasbi_logo.svg';
+      try {
+        ctx.drawImage(kasbiImg, 515, 32, 91, 91);
+      } catch (e) {}
 
       // Center Header Titles
       ctx.fillStyle = '#000000';
@@ -239,28 +244,55 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
 
       // Load and draw photo
       const img = new Image();
-      img.crossOrigin = 'anonymous';
+      const photoSrc = fotoUrl || cheAvatar;
+      if (photoSrc.startsWith('http://') || photoSrc.startsWith('https://')) {
+        img.crossOrigin = 'anonymous';
+      }
+
+      const drawFallbackAndFinish = () => {
+        const fallbackImg = new Image();
+        fallbackImg.onload = () => {
+          try {
+            ctx!.drawImage(fallbackImg, photoX + 2, photoY + 2, photoW - 4, photoH - 4);
+          } catch (e) {}
+          drawDetailsAndDownload();
+        };
+        fallbackImg.onerror = () => {
+          drawDetailsAndDownload();
+        };
+        fallbackImg.src = cheAvatar;
+      };
+
       img.onload = () => {
-        ctx.drawImage(img, photoX + 2, photoY + 2, photoW - 4, photoH - 4);
-        drawDetailsAndDownload();
+        try {
+          ctx!.drawImage(img, photoX + 2, photoY + 2, photoW - 4, photoH - 4);
+          drawDetailsAndDownload();
+        } catch (e) {
+          drawFallbackAndFinish();
+        }
       };
       img.onerror = () => {
-        drawDetailsAndDownload();
+        drawFallbackAndFinish();
       };
-      img.src = fotoUrl;
+      img.src = photoSrc;
 
       function drawDetailsAndDownload() {
         ctx!.textAlign = 'left';
         ctx!.fillStyle = '#000000';
         ctx!.font = 'bold 22px Arial';
 
-        let startY = 585;
-        const lineGap = 48;
+        let startY = 560;
+        const lineGap = 42;
 
         // Details List
         ctx!.fillText('N a m a', 50, startY);
         ctx!.fillText(':', 210, startY);
         ctx!.fillText(selectedMember.namaLengkap.toUpperCase(), 235, startY);
+
+        startY += lineGap;
+        ctx!.fillText('N I K', 50, startY);
+        ctx!.fillText(':', 210, startY);
+        ctx!.fillText((selectedMember.nik || '-').toUpperCase(), 235, startY);
 
         startY += lineGap;
         ctx!.fillText('Anggota SBN', 50, startY);
@@ -359,7 +391,7 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
       
       {/* CSS Styles for Realistic Portrait 5.4cm x 8.56cm (54mm x 85.6mm) & Native Window Print */}
       <style>{`
@@ -421,45 +453,45 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
       `}</style>
 
       {/* Main UI Modal Box (Hidden during print) */}
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-2xl text-slate-100 p-5 sm:p-6 shadow-2xl relative space-y-5 my-auto max-h-[95vh] overflow-y-auto no-print">
+      <div className="bg-white border border-slate-200 rounded-3xl w-full max-w-2xl text-slate-900 p-5 sm:p-6 shadow-2xl relative space-y-5 my-auto max-h-[95vh] overflow-y-auto no-print">
         
         {/* Top Header Controls */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-4">
           <div className="flex items-center gap-2.5">
-            <div className="p-2.5 rounded-xl bg-orange-600/20 text-orange-400 border border-orange-500/30 shrink-0">
+            <div className="p-2.5 rounded-xl bg-orange-100 text-orange-600 border border-orange-200 shrink-0">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-extrabold text-base text-white">Kartu Tanda Anggota (KTA) Digital</h3>
-                <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                <h3 className="font-extrabold text-base text-slate-900">Kartu Tanda Anggota (KTA) Digital</h3>
+                <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300">
                   Format Portrait: 5.4 × 8.56 cm
                 </span>
               </div>
-              <p className="text-xs text-slate-400">Pengurus Pusat FSBN KASBI PT Victory Chingluh Indonesia</p>
+              <p className="text-xs text-slate-500">Pengurus Pusat FSBN KASBI PT Victory Chingluh Indonesia</p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors cursor-pointer"
+            className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Member Selector & Custom Edit Controls */}
-        <div className="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-3">
+        <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 space-y-3">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 text-xs">
             
             {/* Dropdown Select Member */}
             {allMembers.length > 0 && (
               <div className="flex-1 flex items-center gap-2">
-                <span className="font-bold text-slate-300 shrink-0">Pilih Anggota:</span>
+                <span className="font-bold text-slate-700 shrink-0">Pilih Anggota:</span>
                 <select
                   value={selectedMember.id}
                   onChange={handleMemberSelect}
-                  className="bg-slate-900 border border-slate-700 text-white rounded-xl px-3 py-1.5 w-full font-semibold focus:outline-none focus:border-orange-500"
+                  className="bg-white border border-slate-300 text-slate-900 rounded-xl px-3 py-1.5 w-full font-semibold focus:outline-none focus:border-orange-500 shadow-xs"
                 >
                   {allMembers.map((m) => (
                     <option key={m.id} value={m.id}>
@@ -473,14 +505,14 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
             {/* View Mode & Toggles */}
             <div className="flex flex-wrap items-center gap-2 shrink-0">
               {/* Front / Back Side Switcher */}
-              <div className="flex bg-slate-900 border border-slate-700 rounded-xl p-0.5 text-xs">
+              <div className="flex bg-slate-200 border border-slate-300 rounded-xl p-0.5 text-xs">
                 <button
                   type="button"
                   onClick={() => setActiveSide('front')}
                   className={`px-3 py-1 rounded-lg font-bold transition-all cursor-pointer ${
                     activeSide === 'front'
                       ? 'bg-orange-600 text-white shadow'
-                      : 'text-slate-400 hover:text-slate-200'
+                      : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   Sisi Depan
@@ -491,7 +523,7 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
                   className={`px-3 py-1 rounded-lg font-bold transition-all cursor-pointer ${
                     activeSide === 'back'
                       ? 'bg-orange-600 text-white shadow'
-                      : 'text-slate-400 hover:text-slate-200'
+                      : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   Sisi Belakang
@@ -502,24 +534,24 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
               <button
                 type="button"
                 onClick={() => setScaleMode(p => p === 'realistic' ? 'zoom' : 'realistic')}
-                className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-xl font-semibold flex items-center gap-1 transition-colors cursor-pointer"
+                className="px-2.5 py-1 bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 rounded-xl font-semibold flex items-center gap-1 transition-colors cursor-pointer shadow-xs"
                 title="Beralih antara Skala Realistis (5.4x8.56cm) dan Zoom HD"
               >
-                <Maximize2 className="w-3.5 h-3.5 text-amber-400" />
+                <Maximize2 className="w-3.5 h-3.5 text-amber-600" />
                 <span>{scaleMode === 'realistic' ? 'Skala 1:1' : 'Zoom 1.5x'}</span>
               </button>
             </div>
           </div>
 
           {/* Quick Edit Buttons Bar */}
-          <div className="flex items-center gap-2 pt-2 border-t border-slate-800/80 text-xs">
+          <div className="flex items-center gap-2 pt-2 border-t border-slate-200 text-xs">
             <button
               type="button"
               onClick={() => setIsEditingKta(!isEditingKta)}
               className={`px-3 py-1.5 rounded-xl font-bold border transition-all flex items-center gap-1.5 cursor-pointer ${
                 isEditingKta
                   ? 'bg-orange-600 text-white border-orange-500'
-                  : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100 shadow-xs'
               }`}
             >
               <Edit2 className="w-3.5 h-3.5" />
@@ -532,7 +564,7 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
               className={`px-3 py-1.5 rounded-xl font-bold border transition-all flex items-center gap-1.5 cursor-pointer ${
                 isEditingJabatan
                   ? 'bg-orange-600 text-white border-orange-500'
-                  : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100 shadow-xs'
               }`}
             >
               <Edit2 className="w-3.5 h-3.5" />
@@ -542,32 +574,32 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
 
           {/* Inline Editors if toggled */}
           {(isEditingKta || isEditingJabatan) && (
-            <div className="pt-2 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div className="pt-2 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               {isEditingKta && (
                 <div>
-                  <label className="block text-slate-400 font-bold mb-1">Nomor Urut KTA (4 Angka):</label>
+                  <label className="block text-slate-600 font-bold mb-1">Nomor Urut KTA (4 Angka):</label>
                   <input
                     type="text"
                     value={customSequence}
                     onChange={(e) => setCustomSequence(e.target.value)}
                     placeholder="0001"
-                    className="w-full bg-slate-900 border border-slate-700 text-white rounded-xl px-3 py-1.5 font-mono font-bold focus:outline-none focus:border-orange-500"
+                    className="w-full bg-white border border-slate-300 text-slate-900 rounded-xl px-3 py-1.5 font-mono font-bold focus:outline-none focus:border-orange-500 shadow-xs"
                   />
-                  <p className="text-[10px] text-slate-400 mt-1">Format: {ktaNumberFormatted}</p>
+                  <p className="text-[10px] text-slate-500 mt-1">Format: {ktaNumberFormatted}</p>
                 </div>
               )}
 
               {isEditingJabatan && (
                 <div>
-                  <label className="block text-slate-400 font-bold mb-1">Jabatan dalam KTA:</label>
+                  <label className="block text-slate-600 font-bold mb-1">Jabatan dalam KTA:</label>
                   <input
                     type="text"
                     value={jabatan}
                     onChange={(e) => setJabatan(e.target.value)}
                     placeholder="ANGGOTA"
-                    className="w-full bg-slate-900 border border-slate-700 text-white rounded-xl px-3 py-1.5 font-bold focus:outline-none focus:border-orange-500"
+                    className="w-full bg-white border border-slate-300 text-slate-900 rounded-xl px-3 py-1.5 font-bold focus:outline-none focus:border-orange-500 shadow-xs"
                   />
-                  <p className="text-[10px] text-slate-400 mt-1">Tulis manual jabatan jika bukan sekedar Anggota</p>
+                  <p className="text-[10px] text-slate-500 mt-1">Tulis manual jabatan jika bukan sekedar Anggota</p>
                 </div>
               )}
             </div>
@@ -600,10 +632,10 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
         {/* ========================================================================= */}
         {/* PORTRAIT PHYSICAL KTA CARD CANVAS DISPLAY (5.4 CM WIDE X 8.56 CM HIGH) */}
         {/* ========================================================================= */}
-        <div className="flex flex-col items-center justify-center py-3 bg-slate-950/60 rounded-2xl border border-slate-800/80 p-4 min-h-[380px] overflow-x-auto">
+        <div className="flex flex-col items-center justify-center py-3 bg-slate-100 rounded-2xl border border-slate-200 p-4 min-h-[380px] overflow-x-auto">
           
-          <p className="text-[11px] font-bold text-slate-400 mb-3 flex items-center gap-1.5">
-            <Eye className="w-3.5 h-3.5 text-emerald-400" />
+          <p className="text-[11px] font-bold text-slate-600 mb-3 flex items-center gap-1.5">
+            <Eye className="w-3.5 h-3.5 text-emerald-600" />
             <span>Tampilan KTA Portrait ({scaleMode === 'realistic' ? 'Skala Realistis 5.4 × 8.56 cm' : 'Tampilan Zoom 1.5x'})</span>
           </p>
 
@@ -631,14 +663,14 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
                       {/* Left Logo FSBN */}
                       <div
                         onClick={() => fileInputFsbnRef.current?.click()}
-                        className="bg-[#ff0000] border border-black rounded-[3px] p-[1px] flex flex-col items-center justify-center shadow-xs h-[30px] relative group cursor-pointer overflow-hidden shrink-0"
+                        className="bg-[#dc2626] border border-black rounded-[3px] p-[0.5px] flex items-center justify-center shadow-xs h-[32px] w-[32px] relative group cursor-pointer overflow-hidden shrink-0"
                         title="Klik untuk ganti Logo FSBN"
                       >
-                        {logoFsbnUrl ? (
-                          <img src={logoFsbnUrl} alt="Logo FSBN" className="w-full h-full object-contain" />
-                        ) : (
-                          <FsbnLogo className="w-6 h-6 text-white" showText={true} />
-                        )}
+                        <img
+                          src={logoFsbnUrl || '/fsbn_logo.svg'}
+                          alt="Logo FSBN"
+                          className="w-full h-full object-contain"
+                        />
                       </div>
 
                       {/* Center Header Titles */}
@@ -657,21 +689,14 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
                       {/* Right Logo KASBI */}
                       <div
                         onClick={() => fileInputKasbiRef.current?.click()}
-                        className="bg-[#ff0000] border border-black rounded-[3px] p-[1px] flex flex-col items-center justify-center text-white shadow-xs h-[30px] relative group cursor-pointer overflow-hidden shrink-0"
+                        className="bg-black border border-black rounded-[3px] p-[0.5px] flex items-center justify-center shadow-xs h-[32px] w-[32px] relative group cursor-pointer overflow-hidden shrink-0"
                         title="Klik untuk ganti Logo KASBI"
                       >
-                        {logoKasbiUrl ? (
-                          <img src={logoKasbiUrl} alt="Logo KASBI" className="w-full h-full object-contain" />
-                        ) : (
-                          <div className="flex flex-col items-center justify-center text-center">
-                            <span className="text-[3.5px] font-black tracking-wider uppercase leading-none">
-                              KONFEDERASI
-                            </span>
-                            <span className="text-[7.5px] font-black text-white leading-none tracking-tighter">
-                              KASBI
-                            </span>
-                          </div>
-                        )}
+                        <img
+                          src={logoKasbiUrl || '/kasbi_logo.svg'}
+                          alt="Logo KASBI"
+                          className="w-full h-full object-contain"
+                        />
                       </div>
                     </div>
 
@@ -707,19 +732,29 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
                         title="Klik untuk ganti foto anggota"
                       >
                         <img
-                          src={fotoUrl}
+                          src={fotoUrl || cheAvatar}
                           alt={selectedMember.namaLengkap}
                           className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.onerror = null;
+                            e.currentTarget.src = cheAvatar;
+                          }}
                         />
                       </div>
                     </div>
 
                     {/* Details Table Stacked Cleanly */}
-                    <div className="font-black text-[6px] text-black space-y-[1.5px] leading-tight px-1">
+                    <div className="font-black text-[6px] text-black space-y-[1px] leading-tight px-1">
                       <div className="grid grid-cols-[45px_5px_1fr] items-center">
                         <span className="tracking-wider">N a m a</span>
                         <span>:</span>
                         <span className="truncate uppercase font-black">{selectedMember.namaLengkap}</span>
+                      </div>
+
+                      <div className="grid grid-cols-[45px_5px_1fr] items-center">
+                        <span>N I K</span>
+                        <span>:</span>
+                        <span className="truncate font-mono font-bold">{selectedMember.nik || '-'}</span>
                       </div>
 
                       <div className="grid grid-cols-[45px_5px_1fr] items-center">
@@ -791,14 +826,14 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
         </div>
 
         {/* ----------------- ACTION BUTTONS ----------------- */}
-        <div className="pt-3 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+        <div className="pt-3 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
           
           <div className="flex flex-wrap items-center gap-2">
             {/* Direct Native Print Button */}
             <button
               type="button"
               onClick={handlePrintCard}
-              className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-black flex items-center gap-2 shadow-lg shadow-emerald-900/30 transition-all cursor-pointer"
+              className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black flex items-center gap-2 shadow-md transition-all cursor-pointer"
             >
               <Printer className="w-4 h-4" />
               <span>Cetak KTA Portrait (5,4 × 8,56 cm)</span>
@@ -808,7 +843,7 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
             <button
               type="button"
               onClick={handleDownloadPNG}
-              className="px-3.5 py-2.5 bg-orange-600 hover:bg-orange-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg shadow-orange-900/30 transition-all cursor-pointer"
+              className="px-3.5 py-2.5 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md transition-all cursor-pointer"
             >
               <Download className="w-4 h-4" />
               <span>Unduh PNG HD (300 DPI)</span>
@@ -818,7 +853,7 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+            className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors cursor-pointer"
           >
             Tutup
           </button>
@@ -866,12 +901,23 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
               </div>
               <div className="flex justify-center my-1">
                 <div className="w-[42px] h-[52px] bg-slate-100 border border-black overflow-hidden shrink-0">
-                  <img src={fotoUrl} alt={selectedMember.namaLengkap} className="w-full h-full object-cover" />
+                  <img 
+                    src={fotoUrl || cheAvatar} 
+                    alt={selectedMember.namaLengkap} 
+                    className="w-full h-full object-cover" 
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = cheAvatar;
+                    }}
+                  />
                 </div>
               </div>
-              <div className="font-black text-[6px] text-black space-y-[1.5px] px-1">
+              <div className="font-black text-[6px] text-black space-y-[1px] px-1">
                 <div className="grid grid-cols-[45px_5px_1fr] items-center">
                   <span>N a m a</span><span>:</span><span className="uppercase font-black">{selectedMember.namaLengkap}</span>
+                </div>
+                <div className="grid grid-cols-[45px_5px_1fr] items-center">
+                  <span>N I K</span><span>:</span><span className="font-mono font-bold">{selectedMember.nik || '-'}</span>
                 </div>
                 <div className="grid grid-cols-[45px_5px_1fr] items-center">
                   <span>Anggota SBN</span><span>:</span><span className="uppercase">PT VICTORY CHINGLUH INDONESIA</span>

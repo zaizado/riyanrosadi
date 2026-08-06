@@ -8,7 +8,8 @@ import {
   SembakoClaim, 
   AuditLog,
   VehicleLog,
-  FinanceDailyRecord
+  FinanceDailyRecord,
+  FundraisingCampaign
 } from '../types';
 import { 
   INITIAL_USERS, 
@@ -37,6 +38,7 @@ const STORAGE_KEYS = {
   AUDIT_LOGS: 'sbn_vci_audit_logs_v2',
   VEHICLES: 'sbn_vci_vehicles_v1',
   FINANCE: 'sbn_vci_finance_records_v1',
+  FUNDRAISING: 'sbn_vci_fundraising_v1',
 };
 
 const DEFAULT_ACTIVE_USER: UserAccount = {
@@ -51,6 +53,24 @@ const DEFAULT_ACTIVE_USER: UserAccount = {
   avatarUrl: cheAvatar
 };
 
+// Helper to sanitize oversized base64 images (>350KB) to prevent QuotaExceededError and Firestore 1MB document limit
+const sanitizeAvatarUrl = (url?: string): string => {
+  if (!url || url === '/che_avatar.jpg') return cheAvatar;
+  // If base64 string is absurdly long (>450,000 chars ~ 350KB), replace with cheAvatar to avoid quota/doc size limit explosion
+  if (url.length > 450000) {
+    return cheAvatar;
+  }
+  return url;
+};
+
+const safeSetItem = (key: string, value: string) => {
+  try {
+    localStorage.setItem(key, value);
+  } catch (err) {
+    console.warn(`LocalStorage setItem quota warning for key ${key}:`, err);
+  }
+};
+
 export const getStoredUsers = (): UserAccount[] => {
   const data = localStorage.getItem(STORAGE_KEYS.USERS);
   let userList: UserAccount[] = [];
@@ -60,18 +80,28 @@ export const getStoredUsers = (): UserAccount[] => {
     try { userList = JSON.parse(data); } catch { userList = INITIAL_USERS; }
   }
 
+  // Ensure all users have sanitized avatars
+  userList = userList.map(u => ({
+    ...u,
+    avatarUrl: sanitizeAvatarUrl(u.avatarUrl)
+  }));
+
   // Ensure Super Admin exists
   const hasSuperAdmin = userList.some(u => u.isSuperAdmin || u.username === 'sbnkasbivci1' || u.role === 'Super Admin');
   if (!hasSuperAdmin) {
-    userList = [INITIAL_USERS[0], ...userList];
+    userList = [{ ...INITIAL_USERS[0], avatarUrl: cheAvatar }, ...userList];
   }
 
-  localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(userList));
+  safeSetItem(STORAGE_KEYS.USERS, JSON.stringify(userList));
   return userList;
 };
 
 export const setStoredUsers = (users: UserAccount[]) => {
-  localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
+  const sanitized = users.map(u => ({
+    ...u,
+    avatarUrl: sanitizeAvatarUrl(u.avatarUrl)
+  }));
+  safeSetItem(STORAGE_KEYS.USERS, JSON.stringify(sanitized));
 };
 
 export const getCurrentUser = (): UserAccount => {
@@ -79,84 +109,99 @@ export const getCurrentUser = (): UserAccount => {
   if (!data) {
     const storedUsers = getStoredUsers();
     const userToUse = storedUsers.length > 0 ? storedUsers[0] : DEFAULT_ACTIVE_USER;
-    localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(userToUse));
-    return userToUse;
+    const finalUser = { ...userToUse, avatarUrl: sanitizeAvatarUrl(userToUse.avatarUrl) };
+    safeSetItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(finalUser));
+    return finalUser;
   }
   try { 
     const parsed = JSON.parse(data);
-    return parsed || DEFAULT_ACTIVE_USER;
+    const userToUse = parsed || DEFAULT_ACTIVE_USER;
+    return { ...userToUse, avatarUrl: sanitizeAvatarUrl(userToUse.avatarUrl) };
   } catch { 
-    return DEFAULT_ACTIVE_USER; 
+    return { ...DEFAULT_ACTIVE_USER, avatarUrl: cheAvatar }; 
   }
 };
 
 export const setCurrentUser = (user: UserAccount) => {
-  localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(user));
+  const updatedUser = { ...user, avatarUrl: sanitizeAvatarUrl(user.avatarUrl) };
+  safeSetItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(updatedUser));
 };
 
 export const getStoredMembers = (): Member[] => {
   const data = localStorage.getItem(STORAGE_KEYS.MEMBERS);
   if (!data) {
-    localStorage.setItem(STORAGE_KEYS.MEMBERS, JSON.stringify(INITIAL_MEMBERS));
+    safeSetItem(STORAGE_KEYS.MEMBERS, JSON.stringify(INITIAL_MEMBERS));
     return INITIAL_MEMBERS;
   }
-  try { return JSON.parse(data); } catch { return INITIAL_MEMBERS; }
+  try { 
+    const parsed: Member[] = JSON.parse(data);
+    return parsed.map(m => ({
+      ...m,
+      fotoUrl: (m.fotoUrl && m.fotoUrl.length > 450000) ? cheAvatar : (m.fotoUrl || cheAvatar)
+    }));
+  } catch { 
+    return INITIAL_MEMBERS; 
+  }
 };
 
 export const setStoredMembers = (members: Member[]) => {
-  localStorage.setItem(STORAGE_KEYS.MEMBERS, JSON.stringify(members));
+  const sanitized = members.map(m => ({
+    ...m,
+    fotoUrl: (m.fotoUrl && m.fotoUrl.length > 450000) ? cheAvatar : m.fotoUrl
+  }));
+  safeSetItem(STORAGE_KEYS.MEMBERS, JSON.stringify(sanitized));
 };
 
 export const getStoredAdvocacy = (): AdvocacyCase[] => {
   const data = localStorage.getItem(STORAGE_KEYS.ADVOCACY);
   if (!data) {
-    localStorage.setItem(STORAGE_KEYS.ADVOCACY, JSON.stringify(INITIAL_ADVOCACY));
+    safeSetItem(STORAGE_KEYS.ADVOCACY, JSON.stringify(INITIAL_ADVOCACY));
     return INITIAL_ADVOCACY;
   }
   try { return JSON.parse(data); } catch { return INITIAL_ADVOCACY; }
 };
 
 export const setStoredAdvocacy = (advocacy: AdvocacyCase[]) => {
-  localStorage.setItem(STORAGE_KEYS.ADVOCACY, JSON.stringify(advocacy));
+  safeSetItem(STORAGE_KEYS.ADVOCACY, JSON.stringify(advocacy));
 };
 
 export const getStoredSickVisits = (): SickVisit[] => {
   const data = localStorage.getItem(STORAGE_KEYS.SICK_VISITS);
   if (!data) {
-    localStorage.setItem(STORAGE_KEYS.SICK_VISITS, JSON.stringify(INITIAL_SICK_VISITS));
+    safeSetItem(STORAGE_KEYS.SICK_VISITS, JSON.stringify(INITIAL_SICK_VISITS));
     return INITIAL_SICK_VISITS;
   }
   try { return JSON.parse(data); } catch { return INITIAL_SICK_VISITS; }
 };
 
 export const setStoredSickVisits = (visits: SickVisit[]) => {
-  localStorage.setItem(STORAGE_KEYS.SICK_VISITS, JSON.stringify(visits));
+  safeSetItem(STORAGE_KEYS.SICK_VISITS, JSON.stringify(visits));
 };
 
 export const getStoredAgendas = (): OrganizationAgenda[] => {
   const data = localStorage.getItem(STORAGE_KEYS.AGENDAS);
   if (!data) {
-    localStorage.setItem(STORAGE_KEYS.AGENDAS, JSON.stringify(INITIAL_AGENDAS));
+    safeSetItem(STORAGE_KEYS.AGENDAS, JSON.stringify(INITIAL_AGENDAS));
     return INITIAL_AGENDAS;
   }
   try { return JSON.parse(data); } catch { return INITIAL_AGENDAS; }
 };
 
 export const setStoredAgendas = (agendas: OrganizationAgenda[]) => {
-  localStorage.setItem(STORAGE_KEYS.AGENDAS, JSON.stringify(agendas));
+  safeSetItem(STORAGE_KEYS.AGENDAS, JSON.stringify(agendas));
 };
 
 export const getStoredSembakoEvents = (): SembakoEvent[] => {
   const data = localStorage.getItem(STORAGE_KEYS.SEMBAKO_EVENTS);
   if (!data) {
-    localStorage.setItem(STORAGE_KEYS.SEMBAKO_EVENTS, JSON.stringify(INITIAL_SEMBAKO_EVENTS));
+    safeSetItem(STORAGE_KEYS.SEMBAKO_EVENTS, JSON.stringify(INITIAL_SEMBAKO_EVENTS));
     return INITIAL_SEMBAKO_EVENTS;
   }
   try { return JSON.parse(data); } catch { return INITIAL_SEMBAKO_EVENTS; }
 };
 
 export const setStoredSembakoEvents = (events: SembakoEvent[]) => {
-  localStorage.setItem(STORAGE_KEYS.SEMBAKO_EVENTS, JSON.stringify(events));
+  safeSetItem(STORAGE_KEYS.SEMBAKO_EVENTS, JSON.stringify(events));
 };
 
 export const getStoredSembakoClaims = (): SembakoClaim[] => {
@@ -179,6 +224,10 @@ export const getStoredAuditLogs = (): AuditLog[] => {
     return INITIAL_AUDIT_LOGS;
   }
   try { return JSON.parse(data); } catch { return INITIAL_AUDIT_LOGS; }
+};
+
+export const setStoredAuditLogs = (logs: AuditLog[]) => {
+  localStorage.setItem(STORAGE_KEYS.AUDIT_LOGS, JSON.stringify(logs));
 };
 
 export const getStoredVehicles = (): VehicleLog[] => {
@@ -233,6 +282,24 @@ export const addAuditLog = (
   return updated;
 };
 
+export const getStoredFundraising = (): FundraisingCampaign[] => {
+  const data = localStorage.getItem(STORAGE_KEYS.FUNDRAISING);
+  if (!data) return [];
+  try {
+    return JSON.parse(data);
+  } catch {
+    return [];
+  }
+};
+
+export const setStoredFundraising = (campaigns: FundraisingCampaign[]) => {
+  safeSetItem(STORAGE_KEYS.FUNDRAISING, JSON.stringify(campaigns));
+};
+
+export const formatRupiah = (amount: number): string => {
+  return 'Rp ' + (amount || 0).toLocaleString('id-ID');
+};
+
 export const resetAllData = () => {
   localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(INITIAL_USERS));
   localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(INITIAL_USERS[0]));
@@ -245,6 +312,7 @@ export const resetAllData = () => {
   localStorage.setItem(STORAGE_KEYS.AUDIT_LOGS, JSON.stringify(INITIAL_AUDIT_LOGS));
   localStorage.setItem(STORAGE_KEYS.VEHICLES, JSON.stringify(INITIAL_VEHICLE_LOGS));
   localStorage.setItem(STORAGE_KEYS.FINANCE, JSON.stringify(INITIAL_FINANCE_RECORDS));
+  localStorage.setItem(STORAGE_KEYS.FUNDRAISING, JSON.stringify([]));
 };
 
 export const exportFullBackup = () => {
@@ -258,6 +326,7 @@ export const exportFullBackup = () => {
     sembakoClaims: getStoredSembakoClaims(),
     vehicles: getStoredVehicles(),
     financeRecords: getStoredFinance(),
+    fundraising: getStoredFundraising(),
     auditLogs: getStoredAuditLogs(),
     exportedAt: new Date().toISOString()
   };

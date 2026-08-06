@@ -1,0 +1,34 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer Canvas -->
+  <rect width="200" height="200" rx="16" fill="#000000" />
+  
+  <!-- Brush Stroke Red Circle Background -->
+  <circle cx="100" cy="100" r="90" fill="#dc2626" />
+  <!-- Artistic brush ring border -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#991b1b" stroke-width="4" stroke-dasharray="15 5 25 5" />
+  <circle cx="100" cy="100" r="92" fill="none" stroke="#000000" stroke-width="3" stroke-dasharray="30 10 10 10" />
+
+  <!-- Top Text: KONFEDERASI -->
+  <text x="122" y="66" fill="#facc15" font-size="14" font-weight="900" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" letter-spacing="0.5">
+    KONFEDERASI
+  </text>
+
+  <!-- Main KASBI Text with Star in 'A' -->
+  <g fill="#000000" font-family="Arial Black, Impact, sans-serif" font-weight="900">
+    <!-- K -->
+    <text x="32" y="118" font-size="52" letter-spacing="-2">K</text>
+    
+    <!-- A (Custom path with Star inside) -->
+    <path d="M 72 118 L 86 68 L 102 68 L 116 118 L 98 118 L 94 102 L 80 102 L 76 118 Z" fill="#000000" />
+    <!-- Yellow Star inside A -->
+    <polygon points="87,76 89,83 96,83 90,88 92,95 87,90 82,95 84,88 78,83 85,83" fill="#facc15" />
+
+    <!-- S B I -->
+    <text x="112" y="118" font-size="52" letter-spacing="-1">SBI</text>
+  </g>
+
+  <!-- Bottom Subtitle: KONGRES ALIANSI SERIKAT BURUH INDONESIA -->
+  <text x="100" y="138" fill="#facc15" font-size="6.5" font-weight="900" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" letter-spacing="0.2">
+    KONGRES ALIANSI SERIKAT BURUH INDONESIA
+  </text>
+</svg>

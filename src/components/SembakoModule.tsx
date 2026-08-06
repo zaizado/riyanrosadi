@@ -53,6 +53,7 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
   onDeleteClaim,
   currentUser,
 }) => {
+  const isSuperAdmin = checkIsSuperAdmin(currentUser);
   const activeEvent = sembakoEvents.find(e => e.status === 'Aktif') || sembakoEvents[0];
   
   const [selectedEventId, setSelectedEventId] = useState<string>(activeEvent?.id || '');
@@ -258,7 +259,7 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
   // Create Event Handler
   const handleCreateEvent = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newEventNama) return;
+    if (!isSuperAdmin || !newEventNama) return;
 
     const eventId = `smb-${Date.now()}`;
     const activeMembers = members.filter(m => m.statusKeanggotaan === 'Aktif');
@@ -335,17 +336,19 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
-          <button
-            onClick={() => setIsCreateEventModalOpen(true)}
-            className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 font-semibold text-xs flex items-center gap-2 transition-all"
-          >
-            <Plus className="w-4 h-4 text-red-400" />
-            Buat Event Sembako Baru
-          </button>
+          {isSuperAdmin && (
+            <button
+              onClick={() => setIsCreateEventModalOpen(true)}
+              className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 font-semibold text-xs flex items-center gap-2 transition-all cursor-pointer"
+            >
+              <Plus className="w-4 h-4 text-red-400" />
+              Buat Event Sembako Baru
+            </button>
+          )}
 
           <button
             onClick={() => setIsScannerOpen(true)}
-            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold text-xs shadow-lg shadow-red-900/40 flex items-center gap-2 transition-all animate-pulse"
+            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold text-xs shadow-lg shadow-red-900/40 flex items-center gap-2 transition-all animate-pulse cursor-pointer"
           >
             <QrCode className="w-4 h-4" />
             Scan QR Code Kamera
@@ -584,7 +587,7 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
                           <QrCode className="w-4 h-4 text-red-400" />
                         </button>
 
-                        {onDeleteClaim && (
+                        {onDeleteClaim && isSuperAdmin && (
                           <button
                             onClick={() => setDeleteClaimConfirmObj(clm)}
                             className="p-1.5 rounded-lg bg-rose-950/50 hover:bg-rose-900 text-rose-400 border border-rose-800/60 transition-colors cursor-pointer"

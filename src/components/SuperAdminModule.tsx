@@ -24,6 +24,7 @@ import {
 import { UserAccount, UserRole, AuditLog, checkIsSuperAdmin } from '../types';
 import { ConfirmModal } from './ConfirmModal';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
+import { STRUKTUR_PENGURUS_DATA } from '../data/strukturPengurusData';
 
 interface SuperAdminModuleProps {
   users: UserAccount[];
@@ -474,7 +475,7 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
                     <th className="p-3.5">Username Login</th>
                     <th className="p-3.5">Password</th>
                     <th className="p-3.5">Role Hak Akses</th>
-                    <th className="p-3.5">NIK & Departemen</th>
+                    <th className="p-3.5">NIK & Jabatan</th>
                     <th className="p-3.5 text-center">Aksi / Kontrol</th>
                   </tr>
                 </thead>
@@ -498,6 +499,10 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
                                 src={acc.avatarUrl || cheAvatar}
                                 alt={acc.name}
                                 className="w-9 h-9 rounded-full object-cover border border-slate-700 bg-red-950 shrink-0"
+                                onError={(e) => {
+                                  e.currentTarget.onerror = null;
+                                  e.currentTarget.src = cheAvatar;
+                                }}
                               />
                               <div>
                                 <p className="font-bold text-white flex items-center gap-1.5">
@@ -634,11 +639,11 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
 
       {/* MODAL: ADD / EDIT ACCOUNT */}
       {isAddAccountModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg p-6 space-y-5 shadow-2xl relative">
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg p-4 sm:p-6 space-y-4 shadow-2xl relative max-h-[88vh] overflow-y-auto custom-scrollbar my-auto">
             <button
               onClick={() => setIsAddAccountModalOpen(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white"
+              className="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800/80 hover:bg-slate-700 p-1.5 rounded-lg transition-colors z-10"
             >
               <X className="w-5 h-5" />
             </button>
@@ -656,6 +661,47 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
             </div>
 
             <form onSubmit={handleSaveAccount} className="space-y-4">
+              
+              {/* Dropdown pilih NIK dari Struktur Pengurus (Point 11 requirement) */}
+              {!editingAccount && (
+                <div className="bg-amber-950/40 border border-amber-500/50 rounded-xl p-3 space-y-1.5">
+                  <label className="text-xs font-black text-amber-400 block uppercase tracking-wider">
+                    Pilih NIK Pengurus Resmi (Struktur Pengurus SBN KASBI) *
+                  </label>
+                  <select
+                    onChange={(e) => {
+                      const selectedNik = e.target.value;
+                      if (!selectedNik) return;
+                      const p = STRUKTUR_PENGURUS_DATA.find((item) => item.nik === selectedNik);
+                      if (p) {
+                        const cleanUsername = p.nama.toLowerCase().replace(/[^a-z0-9]/g, '');
+                        setAccountForm({
+                          ...accountForm,
+                          nik: p.nik,
+                          name: p.nama,
+                          username: cleanUsername,
+                          password: cleanUsername,
+                          department: p.jabatan,
+                          phoneNumber: p.noHp || accountForm.phoneNumber,
+                          email: `${cleanUsername}@sbn-kasbi-vci.or.id`
+                        });
+                      }
+                    }}
+                    className="w-full bg-slate-950 border border-amber-500/60 rounded-lg px-3 py-2 text-xs text-amber-200 font-bold focus:outline-none"
+                  >
+                    <option value="">-- Pilih NIK / Nama Pengurus --</option>
+                    {STRUKTUR_PENGURUS_DATA.map((p) => (
+                      <option key={p.id} value={p.nik}>
+                        {p.nik} - {p.nama} ({p.jabatan})
+                      </option>
+                    ))}
+                  </select>
+                  <p className="text-[10px] text-amber-300/80 italic">
+                    Memilih NIK akan otomatis mengisi Nama, Username, Password, dan Jabatan dari data resmi pengurus.
+                  </p>
+                </div>
+              )}
+
               <div>
                 <label className="text-xs font-bold text-slate-300 block mb-1">Nama Lengkap Pengurus *</label>
                 <input
@@ -721,14 +767,22 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-bold text-slate-300 block mb-1">Departemen / Bagian</label>
-                  <input
-                    type="text"
+                  <label className="text-xs font-bold text-slate-300 block mb-1">Jabatan (Struktur Pengurus) *</label>
+                  <select
                     value={accountForm.department}
                     onChange={(e) => setAccountForm({ ...accountForm, department: e.target.value })}
-                    placeholder="Sewing, Assembly, HR, dll..."
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-500"
-                  />
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-500 font-bold"
+                  >
+                    <option value="">-- Pilih Jabatan --</option>
+                    {Array.from(new Set(STRUKTUR_PENGURUS_DATA.map((p) => p.jabatan))).map((jbt) => (
+                      <option key={jbt} value={jbt}>
+                        {jbt}
+                      </option>
+                    ))}
+                    {accountForm.department && !Array.from(new Set(STRUKTUR_PENGURUS_DATA.map((p) => p.jabatan))).includes(accountForm.department) && (
+                      <option value={accountForm.department}>{accountForm.department}</option>
+                    )}
+                  </select>
                 </div>
 
                 <div>
@@ -822,9 +876,9 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
       {/* CONFIRM DELETE ACCOUNT MODAL */}
       <ConfirmModal
         isOpen={!!deleteAccConfirmObj}
-        title="Hapus Akun Pengurus"
-        message={`Apakah Anda yakin ingin menghapus akun pengurus ${deleteAccConfirmObj?.name} (${deleteAccConfirmObj?.username})?`}
-        confirmText="Ya, Hapus Akun"
+        title="Hapus Hak Akses Pengurus"
+        message={`Apakah Anda yakin ingin menghapus akun dan mencabut hak akses pengurus ${deleteAccConfirmObj?.name} (${deleteAccConfirmObj?.username}) melalui Pengaturan Super Admin?`}
+        confirmText="Ya, Hapus & Cabut Akses"
         cancelText="Batal"
         type="danger"
         icon="trash"

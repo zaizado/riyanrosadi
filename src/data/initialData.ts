@@ -32,11 +32,11 @@ export const INITIAL_USERS: UserAccount[] = [
     id: 'usr-1',
     username: 'pengurus1',
     password: 'pengurus123',
-    name: 'Pengurus SBN',
-    email: 'pengurus@sbn-kasbi-vci.or.id',
-    nik: 'VCI-00001',
-    role: 'Pengurus',
-    department: 'Sekretariat Utama',
+    name: 'Awaludin',
+    email: 'awaludin@sbn-kasbi-vci.or.id',
+    nik: '010670',
+    role: 'Ketua',
+    department: 'PT Victory Chingluh Indonesia',
     phoneNumber: '081234567890',
     avatarUrl: cheAvatar
   },
@@ -44,11 +44,11 @@ export const INITIAL_USERS: UserAccount[] = [
     id: 'usr-2',
     username: 'ketua1',
     password: 'ketua123',
-    name: 'Ketua SBN',
-    email: 'ketua@sbn-kasbi-vci.or.id',
-    nik: 'VCI-00002',
+    name: 'Darja',
+    email: 'darja@sbn-kasbi-vci.or.id',
+    nik: '016373',
     role: 'Ketua',
-    department: 'Dewan Pengurus',
+    department: 'PT Victory Chingluh Indonesia',
     phoneNumber: '081298765432',
     avatarUrl: cheAvatar
   },
@@ -56,18 +56,21 @@ export const INITIAL_USERS: UserAccount[] = [
     id: 'usr-3',
     username: 'sekretaris1',
     password: 'sekretaris123',
-    name: 'Sekretaris SBN',
-    email: 'sekretaris@sbn-kasbi-vci.or.id',
-    nik: 'VCI-00003',
+    name: 'Heri Fadli',
+    email: 'herifadli@sbn-kasbi-vci.or.id',
+    nik: '021224',
     role: 'Sekretaris',
-    department: 'Kesekretariatan',
+    department: 'PT Victory Chingluh Indonesia',
     phoneNumber: '081311223344',
     avatarUrl: cheAvatar
   }
 ];
 
 // List anggota resmi dari Google Sheet (1.689 anggota)
-export const INITIAL_MEMBERS: Member[] = REAL_MEMBERS_DATA;
+export const INITIAL_MEMBERS: Member[] = REAL_MEMBERS_DATA.map(m => ({
+  ...m,
+  fotoUrl: m.fotoUrl || cheAvatar
+}));
 
 // Kasus Advokasi Demo Dihapus
 export const INITIAL_ADVOCACY: AdvocacyCase[] = [];

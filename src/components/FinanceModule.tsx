@@ -6,7 +6,10 @@ import {
   Coins, 
   Calendar, 
   Plus, 
-  FileSpreadsheet, 
+  FileText,
+  Lock,
+  ShieldCheck,
+  FileCheck,
   Search, 
   Filter, 
   Edit3, 
@@ -17,6 +20,7 @@ import {
   Clock, 
   ArrowRight, 
   AlertCircle, 
+  Info,
   DollarSign, 
   Receipt, 
   Building2, 
@@ -24,11 +28,117 @@ import {
   Sparkles,
   ChevronLeft,
   ChevronRight,
-  Download
+  Download,
+  BarChart3
 } from 'lucide-react';
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip
+} from 'recharts';
 import * as XLSX from 'xlsx';
-import { FinanceDailyRecord, DailyExpenseItem, UserAccount } from '../types';
+import { FinanceDailyRecord, DailyExpenseItem, UserAccount, checkIsSuperAdmin } from '../types';
 import { ConfirmModal } from './ConfirmModal';
+import { generateEncryptedFinancePDF } from '../utils/pdfGenerator';
+
+// Robust helper to parse any numeric string or formatted number with dots/commas into integer
+export const parseRupiahNum = (val: any): number => {
+  if (val === null || val === undefined || val === '') return 0;
+  if (typeof val === 'number') return isNaN(val) ? 0 : val;
+  const cleaned = String(val).replace(/[^0-9]/g, '');
+  if (!cleaned) return 0;
+  const parsed = parseInt(cleaned, 10);
+  return isNaN(parsed) ? 0 : parsed;
+};
+
+interface FinanceChartProps {
+  data: Array<{
+    monthKey: string;
+    monthLabel: string;
+    Pendapatan: number;
+    Pengeluaran: number;
+    Selisih: number;
+  }>;
+}
+
+const FinanceChart = React.memo<FinanceChartProps>(({ data }) => {
+  const formatRupiahTooltip = (amount: number) => {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      maximumFractionDigits: 0
+    }).format(amount);
+  };
+
+  const CustomChartTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      const pendapatan = payload.find((p: any) => p.dataKey === 'Pendapatan')?.value || 0;
+      const pengeluaran = payload.find((p: any) => p.dataKey === 'Pengeluaran')?.value || 0;
+      const selisih = pendapatan - pengeluaran;
+
+      return (
+        <div className="bg-slate-950/95 border border-slate-700 p-3.5 rounded-xl shadow-2xl text-xs space-y-2 backdrop-blur-md min-w-[210px]">
+          <p className="font-extrabold text-amber-300 border-b border-slate-800 pb-1 flex items-center justify-between">
+            <span>Periode:</span>
+            <span className="text-white font-mono">{label}</span>
+          </p>
+          <div className="space-y-1 font-mono">
+            <div className="flex items-center justify-between text-emerald-400">
+              <span className="font-sans text-slate-300">Uang COS / Masuk:</span>
+              <span className="font-bold">{formatRupiahTooltip(pendapatan)}</span>
+            </div>
+            <div className="flex items-center justify-between text-rose-400">
+              <span className="font-sans text-slate-300">Total Pengeluaran:</span>
+              <span className="font-bold">{formatRupiahTooltip(pengeluaran)}</span>
+            </div>
+            <div className="border-t border-slate-800/80 pt-1 flex items-center justify-between">
+              <span className="font-sans text-slate-400 font-semibold">Surplus / Defisit:</span>
+              <span className={`font-black ${selisih >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                {selisih >= 0 ? '+' : ''}{formatRupiahTooltip(selisih)}
+              </span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  return (
+    <div className="w-full h-72 pt-2">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={data} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+          <XAxis 
+            dataKey="monthLabel" 
+            stroke="#94a3b8" 
+            fontSize={11} 
+            tickLine={false}
+            axisLine={{ stroke: '#334155' }}
+          />
+          <YAxis 
+            stroke="#94a3b8" 
+            fontSize={10} 
+            tickLine={false}
+            axisLine={{ stroke: '#334155' }}
+            tickFormatter={(val) => {
+              if (val >= 1000000) return `${(val / 1000000).toFixed(0)}Jt`;
+              if (val >= 1000) return `${(val / 1000).toFixed(0)}R`;
+              return val;
+            }}
+          />
+          <Tooltip content={<CustomChartTooltip />} />
+          <Bar dataKey="Pendapatan" name="Uang COS / Masuk" fill="#10b981" radius={[6, 6, 0, 0]} maxBarSize={38} />
+          <Bar dataKey="Pengeluaran" name="Total Pengeluaran" fill="#f43f5e" radius={[6, 6, 0, 0]} maxBarSize={38} />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+});
 
 interface FinanceModuleProps {
   records: FinanceDailyRecord[];
@@ -61,10 +171,13 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
 
   // Export Modal State
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
+  const [exportFormat, setExportFormat] = useState<'pdf' | 'excel'>('pdf');
   const [exportFilterType, setExportFilterType] = useState<'harian' | 'mingguan' | 'bulanan' | 'tahunan' | 'semua'>('bulanan');
   const [exportSelectedDate, setExportSelectedDate] = useState(todayStr);
   const [exportSelectedMonth, setExportSelectedMonth] = useState(todayStr.slice(0, 7)); // YYYY-MM
   const [exportSelectedYear, setExportSelectedYear] = useState(todayStr.slice(0, 4));
+  const [enableEncryptionPassword, setEnableEncryptionPassword] = useState(false);
+  const [pdfPassword, setPdfPassword] = useState('');
 
   // Sort records chronologically by date ascending to calculate cascade balances properly
   const sortedRecordsAsc = useMemo(() => {
@@ -84,13 +197,17 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
 
     sortedRecordsAsc.forEach((rec, idx) => {
       // If it's the very first record and saldoAwal is manually set, respect it
-      let saldoAwal = rec.saldoAwal;
+      let saldoAwal = parseRupiahNum(rec.saldoAwal);
       if (idx > 0) {
         saldoAwal = previousSaldoAkhir;
       }
 
-      const totalPengeluaran = (rec.pengeluaranItems || []).reduce((sum, item) => sum + (Number(item.nominal) || 0), 0);
-      const saldoAkhir = saldoAwal + (Number(rec.uangCosMasuk) || 0) - totalPengeluaran;
+      const totalPengeluaran = (rec.pengeluaranItems || []).reduce(
+        (sum, item) => sum + parseRupiahNum(item.nominal),
+        0
+      );
+      const uangCos = parseRupiahNum(rec.uangCosMasuk);
+      const saldoAkhir = saldoAwal + uangCos - totalPengeluaran;
 
       map.set(rec.id, {
         record: rec,
@@ -155,7 +272,7 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
     let totalPengeluaranAll = 0;
 
     sortedRecordsAsc.forEach(r => {
-      totalMasukCos += Number(r.uangCosMasuk) || 0;
+      totalMasukCos += parseRupiahNum(r.uangCosMasuk);
       const computed = cascadedRecordsMap.get(r.id);
       if (computed) {
         totalPengeluaranAll += computed.calculatedTotalPengeluaran;
@@ -177,6 +294,106 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
       totalDaysRecorded: records.length
     };
   }, [sortedRecordsAsc, cascadedRecordsMap, records]);
+
+  const isSuperAdmin = checkIsSuperAdmin(currentUser);
+
+  // Monthly Chart Aggregation (Pendapatan vs Pengeluaran Bulanan)
+  const monthlyChartData = useMemo(() => {
+    const monthMap = new Map<string, { pendapatan: number; pengeluaran: number; monthKey: string; monthLabel: string }>();
+
+    sortedRecordsAsc.forEach(rec => {
+      if (!rec.tanggal) return;
+      const monthKey = rec.tanggal.slice(0, 7); // YYYY-MM
+      const computed = cascadedRecordsMap.get(rec.id);
+      const pengeluaran = computed ? computed.calculatedTotalPengeluaran : 0;
+      const pendapatan = parseRupiahNum(rec.uangCosMasuk);
+
+      if (!monthMap.has(monthKey)) {
+        const [year, month] = monthKey.split('-');
+        const monthNames = [
+          'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
+          'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'
+        ];
+        const monthIdx = parseInt(month, 10) - 1;
+        const monthName = monthNames[monthIdx] || month;
+        const label = `${monthName} ${year}`;
+
+        monthMap.set(monthKey, {
+          monthKey,
+          monthLabel: label,
+          pendapatan: 0,
+          pengeluaran: 0
+        });
+      }
+
+      const current = monthMap.get(monthKey)!;
+      current.pendapatan += pendapatan;
+      current.pengeluaran += pengeluaran;
+    });
+
+    const sortedMonths = Array.from(monthMap.values()).sort((a, b) => a.monthKey.localeCompare(b.monthKey));
+
+    if (sortedMonths.length === 0) {
+      const now = new Date();
+      const mockData = [];
+      const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+      for (let i = 5; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        const year = d.getFullYear();
+        const monthStr = String(d.getMonth() + 1).padStart(2, '0');
+        mockData.push({
+          monthKey: `${year}-${monthStr}`,
+          monthLabel: `${monthNames[d.getMonth()]} ${year}`,
+          Pendapatan: 0,
+          Pengeluaran: 0,
+          Selisih: 0,
+        });
+      }
+      return mockData;
+    }
+
+    return sortedMonths.map(item => ({
+      ...item,
+      Pendapatan: item.pendapatan,
+      Pengeluaran: item.pengeluaran,
+      Selisih: item.pendapatan - item.pengeluaran,
+    }));
+  }, [sortedRecordsAsc, cascadedRecordsMap]);
+
+  // Custom Recharts Tooltip Component
+  const CustomChartTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      const pendapatan = payload.find((p: any) => p.dataKey === 'Pendapatan')?.value || 0;
+      const pengeluaran = payload.find((p: any) => p.dataKey === 'Pengeluaran')?.value || 0;
+      const selisih = pendapatan - pengeluaran;
+
+      return (
+        <div className="bg-slate-950/95 border border-slate-700 p-3.5 rounded-xl shadow-2xl text-xs space-y-2 backdrop-blur-md min-w-[210px]">
+          <p className="font-extrabold text-amber-300 border-b border-slate-800 pb-1 flex items-center justify-between">
+            <span>Periode:</span>
+            <span className="text-white font-mono">{label}</span>
+          </p>
+          <div className="space-y-1 font-mono">
+            <div className="flex items-center justify-between text-emerald-400">
+              <span className="font-sans text-slate-300">Uang COS / Masuk:</span>
+              <span className="font-bold">{formatRupiah(pendapatan)}</span>
+            </div>
+            <div className="flex items-center justify-between text-rose-400">
+              <span className="font-sans text-slate-300">Total Pengeluaran:</span>
+              <span className="font-bold">{formatRupiah(pengeluaran)}</span>
+            </div>
+            <div className="border-t border-slate-800/80 pt-1 flex items-center justify-between">
+              <span className="font-sans text-slate-400 font-semibold">Surplus / Defisit:</span>
+              <span className={`font-black ${selisih >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                {selisih >= 0 ? '+' : ''}{formatRupiah(selisih)}
+              </span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
 
   // Filtered Records (descending for display)
   const displayRecordsList = useMemo(() => {
@@ -270,16 +487,26 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
   // When date changes in form, update default saldoAwal automatically
   const handleDateChangeInForm = (newDateStr: string) => {
     const defaultSaldoAwal = getLatestEndingBalanceBeforeDate(newDateStr);
+    const dayNum = parseInt((newDateStr || '').split('-')[2], 10);
     setFormData(prev => ({
       ...prev,
       tanggal: newDateStr,
-      saldoAwal: prev.isManualSaldoAwal ? prev.saldoAwal : defaultSaldoAwal
+      saldoAwal: prev.isManualSaldoAwal ? prev.saldoAwal : defaultSaldoAwal,
+      uangCosMasuk: dayNum === 10 ? prev.uangCosMasuk : 0
     }));
+  };
+
+  // Format number helper for input fields with dots (e.g. 100.000)
+  const formatNumberWithDots = (val: number | string): string => {
+    if (val === '' || val === null || val === undefined) return '';
+    const numStr = String(val).replace(/[^0-9]/g, '');
+    if (!numStr) return '';
+    return parseInt(numStr, 10).toLocaleString('id-ID');
   };
 
   // Add Expense item inside form
   const handleAddExpenseItem = () => {
-    const nom = parseFloat(expenseForm.nominal.replace(/[^0-9]/g, '')) || 0;
+    const nom = parseRupiahNum(expenseForm.nominal);
     if (nom <= 0) {
       alert('Masukkan nominal pengeluaran yang valid (> 0)');
       return;
@@ -331,13 +558,37 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
       return;
     }
 
+    // Ensure all existing items have numeric nominals
+    let finalExpenseItems = (formData.pengeluaranItems || []).map(item => ({
+      ...item,
+      nominal: parseRupiahNum(item.nominal)
+    }));
+
+    // Auto-append pending expense item if user filled the expense input but forgot to click "+ Tambah"
+    const pendingNominal = parseRupiahNum(expenseForm.nominal);
+    if (pendingNominal > 0 && expenseForm.keterangan.trim()) {
+      finalExpenseItems.push({
+        id: `exp-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+        waktu: expenseForm.waktu || new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+        nominal: pendingNominal,
+        keterangan: expenseForm.keterangan.trim(),
+        kategori: expenseForm.kategori,
+        penerimaNota: expenseForm.penerimaNota.trim() || '-',
+        updatedBy: currentUser.name
+      });
+    }
+
+    const dayNum = parseInt((formData.tanggal || '').split('-')[2], 10);
+    const isCosAllowed = dayNum === 10;
+    const finalUangCos = isCosAllowed ? parseRupiahNum(formData.uangCosMasuk) : 0;
+
     const recordToSave: FinanceDailyRecord = {
       id: formData.id || `fin-${formData.tanggal}`,
       tanggal: formData.tanggal,
-      saldoAwal: Number(formData.saldoAwal) || 0,
-      uangCosMasuk: Number(formData.uangCosMasuk) || 0,
-      keteranganCos: formData.keteranganCos.trim(),
-      pengeluaranItems: formData.pengeluaranItems,
+      saldoAwal: parseRupiahNum(formData.saldoAwal),
+      uangCosMasuk: finalUangCos,
+      keteranganCos: isCosAllowed ? formData.keteranganCos.trim() : (formData.keteranganCos || 'Bukan Tanggal 10 (Tanpa COS)').trim(),
+      pengeluaranItems: finalExpenseItems,
       catatanHarian: formData.catatanHarian.trim(),
       updatedBy: `${currentUser.name} (${currentUser.role})`,
       updatedAt: new Date().toISOString()
@@ -356,8 +607,8 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
     }).format(amount);
   };
 
-  // Export to Excel Function
-  const handleExportExcel = () => {
+  // Export to PDF Function (Terenkripsi & Terverifikasi)
+  const handleExportPDF = () => {
     let recordsToExport: FinanceDailyRecord[] = [];
     let periodLabel = '';
 
@@ -365,7 +616,6 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
       recordsToExport = sortedRecordsAsc.filter(r => r.tanggal === exportSelectedDate);
       periodLabel = `Harian - Tanggal ${exportSelectedDate}`;
     } else if (exportFilterType === 'mingguan') {
-      // 7 days window ending on selected date
       const endDt = new Date(exportSelectedDate);
       const startDt = new Date(endDt);
       startDt.setDate(startDt.getDate() - 6);
@@ -391,100 +641,14 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
       return;
     }
 
-    // Build Excel Data rows
-    const excelRows: any[] = [];
-
-    // Title rows
-    excelRows.push(['SERIKAT BURUH NUSANTARA (SBN) PT VICTORY CHINGLUH INDONESIA']);
-    excelRows.push(['LAPORAN KEUANGAN, KAS & COS BULANAN ORGANISASI']);
-    excelRows.push([`Periode Laporan: ${periodLabel}`]);
-    excelRows.push([`Tanggal Cetak: ${new Date().toLocaleString('id-ID')}`]);
-    excelRows.push([]); // blank line
-
-    // Table Header
-    excelRows.push([
-      'NO',
-      'TANGGAL',
-      'SALDO AWAL (RP)',
-      'UANG COS MASUK (RP)',
-      'KETERANGAN COS',
-      'TOTAL PEMASUKAN (RP)',
-      'RINCIAN PENGELUARAN HARIAN',
-      'TOTAL PENGELUARAN (RP)',
-      'SALDO AKHIR (RP)',
-      'CATATAN / PETUGAS'
-    ]);
-
-    let grandTotalCos = 0;
-    let grandTotalKeluar = 0;
-
-    recordsToExport.forEach((rec, index) => {
-      const computed = cascadedRecordsMap.get(rec.id);
-      const saldoAwal = computed ? computed.calculatedSaldoAwal : rec.saldoAwal;
-      const totalPengeluaran = computed ? computed.calculatedTotalPengeluaran : 0;
-      const saldoAkhir = computed ? computed.calculatedSaldoAkhir : (saldoAwal + rec.uangCosMasuk - totalPengeluaran);
-      const totalPemasukan = saldoAwal + rec.uangCosMasuk;
-
-      grandTotalCos += rec.uangCosMasuk;
-      grandTotalKeluar += totalPengeluaran;
-
-      // Format expense list string
-      const expenseListText = (rec.pengeluaranItems || []).map(item => 
-        `• [${item.waktu}] ${item.keterangan} (${item.kategori}) - Rp ${item.nominal.toLocaleString('id-ID')}`
-      ).join('\n') || '- Tidak ada pengeluaran -';
-
-      excelRows.push([
-        index + 1,
-        rec.tanggal,
-        saldoAwal,
-        rec.uangCosMasuk,
-        rec.keteranganCos || '-',
-        totalPemasukan,
-        expenseListText,
-        totalPengeluaran,
-        saldoAkhir,
-        `${rec.catatanHarian || ''} (Diupdate: ${rec.updatedBy || 'Admin'})`
-      ]);
+    generateEncryptedFinancePDF({
+      records: recordsToExport,
+      cascadedMap: cascadedRecordsMap,
+      periodLabel,
+      currentUser,
+      enableEncryptionPassword,
+      userPassword: pdfPassword
     });
-
-    // Total summary row at bottom
-    excelRows.push([]);
-    excelRows.push([
-      'TOTAL',
-      `Total ${recordsToExport.length} Hari`,
-      '-',
-      grandTotalCos,
-      'Total Uang COS Masuk',
-      '-',
-      'Total Pengeluaran Keseluruhan',
-      grandTotalKeluar,
-      recordsToExport.length > 0 ? (cascadedRecordsMap.get(recordsToExport[recordsToExport.length - 1].id)?.calculatedSaldoAkhir || 0) : 0,
-      'Laporan Resmi Divisi Keuangan SBN'
-    ]);
-
-    // Create Worksheet
-    const worksheet = XLSX.utils.aoa_to_sheet(excelRows);
-
-    // Set Column Widths
-    worksheet['!cols'] = [
-      { wch: 6 },  // No
-      { wch: 14 }, // Tanggal
-      { wch: 18 }, // Saldo Awal
-      { wch: 20 }, // Uang COS
-      { wch: 30 }, // Keterangan COS
-      { wch: 22 }, // Total Pemasukan
-      { wch: 55 }, // Rincian Pengeluaran
-      { wch: 22 }, // Total Keluar
-      { wch: 20 }, // Saldo Akhir
-      { wch: 35 }  // Catatan
-    ];
-
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Laporan Keuangan SBN');
-
-    // Download File
-    const fileName = `Laporan_Keuangan_SBN_VCI_${exportFilterType}_${Date.now()}.xlsx`;
-    XLSX.writeFile(workbook, fileName);
 
     setIsExportModalOpen(false);
   };
@@ -501,11 +665,8 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-xl sm:text-2xl font-black text-white tracking-wide">
-                DIVISI DANA DAN KEUANGAN
+                DIVISI DANA DAN USAHA
               </h1>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 uppercase">
-                Kas & COS SBN
-              </span>
             </div>
             <p className="text-xs text-slate-400 mt-0.5">
               Pencatatan Saldo Awal, Uang COS Masuk, Pengeluaran Harian & Reorganisasi Kas Otomatis
@@ -516,10 +677,11 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => setIsExportModalOpen(true)}
-            className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 font-bold text-xs flex items-center gap-2 shadow-lg transition-all cursor-pointer"
+            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-rose-950/40 transition-all cursor-pointer border border-rose-500/40"
           >
-            <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
-            <span>Ekspor Laporan Excel</span>
+            <FileText className="w-4 h-4 text-rose-200" />
+            <Lock className="w-3.5 h-3.5 text-amber-300" />
+            <span>Ekspor PDF Terenkripsi</span>
           </button>
 
           <button
@@ -610,6 +772,45 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
         </div>
 
       </div>
+
+      {/* ------------------- GRAFIK BATANG PENDAPATAN VS PENGELUARAN (Super Admin) ------------------- */}
+      {isSuperAdmin && (
+        <div className="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl shadow-xl space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
+            <div className="flex items-center gap-2.5">
+              <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                <BarChart3 className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-sm font-black text-white tracking-wide">
+                    Grafik Batang Pendapatan vs Pengeluaran Bulanan
+                  </h3>
+                  <span className="px-2 py-0.5 text-[10px] font-extrabold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-md">
+                    Super Admin Analytics
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-400">
+                  Perbandingan visual Uang COS Masuk (Pendapatan) dan Pengeluaran Harian per periode bulan
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 text-xs bg-slate-950 px-3.5 py-1.5 rounded-xl border border-slate-800">
+              <div className="flex items-center gap-1.5">
+                <span className="w-3 h-3 rounded-sm bg-emerald-500 inline-block shadow-xs shadow-emerald-500/50"></span>
+                <span className="text-slate-300 font-bold">Uang COS / Masuk</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="w-3 h-3 rounded-sm bg-rose-500 inline-block shadow-xs shadow-rose-500/50"></span>
+                <span className="text-slate-300 font-bold">Pengeluaran</span>
+              </div>
+            </div>
+          </div>
+
+          <FinanceChart data={monthlyChartData} />
+        </div>
+      )}
 
       {/* ------------------- FILTER & SEARCH BAR ------------------- */}
       <div className="p-4 bg-slate-900/90 border border-slate-800 rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-lg">
@@ -854,11 +1055,11 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
 
       {/* ------------------- MODAL FORM: CREATE / EDIT DAILY RECORD ------------------- */}
       {isRecordModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl text-white p-6 shadow-2xl relative my-8 animate-in fade-in zoom-in-95">
+        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl text-white p-4 sm:p-6 shadow-2xl relative max-h-[88vh] overflow-y-auto custom-scrollbar my-auto">
             <button
               onClick={() => setIsRecordModalOpen(false)}
-              className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
+              className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white z-10"
             >
               <X className="w-5 h-5" />
             </button>
@@ -906,11 +1107,16 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
                     </button>
                   </div>
                   <input
-                    type="number"
+                    type="text"
+                    inputMode="numeric"
                     required
                     readOnly={!formData.isManualSaldoAwal}
-                    value={formData.saldoAwal}
-                    onChange={(e) => setFormData(p => ({ ...p, saldoAwal: Number(e.target.value) || 0 }))}
+                    value={formatNumberWithDots(formData.saldoAwal)}
+                    onChange={(e) => {
+                      const raw = e.target.value.replace(/[^0-9]/g, '');
+                      setFormData(p => ({ ...p, saldoAwal: raw ? parseInt(raw, 10) : 0 }));
+                    }}
+                    placeholder="0"
                     className={`w-full border rounded-xl p-2.5 font-mono text-sm font-bold focus:outline-none ${
                       formData.isManualSaldoAwal 
                         ? 'bg-slate-950 border-amber-500 text-amber-300' 
@@ -925,178 +1131,235 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
                 </div>
               </div>
 
-              {/* Uang COS Masuk & Keterangan */}
-              <div className="p-3.5 bg-emerald-950/30 border border-emerald-800/50 rounded-xl space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="font-extrabold text-emerald-400 uppercase text-[11px] flex items-center gap-1.5">
-                    <TrendingUp className="w-4 h-4" /> 2. Uang COS / Pemasukan Kas Hari Ini
-                  </span>
-                </div>
+              {/* Uang COS Masuk & Keterangan (Hanya Tanggal 10 Setiap Bulan) */}
+              {(() => {
+                const dayNum = parseInt((formData.tanggal || '').split('-')[2], 10);
+                const isCosAllowed = dayNum === 10;
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-slate-300 font-bold mb-1">
-                      Nominal Uang COS Masuk (Rp)
-                    </label>
-                    <input
-                      type="number"
-                      min="0"
-                      value={formData.uangCosMasuk}
-                      onChange={(e) => setFormData(p => ({ ...p, uangCosMasuk: Number(e.target.value) || 0 }))}
-                      placeholder="Contoh: 2500000"
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 font-mono text-emerald-300 font-bold text-sm focus:outline-none focus:border-emerald-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-slate-300 font-bold mb-1">
-                      Keterangan COS / Sumber Pemasukan
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.keteranganCos}
-                      onChange={(e) => setFormData(p => ({ ...p, keteranganCos: e.target.value }))}
-                      placeholder="Contoh: COS Anggota Shift 1 & 2 Juli 2026"
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-emerald-500"
-                    />
-                  </div>
-                </div>
-
-                <div className="pt-2 border-t border-emerald-900/60 flex items-center justify-between text-xs font-bold">
-                  <span className="text-slate-300">TOTAL PEMASUKAN HARI INI (Saldo Awal + COS):</span>
-                  <span className="text-blue-300 font-mono text-sm">
-                    {formatRupiah((Number(formData.saldoAwal) || 0) + (Number(formData.uangCosMasuk) || 0))}
-                  </span>
-                </div>
-              </div>
-
-              {/* 3. SECTION PENGELUARAN HARIAN */}
-              <div className="p-3.5 bg-rose-950/30 border border-rose-800/50 rounded-xl space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="font-extrabold text-rose-400 uppercase text-[11px] flex items-center gap-1.5">
-                    <TrendingDown className="w-4 h-4" /> 3. Menu Pengeluaran Harian
-                  </span>
-                  <span className="text-[10px] text-slate-400">
-                    Total: <strong className="text-rose-300 font-mono">{formatRupiah(formData.pengeluaranItems.reduce((s, i) => s + i.nominal, 0))}</strong>
-                  </span>
-                </div>
-
-                {/* Sub-form Input Item Pengeluaran */}
-                <div className="p-3 bg-slate-950 border border-slate-800 rounded-xl space-y-2.5">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase">
-                    + Form Tambah Item Pengeluaran Hari Ini:
-                  </p>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    <div>
-                      <input
-                        type="time"
-                        value={expenseForm.waktu}
-                        onChange={(e) => setExpenseForm(p => ({ ...p, waktu: e.target.value }))}
-                        className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-mono text-xs"
-                      />
+                return (
+                  <div className={`p-3.5 rounded-xl space-y-3 transition-colors ${
+                    isCosAllowed 
+                      ? 'bg-emerald-950/30 border border-emerald-800/50' 
+                      : 'bg-slate-900/40 border border-slate-800'
+                  }`}>
+                    <div className="flex items-center justify-between">
+                      <span className={`font-extrabold uppercase text-[11px] flex items-center gap-1.5 ${
+                        isCosAllowed ? 'text-emerald-400' : 'text-slate-400'
+                      }`}>
+                        <TrendingUp className="w-4 h-4" /> 2. Uang COS / Pemasukan Kas
+                      </span>
+                      <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-md border ${
+                        isCosAllowed 
+                          ? 'bg-emerald-900/60 text-emerald-300 border-emerald-700/50' 
+                          : 'bg-amber-950/70 text-amber-400 border-amber-800/60'
+                      }`}>
+                        {isCosAllowed ? '✓ Terbuka (Khusus Tanggal 10)' : '🔒 Dikelola Khusus Tanggal 10'}
+                      </span>
                     </div>
-                    <div>
-                      <select
-                        value={expenseForm.kategori}
-                        onChange={(e) => setExpenseForm(p => ({ ...p, kategori: e.target.value }))}
-                        className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-xs"
-                      >
-                        <option value="Operasional">Operasional (Bensin/Tol/ATK)</option>
-                        <option value="Advokasi & Aksi">Advokasi & Aksi Industrial</option>
-                        <option value="Konsumsi & Rapat">Konsumsi & Rapat Konsolidasi</option>
-                        <option value="Atribut / Baju / Spanduk">Atribut / Spanduk / Kaos</option>
-                        <option value="Bantuan Anggota">Bantuan & Santunan Anggota</option>
-                        <option value="Lainnya">Lain-lain</option>
-                      </select>
-                    </div>
-                    <div>
-                      <input
-                        type="number"
-                        placeholder="Nominal Keluar (Rp)"
-                        value={expenseForm.nominal}
-                        onChange={(e) => setExpenseForm(p => ({ ...p, nominal: e.target.value }))}
-                        className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 font-mono text-rose-300 font-bold text-xs"
-                      />
-                    </div>
-                  </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <input
-                      type="text"
-                      placeholder="Keterangan pengeluaran (misal: Bensin Xpander ke Pemda)..."
-                      value={expenseForm.keterangan}
-                      onChange={(e) => setExpenseForm(p => ({ ...p, keterangan: e.target.value }))}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-xs"
-                    />
-                    <div className="flex gap-2">
-                      <input
-                        type="text"
-                        placeholder="Penerima / Toko / Kwitansi (Opsional)"
-                        value={expenseForm.penerimaNota}
-                        onChange={(e) => setExpenseForm(p => ({ ...p, penerimaNota: e.target.value }))}
-                        className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-xs"
-                      />
-                      <button
-                        type="button"
-                        onClick={handleAddExpenseItem}
-                        className="px-3 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shrink-0 cursor-pointer shadow"
-                      >
-                        + Tambah
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* List items added */}
-                {formData.pengeluaranItems.length > 0 && (
-                  <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1">
-                    {formData.pengeluaranItems.map((item, idx) => (
-                      <div key={item.id} className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-between text-xs">
-                        <div>
-                          <div className="flex items-center gap-1.5">
-                            <span className="font-mono text-[10px] text-slate-400">{item.waktu}</span>
-                            <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-800 text-amber-300">
-                              {item.kategori}
-                            </span>
-                            <span className="font-bold text-slate-200">{item.keterangan}</span>
-                          </div>
-                          {item.penerimaNota && item.penerimaNota !== '-' && (
-                            <p className="text-[10px] text-slate-400 mt-0.5">
-                              Nota / Receiver: {item.penerimaNota}
-                            </p>
-                          )}
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                          <span className="font-mono font-bold text-rose-400">
-                            - {formatRupiah(item.nominal)}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => handleRemoveExpenseItem(item.id)}
-                            className="p-1 text-slate-500 hover:text-rose-400"
-                            title="Hapus Item Ini"
-                          >
-                            <X className="w-3.5 h-3.5" />
-                          </button>
+                    {!isCosAllowed ? (
+                      <div className="p-3 bg-slate-950/80 border border-amber-500/30 rounded-xl flex items-start gap-2.5 text-xs text-amber-200/90">
+                        <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                        <div className="space-y-1">
+                          <p className="font-bold text-amber-300">Input Uang COS Tidak Tersedia (Khusus Tanggal 10)</p>
+                          <p className="text-[11px] text-slate-300 leading-relaxed">
+                            Pemasukan Uang COS oleh admin diatur <strong>hanya 1 kali setiap bulan, yaitu pada tanggal 10</strong>. Tanggal transaksi terpilih (<strong className="text-amber-200">{formData.tanggal || '-'}</strong>) bukan tanggal 10.
+                          </p>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+                    ) : (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="block text-slate-300 font-bold mb-1">
+                            Nominal Uang COS Masuk (Rp) <span className="text-emerald-400">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            inputMode="numeric"
+                            value={formatNumberWithDots(formData.uangCosMasuk)}
+                            onChange={(e) => {
+                              const raw = e.target.value.replace(/[^0-9]/g, '');
+                              setFormData(p => ({ ...p, uangCosMasuk: raw ? parseInt(raw, 10) : 0 }));
+                            }}
+                            placeholder="Contoh: 2.500.000"
+                            className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 font-mono text-emerald-300 font-bold text-sm focus:outline-none focus:border-emerald-500"
+                          />
+                        </div>
 
-              {/* Saldo Akhir Live Preview */}
-              <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-center justify-between font-black text-xs">
-                <span className="text-amber-300 uppercase">PREVIEW SALDO AKHIR HARI INI:</span>
-                <span className="text-amber-400 font-mono text-base">
-                  {formatRupiah(
-                    ((Number(formData.saldoAwal) || 0) + (Number(formData.uangCosMasuk) || 0)) - 
-                    formData.pengeluaranItems.reduce((s, i) => s + i.nominal, 0)
-                  )}
-                </span>
-              </div>
+                        <div>
+                          <label className="block text-slate-300 font-bold mb-1">
+                            Keterangan COS / Sumber Pemasukan
+                          </label>
+                          <input
+                            type="text"
+                            value={formData.keteranganCos}
+                            onChange={(e) => setFormData(p => ({ ...p, keteranganCos: e.target.value }))}
+                            placeholder="Contoh: COS Anggota Bulan Ini"
+                            className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-emerald-500"
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-xs font-bold">
+                      <span className="text-slate-300">TOTAL PEMASUKAN HARI INI (Saldo Awal + COS):</span>
+                      <span className="text-blue-300 font-mono text-sm">
+                        {formatRupiah(parseRupiahNum(formData.saldoAwal) + (isCosAllowed ? parseRupiahNum(formData.uangCosMasuk) : 0))}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* 3. SECTION PENGELUARAN HARIAN & LIVE CALCULATIONS */}
+              {(() => {
+                const pendingExpense = parseRupiahNum(expenseForm.nominal);
+                const addedExpenses = formData.pengeluaranItems.reduce((s, i) => s + parseRupiahNum(i.nominal), 0);
+                const totalExpensesLive = addedExpenses + pendingExpense;
+                const liveSaldoAwal = parseRupiahNum(formData.saldoAwal);
+                const liveUangCos = parseRupiahNum(formData.uangCosMasuk);
+                const liveSaldoAkhir = liveSaldoAwal + liveUangCos - totalExpensesLive;
+
+                return (
+                  <>
+                    <div className="p-3.5 bg-rose-950/30 border border-rose-800/50 rounded-xl space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="font-extrabold text-rose-400 uppercase text-[11px] flex items-center gap-1.5">
+                          <TrendingDown className="w-4 h-4" /> 3. Menu Pengeluaran Harian
+                        </span>
+                        <span className="text-[10px] text-slate-400">
+                          Total Pengeluaran: <strong className="text-rose-300 font-mono text-xs font-bold">{formatRupiah(totalExpensesLive)}</strong>
+                        </span>
+                      </div>
+
+                      {/* Sub-form Input Item Pengeluaran */}
+                      <div className="p-3 bg-slate-950 border border-slate-800 rounded-xl space-y-2.5">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase">
+                          + Form Tambah Item Pengeluaran Hari Ini (Otomatis Tanda Titik):
+                        </p>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                          <div>
+                            <input
+                              type="time"
+                              value={expenseForm.waktu}
+                              onChange={(e) => setExpenseForm(p => ({ ...p, waktu: e.target.value }))}
+                              className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-mono text-xs"
+                            />
+                          </div>
+                          <div>
+                            <select
+                              value={expenseForm.kategori}
+                              onChange={(e) => setExpenseForm(p => ({ ...p, kategori: e.target.value }))}
+                              className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-xs"
+                            >
+                              <option value="Operasional">Operasional (Bensin/Tol/ATK)</option>
+                              <option value="Advokasi & Aksi">Advokasi & Aksi Industrial</option>
+                              <option value="Konsumsi & Rapat">Konsumsi & Rapat Konsolidasi</option>
+                              <option value="Atribut / Baju / Spanduk">Atribut / Spanduk / Kaos</option>
+                              <option value="Bantuan Anggota">Bantuan & Santunan Anggota</option>
+                              <option value="Lainnya">Lain-lain</option>
+                            </select>
+                          </div>
+                          <div>
+                            <input
+                              type="text"
+                              inputMode="numeric"
+                              placeholder="Nominal Keluar (Rp)"
+                              value={expenseForm.nominal}
+                              onChange={(e) => {
+                                const raw = e.target.value.replace(/[^0-9]/g, '');
+                                const formatted = raw ? parseInt(raw, 10).toLocaleString('id-ID') : '';
+                                setExpenseForm(p => ({ ...p, nominal: formatted }));
+                              }}
+                              className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 font-mono text-rose-300 font-bold text-xs placeholder:text-rose-900/60 focus:outline-none focus:border-rose-500"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          <input
+                            type="text"
+                            placeholder="Keterangan pengeluaran (misal: Bensin Xpander ke Pemda)..."
+                            value={expenseForm.keterangan}
+                            onChange={(e) => setExpenseForm(p => ({ ...p, keterangan: e.target.value }))}
+                            className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-xs"
+                          />
+                          <div className="flex gap-2">
+                            <input
+                              type="text"
+                              placeholder="Penerima / Toko / Kwitansi (Opsional)"
+                              value={expenseForm.penerimaNota}
+                              onChange={(e) => setExpenseForm(p => ({ ...p, penerimaNota: e.target.value }))}
+                              className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-xs"
+                            />
+                            <button
+                              type="button"
+                              onClick={handleAddExpenseItem}
+                              className="px-3.5 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-black text-xs shrink-0 cursor-pointer shadow transition-colors"
+                            >
+                              + Tambah
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* List items added */}
+                      {formData.pengeluaranItems.length > 0 && (
+                        <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                          {formData.pengeluaranItems.map((item) => (
+                            <div key={item.id} className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-between text-xs">
+                              <div>
+                                <div className="flex items-center gap-1.5">
+                                  <span className="font-mono text-[10px] text-slate-400">{item.waktu}</span>
+                                  <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-800 text-amber-300">
+                                    {item.kategori}
+                                  </span>
+                                  <span className="font-bold text-slate-200">{item.keterangan}</span>
+                                </div>
+                                {item.penerimaNota && item.penerimaNota !== '-' && (
+                                  <p className="text-[10px] text-slate-400 mt-0.5">
+                                    Nota / Receiver: {item.penerimaNota}
+                                  </p>
+                                )}
+                              </div>
+
+                              <div className="flex items-center gap-2">
+                                <span className="font-mono font-bold text-rose-400">
+                                  - {formatRupiah(item.nominal)}
+                                </span>
+                                <button
+                                  type="button"
+                                  onClick={() => handleRemoveExpenseItem(item.id)}
+                                  className="p-1 text-slate-500 hover:text-rose-400"
+                                  title="Hapus Item Ini"
+                                >
+                                  <X className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Saldo Akhir Live Preview */}
+                    <div className="p-3.5 bg-amber-500/10 border border-amber-500/40 rounded-xl flex items-center justify-between font-black text-xs shadow-inner">
+                      <div className="flex items-center gap-2">
+                        <span className="text-amber-300 uppercase tracking-wide">PREVIEW SALDO AKHIR HARI INI:</span>
+                        {pendingExpense > 0 && (
+                          <span className="text-[10px] font-normal text-rose-300 italic">
+                            (Berkurang -{formatRupiah(pendingExpense)} dari input)
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-amber-400 font-mono text-lg tracking-tight">
+                        {formatRupiah(liveSaldoAkhir)}
+                      </span>
+                    </div>
+                  </>
+                );
+              })()}
 
               <div>
                 <label className="block text-slate-300 font-bold mb-1">
@@ -1135,11 +1398,11 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
 
       {/* ------------------- MODAL DETAIL RECORD ------------------- */}
       {selectedRecordForDetail && (
-        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-xl text-white p-6 shadow-2xl relative">
+        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-xl text-white p-4 sm:p-6 shadow-2xl relative max-h-[88vh] overflow-y-auto custom-scrollbar my-auto">
             <button
               onClick={() => setSelectedRecordForDetail(null)}
-              className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
+              className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white z-10"
             >
               <X className="w-5 h-5" />
             </button>
@@ -1227,28 +1490,35 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
         </div>
       )}
 
-      {/* ------------------- MODAL EKSPOR EXCEL SELECTION ------------------- */}
+      {/* ------------------- MODAL EKSPOR LAPORAN PDF TERENKRIPSI ------------------- */}
       {isExportModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md text-white p-6 shadow-2xl relative">
+        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg text-white p-4 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar my-auto">
             <button
               onClick={() => setIsExportModalOpen(false)}
-              className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
+              className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white z-10 cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="flex items-center gap-3 pb-4 border-b border-slate-800">
-              <div className="p-3 rounded-xl bg-emerald-950 border border-emerald-800 text-emerald-400">
-                <FileSpreadsheet className="w-6 h-6" />
+              <div className="p-3 rounded-xl bg-rose-950/80 border border-rose-800 text-rose-400">
+                <FileText className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-lg font-black text-white">Ekspor Laporan Keuangan Excel</h3>
-                <p className="text-xs text-slate-400">Pilih Opsi Filter Periode Laporan Keuangan</p>
+                <h3 className="text-lg font-black text-white flex items-center gap-2">
+                  <span>Ekspor PDF Terenkripsi</span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 uppercase">
+                    Transparan
+                  </span>
+                </h3>
+                <p className="text-xs text-slate-400">Dokumen Resmi & Proteksi Laporan Divisi Dana & Usaha</p>
               </div>
             </div>
 
             <div className="py-4 space-y-4 text-xs">
+              
+              {/* Filter Periode */}
               <div>
                 <label className="block text-slate-300 font-bold mb-1.5">
                   1. Pilih Rentang Periode Laporan:
@@ -1256,7 +1526,7 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
                 <select
                   value={exportFilterType}
                   onChange={(e: any) => setExportFilterType(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-bold focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-bold focus:outline-none focus:border-amber-500"
                 >
                   <option value="harian">Laporan Harian (Tanggal Spesifik)</option>
                   <option value="mingguan">Laporan Mingguan (7 Hari)</option>
@@ -1275,7 +1545,7 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
                     type="date"
                     value={exportSelectedDate}
                     onChange={(e) => setExportSelectedDate(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-mono focus:outline-none focus:border-amber-500"
                   />
                 </div>
               )}
@@ -1289,7 +1559,7 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
                     type="date"
                     value={exportSelectedDate}
                     onChange={(e) => setExportSelectedDate(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-mono focus:outline-none focus:border-amber-500"
                   />
                 </div>
               )}
@@ -1303,7 +1573,7 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
                     type="month"
                     value={exportSelectedMonth}
                     onChange={(e) => setExportSelectedMonth(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-mono focus:outline-none focus:border-amber-500"
                   />
                 </div>
               )}
@@ -1319,15 +1589,57 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
                     max="2050"
                     value={exportSelectedYear}
                     onChange={(e) => setExportSelectedYear(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-mono focus:outline-none focus:border-amber-500"
                   />
                 </div>
               )}
 
-              <div className="p-3 bg-slate-950 border border-slate-800 rounded-xl text-[11px] text-slate-400 space-y-1">
-                <p className="font-bold text-emerald-400">✓ Format File Output:</p>
-                <p>• Header resmi Serikat Buruh Nusantara PT Victory Chingluh Indonesia</p>
-                <p>• Rincian Saldo Awal, COS Masuk, Pengeluaran, & Saldo Akhir</p>
+              {/* Security Details for PDF */}
+              <div className="p-3.5 bg-slate-950 border border-rose-900/50 rounded-xl space-y-2.5">
+                <div className="flex items-center gap-2 text-rose-400 font-bold">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                  <span>Fitur Keamanan & Transparansi PDF:</span>
+                </div>
+                
+                <div className="space-y-1 text-[11px] text-slate-300 pl-1">
+                  <p className="flex items-center gap-1.5">
+                    <span className="text-emerald-400 font-bold">✓</span>
+                    <span><strong>SHA-256 Digital Fingerprint:</strong> Kode hash otomatis untuk verifikasi keaslian dokumen.</span>
+                  </p>
+                  <p className="flex items-center gap-1.5">
+                    <span className="text-emerald-400 font-bold">✓</span>
+                    <span><strong>Segel Watermark & Read-Only:</strong> Mencegah modifikasi isi/angka laporan oleh pihak luar.</span>
+                  </p>
+                  <p className="flex items-center gap-1.5">
+                    <span className="text-emerald-400 font-bold">✓</span>
+                    <span><strong>Kolom Pengesahan Resmi:</strong> Tanda tangan Ketua, Bendahara/Divisi Dana & Sekretaris.</span>
+                  </p>
+                </div>
+
+                <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
+                  <label className="flex items-center gap-2 cursor-pointer text-slate-300 font-semibold">
+                    <input
+                      type="checkbox"
+                      checked={enableEncryptionPassword}
+                      onChange={(e) => setEnableEncryptionPassword(e.target.checked)}
+                      className="rounded bg-slate-900 border-slate-700 text-amber-500 focus:ring-amber-500"
+                    />
+                    <span>Gunakan Password Proteksi PDF</span>
+                  </label>
+                </div>
+
+                {enableEncryptionPassword && (
+                  <div className="pt-1">
+                    <input
+                      type="password"
+                      placeholder="Masukkan password/PIN untuk buka PDF..."
+                      value={pdfPassword}
+                      onChange={(e) => setPdfPassword(e.target.value)}
+                      className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-mono text-xs focus:outline-none focus:border-amber-500"
+                    />
+                    <p className="text-[10px] text-slate-400 mt-1">Kosongkan jika hanya ingin enkripsi Read-Only tanpa password pembuka.</p>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -1341,11 +1653,12 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
               </button>
               <button
                 type="button"
-                onClick={handleExportExcel}
-                className="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold flex items-center gap-1.5 cursor-pointer shadow-lg shadow-emerald-900/40"
+                onClick={handleExportPDF}
+                className="px-5 py-2 rounded-xl font-bold flex items-center gap-2 cursor-pointer shadow-lg transition-all bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white shadow-rose-950/50"
               >
-                <Download className="w-4 h-4" />
-                <span>Download File Excel</span>
+                <FileText className="w-4 h-4" />
+                <Lock className="w-3.5 h-3.5 text-amber-300" />
+                <span>Download PDF Terenkripsi</span>
               </button>
             </div>
           </div>

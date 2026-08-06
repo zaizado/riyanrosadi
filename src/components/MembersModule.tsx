@@ -22,12 +22,15 @@ import {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
-  Loader2
+  Loader2,
+  Camera
 } from 'lucide-react';
 import * as XLSX from 'xlsx';
 import Papa from 'papaparse';
 import { Member, Gender, EmploymentStatus, MemberStatus, ShiftType, UserAccount, DeletedMemberAudit } from '../types';
 import { ConfirmModal } from './ConfirmModal';
+import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
+import { compressImage } from '../lib/imageUtils';
 
 interface MembersModuleProps {
   members: Member[];
@@ -35,7 +38,7 @@ interface MembersModuleProps {
   onUpdateMember: (updatedMember: Member) => void;
   onDeleteMember: (memberId: string) => void;
   onImportMembers: (importedMembers: Member[]) => void;
-  onOpenCardModal: (member: Member) => void;
+  onOpenCardModal?: (member: Member) => void;
   currentUser: UserAccount;
 }
 
@@ -278,7 +281,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
         statusKerja: (getVal(['Status Kerja', 'Status_Kerja']) as EmploymentStatus) || 'PKWTT',
         statusKeanggotaan: (getVal(['Status Keanggotaan', 'Status']) as MemberStatus) || 'Aktif',
         tanggalBergabung: joinDate || new Date().toISOString().slice(0, 10),
-        fotoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300'
+        fotoUrl: cheAvatar
       };
     });
 
@@ -350,7 +353,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
           statusKerja: imp.statusKerja || 'PKWTT',
           statusKeanggotaan: imp.statusKeanggotaan || 'Aktif',
           tanggalBergabung: imp.tanggalBergabung || new Date().toISOString().slice(0, 10),
-          fotoUrl: imp.fotoUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300',
+          fotoUrl: imp.fotoUrl || cheAvatar,
           updatedAt: new Date().toISOString(),
           isNewFromExcel: true,
           isMissingFromExcel: false
@@ -432,7 +435,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
     statusKerja: 'PKWTT',
     statusKeanggotaan: 'Aktif',
     tanggalBergabung: new Date().toISOString().slice(0, 10),
-    fotoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300'
+    fotoUrl: cheAvatar
   });
 
   const openAddModal = () => {
@@ -454,7 +457,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
       statusKerja: 'PKWTT',
       statusKeanggotaan: 'Aktif',
       tanggalBergabung: new Date().toISOString().slice(0, 10),
-      fotoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300'
+      fotoUrl: cheAvatar
     });
     setIsAddEditModalOpen(true);
   };
@@ -497,7 +500,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
         statusKerja: (formData.statusKerja as EmploymentStatus) || 'PKWTT',
         statusKeanggotaan: (formData.statusKeanggotaan as MemberStatus) || 'Aktif',
         tanggalBergabung: formData.tanggalBergabung || new Date().toISOString().slice(0, 10),
-        fotoUrl: formData.fotoUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300'
+        fotoUrl: formData.fotoUrl || cheAvatar
       };
       onAddMember(newMbr);
     }
@@ -667,7 +670,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
             <thead className="bg-slate-950 text-slate-400 font-bold uppercase tracking-wider text-[10px] border-b border-slate-800">
               <tr>
                 <th className="p-3.5">Anggota</th>
-                <th className="p-3.5">NIK & No. Anggota</th>
+                <th className="p-3.5">NIK (Data Excel)</th>
                 <th className="p-3.5">Departemen & Bagian</th>
                 <th className="p-3.5">Status Kerja & Shift</th>
                 <th className="p-3.5">Status Keanggotaan</th>
@@ -729,13 +732,10 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
                         </div>
                       </td>
 
-                      {/* NIK & Member ID (Requirement 3: NIK from Excel & No. Anggota from available KTA) */}
+                      {/* NIK (Data dari Excel) */}
                       <td className="p-3.5 font-mono">
-                        <p className={`font-extrabold ${isMissing ? 'text-rose-400 font-black' : 'text-red-400'}`}>
-                          No. KTA: {mbr.nomorAnggota}
-                        </p>
-                        <p className={`text-[11px] ${isMissing ? 'text-rose-300 font-bold' : 'text-slate-400'}`}>
-                          NIK (Excel): {mbr.nik}
+                        <p className={`font-black text-sm ${isMissing ? 'text-rose-400 font-black' : 'text-emerald-400'}`}>
+                          NIK: {mbr.nik}
                         </p>
                       </td>
 
@@ -788,14 +788,6 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
                             title="Lihat Detail Biodata"
                           >
                             <Eye className="w-4 h-4" />
-                          </button>
-
-                          <button
-                            onClick={() => onOpenCardModal(mbr)}
-                            className="p-1.5 rounded-lg bg-red-950 hover:bg-red-900 text-red-400 border border-red-800/50 transition-colors cursor-pointer"
-                            title="Kartu Anggota Digital & QR"
-                          >
-                            <CreditCard className="w-4 h-4" />
                           </button>
 
                           <button
@@ -918,16 +910,40 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
             </button>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 pb-6 border-b border-slate-800">
-              <div className="w-20 h-20 rounded-2xl bg-red-950 border border-red-800/60 flex items-center justify-center text-3xl font-black text-red-400 shrink-0 shadow-lg">
-                {selectedMember.namaLengkap ? selectedMember.namaLengkap.charAt(0).toUpperCase() : 'A'}
+              <div className="relative group cursor-pointer shrink-0">
+                <img
+                  src={selectedMember.fotoUrl || cheAvatar}
+                  alt={selectedMember.namaLengkap}
+                  className="w-24 h-24 rounded-2xl object-cover border-2 border-red-600 shadow-xl bg-black"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = cheAvatar;
+                  }}
+                />
+                <label className="absolute inset-0 bg-black/60 rounded-2xl opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white text-[10px] font-bold transition-opacity cursor-pointer p-1 text-center">
+                  <Camera className="w-6 h-6 text-red-400 mb-0.5" />
+                  <span>Ubah Foto</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const base64 = await compressImage(file, 350, 350, 0.75);
+                        const updated = { ...selectedMember, fotoUrl: base64 };
+                        setSelectedMember(updated);
+                        onUpdateMember(updated);
+                        e.target.value = '';
+                      }
+                    }}
+                  />
+                </label>
               </div>
               <div className="text-center sm:text-left space-y-1">
                 <div className="flex items-center justify-center sm:justify-start gap-2">
-                  <span className="px-2 py-0.5 text-[10px] font-extrabold bg-red-600 text-white rounded">
-                    {selectedMember.nomorAnggota}
-                  </span>
-                  <span className="text-xs font-semibold text-slate-400">
-                    NIK: {selectedMember.nik}
+                  <span className="px-3 py-1 text-xs font-mono font-black bg-emerald-950 text-emerald-400 border border-emerald-800/80 rounded-lg shadow-sm">
+                    NIK (Excel): {selectedMember.nik}
                   </span>
                 </div>
                 <h2 className="text-xl font-black text-white">{selectedMember.namaLengkap}</h2>
@@ -980,18 +996,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
               </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-800 flex justify-between items-center">
-              <button
-                onClick={() => {
-                  setIsDetailModalOpen(false);
-                  onOpenCardModal(selectedMember);
-                }}
-                className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs flex items-center gap-2 cursor-pointer"
-              >
-                <CreditCard className="w-4 h-4" />
-                Buka Kartu Anggota Digital & QR
-              </button>
-
+            <div className="pt-4 border-t border-slate-800 flex justify-end items-center">
               <button
                 onClick={() => setIsDetailModalOpen(false)}
                 className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 text-xs font-semibold cursor-pointer"

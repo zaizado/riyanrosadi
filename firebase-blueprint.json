@@ -164,6 +164,53 @@
           "updatedAt": { "type": "string" }
         }
       }
+    },
+    "fundraising": {
+      "entity": {
+        "fields": {
+          "id": { "type": "string" },
+          "nomorPenggalangan": { "type": "string" },
+          "memberId": { "type": "string" },
+          "namaAnggota": { "type": "string" },
+          "nikAnggota": { "type": "string" },
+          "departemen": { "type": "string" },
+          "nomorHp": { "type": "string" },
+          "hubungan": { "type": "string" },
+          "kondisi": { "type": "string" },
+          "keterangan": { "type": "string text" },
+          "picMemberId": { "type": "string" },
+          "picNama": { "type": "string" },
+          "picNik": { "type": "string" },
+          "tanggalDigalang": { "type": "string" },
+          "jumlahTerkumpul": { "type": "number" },
+          "isDidampingiKeRs": { "type": "boolean" },
+          "status": { "type": "string" },
+          "dibuatOleh": { "type": "string" },
+          "createdAt": { "type": "string" },
+          "updatedAt": { "type": "string" }
+        }
+      }
+    },
+    "criticalNews": {
+      "entity": {
+        "fields": {
+          "id": { "type": "string" },
+          "judul": { "type": "string text" },
+          "kategori": { "type": "string" },
+          "sumber": { "type": "string" },
+          "sumberUrl": { "type": "string" },
+          "tanggal": { "type": "string" },
+          "ringkasan": { "type": "string text" },
+          "penulis": { "type": "string" },
+          "waktuBaca": { "type": "string" },
+          "tags": { "type": "array" },
+          "materiLengkap": { "type": "string text" },
+          "isHot": { "type": "boolean" },
+          "isVerifiedSource": { "type": "boolean" },
+          "createdAt": { "type": "string" },
+          "updatedAt": { "type": "string" }
+        }
+      }
     }
   }
 }

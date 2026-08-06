@@ -15,7 +15,7 @@ import {
   Calendar,
   Layers
 } from 'lucide-react';
-import { OrganizationAgenda, AgendaType, UserAccount } from '../types';
+import { OrganizationAgenda, AgendaType, UserAccount, checkIsSuperAdmin } from '../types';
 import { ConfirmModal } from './ConfirmModal';
 
 interface AgendaModuleProps {
@@ -33,6 +33,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
   onDeleteAgenda,
   currentUser,
 }) => {
+  const isSuperAdmin = checkIsSuperAdmin(currentUser);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTypeFilter, setSelectedTypeFilter] = useState<string>('All');
   const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list');
@@ -79,6 +80,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
   });
 
   const handleOpenAdd = () => {
+    if (!isSuperAdmin) return;
     setEditingAgenda(null);
     setFormData({
       judul: '',
@@ -95,6 +97,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
   };
 
   const handleOpenEdit = (agenda: OrganizationAgenda) => {
+    if (!isSuperAdmin) return;
     setEditingAgenda(agenda);
     setFormData({ ...agenda });
     setIsAddModalOpen(true);
@@ -102,7 +105,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
 
   const handleSaveAgenda = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.judul) return;
+    if (!isSuperAdmin || !formData.judul) return;
 
     if (editingAgenda) {
       onUpdateAgenda({
@@ -143,13 +146,15 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
           </div>
         </div>
 
-        <button
-          onClick={handleOpenAdd}
-          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold text-xs shadow-md shadow-red-900/30 flex items-center gap-2 transition-all"
-        >
-          <Plus className="w-4 h-4" />
-          Tambah Agenda Baru
-        </button>
+        {isSuperAdmin && (
+          <button
+            onClick={handleOpenAdd}
+            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold text-xs shadow-md shadow-red-900/30 flex items-center gap-2 transition-all cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            Tambah Agenda Baru
+          </button>
+        )}
       </div>
 
       {/* Filter and View Switcher Bar */}
@@ -226,22 +231,24 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                   Notifikasi Otomatis Terkirim
                 </span>
 
-                <div className="flex items-center space-x-1.5">
-                  <button
-                    onClick={() => handleOpenEdit(agd)}
-                    className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-blue-400"
-                    title="Edit Agenda"
-                  >
-                    <Edit3 className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => setDeleteAgendaConfirmObj(agd)}
-                    className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-950 text-rose-400 cursor-pointer transition-colors"
-                    title="Hapus Agenda"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
+                {isSuperAdmin && (
+                  <div className="flex items-center space-x-1.5">
+                    <button
+                      onClick={() => handleOpenEdit(agd)}
+                      className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-blue-400 cursor-pointer transition-colors"
+                      title="Edit Agenda"
+                    >
+                      <Edit3 className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => setDeleteAgendaConfirmObj(agd)}
+                      className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-950 text-rose-400 cursor-pointer transition-colors"
+                      title="Hapus Agenda"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
               </div>
 
             </div>
@@ -368,6 +375,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
         icon="trash"
         onConfirm={() => {
           if (deleteAgendaConfirmObj) {
+            if (!isSuperAdmin) return;
             onDeleteAgenda(deleteAgendaConfirmObj.id);
             setDeleteAgendaConfirmObj(null);
           }

@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { 
-  LogIn, 
   Lock, 
   User, 
   Eye, 
   EyeOff, 
-  ShieldCheck, 
   AlertCircle, 
   CheckCircle2, 
   X
 } from 'lucide-react';
 import { UserAccount } from '../types';
-import { FsbnLogo } from './FsbnLogo';
+import fsbnLogo from '../assets/images/fsbn_logo_emblem_1785338169849.jpg';
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -26,7 +24,6 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   isOpen,
   onClose,
   users,
-  currentUser,
   onLoginSuccess,
   isFullPage = false
 }) => {
@@ -46,19 +43,20 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
     const inputUser = username.trim().toLowerCase();
     if (!inputUser) {
-      setErrorMessage('Username harus diisi!');
+      setErrorMessage('Username / NIK harus diisi!');
       return;
     }
 
-    // Find account by username, email, or name
+    // Find account by username, email, name, or NIK
     const foundUser = users.find(u => 
       (u.username && u.username.toLowerCase() === inputUser) ||
       u.name.toLowerCase() === inputUser ||
-      u.email.toLowerCase() === inputUser
+      u.email.toLowerCase() === inputUser ||
+      (u.nik && u.nik.toLowerCase() === inputUser)
     );
 
     if (!foundUser) {
-      setErrorMessage(`Akun username "${username}" tidak ditemukan!`);
+      setErrorMessage(`Akun username/NIK "${username}" tidak ditemukan!`);
       return;
     }
 
@@ -77,136 +75,253 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   };
 
   return (
-    <div className={`z-50 ${isFullPage ? 'min-h-screen bg-slate-950 flex items-center justify-center p-4' : 'fixed inset-0 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4'}`}>
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl relative transition-all">
+    <div className={`z-50 ${isFullPage ? 'min-h-screen w-full relative overflow-y-auto overflow-x-hidden flex flex-col items-center justify-center p-4 sm:p-6 bg-[#3a0000]' : 'fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto'}`}>
+      
+      {/* BACKGROUND GRAPHICS CONTAINER */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
+        {/* Base Radial Background Gradient */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#b30000] via-[#5c0000] to-[#120000]" />
+
+        {/* Sunburst Rays Pattern */}
+        <svg className="absolute inset-0 w-full h-full opacity-25" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+          {Array.from({ length: 32 }).map((_, i) => {
+            const angle1 = (i * 11.25 * Math.PI) / 180;
+            const angle2 = ((i * 11.25 + 5.625) * Math.PI) / 180;
+            const x1 = 500 + 1500 * Math.cos(angle1);
+            const y1 = 200 + 1500 * Math.sin(angle1);
+            const x2 = 500 + 1500 * Math.cos(angle2);
+            const y2 = 200 + 1500 * Math.sin(angle2);
+            return (
+              <polygon
+                key={i}
+                points={`500,200 ${x1},${y1} ${x2},${y2}`}
+                fill="#ff1a1a"
+                opacity={i % 2 === 0 ? "0.35" : "0.05"}
+              />
+            );
+          })}
+        </svg>
+
+        {/* Left Side: Crowd Silhouette with Fists & Flags */}
+        <div className="absolute bottom-0 left-0 w-1/2 h-80 sm:h-96 opacity-60 mix-blend-multiply">
+          <svg className="w-full h-full" viewBox="0 0 500 300" preserveAspectRatio="none">
+            {/* Flags */}
+            <path d="M 40 180 L 35 60 L 90 80 L 40 110" fill="#200" stroke="#000" strokeWidth="2" />
+            <path d="M 120 200 L 115 80 L 180 100 L 120 130" fill="#300" stroke="#000" strokeWidth="2" />
+            <path d="M 220 220 L 210 100 L 270 120 L 215 150" fill="#200" stroke="#000" strokeWidth="2" />
+            {/* Crowd bodies and raised arms */}
+            <path d="
+              M 0 300 
+              L 0 220 
+              Q 20 210, 30 230 
+              L 35 180 L 45 180 L 50 220 
+              Q 70 200, 85 220 
+              L 90 170 L 100 170 L 105 210
+              Q 130 190, 150 215
+              L 160 160 L 172 160 L 175 220
+              Q 200 195, 230 225
+              L 240 175 L 252 175 L 255 230
+              Q 280 200, 310 235
+              L 320 185 L 330 185 L 335 240
+              Q 370 210, 410 245
+              L 420 190 L 430 190 L 435 255
+              Q 460 220, 500 260
+              L 500 300 Z" fill="#050000" />
+          </svg>
+        </div>
+
+        {/* Right Side: Factory Industrial Skyline Silhouette */}
+        <div className="absolute bottom-0 right-0 w-1/2 h-80 sm:h-96 opacity-60 mix-blend-multiply">
+          <svg className="w-full h-full" viewBox="0 0 500 300" preserveAspectRatio="none">
+            {/* Chimneys and Factory Roofs */}
+            <path d="
+              M 0 300 
+              L 50 300 L 50 210 L 65 210 L 65 300
+              L 90 300 L 90 180 L 105 180 L 105 300
+              L 140 300 L 140 230 L 160 210 L 180 230 L 200 210 L 220 230 L 220 300
+              L 260 300 L 260 160 L 275 160 L 275 300
+              L 310 300 L 310 120 L 325 120 L 325 300
+              L 370 300 L 370 190 L 385 190 L 385 300
+              L 410 300 L 410 220 L 460 220 L 460 300
+              L 500 300 Z" fill="#050000" />
+          </svg>
+        </div>
+
+        {/* Bottom Left Halftone Dot Matrix Texture */}
+        <div className="absolute bottom-0 left-0 w-64 h-64 opacity-25">
+          <svg className="w-full h-full" viewBox="0 0 200 200">
+            <defs>
+              <pattern id="halftone" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+                <circle cx="8" cy="8" r="5" fill="#ff2222" />
+              </pattern>
+            </defs>
+            <rect width="200" height="200" fill="url(#halftone)" />
+          </svg>
+        </div>
+
+        {/* Bottom Right Paint Brush / Grunge Splash Texture */}
+        <div className="absolute bottom-0 right-0 w-80 h-96 opacity-30 mix-blend-screen pointer-events-none">
+          <svg className="w-full h-full" viewBox="0 0 300 400" preserveAspectRatio="none">
+            <path d="M 100 400 Q 150 250, 300 100 L 300 400 Z" fill="#ff1a1a" />
+            <path d="M 50 400 Q 200 300, 300 200 L 300 400 Z" fill="#990000" />
+            <circle cx="220" cy="220" r="40" fill="#ff0000" opacity="0.4" />
+            <circle cx="260" cy="160" r="25" fill="#ff0000" opacity="0.3" />
+          </svg>
+        </div>
+      </div>
+
+      {/* MAIN CONTAINER */}
+      <div className="relative z-10 w-full max-w-md my-auto flex flex-col items-center">
         
-        {/* Close button if not forced full page */}
+        {/* Close Button if opened as overlay modal */}
         {!isFullPage && onClose && (
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-slate-400 hover:text-white p-2 rounded-full hover:bg-slate-800 transition-colors z-10"
+            className="absolute -top-10 right-0 text-white/80 hover:text-white bg-black/60 hover:bg-black p-2 rounded-full transition-colors z-20 cursor-pointer"
             title="Tutup Modal Login"
           >
             <X className="w-5 h-5" />
           </button>
         )}
 
-        {/* Top Header Banner */}
-        <div className="bg-gradient-to-r from-red-950 via-slate-900 to-slate-900 p-6 border-b border-slate-800 relative overflow-hidden">
-          <div className="absolute right-0 top-0 translate-x-1/4 -translate-y-1/4 w-48 h-48 bg-red-600/10 rounded-full blur-2xl pointer-events-none" />
-          
-          <div className="flex items-center space-x-4 relative z-10">
-            <FsbnLogo className="w-14 h-14 rounded-2xl shadow-xl border-2 border-red-500/50 shrink-0" />
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-xl font-black text-white tracking-tight">Login Portal Serikat</h2>
-                <span className="px-2 py-0.5 text-[10px] font-extrabold bg-red-600 text-white rounded-full uppercase tracking-wider">
-                  SBN KASBI
-                </span>
-              </div>
-              <p className="text-xs text-slate-300 mt-0.5 font-medium">
-                PT Victory Chingluh Indonesia
-              </p>
-            </div>
+        {/* TOP FSBN EMBLEM / LOGO */}
+        <div className="flex flex-col items-center text-center mb-4">
+          {/* Official FSBN Logo Image */}
+          <div className="w-44 sm:w-52 relative drop-shadow-[0_12px_25px_rgba(0,0,0,0.9)]">
+            <img 
+              src={fsbnLogo} 
+              alt="Logo FSBN" 
+              className="w-full h-auto object-contain rounded-xl"
+            />
+          </div>
+
+          {/* Subtitle Headline */}
+          <div className="mt-2 text-center text-white px-2">
+            <h2 className="text-xs sm:text-sm font-black tracking-wide leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] uppercase">
+              SELAMAT DATANG DI PORTAL KOORDINASI
+            </h2>
+            <h3 className="text-xs sm:text-sm font-black tracking-wide leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] uppercase mt-0.5 text-slate-100">
+              SBN KASBI PT VICTORY CHINGLUH INDONESIA
+            </h3>
+          </div>
+
+          {/* Line Divider with Small Red Star */}
+          <div className="flex items-center justify-center w-full max-w-xs mt-3 gap-2 opacity-80">
+            <div className="h-[1px] bg-red-600/80 flex-1" />
+            <span className="text-red-500 text-xs">★</span>
+            <div className="h-[1px] bg-red-600/80 flex-1" />
           </div>
         </div>
 
-        {/* Login Form Body */}
-        <div className="p-6 space-y-5">
+        {/* LOGIN FORM CARD */}
+        <div className="w-full bg-white/95 border border-red-200 rounded-2xl p-5 sm:p-6 shadow-2xl backdrop-blur-md relative overflow-hidden text-slate-900">
           
+          {/* Subtle Red Card Glow Effect */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-1 bg-red-600 rounded-full" />
+
+          {/* Title Header inside Card */}
+          <div className="flex items-center justify-center gap-3 mb-5">
+            <div className="h-[1px] bg-red-200 flex-1" />
+            <h4 className="text-base sm:text-lg font-black text-red-700 tracking-widest uppercase">
+              LOGIN
+            </h4>
+            <div className="h-[1px] bg-red-200 flex-1" />
+          </div>
+
+          {/* Messages */}
           {errorMessage && (
-            <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold flex items-center gap-2.5 animate-shake">
-              <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+            <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs font-semibold flex items-center gap-2.5 animate-shake">
+              <AlertCircle className="w-4 h-4 shrink-0 text-red-600" />
               <span>{errorMessage}</span>
             </div>
           )}
 
           {successMessage && (
-            <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center gap-2.5">
-              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
+            <div className="mb-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2.5">
+              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
               <span>{successMessage}</span>
             </div>
           )}
 
+          {/* Form */}
           <form onSubmit={handleLoginSubmit} className="space-y-4">
-            <div>
-              <label className="text-xs font-bold text-slate-300 block mb-1.5 flex items-center justify-between">
-                <span className="flex items-center gap-1.5">
-                  <User className="w-3.5 h-3.5 text-red-400" />
-                  Username / NIK Karyawan
-                </span>
-              </label>
+            
+            {/* Field 1: USERNAME */}
+            <div className="relative flex items-center bg-slate-50 border border-slate-300 focus-within:border-red-600 rounded-xl px-3.5 py-3 transition-colors shadow-xs">
+              <User className="w-5 h-5 text-red-600 shrink-0 mr-3" />
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
-                placeholder="Masukkan username login..."
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-red-500 font-mono transition-colors"
+                placeholder="USERNAME"
+                className="w-full bg-transparent text-xs sm:text-sm font-bold text-slate-900 placeholder-slate-400 uppercase tracking-wider focus:outline-none"
               />
             </div>
 
-            <div>
-              <label className="text-xs font-bold text-slate-300 block mb-1.5 flex items-center justify-between">
-                <span className="flex items-center gap-1.5">
-                  <Lock className="w-3.5 h-3.5 text-red-400" />
-                  Password Akses
-                </span>
-              </label>
-              <div className="relative">
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  placeholder="Masukkan password..."
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-red-500 font-mono pr-10 transition-colors"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-2.5 text-slate-500 hover:text-white transition-colors"
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
+            {/* Field 2: PASSWORD */}
+            <div className="relative flex items-center bg-slate-50 border border-slate-300 focus-within:border-red-600 rounded-xl px-3.5 py-3 transition-colors shadow-xs">
+              <Lock className="w-5 h-5 text-red-600 shrink-0 mr-3" />
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="PASSWORD"
+                className="w-full bg-transparent text-xs sm:text-sm font-bold text-slate-900 placeholder-slate-400 uppercase tracking-wider focus:outline-none pr-8"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3.5 text-slate-400 hover:text-slate-700 transition-colors cursor-pointer"
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
             </div>
 
             {/* Remember Me Checkbox */}
-            <div className="flex items-center justify-between py-1">
-              <label className="flex items-center space-x-2 text-xs text-slate-300 font-medium cursor-pointer select-none">
+            <div className="flex items-center pt-1">
+              <label className="flex items-center space-x-2.5 text-xs font-bold text-slate-700 tracking-wider uppercase cursor-pointer select-none">
                 <input
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="w-4 h-4 rounded bg-slate-950 border-slate-700 text-red-600 focus:ring-red-500/50 accent-red-600 cursor-pointer"
+                  className="w-4 h-4 rounded bg-slate-100 border-slate-300 text-red-600 focus:ring-red-600 accent-red-600 cursor-pointer"
                 />
-                <span>Ingat Saya (Sesi tetap tersimpan)</span>
+                <span>INGAT SAYA</span>
               </label>
-              <span className="text-[10px] text-slate-500">Otomatis Login</span>
             </div>
 
+            {/* Login Submit Button */}
             <button
               type="submit"
-              className="w-full py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-black text-xs rounded-xl shadow-lg shadow-red-900/40 transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-3.5 mt-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-black text-sm tracking-widest uppercase rounded-xl shadow-md hover:shadow-lg transition-all cursor-pointer"
             >
-              <LogIn className="w-4 h-4" />
-              <span>MASUK APLIKASI</span>
+              LOGIN
             </button>
           </form>
 
         </div>
 
-        {/* Footer Security Badge */}
-        <div className="bg-slate-950 p-3.5 border-t border-slate-800 text-[10px] text-slate-400 flex items-center justify-between">
-          <span className="flex items-center gap-1.5 text-slate-400">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-            Sistem Terenkripsi & Cloud Database
-          </span>
-          <span className="font-mono text-slate-500">v2.4 Proteksi Resmi</span>
+        {/* BOTTOM FOOTER SLOGAN */}
+        <div className="mt-6 flex flex-col items-center w-full">
+          <div className="flex items-center justify-center w-full max-w-sm gap-3">
+            <div className="h-[1px] bg-red-700/80 flex-1" />
+            <span className="text-sm sm:text-base font-black text-[#ffe600] tracking-widest uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+              MUDA - BERANI - MILITAN
+            </span>
+            <div className="h-[1px] bg-red-700/80 flex-1" />
+          </div>
+
+          <div className="flex items-center justify-center w-full max-w-xs mt-2 gap-2 opacity-80">
+            <div className="h-[1px] bg-red-600/80 flex-1" />
+            <span className="text-red-500 text-xs">★</span>
+            <div className="h-[1px] bg-red-600/80 flex-1" />
+          </div>
         </div>
 
       </div>
+
     </div>
   );
 };

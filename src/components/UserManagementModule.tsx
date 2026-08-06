@@ -16,6 +16,7 @@ import {
   FileSpreadsheet
 } from 'lucide-react';
 import { UserAccount, UserRole, AuditLog, checkIsSuperAdmin } from '../types';
+import { STRUKTUR_PENGURUS_DATA } from '../data/strukturPengurusData';
 import { ConfirmModal } from './ConfirmModal';
 import { exportFullBackup, resetAllData } from '../lib/storage';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
@@ -134,7 +135,7 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
             onClick={() => setActiveTab('users')}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition-all ${activeTab === 'users' ? 'bg-red-600 text-white border-red-500' : 'bg-slate-800 text-slate-300 border-slate-700'}`}
           >
-            Pengguna ({visibleUsers.length})
+            Akun Pengurus ({visibleUsers.length})
           </button>
           <button
             onClick={() => setActiveTab('audit_logs')}
@@ -175,7 +176,7 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
                 <tr>
                   <th className="p-3.5">Pengurus</th>
                   <th className="p-3.5">Role Hak Akses</th>
-                  <th className="p-3.5">Departemen</th>
+                  <th className="p-3.5">Jabatan</th>
                   <th className="p-3.5">Kontak & NIK</th>
                   <th className="p-3.5 text-right">Aksi</th>
                 </tr>
@@ -195,7 +196,15 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
                     <tr key={usr.id} className="hover:bg-slate-850">
                       <td className="p-3.5">
                         <div className="flex items-center space-x-3">
-                          <img src={usr.avatarUrl || cheAvatar} alt={usr.name} className="w-9 h-9 rounded-full object-cover border border-slate-700" />
+                          <img 
+                            src={usr.avatarUrl || cheAvatar} 
+                            alt={usr.name} 
+                            className="w-9 h-9 rounded-full object-cover border border-slate-700" 
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = cheAvatar;
+                            }}
+                          />
                           <div>
                             <p className="font-bold text-white">{usr.name}</p>
                             <p className="text-[10px] text-slate-400">{usr.email}</p>
@@ -317,8 +326,8 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
 
       {/* ADD / EDIT USER MODAL */}
       {isAddUserModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md text-white p-6 shadow-2xl relative">
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md text-white p-4 sm:p-6 shadow-2xl relative max-h-[88vh] overflow-y-auto custom-scrollbar my-auto">
             <button
               onClick={() => setIsAddUserModalOpen(false)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
@@ -377,13 +386,22 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1 font-semibold">Departemen</label>
-                <input
-                  type="text"
+                <label className="block text-slate-400 mb-1 font-semibold">Jabatan (Struktur Pengurus)</label>
+                <select
                   value={formData.department || ''}
                   onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
-                />
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-bold"
+                >
+                  <option value="">-- Pilih Jabatan --</option>
+                  {Array.from(new Set(STRUKTUR_PENGURUS_DATA.map((p) => p.jabatan))).map((jbt) => (
+                    <option key={jbt} value={jbt}>
+                      {jbt}
+                    </option>
+                  ))}
+                  {formData.department && !Array.from(new Set(STRUKTUR_PENGURUS_DATA.map((p) => p.jabatan))).includes(formData.department) && (
+                    <option value={formData.department}>{formData.department}</option>
+                  )}
+                </select>
               </div>
 
               <div>

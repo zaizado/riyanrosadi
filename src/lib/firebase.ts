@@ -61,6 +61,21 @@ const seedIfEmpty = async <T extends { id: string }>(
   }
 };
 
+// Helper to remove undefined properties which Firestore rejects
+const cleanForFirestore = (obj: any): any => {
+  if (obj === null || obj === undefined) return null;
+  if (typeof obj !== 'object') return obj;
+  if (Array.isArray(obj)) return obj.map(cleanForFirestore);
+  const cleaned: any = {};
+  for (const key of Object.keys(obj)) {
+    const val = obj[key];
+    if (val !== undefined) {
+      cleaned[key] = cleanForFirestore(val);
+    }
+  }
+  return cleaned;
+};
+
 // Generic Realtime Subscription for array data
 export const subscribeCollection = <T extends { id: string }>(
   collectionName: string,
@@ -75,39 +90,47 @@ export const subscribeCollection = <T extends { id: string }>(
 
     if (snapshot.empty) {
       if (!hasSeeded && initialItems.length > 0) {
-        // First-time seed if Firestore collection is completely empty and never initialized
         localStorage.setItem(seedKey, 'true');
         seedIfEmpty(collectionName, initialItems);
         onUpdate(initialItems);
       } else {
-        // Collection is empty (or was emptied by user deletion)
         localStorage.setItem(seedKey, 'true');
         onUpdate([]);
       }
     } else {
       localStorage.setItem(seedKey, 'true');
-      const items: T[] = [];
-      snapshot.forEach(docSnap => {
-        items.push(docSnap.data() as T);
-      });
+      const items = snapshot.docs.map(docSnap => ({
+        ...(docSnap.data() as T),
+        id: docSnap.id
+      }));
       onUpdate(items);
     }
   }, (error) => {
     console.error(`Error in realtime listener for ${collectionName}:`, error);
-    onUpdate(initialItems);
   });
 
   return unsubscribe;
 };
 
-// Save single item
+// Save single item with timestamp and versioning
 export const saveFirestoreDoc = async <T extends { id: string }>(
   collectionName: string, 
   item: T
 ) => {
   try {
     const docRef = doc(db, collectionName, item.id);
-    await setDoc(docRef, item, { merge: true });
+    let itemToSave: any = { 
+      ...item,
+      updatedAt: new Date().toISOString()
+    };
+    if (itemToSave.avatarUrl && typeof itemToSave.avatarUrl === 'string' && itemToSave.avatarUrl.length > 500000) {
+      itemToSave.avatarUrl = '/che_avatar.jpg';
+    }
+    if (itemToSave.fotoUrl && typeof itemToSave.fotoUrl === 'string' && itemToSave.fotoUrl.length > 500000) {
+      itemToSave.fotoUrl = '/che_avatar.jpg';
+    }
+    const cleaned = cleanForFirestore(itemToSave);
+    await setDoc(docRef, cleaned, { merge: true });
   } catch (err) {
     console.error(`Error saving to ${collectionName}:`, err);
   }
@@ -138,7 +161,15 @@ export const saveFullCollection = async <T extends { id: string }>(
       const batch = writeBatch(db);
       chunk.forEach(item => {
         const docRef = doc(colRef, item.id);
-        batch.set(docRef, item);
+        let itemToSave: any = { ...item };
+        if (itemToSave.avatarUrl && typeof itemToSave.avatarUrl === 'string' && itemToSave.avatarUrl.length > 500000) {
+          itemToSave.avatarUrl = '/che_avatar.jpg';
+        }
+        if (itemToSave.fotoUrl && typeof itemToSave.fotoUrl === 'string' && itemToSave.fotoUrl.length > 500000) {
+          itemToSave.fotoUrl = '/che_avatar.jpg';
+        }
+        const cleaned = cleanForFirestore(itemToSave);
+        batch.set(docRef, cleaned);
       });
       await batch.commit();
     }
