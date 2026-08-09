@@ -235,13 +235,13 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
     const q = searchQuery.toLowerCase();
     const matchSearch = 
       !q ||
-      c.namaAnggota.toLowerCase().includes(q) ||
-      c.nikAnggota.toLowerCase().includes(q) ||
-      c.nomorPenggalangan.toLowerCase().includes(q) ||
-      c.departemen.toLowerCase().includes(q) ||
-      c.picNama.toLowerCase().includes(q) ||
-      c.picNik.toLowerCase().includes(q) ||
-      c.keterangan.toLowerCase().includes(q);
+      (c.namaAnggota && c.namaAnggota.toLowerCase().includes(q)) ||
+      (c.nikAnggota && c.nikAnggota.toLowerCase().includes(q)) ||
+      (c.nomorPenggalangan && c.nomorPenggalangan.toLowerCase().includes(q)) ||
+      (c.departemen && c.departemen.toLowerCase().includes(q)) ||
+      (c.picNama && c.picNama.toLowerCase().includes(q)) ||
+      (c.picNik && c.picNik.toLowerCase().includes(q)) ||
+      (c.keterangan && c.keterangan.toLowerCase().includes(q));
 
     const matchKondisi = filterKondisi === 'SEMUA' || c.kondisi === filterKondisi;
     const matchHubungan = filterHubungan === 'SEMUA' || c.hubungan === filterHubungan;
@@ -662,12 +662,12 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
       {/* CREATE / EDIT FORM MODAL */}
       <AnimatePresence>
         {isModalOpen && (
-          <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="mobile-modal-backdrop">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="bg-white border border-slate-200 rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden my-auto max-h-[90vh] flex flex-col"
+              className="mobile-modal-card bg-white border border-slate-200 rounded-3xl max-w-2xl shadow-2xl overflow-hidden flex flex-col"
             >
               
               {/* Modal Header */}
@@ -977,12 +977,12 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
       {/* RECEIPT / BUKTI STRUK MODAL */}
       <AnimatePresence>
         {selectedReceipt && (
-          <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="mobile-modal-backdrop">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white border border-slate-300 rounded-3xl w-full max-w-md p-6 shadow-2xl space-y-4 relative"
+              className="mobile-modal-card bg-white border border-slate-300 rounded-3xl max-w-md p-6 shadow-2xl space-y-4 relative"
             >
               <button
                 onClick={() => setSelectedReceipt(null)}

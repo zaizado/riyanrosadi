@@ -391,7 +391,7 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div className="mobile-modal-backdrop">
       
       {/* CSS Styles for Realistic Portrait 5.4cm x 8.56cm (54mm x 85.6mm) & Native Window Print */}
       <style>{`
@@ -453,7 +453,7 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
       `}</style>
 
       {/* Main UI Modal Box (Hidden during print) */}
-      <div className="bg-white border border-slate-200 rounded-3xl w-full max-w-2xl text-slate-900 p-5 sm:p-6 shadow-2xl relative space-y-5 my-auto max-h-[95vh] overflow-y-auto no-print">
+      <div className="mobile-modal-card bg-white border border-slate-200 rounded-3xl max-w-2xl text-slate-900 p-5 sm:p-6 shadow-2xl relative space-y-5 no-print">
         
         {/* Top Header Controls */}
         <div className="flex items-center justify-between border-b border-slate-200 pb-4">

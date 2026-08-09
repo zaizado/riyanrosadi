@@ -639,8 +639,8 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
 
       {/* MODAL: ADD / EDIT ACCOUNT */}
       {isAddAccountModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg p-4 sm:p-6 space-y-4 shadow-2xl relative max-h-[88vh] overflow-y-auto custom-scrollbar my-auto">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-4 sm:p-6 shadow-2xl relative max-w-lg">
             <button
               onClick={() => setIsAddAccountModalOpen(false)}
               className="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800/80 hover:bg-slate-700 p-1.5 rounded-lg transition-colors z-10"
@@ -819,8 +819,8 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
 
       {/* MODAL: QUICK RESET PASSWORD */}
       {resetPassModalAccount && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 space-y-4 shadow-2xl relative">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative max-w-md">
             <button
               onClick={() => setResetPassModalAccount(null)}
               className="absolute top-4 right-4 text-slate-400 hover:text-white"

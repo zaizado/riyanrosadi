@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   LayoutDashboard, 
   Users, 
@@ -174,156 +175,187 @@ export const Sidebar: React.FC<SidebarProps> = ({
   ];
 
   return (
-    <>
-      {/* Overlay backdrop */}
+    <AnimatePresence>
       {isOpen && (
-        <div 
-          onClick={onClose}
-          className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 transition-opacity"
-        />
-      )}
-
-      {/* Drawer Panel */}
-      <aside
-        className={`fixed top-0 left-0 bottom-0 w-80 bg-white text-slate-800 z-50 transform transition-transform duration-300 ease-in-out border-r border-slate-200 flex flex-col shadow-2xl ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
-        {/* Top Header Drawer */}
-        <div className="p-4 border-b border-red-800 flex items-center justify-between bg-gradient-to-r from-red-700 to-red-800 text-white">
-          <div className="flex items-center space-x-3">
-            <FsbnLogo className="w-10 h-10 rounded-xl shadow-md border border-white/30 shrink-0" />
-            <div>
-              <h2 className="font-black text-sm tracking-wide text-white uppercase">SBN KASBI VCI</h2>
-              <p className="text-[11px] font-black text-yellow-300 tracking-wider uppercase drop-shadow">MUDA BERANI MILITAN</p>
-            </div>
-          </div>
-          <button
+        <>
+          {/* Overlay backdrop */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             onClick={onClose}
-            className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+            className="fixed inset-0 bg-slate-950/70 backdrop-blur-md z-40 transition-opacity"
+          />
 
-        {/* Current User Card */}
-        <div className="p-4 bg-slate-50 border-b border-slate-200">
-          <div className="flex items-center space-x-3">
-            <img 
-              src={currentUser.avatarUrl || cheAvatar} 
-              alt={currentUser.name} 
-              className="w-11 h-11 rounded-full object-cover ring-2 ring-red-600 shadow-md"
-              onError={(e) => {
-                e.currentTarget.onerror = null;
-                e.currentTarget.src = cheAvatar;
-              }}
-            />
-            <div className="flex-1 min-w-0">
-              <p className="font-black text-sm text-slate-900 truncate">{currentUser.name}</p>
-              <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="px-2 py-0.5 text-[10px] font-bold bg-red-100 text-red-700 border border-red-200 rounded-full uppercase">
-                  {currentUser.role}
-                </span>
-                <span className="text-[10px] text-slate-500 font-medium truncate">{currentUser.department}</span>
+          {/* Drawer Panel */}
+          <motion.aside
+            initial={{ x: '-100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '-100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 220 }}
+            className="fixed top-0 left-0 bottom-0 w-80 sm:w-84 bg-slate-900/95 text-slate-100 z-50 border-r border-white/10 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur-2xl pt-[var(--sat)] pb-[max(1rem,var(--sab))] overflow-hidden"
+          >
+            {/* Top Header Drawer */}
+            <div className="p-4 border-b border-white/10 flex items-center justify-between bg-gradient-to-r from-red-950/90 via-red-900/80 to-slate-900 text-white relative overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(220,38,38,0.25),transparent_70%)] pointer-events-none" />
+              <div className="flex items-center space-x-3 relative z-10">
+                <FsbnLogo className="w-10 h-10 rounded-xl shadow-lg border border-red-500/40 glow-red-sm shrink-0" />
+                <div>
+                  <h2 className="font-black text-sm tracking-wider text-white uppercase flex items-center gap-1">
+                    SBN KASBI VCI
+                    <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+                  </h2>
+                  <p className="text-[10px] font-black text-amber-300 tracking-widest uppercase drop-shadow">MUDA BERANI MILITAN</p>
+                </div>
+              </div>
+              <motion.button
+                whileHover={{ scale: 1.1, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={onClose}
+                className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors relative z-10 cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </motion.button>
+            </div>
+
+            {/* Current User Card */}
+            <div className="p-4 bg-slate-950/60 border-b border-white/10 backdrop-blur-md">
+              <div className="flex items-center space-x-3">
+                <div className="relative">
+                  <img 
+                    src={currentUser.avatarUrl || cheAvatar} 
+                    alt={currentUser.name} 
+                    className="w-11 h-11 rounded-xl object-cover ring-2 ring-red-500/80 shadow-lg glow-red-sm"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = cheAvatar;
+                    }}
+                  />
+                  <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-slate-950 rounded-full animate-pulse" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-black text-sm text-white truncate">{currentUser.name}</p>
+                  <div className="flex items-center gap-1.5 mt-1">
+                    <span className="px-2 py-0.5 text-[10px] font-bold bg-red-600/30 text-red-300 border border-red-500/40 rounded-full uppercase tracking-wider">
+                      {currentUser.role}
+                    </span>
+                    <span className="text-[10px] text-slate-400 font-medium truncate">{currentUser.department}</span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* Navigation List */}
-        <div className="flex-1 overflow-y-auto py-3 px-2 space-y-1">
-          <div className="px-3 py-1 text-[10px] font-black tracking-widest text-red-600 uppercase">
-            Menu Utama Organisasi
-          </div>
+            {/* Navigation List */}
+            <div className="flex-1 overflow-y-auto py-3 px-2.5 space-y-1.5 scrollbar-none">
+              <div className="px-3 py-1 text-[10px] font-black tracking-widest text-red-400 uppercase flex items-center justify-between">
+                <span>Menu Utama Organisasi</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
+              </div>
 
-          {menuItems.map((item) => {
-            const IconComponent = item.icon;
-            const isActive = activeTab === item.id;
+              {menuItems.map((item, index) => {
+                const IconComponent = item.icon;
+                const isActive = activeTab === item.id;
 
-            return (
-              <button
-                key={item.id}
-                onClick={() => {
-                  onSelectTab(item.id);
-                  onClose();
-                }}
-                className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between transition-all group ${
-                  isActive 
-                    ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-md font-bold' 
-                    : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
-                }`}
-              >
-                <div className="flex items-center space-x-3 min-w-0">
-                  <div className={`p-1.5 rounded-lg ${isActive ? 'bg-white/20' : 'bg-red-50 border border-red-100'} ${isActive ? 'text-white' : 'text-red-600'}`}>
-                    <IconComponent className={`w-5 h-5 ${isActive ? 'text-white' : 'text-red-600'}`} />
-                  </div>
-                  <div className="truncate">
-                    <p className={`text-xs ${isActive ? 'font-black text-white' : 'font-bold text-slate-800'}`}>
-                      {item.label}
-                    </p>
-                    <p className={`text-[10px] truncate ${isActive ? 'text-red-100' : 'text-slate-500'}`}>
-                      {item.subtitle}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-1">
-                  {item.badge && (
-                    <span className={`px-1.5 py-0.5 text-[9px] font-bold rounded ${
+                return (
+                  <motion.button
+                    key={item.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.03, duration: 0.2 }}
+                    whileHover={{ scale: 1.02, x: 4 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => {
+                      onSelectTab(item.id);
+                      onClose();
+                    }}
+                    className={`w-full text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between transition-all group cursor-pointer ${
                       isActive 
-                        ? 'bg-white text-red-700' 
-                        : 'bg-red-100 text-red-700 border border-red-200'
-                    }`}>
-                      {item.badge}
-                    </span>
-                  )}
-                  <ChevronRight className={`w-4 h-4 transition-transform ${isActive ? 'text-white' : 'text-slate-400 group-hover:translate-x-0.5'}`} />
-                </div>
-              </button>
-            );
-          })}
-        </div>
+                        ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg glow-red-sm font-bold border border-red-400/40' 
+                        : 'text-slate-300 hover:bg-white/5 hover:text-white border border-transparent hover:border-white/10'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-3 min-w-0">
+                      <div className={`p-2 rounded-xl transition-colors ${
+                        isActive 
+                          ? 'bg-white/20 text-white' 
+                          : 'bg-slate-800/80 border border-white/10 text-red-400 group-hover:border-red-500/50 group-hover:text-red-300'
+                      }`}>
+                        <IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </div>
+                      <div className="truncate">
+                        <p className={`text-xs ${isActive ? 'font-black text-white' : 'font-bold text-slate-200 group-hover:text-white'}`}>
+                          {item.label}
+                        </p>
+                        <p className={`text-[10px] truncate ${isActive ? 'text-red-100' : 'text-slate-400'}`}>
+                          {item.subtitle}
+                        </p>
+                      </div>
+                    </div>
 
-        {/* Footer Info & Logout */}
-        <div className="p-4 border-t border-slate-200 bg-slate-50 text-[11px] text-slate-600 space-y-2.5">
-          {onLogout && (
-            <button
-              onClick={() => setShowLogoutConfirm(true)}
-              className="w-full py-2.5 px-3 bg-red-50 hover:bg-red-100 border border-red-200 text-red-700 font-black rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm uppercase tracking-wider"
-            >
-              <LogOut className="w-4 h-4 text-red-600" />
-              <span>LOGOUT / KELUAR</span>
-            </button>
-          )}
-
-          <div>
-            <div className="flex items-center justify-between mb-1">
-              <span className="font-semibold text-slate-800">SBN KASBI PT VCI</span>
-              <span className="text-[10px] bg-slate-200 px-1.5 py-0.5 rounded text-slate-700 font-mono">v2.4 Android</span>
+                    <div className="flex items-center space-x-1.5">
+                      {item.badge && (
+                        <span className={`px-2 py-0.5 text-[9px] font-black rounded-full ${
+                          isActive 
+                            ? 'bg-white text-red-700 shadow-sm' 
+                            : 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
+                        }`}>
+                          {item.badge}
+                        </span>
+                      )}
+                      <ChevronRight className={`w-4 h-4 transition-transform ${isActive ? 'text-white' : 'text-slate-500 group-hover:text-slate-200 group-hover:translate-x-0.5'}`} />
+                    </div>
+                  </motion.button>
+                );
+              })}
             </div>
-            <p className="text-[10px] text-slate-500 leading-relaxed">
-              Sistem Informasi & Koordinasi Internal Pengurus Serikat Buruh PT Victory Chingluh Indonesia.
-            </p>
-          </div>
-        </div>
 
-        {/* CONFIRM LOGOUT MODAL IN SIDEBAR */}
-        <ConfirmModal
-          isOpen={showLogoutConfirm}
-          title="Keluar dari Aplikasi"
-          message={`Apakah Anda yakin ingin keluar dari akun ${currentUser.name}?`}
-          confirmText="Ya, Logout"
-          cancelText="Batal"
-          type="danger"
-          icon="logout"
-          onConfirm={() => {
-            setShowLogoutConfirm(false);
-            if (onLogout) onLogout();
-            onClose();
-          }}
-          onCancel={() => setShowLogoutConfirm(false)}
-        />
-      </aside>
-    </>
+            {/* Footer Info & Logout */}
+            <div className="p-4 border-t border-white/10 bg-slate-950/80 backdrop-blur-md text-[11px] text-slate-400 space-y-3">
+              {onLogout && (
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setShowLogoutConfirm(true)}
+                  className="w-full py-2.5 px-3 bg-red-950/60 hover:bg-red-900/80 border border-red-500/40 text-red-300 font-black rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md uppercase tracking-wider glow-red-sm"
+                >
+                  <LogOut className="w-4 h-4 text-red-400" />
+                  <span>LOGOUT / KELUAR</span>
+                </motion.button>
+              )}
+
+              <div className="pt-1 border-t border-white/5">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="font-bold text-slate-200">SBN KASBI PT VCI</span>
+                  <span className="text-[10px] bg-red-950/80 text-red-300 border border-red-600/40 px-2 py-0.5 rounded-full font-mono font-bold">
+                    v2.5 Futuristic
+                  </span>
+                </div>
+                <p className="text-[10px] text-slate-400 leading-relaxed">
+                  Sistem Informasi &amp; Koordinasi Internal Pengurus Serikat Buruh PT Victory Chingluh Indonesia.
+                </p>
+              </div>
+            </div>
+
+            {/* CONFIRM LOGOUT MODAL IN SIDEBAR */}
+            <ConfirmModal
+              isOpen={showLogoutConfirm}
+              title="Keluar dari Aplikasi"
+              message={`Apakah Anda yakin ingin keluar dari akun ${currentUser.name}?`}
+              confirmText="Ya, Logout"
+              cancelText="Batal"
+              type="danger"
+              icon="logout"
+              onConfirm={() => {
+                setShowLogoutConfirm(false);
+                if (onLogout) onLogout();
+                onClose();
+              }}
+              onCancel={() => setShowLogoutConfirm(false)}
+            />
+          </motion.aside>
+        </>
+      )}
+    </AnimatePresence>
   );
 };
+

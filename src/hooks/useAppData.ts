@@ -34,6 +34,7 @@ import {
   getStoredFundraising,
   setStoredFundraising,
   getStoredAuditLogs,
+  sortAuditLogsNewestFirst,
   getStoredUsers,
   setStoredUsers,
 } from '../lib/storage';
@@ -112,7 +113,7 @@ export const useAppData = () => {
     });
 
     const unsubAudit = auditLogRepository.subscribe(getStoredAuditLogs(), (items) => {
-      setAuditLogs(items);
+      setAuditLogs(sortAuditLogsNewestFirst(items));
     });
 
     return () => {

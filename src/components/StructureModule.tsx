@@ -187,7 +187,7 @@ export const StructureModule: React.FC<StructureModuleProps> = ({
     } else if (onUpdateUser) {
       const newUsr: UserAccount = {
         id: `usr-${targetOfficer.nik || Date.now()}`,
-        username: targetOfficer.nama.toLowerCase().replace(/\s+/g, '_'),
+        username: (targetOfficer.nama || 'pengurus').toLowerCase().replace(/\s+/g, '_'),
         password: '123456',
         name: targetOfficer.nama,
         email: 'pengurus@sbn.or.id',
@@ -217,11 +217,11 @@ export const StructureModule: React.FC<StructureModuleProps> = ({
   const filteredPengurus = STRUKTUR_PENGURUS_DATA.filter((p) => {
     const info = getResolvedOfficer(p);
     const matchesSearch = 
-      info.displayNama.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      info.displayNik.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      info.displayJabatan.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      info.displayEmail.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      info.displayPhone.toLowerCase().includes(searchQuery.toLowerCase());
+      (info.displayNama && String(info.displayNama).toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (info.displayNik && String(info.displayNik).toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (info.displayJabatan && String(info.displayJabatan).toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (info.displayEmail && String(info.displayEmail).toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (info.displayPhone && String(info.displayPhone).toLowerCase().includes(searchQuery.toLowerCase()));
 
     const matchesBidang = selectedBidang === 'Semua' || p.bidang === selectedBidang;
 
@@ -434,8 +434,8 @@ export const StructureModule: React.FC<StructureModuleProps> = ({
         const canEditModalPhoto = (currentUser?.role === 'Super Admin') || modalInfo.isSelf;
 
         return (
-          <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-            <div className="bg-[#121212] border border-red-900/80 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl relative my-auto">
+          <div className="mobile-modal-backdrop">
+            <div className="mobile-modal-card bg-[#121212] border border-red-900/80 text-white shadow-2xl relative max-w-2xl">
               
               {/* Close Button */}
               <button

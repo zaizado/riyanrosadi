@@ -40,10 +40,10 @@ export const MemberSearchSelect: React.FC<MemberSearchSelectProps> = ({
     if (!searchTerm.trim()) return true;
     const term = searchTerm.toLowerCase();
     return (
-      m.namaLengkap.toLowerCase().includes(term) ||
-      m.nik.toLowerCase().includes(term) ||
-      m.nomorAnggota.toLowerCase().includes(term) ||
-      m.departemen.toLowerCase().includes(term) ||
+      (m.namaLengkap && m.namaLengkap.toLowerCase().includes(term)) ||
+      (m.nik && m.nik.toLowerCase().includes(term)) ||
+      (m.nomorAnggota && m.nomorAnggota.toLowerCase().includes(term)) ||
+      (m.departemen && m.departemen.toLowerCase().includes(term)) ||
       (m.bagian && m.bagian.toLowerCase().includes(term))
     );
   }).slice(0, 20); // Limit to top 20 results for maximum performance

@@ -670,8 +670,8 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
 
       {/* LIVE CAMERA QR SCANNER MODAL */}
       {isScannerOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md text-white p-6 shadow-2xl relative">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative max-w-md">
             <button
               onClick={() => setIsScannerOpen(false)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
@@ -747,8 +747,8 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
 
       {/* SCAN FEEDBACK ALERT POPUP MODAL */}
       {scanResultFeedback && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md text-white p-6 shadow-2xl relative text-center space-y-4">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative text-center space-y-4 max-w-md">
             
             {scanResultFeedback.type === 'success' && (
               <div className="w-16 h-16 rounded-full bg-emerald-950 text-emerald-400 border-2 border-emerald-500 flex items-center justify-center mx-auto shadow-lg">
@@ -802,8 +802,8 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
 
       {/* MEMBER QR CODE COUPON POPUP MODAL */}
       {selectedClaimForQrModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-sm text-white p-6 shadow-2xl relative text-center space-y-4">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative text-center space-y-4 max-w-sm">
             <button
               onClick={() => setSelectedClaimForQrModal(null)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
@@ -848,8 +848,8 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
 
       {/* CREATE EVENT MODAL */}
       {isCreateEventModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md text-white p-6 shadow-2xl relative">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative max-w-md">
             <button
               onClick={() => setIsCreateEventModalOpen(false)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"

@@ -27,8 +27,8 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 overflow-y-auto animate-fadeIn">
-      <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-6 space-y-5 shadow-2xl relative text-left my-auto max-h-[90vh] overflow-y-auto">
+    <div className="mobile-modal-backdrop !z-[250] animate-fadeIn">
+      <div className="mobile-modal-card bg-white border border-slate-200 max-w-md p-6 space-y-5 shadow-2xl relative text-left">
         <button
           onClick={onCancel}
           className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 cursor-pointer transition-colors"

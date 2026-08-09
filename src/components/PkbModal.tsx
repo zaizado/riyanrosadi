@@ -117,12 +117,12 @@ export const PkbModal: React.FC<PkbModalProps> = ({ isOpen, onClose, currentUser
       const q = searchQuery.toLowerCase().trim();
       if (!q) return matchesGroup && matchesBab;
 
-      const matchesNomor = `pasal ${item.nomor}`.toLowerCase().includes(q) || item.nomor.toString().toLowerCase().includes(q);
-      const matchesJudul = item.judul.toLowerCase().includes(q);
-      const matchesRingkasan = item.ringkasan.toLowerCase().includes(q);
-      const matchesBabJudul = item.babJudul.toLowerCase().includes(q);
-      const matchesGroupText = itemGroup.toLowerCase().includes(q);
-      const matchesIsi = item.isiLengkap.some((line) => line.toLowerCase().includes(q));
+      const matchesNomor = `pasal ${item.nomor || ''}`.toLowerCase().includes(q) || (item.nomor ? item.nomor.toString().toLowerCase().includes(q) : false);
+      const matchesJudul = (item.judul || '').toLowerCase().includes(q);
+      const matchesRingkasan = (item.ringkasan || '').toLowerCase().includes(q);
+      const matchesBabJudul = (item.babJudul || '').toLowerCase().includes(q);
+      const matchesGroupText = (itemGroup || '').toLowerCase().includes(q);
+      const matchesIsi = Array.isArray(item.isiLengkap) && item.isiLengkap.some((line) => (line || '').toLowerCase().includes(q));
 
       return matchesGroup && matchesBab && (matchesNomor || matchesJudul || matchesRingkasan || matchesBabJudul || matchesGroupText || matchesIsi);
     });
@@ -192,9 +192,9 @@ export const PkbModal: React.FC<PkbModalProps> = ({ isOpen, onClose, currentUser
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 animate-in fade-in duration-200 select-none">
+    <div className="mobile-modal-backdrop select-none">
       
-      <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-5xl h-[92vh] flex flex-col shadow-2xl overflow-hidden text-slate-900">
+      <div className="mobile-modal-card bg-white border border-slate-200 max-w-5xl text-slate-900">
         
         {/* Header Modal */}
         <div className="bg-gradient-to-r from-red-700 via-red-800 to-slate-900 border-b border-red-800 p-4 sm:p-5 flex items-center justify-between shrink-0 text-white">
@@ -488,8 +488,8 @@ export const PkbModal: React.FC<PkbModalProps> = ({ isOpen, onClose, currentUser
 
       {/* MODAL FORM TAMBAH MATERI / KELOMPOK BARU */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
-          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-lg my-auto p-5 sm:p-6 space-y-4 shadow-2xl relative text-slate-900">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-white border border-slate-200 text-slate-900 p-5 sm:p-6 shadow-2xl relative max-w-lg space-y-4">
             <button
               onClick={() => setIsAddModalOpen(false)}
               className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 cursor-pointer"

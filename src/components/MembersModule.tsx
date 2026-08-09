@@ -130,12 +130,12 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
     const query = searchQuery.trim().toLowerCase();
     return members.filter((m) => {
       const matchSearch = !query || 
-        m.namaLengkap.toLowerCase().includes(query) ||
-        m.nik.toLowerCase().includes(query) ||
-        m.nomorAnggota.toLowerCase().includes(query) ||
-        m.bagian.toLowerCase().includes(query) ||
-        m.departemen.toLowerCase().includes(query) ||
-        m.nomorHp.includes(query);
+        (m.namaLengkap && m.namaLengkap.toLowerCase().includes(query)) ||
+        (m.nik && m.nik.toLowerCase().includes(query)) ||
+        (m.nomorAnggota && m.nomorAnggota.toLowerCase().includes(query)) ||
+        (m.bagian && m.bagian.toLowerCase().includes(query)) ||
+        (m.departemen && m.departemen.toLowerCase().includes(query)) ||
+        (m.nomorHp && m.nomorHp.includes(query));
 
       const matchDept = selectedDept === 'All' || m.departemen === selectedDept;
       const matchStatus = selectedStatus === 'All' || m.statusKeanggotaan === selectedStatus;
@@ -900,8 +900,8 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
       {/* MEMBER DETAIL BIODATA MODAL */}
       {isDetailModalOpen && selectedMember && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto text-white p-6 shadow-2xl relative">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-4 sm:p-6 shadow-2xl relative max-w-2xl">
             <button
               onClick={() => setIsDetailModalOpen(false)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
@@ -1011,8 +1011,8 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
       {/* IMPORT EXCEL / CSV MODAL */}
       {isImportModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto text-white p-6 shadow-2xl relative">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-4 sm:p-6 shadow-2xl relative max-w-3xl">
             <button
               onClick={() => setIsImportModalOpen(false)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
@@ -1187,20 +1187,22 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
       {/* ADD / EDIT MEMBER FORM MODAL */}
       {isAddEditModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto text-white p-6 shadow-2xl relative">
-            <button
-              onClick={() => setIsAddEditModalOpen(false)}
-              className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
-            >
-              <X className="w-5 h-5" />
-            </button>
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white shadow-2xl relative max-w-2xl">
+            <div className="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between shrink-0">
+              <h2 className="text-base sm:text-lg font-bold text-white">
+                {editingMember ? 'Edit Data Anggota SBN' : 'Tambah Anggota Baru SBN'}
+              </h2>
+              <button
+                type="button"
+                onClick={() => setIsAddEditModalOpen(false)}
+                className="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
 
-            <h2 className="text-lg font-bold text-white mb-4">
-              {editingMember ? 'Edit Data Anggota SBN' : 'Tambah Anggota Baru SBN'}
-            </h2>
-
-            <form onSubmit={handleSaveMember} className="space-y-4 text-xs">
+            <form id="member-form" onSubmit={handleSaveMember} className="p-4 sm:p-6 overflow-y-auto custom-scrollbar flex-1 space-y-4 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 
                 <div>
@@ -1349,7 +1351,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-800 flex justify-end space-x-2">
+              <div className="p-4 sm:p-5 border-t border-slate-800 bg-slate-900/90 flex justify-end gap-2 shrink-0 rounded-b-2xl">
                 <button
                   type="button"
                   onClick={() => setIsAddEditModalOpen(false)}
@@ -1372,8 +1374,8 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
       {/* DELETION WITH AUDIT TRAIL MODAL (Requirement 5) */}
       {memberToDelete && (
-        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-rose-800/80 rounded-2xl w-full max-w-lg text-white p-6 shadow-2xl relative animate-in fade-in zoom-in-95">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-rose-800/80 text-white p-6 shadow-2xl relative max-w-lg animate-in fade-in zoom-in-95">
             <button
               onClick={() => {
                 setMemberToDelete(null);
@@ -1477,8 +1479,8 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
       {/* AUDIT LOG HISTORY MODAL */}
       {isAuditModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-3xl max-h-[85vh] flex flex-col text-white p-6 shadow-2xl relative">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative max-w-3xl">
             <button
               onClick={() => setIsAuditModalOpen(false)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
@@ -1552,8 +1554,8 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
       {/* IMPORT NOTIFICATION RESULT POPUP (Requirement 4) */}
       {importPopupResult && (
-        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-emerald-800/80 rounded-2xl w-full max-w-md text-white p-6 shadow-2xl relative animate-in fade-in zoom-in-95">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-emerald-800/80 text-white p-6 shadow-2xl relative max-w-md">
             <div className="w-14 h-14 rounded-2xl bg-emerald-950 border border-emerald-800 text-emerald-400 flex items-center justify-center mx-auto mb-4 shadow-lg">
               <CheckCircle2 className="w-8 h-8" />
             </div>

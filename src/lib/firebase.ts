@@ -1,4 +1,4 @@
-import { initializeApp, getApps, getApp } from 'firebase/app';
+import { initializeApp, getApps, getApp, setLogLevel } from 'firebase/app';
 import { 
   getFirestore, 
   collection, 
@@ -9,6 +9,9 @@ import {
   writeBatch,
   getDocs 
 } from 'firebase/firestore';
+
+// Silence standard connection retry warnings in console/metadata
+setLogLevel('error');
 import firebaseConfig from '../../firebase-applet-config.json';
 import { 
   INITIAL_USERS, 
@@ -76,7 +79,7 @@ const cleanForFirestore = (obj: any): any => {
   return cleaned;
 };
 
-// Generic Realtime Subscription for array data
+// Generic Realtime Subscription for array data with offline cache & local storage fallback
 export const subscribeCollection = <T extends { id: string }>(
   collectionName: string,
   initialItems: T[],
@@ -84,6 +87,20 @@ export const subscribeCollection = <T extends { id: string }>(
 ) => {
   const colRef = collection(db, collectionName);
   const seedKey = `sbn_vci_has_seeded_${collectionName}`;
+  const cacheKey = `sbn_vci_cache_${collectionName}`;
+
+  // Instant render from local cache if available
+  try {
+    const cachedStr = localStorage.getItem(cacheKey);
+    if (cachedStr) {
+      const cachedItems = JSON.parse(cachedStr);
+      if (Array.isArray(cachedItems) && cachedItems.length > 0) {
+        onUpdate(cachedItems);
+      }
+    }
+  } catch (e) {
+    // Ignore cache parse error
+  }
 
   const unsubscribe = onSnapshot(colRef, (snapshot) => {
     const hasSeeded = localStorage.getItem(seedKey) === 'true';
@@ -93,9 +110,11 @@ export const subscribeCollection = <T extends { id: string }>(
         localStorage.setItem(seedKey, 'true');
         seedIfEmpty(collectionName, initialItems);
         onUpdate(initialItems);
+        try { localStorage.setItem(cacheKey, JSON.stringify(initialItems)); } catch (e) {}
       } else {
         localStorage.setItem(seedKey, 'true');
         onUpdate([]);
+        try { localStorage.setItem(cacheKey, JSON.stringify([])); } catch (e) {}
       }
     } else {
       localStorage.setItem(seedKey, 'true');
@@ -104,9 +123,24 @@ export const subscribeCollection = <T extends { id: string }>(
         id: docSnap.id
       }));
       onUpdate(items);
+      try { localStorage.setItem(cacheKey, JSON.stringify(items)); } catch (e) {}
     }
   }, (error) => {
-    console.error(`Error in realtime listener for ${collectionName}:`, error);
+    console.warn(`Firestore connection status note for ${collectionName}: operating in local offline mode (${error.message})`);
+    // Fallback to local storage cache or initial items if network unavailable
+    try {
+      const cachedStr = localStorage.getItem(cacheKey);
+      if (cachedStr) {
+        const cachedItems = JSON.parse(cachedStr);
+        if (Array.isArray(cachedItems) && cachedItems.length > 0) {
+          onUpdate(cachedItems);
+          return;
+        }
+      }
+    } catch (e) {}
+    if (initialItems && initialItems.length > 0) {
+      onUpdate(initialItems);
+    }
   });
 
   return unsubscribe;

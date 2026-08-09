@@ -1,8 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { User, ShieldCheck, Camera, Phone, Mail, Building2, BadgeCheck, Save, CheckCircle2 } from 'lucide-react';
+import { 
+  User, ShieldCheck, Camera, Phone, Mail, Building2, BadgeCheck, 
+  Save, CheckCircle2, Lock, KeyRound, Eye, EyeOff, AlertCircle 
+} from 'lucide-react';
 import { UserAccount } from '../types';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { compressImage } from '../lib/imageUtils';
+import { INITIAL_USERS } from '../data/initialData';
 
 interface ProfileModuleProps {
   currentUser: UserAccount;
@@ -15,6 +19,16 @@ export const ProfileModule: React.FC<ProfileModuleProps> = ({ currentUser, onUpd
   const [email, setEmail] = useState(currentUser.email || '');
   const [saveSuccess, setSaveSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Password Change State
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showOldPass, setShowOldPass] = useState(false);
+  const [showNewPass, setShowNewPass] = useState(false);
+  const [showConfirmPass, setShowConfirmPass] = useState(false);
+  const [passError, setPassError] = useState<string | null>(null);
+  const [passSuccess, setPassSuccess] = useState<string | null>(null);
 
   useEffect(() => {
     if (currentUser.avatarUrl) {
@@ -56,6 +70,68 @@ export const ProfileModule: React.FC<ProfileModuleProps> = ({ currentUser, onUpd
     });
     setSaveSuccess(true);
     setTimeout(() => setSaveSuccess(false), 3000);
+  };
+
+  const handleChangePassword = (e: React.FormEvent) => {
+    e.preventDefault();
+    setPassError(null);
+    setPassSuccess(null);
+
+    const inputOld = oldPassword.trim();
+    const inputNew = newPassword.trim();
+    const inputConfirm = confirmPassword.trim();
+
+    if (!inputOld) {
+      setPassError('Password lama / saat ini wajib diisi!');
+      return;
+    }
+
+    // Determine expected current password
+    const defaultFallbackPass = INITIAL_USERS.find(u => 
+      (u.id && u.id === currentUser.id) || 
+      (u.username && u.username.toLowerCase() === currentUser.username?.toLowerCase())
+    )?.password;
+
+    const currentExpectedPass = currentUser.password || defaultFallbackPass || (currentUser.username?.toLowerCase() === 'sbnkasbivci1' ? 'superadmin1' : '123456');
+
+    const isOldValid = 
+      inputOld === currentExpectedPass || 
+      inputOld.toLowerCase() === currentExpectedPass.toLowerCase();
+
+    if (!isOldValid) {
+      setPassError('Password lama yang Anda masukkan salah!');
+      return;
+    }
+
+    if (!inputNew) {
+      setPassError('Password baru wajib diisi!');
+      return;
+    }
+
+    if (inputNew.length < 4) {
+      setPassError('Password baru minimal 4 karakter!');
+      return;
+    }
+
+    if (inputNew !== inputConfirm) {
+      setPassError('Konfirmasi password baru tidak cocok!');
+      return;
+    }
+
+    // Save updated password to database and state
+    onUpdateUser({
+      ...currentUser,
+      password: inputNew,
+      avatarUrl: photoUrl,
+      phoneNumber: phone,
+      email: email
+    });
+
+    setPassSuccess('Password berhasil diperbarui dan tersimpan di database! Gunakan password baru ini untuk login berikutnya.');
+    setOldPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
+    setTimeout(() => setPassSuccess(null), 5000);
   };
 
   return (
@@ -197,10 +273,122 @@ export const ProfileModule: React.FC<ProfileModuleProps> = ({ currentUser, onUpd
         <div className="pt-3 border-t border-red-950 flex justify-end">
           <button
             type="submit"
-            className="px-6 py-2.5 bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-red-900/40 flex items-center gap-2 cursor-pointer"
+            className="px-6 py-2.5 bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-red-900/40 flex items-center gap-2 cursor-pointer transition-all active:scale-95"
           >
             <Save className="w-4 h-4" />
-            <span>Simpan Perubahan</span>
+            <span>Simpan Perubahan Kontak</span>
+          </button>
+        </div>
+
+      </form>
+
+      {/* Change Password Form Section */}
+      <form onSubmit={handleChangePassword} className="bg-[#121212] border border-red-950/80 rounded-2xl p-6 space-y-5 shadow-2xl">
+        <div className="border-b border-red-950 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <h2 className="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+            <KeyRound className="w-4 h-4 text-red-500" />
+            Ganti Password Akun
+          </h2>
+          <span className="text-[11px] text-gray-400 font-medium">
+            Password baru akan tersimpan di database untuk login berikutnya
+          </span>
+        </div>
+
+        {passError && (
+          <div className="p-3 bg-red-950/90 border border-red-600/80 text-red-200 rounded-xl text-xs font-bold flex items-center gap-2 animate-fadeIn">
+            <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+            <span>{passError}</span>
+          </div>
+        )}
+
+        {passSuccess && (
+          <div className="p-3 bg-emerald-950/90 border border-emerald-600/80 text-emerald-200 rounded-xl text-xs font-bold flex items-center gap-2 animate-fadeIn">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span>{passSuccess}</span>
+          </div>
+        )}
+
+        <div className="space-y-4 max-w-xl">
+          {/* Old Password */}
+          <div className="space-y-1">
+            <label className="text-[11px] font-bold text-gray-300 uppercase flex items-center gap-1.5">
+              <Lock className="w-3.5 h-3.5 text-red-500" />
+              Password Saat Ini (Lama)
+            </label>
+            <div className="relative">
+              <input
+                type={showOldPass ? "text" : "password"}
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+                placeholder="Masukkan password saat ini..."
+                className="w-full bg-[#1a1a1a] border border-[#333] focus:border-red-600 rounded-xl pl-3 pr-10 py-2.5 text-xs text-white focus:outline-none"
+              />
+              <button
+                type="button"
+                onClick={() => setShowOldPass(!showOldPass)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+              >
+                {showOldPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+          </div>
+
+          {/* New Password */}
+          <div className="space-y-1">
+            <label className="text-[11px] font-bold text-gray-300 uppercase flex items-center gap-1.5">
+              <KeyRound className="w-3.5 h-3.5 text-emerald-500" />
+              Password Baru
+            </label>
+            <div className="relative">
+              <input
+                type={showNewPass ? "text" : "password"}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Masukkan password baru (min. 4 karakter)..."
+                className="w-full bg-[#1a1a1a] border border-[#333] focus:border-red-600 rounded-xl pl-3 pr-10 py-2.5 text-xs text-white focus:outline-none"
+              />
+              <button
+                type="button"
+                onClick={() => setShowNewPass(!showNewPass)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+              >
+                {showNewPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Confirm New Password */}
+          <div className="space-y-1">
+            <label className="text-[11px] font-bold text-gray-300 uppercase flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+              Konfirmasi Password Baru
+            </label>
+            <div className="relative">
+              <input
+                type={showConfirmPass ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Ketik ulang password baru..."
+                className="w-full bg-[#1a1a1a] border border-[#333] focus:border-red-600 rounded-xl pl-3 pr-10 py-2.5 text-xs text-white focus:outline-none"
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPass(!showConfirmPass)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+              >
+                {showConfirmPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-3 border-t border-red-950 flex justify-end">
+          <button
+            type="submit"
+            className="px-6 py-2.5 bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-red-900/40 flex items-center gap-2 cursor-pointer transition-all active:scale-95"
+          >
+            <KeyRound className="w-4 h-4" />
+            <span>Simpan Password Baru</span>
           </button>
         </div>
 
@@ -209,3 +397,4 @@ export const ProfileModule: React.FC<ProfileModuleProps> = ({ currentUser, onUpd
     </div>
   );
 };
+

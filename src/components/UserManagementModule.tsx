@@ -16,6 +16,7 @@ import {
   FileSpreadsheet
 } from 'lucide-react';
 import { UserAccount, UserRole, AuditLog, checkIsSuperAdmin } from '../types';
+import { sortAuditLogsNewestFirst } from '../lib/storage';
 import { STRUKTUR_PENGURUS_DATA } from '../data/strukturPengurusData';
 import { ConfirmModal } from './ConfirmModal';
 import { exportFullBackup, resetAllData } from '../lib/storage';
@@ -266,7 +267,7 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
           </h2>
 
           <div className="space-y-2.5">
-            {auditLogs.map((log) => (
+            {sortAuditLogsNewestFirst(auditLogs).map((log) => (
               <div key={log.id} className="p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs space-y-1">
                 <div className="flex items-center justify-between text-[11px]">
                   <span className="font-bold text-slate-200">{log.userNama} ({log.userRole})</span>
@@ -326,8 +327,8 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
 
       {/* ADD / EDIT USER MODAL */}
       {isAddUserModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md text-white p-4 sm:p-6 shadow-2xl relative max-h-[88vh] overflow-y-auto custom-scrollbar my-auto">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-4 sm:p-6 shadow-2xl relative max-w-md">
             <button
               onClick={() => setIsAddUserModalOpen(false)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"

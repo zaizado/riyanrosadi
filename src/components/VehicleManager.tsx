@@ -152,7 +152,7 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
 
     // Try to match member for Petugas
     const matchedPetugas = members.find(
-      (m) => m.namaLengkap.toLowerCase() === log.petugasSerahTerima.toLowerCase()
+      (m) => m.namaLengkap && log.petugasSerahTerima && m.namaLengkap.toLowerCase() === log.petugasSerahTerima.toLowerCase()
     );
     if (matchedPetugas) {
       setPetugasMemberId(matchedPetugas.id);
@@ -256,10 +256,10 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
   // Filtered Logs
   const filteredLogs = vehicleLogs.filter((log) => {
     const matchesSearch =
-      log.namaPemakai.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      log.tujuan.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      log.nomorLog.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      log.departemenPemakai.toLowerCase().includes(searchQuery.toLowerCase());
+      (log.namaPemakai && log.namaPemakai.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (log.tujuan && log.tujuan.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (log.nomorLog && log.nomorLog.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (log.departemenPemakai && log.departemenPemakai.toLowerCase().includes(searchQuery.toLowerCase()));
 
     const matchesVehicle = filterVehicle === 'All' || log.kendaraan === filterVehicle;
     const matchesStatus = filterStatus === 'All' || log.status === filterStatus;
@@ -271,9 +271,9 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
   const memberSuggestions = memberSearch.trim()
     ? members.filter(
         (m) =>
-          m.namaLengkap.toLowerCase().includes(memberSearch.toLowerCase()) ||
-          m.nomorAnggota.toLowerCase().includes(memberSearch.toLowerCase()) ||
-          m.nik.toLowerCase().includes(memberSearch.toLowerCase())
+          (m.namaLengkap && m.namaLengkap.toLowerCase().includes(memberSearch.toLowerCase())) ||
+          (m.nomorAnggota && m.nomorAnggota.toLowerCase().includes(memberSearch.toLowerCase())) ||
+          (m.nik && m.nik.toLowerCase().includes(memberSearch.toLowerCase()))
       ).slice(0, 5)
     : [];
 
@@ -598,8 +598,8 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
 
       {/* MODAL ADD / EDIT VEHICLE LOG */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm flex items-start justify-center p-3 sm:p-6 overflow-y-auto">
-          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl text-slate-900 p-5 sm:p-6 shadow-2xl relative space-y-4 my-6 max-h-none sm:max-h-[90vh] overflow-y-auto">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-white border border-slate-200 text-slate-900 p-5 sm:p-6 shadow-2xl relative space-y-4 max-w-2xl">
             <button
               onClick={() => setIsModalOpen(false)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-100 text-slate-500 hover:text-slate-900 hover:bg-slate-200 transition-colors cursor-pointer"
@@ -869,8 +869,8 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
 
       {/* MODAL RETURN / COMPLETE VEHICLE LOG */}
       {isReturnModalOpen && selectedReturnLog && (
-        <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm flex items-start justify-center p-3 sm:p-6 overflow-y-auto">
-          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-lg text-slate-900 p-6 shadow-2xl relative space-y-4 my-6">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-white border border-slate-200 text-slate-900 p-6 shadow-2xl relative space-y-4 max-w-lg">
             <button
               onClick={() => setIsReturnModalOpen(false)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-100 text-slate-500 hover:text-slate-900 hover:bg-slate-200 transition-colors cursor-pointer"

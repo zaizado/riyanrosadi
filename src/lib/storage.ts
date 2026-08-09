@@ -86,10 +86,21 @@ export const getStoredUsers = (): UserAccount[] => {
     avatarUrl: sanitizeAvatarUrl(u.avatarUrl)
   }));
 
-  // Ensure Super Admin exists
-  const hasSuperAdmin = userList.some(u => u.isSuperAdmin || u.username === 'sbnkasbivci1' || u.role === 'Super Admin');
-  if (!hasSuperAdmin) {
+  // Ensure Super Admin account (sbnkasbivci1) exists and has password set
+  const superAdminIdx = userList.findIndex(u => u.username?.toLowerCase() === 'sbnkasbivci1' || u.id === 'usr-superadmin');
+  if (superAdminIdx === -1) {
     userList = [{ ...INITIAL_USERS[0], avatarUrl: cheAvatar }, ...userList];
+  } else {
+    // Ensure credentials and role flags are guaranteed
+    userList[superAdminIdx] = {
+      ...INITIAL_USERS[0],
+      ...userList[superAdminIdx],
+      username: 'sbnkasbivci1',
+      password: userList[superAdminIdx].password || 'superadmin1',
+      role: 'Super Admin',
+      isSuperAdmin: true,
+      avatarUrl: sanitizeAvatarUrl(userList[superAdminIdx].avatarUrl || cheAvatar)
+    };
   }
 
   safeSetItem(STORAGE_KEYS.USERS, JSON.stringify(userList));
@@ -217,17 +228,49 @@ export const setStoredSembakoClaims = (claims: SembakoClaim[]) => {
   localStorage.setItem(STORAGE_KEYS.SEMBAKO_CLAIMS, JSON.stringify(claims));
 };
 
+export const sortAuditLogsNewestFirst = (logs: AuditLog[]): AuditLog[] => {
+  if (!Array.isArray(logs)) return [];
+  return [...logs].sort((a, b) => {
+    // 1. Extract millis timestamp from ID if format is log-<millis>-<rand>
+    const millisA = a.id?.startsWith('log-') ? parseInt(a.id.split('-')[1], 10) : NaN;
+    const millisB = b.id?.startsWith('log-') ? parseInt(b.id.split('-')[1], 10) : NaN;
+
+    if (!isNaN(millisA) && !isNaN(millisB) && millisA !== millisB) {
+      return millisB - millisA; // Newest first
+    }
+
+    // 2. Parse timestamp date string
+    const dateA = a.timestamp ? new Date(a.timestamp.replace(/-/g, '/')).getTime() : 0;
+    const dateB = b.timestamp ? new Date(b.timestamp.replace(/-/g, '/')).getTime() : 0;
+
+    if (!isNaN(dateA) && !isNaN(dateB) && dateA !== dateB && dateA > 0 && dateB > 0) {
+      return dateB - dateA; // Newest first
+    }
+
+    // 3. String lexicographical comparison fallback (YYYY-MM-DD HH:mm:ss)
+    const strA = a.timestamp || '';
+    const strB = b.timestamp || '';
+    return strB.localeCompare(strA);
+  });
+};
+
 export const getStoredAuditLogs = (): AuditLog[] => {
   const data = localStorage.getItem(STORAGE_KEYS.AUDIT_LOGS);
   if (!data) {
     localStorage.setItem(STORAGE_KEYS.AUDIT_LOGS, JSON.stringify(INITIAL_AUDIT_LOGS));
-    return INITIAL_AUDIT_LOGS;
+    return sortAuditLogsNewestFirst(INITIAL_AUDIT_LOGS);
   }
-  try { return JSON.parse(data); } catch { return INITIAL_AUDIT_LOGS; }
+  try { 
+    const parsed = JSON.parse(data);
+    return sortAuditLogsNewestFirst(Array.isArray(parsed) ? parsed : INITIAL_AUDIT_LOGS);
+  } catch { 
+    return sortAuditLogsNewestFirst(INITIAL_AUDIT_LOGS); 
+  }
 };
 
 export const setStoredAuditLogs = (logs: AuditLog[]) => {
-  localStorage.setItem(STORAGE_KEYS.AUDIT_LOGS, JSON.stringify(logs));
+  const sorted = sortAuditLogsNewestFirst(logs);
+  localStorage.setItem(STORAGE_KEYS.AUDIT_LOGS, JSON.stringify(sorted));
 };
 
 export const getStoredVehicles = (): VehicleLog[] => {
@@ -277,7 +320,7 @@ export const addAuditLog = (
     detail
   };
 
-  const updated = [newLog, ...currentLogs];
+  const updated = sortAuditLogsNewestFirst([newLog, ...currentLogs]);
   localStorage.setItem(STORAGE_KEYS.AUDIT_LOGS, JSON.stringify(updated));
   return updated;
 };

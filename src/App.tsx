@@ -48,6 +48,7 @@ import {
   getCurrentUser,
   setCurrentUser,
   getStoredAuditLogs,
+  sortAuditLogsNewestFirst,
   addAuditLog,
   resetAllData 
 } from './lib/storage';
@@ -232,12 +233,12 @@ export default function App() {
 // Active notifications for current user account
   const isSuperAdminUser = checkIsSuperAdmin(currentUser);
   const clearedSet = new Set(clearedNotifIds);
-  const activeNotifications = auditLogs.filter(log => {
+  const activeNotifications = sortAuditLogsNewestFirst(auditLogs.filter(log => {
     if (!log.id || clearedSet.has(log.id)) return false;
 // Notifikasi keuangan (divisi dana dan usaha) hanya untuk Super Admin
     if (!isSuperAdminUser && log.modul === 'Keuangan') return false;
     return true;
-  });
+  }));
 
 // Delete a single notification for current user account
   const handleDeleteSingleNotification = async (logId: string) => {
@@ -627,12 +628,12 @@ export default function App() {
 
     // Synchronize photo, email, and WhatsApp/phone update by NIK to Members in Firestore
     if (userToSave.nik) {
-      const userNikClean = userToSave.nik.trim().toLowerCase().replace(/^0+/, '');
+      const userNikClean = String(userToSave.nik).trim().toLowerCase().replace(/^0+/, '');
 
       const targetMember = members.find(m => {
         if (!m.nik) return false;
-        const mNikClean = m.nik.trim().toLowerCase().replace(/^0+/, '');
-        return mNikClean === userNikClean || m.nik.trim().toLowerCase() === userToSave.nik.trim().toLowerCase();
+        const mNikClean = String(m.nik).trim().toLowerCase().replace(/^0+/, '');
+        return mNikClean === userNikClean || String(m.nik).trim().toLowerCase() === String(userToSave.nik).trim().toLowerCase();
       });
 
       if (targetMember) {
@@ -682,7 +683,10 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-red-600 selection:text-white">
+    <div className="app-shell bg-slate-950 text-slate-100 font-sans selection:bg-red-600 selection:text-white relative overflow-x-hidden">
+      {/* Global Background Grid & Glows */}
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_top,rgba(220,38,38,0.12),transparent_50%)] pointer-events-none z-0" />
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(245,158,11,0.08),transparent_50%)] pointer-events-none z-0" />
       
       {/* Top Fixed Header */}
       <Header
@@ -708,15 +712,15 @@ export default function App() {
       />
 
       {/* Main Content Area (supports optional Android device frame mode) */}
-      <main className={isMobilePreview ? "p-2 sm:p-4 pb-28 sm:pb-36 min-h-[calc(100vh-80px)]" : "p-3 sm:p-6 lg:p-8 pb-32 sm:pb-40 min-h-[calc(100vh-80px)]"}>
-        <div className={isMobilePreview ? 'max-w-md mx-auto border-[6px] sm:border-[10px] border-slate-300 rounded-[32px] sm:rounded-[40px] shadow-2xl bg-white p-3 sm:p-5 ring-1 ring-slate-200 my-2 overflow-x-hidden' : 'w-full max-w-full lg:max-w-[1650px] mx-auto'}>
+      <main className={`flex-1 min-h-0 w-full overflow-y-auto overflow-x-hidden relative z-10 ${isMobilePreview ? "p-2 sm:p-4 pb-6" : "p-3 sm:p-6 lg:p-8 pb-8"}`}>
+        <div className={isMobilePreview ? 'max-w-md mx-auto border-[6px] sm:border-[10px] border-slate-800 rounded-[32px] sm:rounded-[40px] shadow-[0_0_50px_rgba(0,0,0,0.8)] bg-slate-900/90 p-3 sm:p-5 ring-1 ring-white/10 my-2 overflow-x-hidden backdrop-blur-xl' : 'w-full max-w-full lg:max-w-[1650px] mx-auto'}>
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.18, ease: 'easeInOut' }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.18 }}
             >
               {/* Dashboard Tab */}
               {activeTab === 'dashboard' && (
@@ -946,9 +950,9 @@ export default function App() {
 
       {/* Global Scan KTA Modal */}
       {isScanModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-sm p-6 shadow-2xl relative text-center space-y-4">
-            <button onClick={() => setIsScanModalOpen(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-700">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-white border border-slate-200 rounded-2xl max-w-sm p-6 shadow-2xl relative text-center space-y-4">
+            <button onClick={() => setIsScanModalOpen(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 cursor-pointer">
               <X className="w-5 h-5" />
             </button>
             <div className="w-16 h-16 rounded-full bg-red-100 text-red-600 border border-red-200 flex items-center justify-center mx-auto">
@@ -963,7 +967,7 @@ export default function App() {
               <QrCode className="w-24 h-24 text-red-400 opacity-60" />
               <span className="text-[10px] text-slate-300 font-bold mt-2">Kamera Aktif...</span>
             </div>
-            <button onClick={() => setIsScanModalOpen(false)} className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md">
+            <button onClick={() => setIsScanModalOpen(false)} className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md cursor-pointer">
               Tutup Scanner
             </button>
           </div>

@@ -84,10 +84,10 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
   // Filtered cases
   const filteredCases = advocacyCases.filter((cas) => {
     const matchSearch = 
-      cas.nomorKasus.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      cas.judulKasus.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      cas.namaAnggota.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      cas.departemen.toLowerCase().includes(searchQuery.toLowerCase());
+      (cas.nomorKasus && cas.nomorKasus.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (cas.judulKasus && cas.judulKasus.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (cas.namaAnggota && cas.namaAnggota.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (cas.departemen && cas.departemen.toLowerCase().includes(searchQuery.toLowerCase()));
 
     const matchStatus = selectedStatusFilter === 'All' || cas.status === selectedStatusFilter;
     const matchCategory = selectedCategoryFilter === 'All' || cas.kategori === selectedCategoryFilter;
@@ -293,8 +293,8 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
 
       {/* CASE DETAIL & TIMELINE MODAL */}
       {selectedCaseDetail && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto text-white p-6 shadow-2xl relative">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative max-w-3xl">
             <button
               onClick={() => setSelectedCaseDetail(null)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
@@ -378,8 +378,8 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
 
       {/* UPDATE PROGRESS MODAL */}
       {isUpdateModalOpen && selectedCaseDetail && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md text-white p-6 shadow-2xl relative">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative max-w-md">
             <button
               onClick={() => setIsUpdateModalOpen(false)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
@@ -440,8 +440,8 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
 
       {/* CREATE NEW ADVOCACY CASE MODAL */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg text-white p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative max-w-lg">
             <button
               onClick={() => setIsAddModalOpen(false)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"

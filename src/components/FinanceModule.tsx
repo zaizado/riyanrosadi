@@ -1055,28 +1055,33 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
 
       {/* ------------------- MODAL FORM: CREATE / EDIT DAILY RECORD ------------------- */}
       {isRecordModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl text-white p-4 sm:p-6 shadow-2xl relative max-h-[88vh] overflow-y-auto custom-scrollbar my-auto">
-            <button
-              onClick={() => setIsRecordModalOpen(false)}
-              className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white z-10"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div className="flex items-center gap-3 pb-4 border-b border-slate-800">
-              <div className="p-3 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30">
-                <Wallet className="w-6 h-6" />
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white shadow-2xl relative max-w-2xl">
+            
+            {/* Header - Fixed top */}
+            <div className="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 sm:p-3 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                  <Wallet className="w-5 h-5 sm:w-6 sm:h-6" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-black text-white">
+                    {formData.id ? 'Edit Transaksi Keuangan Harian' : 'Input Transaksi Keuangan Hari Ini'}
+                  </h3>
+                  <p className="text-[11px] sm:text-xs text-slate-400">Pencatatan Saldo Awal, COS Masuk, & Item Pengeluaran Harian</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-black text-white">
-                  {formData.id ? 'Edit Transaksi Keuangan Harian' : 'Input Transaksi Keuangan Hari Ini'}
-                </h3>
-                <p className="text-xs text-slate-400">Pencatatan Saldo Awal, COS Masuk, & Item Pengeluaran Harian</p>
-              </div>
+              <button
+                type="button"
+                onClick={() => setIsRecordModalOpen(false)}
+                className="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white shrink-0 cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
 
-            <form onSubmit={handleSaveForm} className="py-4 space-y-4 text-xs">
+            {/* Form Body - Scrollable */}
+            <form id="daily-transaction-form" onSubmit={handleSaveForm} className="p-4 sm:p-6 overflow-y-auto custom-scrollbar flex-1 space-y-4 text-xs">
               
               {/* Date & Saldo Awal row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1131,85 +1136,56 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
                 </div>
               </div>
 
-              {/* Uang COS Masuk & Keterangan (Hanya Tanggal 10 Setiap Bulan) */}
-              {(() => {
-                const dayNum = parseInt((formData.tanggal || '').split('-')[2], 10);
-                const isCosAllowed = dayNum === 10;
+              {/* Uang COS Masuk & Keterangan */}
+              <div className="p-3.5 bg-emerald-950/30 border border-emerald-800/50 rounded-xl space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-extrabold uppercase text-[11px] flex items-center gap-1.5 text-emerald-400">
+                    <TrendingUp className="w-4 h-4" /> 2. Uang COS / Pemasukan Kas
+                  </span>
+                  <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-md border bg-emerald-900/60 text-emerald-300 border-emerald-700/50">
+                    ✓ Pemasukan Kas
+                  </span>
+                </div>
 
-                return (
-                  <div className={`p-3.5 rounded-xl space-y-3 transition-colors ${
-                    isCosAllowed 
-                      ? 'bg-emerald-950/30 border border-emerald-800/50' 
-                      : 'bg-slate-900/40 border border-slate-800'
-                  }`}>
-                    <div className="flex items-center justify-between">
-                      <span className={`font-extrabold uppercase text-[11px] flex items-center gap-1.5 ${
-                        isCosAllowed ? 'text-emerald-400' : 'text-slate-400'
-                      }`}>
-                        <TrendingUp className="w-4 h-4" /> 2. Uang COS / Pemasukan Kas
-                      </span>
-                      <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-md border ${
-                        isCosAllowed 
-                          ? 'bg-emerald-900/60 text-emerald-300 border-emerald-700/50' 
-                          : 'bg-amber-950/70 text-amber-400 border-amber-800/60'
-                      }`}>
-                        {isCosAllowed ? '✓ Terbuka (Khusus Tanggal 10)' : '🔒 Dikelola Khusus Tanggal 10'}
-                      </span>
-                    </div>
-
-                    {!isCosAllowed ? (
-                      <div className="p-3 bg-slate-950/80 border border-amber-500/30 rounded-xl flex items-start gap-2.5 text-xs text-amber-200/90">
-                        <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                        <div className="space-y-1">
-                          <p className="font-bold text-amber-300">Input Uang COS Tidak Tersedia (Khusus Tanggal 10)</p>
-                          <p className="text-[11px] text-slate-300 leading-relaxed">
-                            Pemasukan Uang COS oleh admin diatur <strong>hanya 1 kali setiap bulan, yaitu pada tanggal 10</strong>. Tanggal transaksi terpilih (<strong className="text-amber-200">{formData.tanggal || '-'}</strong>) bukan tanggal 10.
-                          </p>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div>
-                          <label className="block text-slate-300 font-bold mb-1">
-                            Nominal Uang COS Masuk (Rp) <span className="text-emerald-400">*</span>
-                          </label>
-                          <input
-                            type="text"
-                            inputMode="numeric"
-                            value={formatNumberWithDots(formData.uangCosMasuk)}
-                            onChange={(e) => {
-                              const raw = e.target.value.replace(/[^0-9]/g, '');
-                              setFormData(p => ({ ...p, uangCosMasuk: raw ? parseInt(raw, 10) : 0 }));
-                            }}
-                            placeholder="Contoh: 2.500.000"
-                            className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 font-mono text-emerald-300 font-bold text-sm focus:outline-none focus:border-emerald-500"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-slate-300 font-bold mb-1">
-                            Keterangan COS / Sumber Pemasukan
-                          </label>
-                          <input
-                            type="text"
-                            value={formData.keteranganCos}
-                            onChange={(e) => setFormData(p => ({ ...p, keteranganCos: e.target.value }))}
-                            placeholder="Contoh: COS Anggota Bulan Ini"
-                            className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-emerald-500"
-                          />
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-xs font-bold">
-                      <span className="text-slate-300">TOTAL PEMASUKAN HARI INI (Saldo Awal + COS):</span>
-                      <span className="text-blue-300 font-mono text-sm">
-                        {formatRupiah(parseRupiahNum(formData.saldoAwal) + (isCosAllowed ? parseRupiahNum(formData.uangCosMasuk) : 0))}
-                      </span>
-                    </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">
+                      Nominal Uang COS Masuk (Rp)
+                    </label>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={formatNumberWithDots(formData.uangCosMasuk)}
+                      onChange={(e) => {
+                        const raw = e.target.value.replace(/[^0-9]/g, '');
+                        setFormData(p => ({ ...p, uangCosMasuk: raw ? parseInt(raw, 10) : 0 }));
+                      }}
+                      placeholder="Contoh: 2.500.000"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 font-mono text-emerald-300 font-bold text-sm focus:outline-none focus:border-emerald-500"
+                    />
                   </div>
-                );
-              })()}
+
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">
+                      Keterangan COS / Sumber Pemasukan
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.keteranganCos}
+                      onChange={(e) => setFormData(p => ({ ...p, keteranganCos: e.target.value }))}
+                      placeholder="Contoh: COS Anggota Bulan Ini"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-xs font-bold">
+                  <span className="text-slate-300">TOTAL PEMASUKAN HARI INI (Saldo Awal + COS):</span>
+                  <span className="text-blue-300 font-mono text-sm">
+                    {formatRupiah(parseRupiahNum(formData.saldoAwal) + parseRupiahNum(formData.uangCosMasuk))}
+                  </span>
+                </div>
+              </div>
 
               {/* 3. SECTION PENGELUARAN HARIAN & LIVE CALCULATIONS */}
               {(() => {
@@ -1238,15 +1214,7 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
                           + Form Tambah Item Pengeluaran Hari Ini (Otomatis Tanda Titik):
                         </p>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                          <div>
-                            <input
-                              type="time"
-                              value={expenseForm.waktu}
-                              onChange={(e) => setExpenseForm(p => ({ ...p, waktu: e.target.value }))}
-                              className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-mono text-xs"
-                            />
-                          </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                           <div>
                             <select
                               value={expenseForm.kategori}
@@ -1272,35 +1240,31 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
                                 const formatted = raw ? parseInt(raw, 10).toLocaleString('id-ID') : '';
                                 setExpenseForm(p => ({ ...p, nominal: formatted }));
                               }}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                  e.preventDefault();
+                                  handleAddExpenseItem();
+                                }
+                              }}
                               className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 font-mono text-rose-300 font-bold text-xs placeholder:text-rose-900/60 focus:outline-none focus:border-rose-500"
                             />
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div>
                           <input
                             type="text"
-                            placeholder="Keterangan pengeluaran (misal: Bensin Xpander ke Pemda)..."
+                            placeholder="Keterangan pengeluaran (Tekan Enter untuk menyimpan item)..."
                             value={expenseForm.keterangan}
                             onChange={(e) => setExpenseForm(p => ({ ...p, keterangan: e.target.value }))}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                                handleAddExpenseItem();
+                              }
+                            }}
                             className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-xs"
                           />
-                          <div className="flex gap-2">
-                            <input
-                              type="text"
-                              placeholder="Penerima / Toko / Kwitansi (Opsional)"
-                              value={expenseForm.penerimaNota}
-                              onChange={(e) => setExpenseForm(p => ({ ...p, penerimaNota: e.target.value }))}
-                              className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-xs"
-                            />
-                            <button
-                              type="button"
-                              onClick={handleAddExpenseItem}
-                              className="px-3.5 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-black text-xs shrink-0 cursor-pointer shadow transition-colors"
-                            >
-                              + Tambah
-                            </button>
-                          </div>
                         </div>
                       </div>
 
@@ -1361,45 +1325,35 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
                 );
               })()}
 
-              <div>
-                <label className="block text-slate-300 font-bold mb-1">
-                  Catatan Harian Pengurus (Opsional)
-                </label>
-                <textarea
-                  rows={2}
-                  value={formData.catatanHarian}
-                  onChange={(e) => setFormData(p => ({ ...p, catatanHarian: e.target.value }))}
-                  placeholder="Catatan verifikasi kas, penerimaan kuitansi, atau info penting..."
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-amber-500"
-                />
-              </div>
-
-              <div className="pt-3 border-t border-slate-800 flex justify-end gap-2">
-                <button
-                  type="button"
-                  onClick={() => setIsRecordModalOpen(false)}
-                  className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold cursor-pointer"
-                >
-                  Batal
-                </button>
-                <button
-                  type="submit"
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black flex items-center gap-1.5 cursor-pointer shadow-lg shadow-amber-900/40"
-                >
-                  <Check className="w-4 h-4" />
-                  <span>Simpan Transaksi Keuangan</span>
-                </button>
-              </div>
-
             </form>
+
+            {/* Footer - Fixed bottom */}
+            <div className="p-4 sm:p-5 pt-3 border-t border-slate-800 flex justify-end gap-2 shrink-0 bg-slate-900 rounded-b-2xl">
+              <button
+                type="button"
+                onClick={() => setIsRecordModalOpen(false)}
+                className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold cursor-pointer"
+              >
+                Batal
+              </button>
+              <button
+                type="submit"
+                form="daily-transaction-form"
+                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black flex items-center gap-1.5 cursor-pointer shadow-lg shadow-amber-900/40"
+              >
+                <Check className="w-4 h-4" />
+                <span>Simpan Transaksi Keuangan</span>
+              </button>
+            </div>
+
           </div>
         </div>
       )}
 
       {/* ------------------- MODAL DETAIL RECORD ------------------- */}
       {selectedRecordForDetail && (
-        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-xl text-white p-4 sm:p-6 shadow-2xl relative max-h-[88vh] overflow-y-auto custom-scrollbar my-auto">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-4 sm:p-6 shadow-2xl relative max-w-xl">
             <button
               onClick={() => setSelectedRecordForDetail(null)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white z-10"
@@ -1492,8 +1446,8 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
 
       {/* ------------------- MODAL EKSPOR LAPORAN PDF TERENKRIPSI ------------------- */}
       {isExportModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg text-white p-4 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar my-auto">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-4 sm:p-6 shadow-2xl relative max-w-lg">
             <button
               onClick={() => setIsExportModalOpen(false)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white z-10 cursor-pointer"

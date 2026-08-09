@@ -74,9 +74,9 @@ export const SickVisitModule: React.FC<SickVisitModuleProps> = ({
 
   const filteredVisits = sickVisits.filter((vis) => {
     const matchSearch = 
-      vis.nomorPendampingan.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      vis.namaAnggota.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      vis.lokasi.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (vis.nomorPendampingan && vis.nomorPendampingan.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (vis.namaAnggota && vis.namaAnggota.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (vis.lokasi && vis.lokasi.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (vis.diagnosaSingkat && vis.diagnosaSingkat.toLowerCase().includes(searchQuery.toLowerCase()));
 
     const matchStatus = selectedStatusFilter === 'All' || vis.status === selectedStatusFilter;
@@ -283,8 +283,8 @@ export const SickVisitModule: React.FC<SickVisitModuleProps> = ({
 
       {/* VISIT DETAIL & LOGS MODAL */}
       {selectedVisitDetail && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto text-white p-6 shadow-2xl relative">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative max-w-2xl">
             <button
               onClick={() => setSelectedVisitDetail(null)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
@@ -367,8 +367,8 @@ export const SickVisitModule: React.FC<SickVisitModuleProps> = ({
 
       {/* CONDITION LOG UPDATE MODAL */}
       {isLogModalOpen && selectedVisitDetail && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md text-white p-6 shadow-2xl relative">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative max-w-md">
             <button
               onClick={() => setIsLogModalOpen(false)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
@@ -437,9 +437,10 @@ export const SickVisitModule: React.FC<SickVisitModuleProps> = ({
       )}
 
       {/* CREATE NEW VISIT MODAL */}
+      {/* ADD SICK VISIT MODAL */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg text-white p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative max-w-lg">
             <button
               onClick={() => setIsAddModalOpen(false)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"

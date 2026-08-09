@@ -235,8 +235,8 @@ export const InformationModule: React.FC<InformationModuleProps> = ({
 
       {/* Modal Input Agenda Baru */}
       {isAddAgendaOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <form onSubmit={handleCreateAgenda} className="bg-[#121212] border border-red-950 rounded-2xl w-full max-w-md p-6 space-y-4 shadow-2xl relative">
+        <div className="mobile-modal-backdrop">
+          <form onSubmit={handleCreateAgenda} className="mobile-modal-card bg-[#121212] border border-red-950 text-white p-6 space-y-4 shadow-2xl relative max-w-md">
             <h3 className="text-base font-black text-white uppercase">Tambah Agenda Kegiatan Baru</h3>
             <div className="space-y-3 text-xs">
               <div>
