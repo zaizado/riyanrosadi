@@ -33,6 +33,7 @@ import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { compressImage } from '../lib/imageUtils';
 import { ModalPortal } from './ModalPortal';
 import { SectionHeader, PrimaryButton, SecondaryButton } from './ui/DesignSystem';
+import { CameraCaptureModal } from './CameraCaptureModal';
 
 import { exportWorkbookToExcel } from '../utils/exportAndPrintUtils';
 
@@ -104,6 +105,8 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
   } | null>(null);
 
   // Dynamic Departments list for dropdowns
+  const [isCameraModalOpen, setIsCameraModalOpen] = useState(false);
+  
   const departmentsList = useMemo(() => {
     const defaultDepts = [
       'Assembly',
@@ -943,25 +946,13 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
                     e.currentTarget.src = cheAvatar;
                   }}
                 />
-                <label className="absolute inset-0 bg-black/60 rounded-2xl opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white text-[10px] font-bold transition-opacity cursor-pointer p-1 text-center">
+                <button 
+                  className="absolute inset-0 bg-black/60 rounded-2xl opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white text-[10px] font-bold transition-opacity cursor-pointer p-1 text-center"
+                  onClick={() => setIsCameraModalOpen(true)}
+                >
                   <Camera className="w-6 h-6 text-red-400 mb-0.5" />
                   <span>Ubah Foto</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={async (e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        const base64 = await compressImage(file, 350, 350, 0.75);
-                        const updated = { ...selectedMember, fotoUrl: base64 };
-                        setSelectedMember(updated);
-                        onUpdateMember(updated);
-                        e.target.value = '';
-                      }
-                    }}
-                  />
-                </label>
+                </button>
               </div>
               <div className="text-center sm:text-left space-y-1">
                 <div className="flex items-center justify-center sm:justify-start gap-2">
@@ -1665,6 +1656,20 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
           </div>
         </div>
         </ModalPortal>
+      )}
+
+      {isCameraModalOpen && selectedMember && (
+        <CameraCaptureModal
+          isOpen={isCameraModalOpen}
+          onClose={() => setIsCameraModalOpen(false)}
+          onCapture={(base64) => {
+            const updated = { ...selectedMember, fotoUrl: base64 };
+            setSelectedMember(updated);
+            onUpdateMember(updated);
+          }}
+          title="Ubah Foto Profil"
+          facingModeDefault="user"
+        />
       )}
 
     </div>

@@ -6,6 +6,7 @@ import {
 import { UserAccount } from '../types';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { compressImage } from '../lib/imageUtils';
+import { CameraCaptureModal } from './CameraCaptureModal';
 import { INITIAL_USERS } from '../data/initialData';
 
 interface ProfileModuleProps {
@@ -14,6 +15,7 @@ interface ProfileModuleProps {
 }
 
 export const ProfileModule: React.FC<ProfileModuleProps> = ({ currentUser, onUpdateUser }) => {
+  const [isCameraModalOpen, setIsCameraModalOpen] = useState(false);
   const [photoUrl, setPhotoUrl] = useState(currentUser.avatarUrl || cheAvatar);
   const [phone, setPhone] = useState(currentUser.phoneNumber || '');
   const [email, setEmail] = useState(currentUser.email || '');
@@ -152,19 +154,13 @@ export const ProfileModule: React.FC<ProfileModuleProps> = ({ currentUser, onUpd
             }}
           />
           <button
-            onClick={() => fileInputRef.current?.click()}
+            onClick={() => setIsCameraModalOpen(true)}
+            type="button"
             className="absolute -bottom-2 -right-2 p-3 bg-red-600 hover:bg-red-500 text-white rounded-xl shadow-lg border-2 border-black cursor-pointer group-hover:scale-110 transition-transform"
             title="Ubah Foto Profil"
           >
             <Camera className="w-5 h-5" />
           </button>
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleFileChange}
-            accept="image/*"
-            className="hidden"
-          />
         </div>
 
         {/* Core Info */}
@@ -393,6 +389,26 @@ export const ProfileModule: React.FC<ProfileModuleProps> = ({ currentUser, onUpd
         </div>
 
       </form>
+
+      {isCameraModalOpen && (
+        <CameraCaptureModal
+          isOpen={isCameraModalOpen}
+          onClose={() => setIsCameraModalOpen(false)}
+          onCapture={(base64) => {
+            setPhotoUrl(base64);
+            onUpdateUser({
+              ...currentUser,
+              avatarUrl: base64,
+              phoneNumber: phone,
+              email: email
+            });
+            setSaveSuccess(true);
+            setTimeout(() => setSaveSuccess(false), 3000);
+          }}
+          title="Ubah Foto Profil"
+          facingModeDefault="user"
+        />
+      )}
 
     </div>
   );
