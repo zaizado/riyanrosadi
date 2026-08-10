@@ -15,6 +15,7 @@ import {
   Layers,
   Zap
 } from 'lucide-react';
+import { ModalPortal } from './ModalPortal';
 
 interface AndroidInstallModalProps {
   isOpen: boolean;
@@ -63,7 +64,8 @@ export const AndroidInstallModal: React.FC<AndroidInstallModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="mobile-modal-backdrop animate-fadeIn">
+    <ModalPortal>
+      <div className="mobile-modal-backdrop animate-fadeIn">
       <div className="mobile-modal-card bg-slate-900 border border-red-900/60 text-white p-5 sm:p-6 shadow-2xl relative flex flex-col space-y-5 max-w-xl">
         
         {/* Close Button */}
@@ -256,5 +258,6 @@ export const AndroidInstallModal: React.FC<AndroidInstallModalProps> = ({
 
       </div>
     </div>
+    </ModalPortal>
   );
 };

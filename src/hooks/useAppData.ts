@@ -37,7 +37,10 @@ import {
   sortAuditLogsNewestFirst,
   getStoredUsers,
   setStoredUsers,
+  getStoredSeverance,
+  setStoredSeverance,
 } from '../lib/storage';
+import { SeveranceCalculationResult } from '../types/severance';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 
 export const useAppData = () => {
@@ -52,6 +55,7 @@ export const useAppData = () => {
   const [auditLogs, setAuditLogs] = useState<AuditLog[]>(() => getStoredAuditLogs());
   const [fundraisingCampaigns, setFundraisingCampaigns] = useState<FundraisingCampaign[]>(() => getStoredFundraising());
   const [users, setUsers] = useState<UserAccount[]>(() => getStoredUsers());
+  const [severanceCalculations, setSeveranceCalculations] = useState<SeveranceCalculationResult[]>(() => getStoredSeverance());
 
   useEffect(() => {
     const unsubMembers = repositories.members.subscribe(getStoredMembers(), (items) => {
@@ -112,6 +116,11 @@ export const useAppData = () => {
       setStoredUsers(formatted);
     });
 
+    const unsubSeverance = repositories.severanceCalculations.subscribe(getStoredSeverance(), (items) => {
+      setSeveranceCalculations(items);
+      setStoredSeverance(items);
+    });
+
     const unsubAudit = auditLogRepository.subscribe(getStoredAuditLogs(), (items) => {
       setAuditLogs(sortAuditLogsNewestFirst(items));
     });
@@ -127,6 +136,7 @@ export const useAppData = () => {
       unsubVehicles();
       unsubFinance();
       unsubUsers();
+      unsubSeverance();
       unsubAudit();
     };
   }, []);
@@ -142,6 +152,7 @@ export const useAppData = () => {
     financeRecords, setFinanceRecords,
     auditLogs, setAuditLogs,
     fundraisingCampaigns, setFundraisingCampaigns,
-    users, setUsers
+    users, setUsers,
+    severanceCalculations, setSeveranceCalculations
   };
 };

@@ -21,6 +21,8 @@ import { STRUKTUR_PENGURUS_DATA } from '../data/strukturPengurusData';
 import { ConfirmModal } from './ConfirmModal';
 import { exportFullBackup, resetAllData } from '../lib/storage';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
+import { ModalPortal } from './ModalPortal';
+import { SectionHeader, AppCard, ActionCard, PrimaryButton, SecondaryButton, StatusBadge } from './ui/DesignSystem';
 
 interface UserManagementModuleProps {
   users: UserAccount[];
@@ -120,38 +122,39 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
     <div className="space-y-6 pb-12">
       
       {/* Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-md">
-        <div className="flex items-center gap-3">
-          <div className="p-3 rounded-xl bg-red-950 text-red-400 border border-red-800/40">
-            <ShieldCheck className="w-6 h-6" />
+      <SectionHeader
+        icon={ShieldCheck}
+        title="Manajemen Akun Pengurus & Audit System"
+        description="Hak Akses Role-Based Access Control (RBAC), Backup & Activity Logs"
+        action={
+          <div className="flex items-center gap-2 flex-wrap">
+            <button
+              onClick={() => setActiveTab('users')}
+              className={`px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold uppercase tracking-wider border transition-all cursor-pointer ${
+                activeTab === 'users' ? 'bg-red-600 text-white border-red-500 shadow-md' : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-750'
+              }`}
+            >
+              Akun ({visibleUsers.length})
+            </button>
+            <button
+              onClick={() => setActiveTab('audit_logs')}
+              className={`px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold uppercase tracking-wider border transition-all cursor-pointer ${
+                activeTab === 'audit_logs' ? 'bg-red-600 text-white border-red-500 shadow-md' : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-750'
+              }`}
+            >
+              Audit Logs ({auditLogs.length})
+            </button>
+            <button
+              onClick={() => setActiveTab('backup')}
+              className={`px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold uppercase tracking-wider border transition-all cursor-pointer ${
+                activeTab === 'backup' ? 'bg-red-600 text-white border-red-500 shadow-md' : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-750'
+              }`}
+            >
+              Backup & Reset
+            </button>
           </div>
-          <div>
-            <h1 className="text-xl font-black text-white">Manajemen Akun Pengurus & Audit System</h1>
-            <p className="text-xs text-slate-400">Hak Akses Role-Based Access Control (RBAC), Backup & Activity Logs</p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setActiveTab('users')}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition-all ${activeTab === 'users' ? 'bg-red-600 text-white border-red-500' : 'bg-slate-800 text-slate-300 border-slate-700'}`}
-          >
-            Akun Pengurus ({visibleUsers.length})
-          </button>
-          <button
-            onClick={() => setActiveTab('audit_logs')}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition-all ${activeTab === 'audit_logs' ? 'bg-red-600 text-white border-red-500' : 'bg-slate-800 text-slate-300 border-slate-700'}`}
-          >
-            Audit Logs ({auditLogs.length})
-          </button>
-          <button
-            onClick={() => setActiveTab('backup')}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition-all ${activeTab === 'backup' ? 'bg-red-600 text-white border-red-500' : 'bg-slate-800 text-slate-300 border-slate-700'}`}
-          >
-            Backup & Reset
-          </button>
-        </div>
-      </div>
+        }
+      />
 
       {/* TAB 1: USERS MANAGEMENT */}
       {activeTab === 'users' && (
@@ -327,114 +330,116 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
 
       {/* ADD / EDIT USER MODAL */}
       {isAddUserModalOpen && (
-        <div className="mobile-modal-backdrop">
-          <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-4 sm:p-6 shadow-2xl relative max-w-md">
-            <button
-              onClick={() => setIsAddUserModalOpen(false)}
-              className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
-            >
-              <X className="w-5 h-5" />
-            </button>
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
+            <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-4 sm:p-6 shadow-2xl relative max-w-md">
+              <button
+                onClick={() => setIsAddUserModalOpen(false)}
+                className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
+              >
+                <X className="w-5 h-5" />
+              </button>
 
-            <h2 className="text-lg font-bold text-white mb-4">
-              {editingUser ? 'Edit Akun Pengurus' : 'Tambah Akun Pengurus Baru'}
-            </h2>
+              <h2 className="text-lg font-bold text-white mb-4">
+                {editingUser ? 'Edit Akun Pengurus' : 'Tambah Akun Pengurus Baru'}
+              </h2>
 
-            <form onSubmit={handleSaveUser} className="space-y-3.5 text-xs">
-              <div>
-                <label className="block text-slate-400 mb-1 font-semibold">Nama Lengkap Pengurus</label>
-                <input
-                  type="text"
-                  value={formData.name || ''}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-slate-400 mb-1 font-semibold">Email Login</label>
-                <input
-                  type="email"
-                  value={formData.email || ''}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
-                  required
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
+              <form onSubmit={handleSaveUser} className="space-y-3.5 text-xs">
                 <div>
-                  <label className="block text-slate-400 mb-1 font-semibold">NIK Karyawan</label>
+                  <label className="block text-slate-400 mb-1 font-semibold">Nama Lengkap Pengurus</label>
                   <input
                     type="text"
-                    value={formData.nik || ''}
-                    onChange={(e) => setFormData({ ...formData, nik: e.target.value })}
+                    value={formData.name || ''}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                    required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-400 mb-1 font-semibold">Role Jabatan Serikat</label>
-                  <select
-                    value={formData.role || 'Koordinator Lapangan'}
-                    onChange={(e) => setFormData({ ...formData, role: e.target.value as UserRole })}
+                  <label className="block text-slate-400 mb-1 font-semibold">Email Login</label>
+                  <input
+                    type="email"
+                    value={formData.email || ''}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                    required
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">NIK Karyawan</label>
+                    <input
+                      type="text"
+                      value={formData.nik || ''}
+                      onChange={(e) => setFormData({ ...formData, nik: e.target.value })}
+                      className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">Role Jabatan Serikat</label>
+                    <select
+                      value={formData.role || 'Koordinator Lapangan'}
+                      onChange={(e) => setFormData({ ...formData, role: e.target.value as UserRole })}
+                      className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                    >
+                      {rolesList.map(r => <option key={r} value={r}>{r}</option>)}
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-slate-400 mb-1 font-semibold">Jabatan (Struktur Pengurus)</label>
+                  <select
+                    value={formData.department || ''}
+                    onChange={(e) => setFormData({ ...formData, department: e.target.value })}
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-bold"
                   >
-                    {rolesList.map(r => <option key={r} value={r}>{r}</option>)}
+                    <option value="">-- Pilih Jabatan --</option>
+                    {Array.from(new Set(STRUKTUR_PENGURUS_DATA.map((p) => p.jabatan))).map((jbt) => (
+                      <option key={jbt} value={jbt}>
+                        {jbt}
+                      </option>
+                    ))}
+                    {formData.department && !Array.from(new Set(STRUKTUR_PENGURUS_DATA.map((p) => p.jabatan))).includes(formData.department) && (
+                      <option value={formData.department}>{formData.department}</option>
+                    )}
                   </select>
                 </div>
-              </div>
 
-              <div>
-                <label className="block text-slate-400 mb-1 font-semibold">Jabatan (Struktur Pengurus)</label>
-                <select
-                  value={formData.department || ''}
-                  onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-bold"
-                >
-                  <option value="">-- Pilih Jabatan --</option>
-                  {Array.from(new Set(STRUKTUR_PENGURUS_DATA.map((p) => p.jabatan))).map((jbt) => (
-                    <option key={jbt} value={jbt}>
-                      {jbt}
-                    </option>
-                  ))}
-                  {formData.department && !Array.from(new Set(STRUKTUR_PENGURUS_DATA.map((p) => p.jabatan))).includes(formData.department) && (
-                    <option value={formData.department}>{formData.department}</option>
-                  )}
-                </select>
-              </div>
+                <div>
+                  <label className="block text-slate-400 mb-1 font-semibold">Nomor HP / WA</label>
+                  <input
+                    type="text"
+                    value={formData.phoneNumber || ''}
+                    onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                  />
+                </div>
 
-              <div>
-                <label className="block text-slate-400 mb-1 font-semibold">Nomor HP / WA</label>
-                <input
-                  type="text"
-                  value={formData.phoneNumber || ''}
-                  onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
-                />
-              </div>
+                <div className="pt-4 border-t border-slate-800 flex justify-end space-x-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsAddUserModalOpen(false)}
+                    className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 font-semibold cursor-pointer"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-5 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold cursor-pointer"
+                  >
+                    Simpan User
+                  </button>
+                </div>
 
-              <div className="pt-4 border-t border-slate-800 flex justify-end space-x-2">
-                <button
-                  type="button"
-                  onClick={() => setIsAddUserModalOpen(false)}
-                  className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 font-semibold"
-                >
-                  Batal
-                </button>
-                <button
-                  type="submit"
-                  className="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold"
-                >
-                  Simpan User
-                </button>
-              </div>
+              </form>
 
-            </form>
-
+            </div>
           </div>
-        </div>
+        </ModalPortal>
       )}
 
       {/* CONFIRM DELETE USER MODAL */}

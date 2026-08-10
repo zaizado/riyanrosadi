@@ -39,6 +39,7 @@ const STORAGE_KEYS = {
   VEHICLES: 'sbn_vci_vehicles_v1',
   FINANCE: 'sbn_vci_finance_records_v1',
   FUNDRAISING: 'sbn_vci_fundraising_v1',
+  SEVERANCE: 'sbn_vci_severance_v1',
 };
 
 const DEFAULT_ACTIVE_USER: UserAccount = {
@@ -339,6 +340,23 @@ export const setStoredFundraising = (campaigns: FundraisingCampaign[]) => {
   safeSetItem(STORAGE_KEYS.FUNDRAISING, JSON.stringify(campaigns));
 };
 
+export const getStoredSeverance = (): any[] => {
+  try {
+    const data = localStorage.getItem(STORAGE_KEYS.SEVERANCE);
+    return data ? JSON.parse(data) : [];
+  } catch {
+    return [];
+  }
+};
+
+export const setStoredSeverance = (items: any[]) => {
+  try {
+    localStorage.setItem(STORAGE_KEYS.SEVERANCE, JSON.stringify(items));
+  } catch (err) {
+    console.error('Failed to save severance calculations to localStorage', err);
+  }
+};
+
 export const formatRupiah = (amount: number): string => {
   return 'Rp ' + (amount || 0).toLocaleString('id-ID');
 };
@@ -358,6 +376,8 @@ export const resetAllData = () => {
   localStorage.setItem(STORAGE_KEYS.FUNDRAISING, JSON.stringify([]));
 };
 
+import { downloadBlob } from '../utils/exportAndPrintUtils';
+
 export const exportFullBackup = () => {
   const data = {
     users: getStoredUsers(),
@@ -373,11 +393,7 @@ export const exportFullBackup = () => {
     auditLogs: getStoredAuditLogs(),
     exportedAt: new Date().toISOString()
   };
-  const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(data, null, 2))}`;
-  const downloadAnchor = document.createElement('a');
-  downloadAnchor.setAttribute('href', jsonString);
-  downloadAnchor.setAttribute('download', `SBN_VCI_Backup_${new Date().toISOString().slice(0,10)}.json`);
-  document.body.appendChild(downloadAnchor);
-  downloadAnchor.click();
-  downloadAnchor.remove();
+  const jsonStr = JSON.stringify(data, null, 2);
+  const blob = new Blob([jsonStr], { type: 'application/json' });
+  downloadBlob(blob, `SBN_VCI_Backup_${new Date().toISOString().slice(0,10)}.json`);
 };

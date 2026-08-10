@@ -211,6 +211,62 @@
           "updatedAt": { "type": "string" }
         }
       }
+    },
+    "severanceCalculations": {
+      "entity": {
+        "fields": {
+          "id": { "type": "string" },
+          "nik": { "type": "string" },
+          "memberId": { "type": "string" },
+          "employeeName": { "type": "string" },
+          "department": { "type": "string" },
+          "position": { "type": "string" },
+          "hireDate": { "type": "string" },
+          "terminationDate": { "type": "string" },
+          "yearsOfService": { "type": "number" },
+          "monthsOfService": { "type": "number" },
+          "daysOfService": { "type": "number" },
+          "baseSalary": { "type": "number" },
+          "fixedAllowance": { "type": "number" },
+          "calculationBase": { "type": "number" },
+          "isManualSalaryInput": { "type": "boolean" },
+          "terminationType": { "type": "string" },
+          "severanceMonths": { "type": "number" },
+          "severanceMultiplier": { "type": "number" },
+          "severanceAmount": { "type": "number" },
+          "upmkMonths": { "type": "number" },
+          "upmkMultiplier": { "type": "number" },
+          "upmkAmount": { "type": "number" },
+          "uphEligible15": { "type": "boolean" },
+          "uph15Amount": { "type": "number" },
+          "unusedLeaveDays": { "type": "number" },
+          "unusedLeaveAmount": { "type": "number" },
+          "returnTravelAmount": { "type": "number" },
+          "otherCompensation": { "type": "number" },
+          "totalUphAmount": { "type": "number" },
+          "totalAmount": { "type": "number" },
+          "pkbVersion": { "type": "string" },
+          "calculatedAt": { "type": "string" },
+          "calculatedBy": { "type": "string" },
+          "notes": { "type": "string text" }
+        }
+      }
+    },
+    "severanceRules": {
+      "entity": {
+        "fields": {
+          "id": { "type": "string" },
+          "versionName": { "type": "string" },
+          "effectiveFrom": { "type": "string" },
+          "effectiveUntil": { "type": "string" },
+          "isActive": { "type": "boolean" },
+          "severanceTable": { "type": "array" },
+          "upmkTable": { "type": "array" },
+          "terminationTypesConfig": { "type": "array" },
+          "updatedAt": { "type": "string" },
+          "updatedBy": { "type": "string" }
+        }
+      }
     }
   }
 }

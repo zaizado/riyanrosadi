@@ -1,5 +1,6 @@
 import * as XLSX from 'xlsx';
 import { AdvocacyCase, SickVisit } from '../types';
+import { exportWorkbookToExcel } from '../utils/exportAndPrintUtils';
 
 /**
  * Export Sick Visit (Pendampingan Sakit) data to Excel (.xlsx)
@@ -83,7 +84,7 @@ export const exportSickVisitToExcel = (sickVisits: SickVisit[]) => {
 
   // Trigger Download
   const fileName = `Laporan_Anggota_Sakit_SBN_VCI_${new Date().toISOString().slice(0, 10)}.xlsx`;
-  XLSX.writeFile(workbook, fileName);
+  exportWorkbookToExcel(workbook, fileName);
 };
 
 /**
@@ -170,5 +171,5 @@ export const exportAdvocacyToExcel = (advocacyCases: AdvocacyCase[]) => {
 
   // Download
   const fileName = `Laporan_Advokasi_SBN_VCI_${new Date().toISOString().slice(0, 10)}.xlsx`;
-  XLSX.writeFile(workbook, fileName);
+  exportWorkbookToExcel(workbook, fileName);
 };

@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { PKB_DATA, PkbPasal, KELOMPOK_MATERI_DEFAULT } from '../data/pkbData';
 import { UserAccount, checkIsSuperAdmin } from '../types';
+import { ModalPortal } from './ModalPortal';
 
 interface PkbModalProps {
   isOpen: boolean;
@@ -192,9 +193,10 @@ export const PkbModal: React.FC<PkbModalProps> = ({ isOpen, onClose, currentUser
   if (!isOpen) return null;
 
   return (
-    <div className="mobile-modal-backdrop select-none">
-      
-      <div className="mobile-modal-card bg-white border border-slate-200 max-w-5xl text-slate-900">
+    <ModalPortal>
+      <div className="mobile-modal-backdrop select-none">
+        
+        <div className="mobile-modal-card bg-slate-900 border border-slate-800 max-w-5xl text-white">
         
         {/* Header Modal */}
         <div className="bg-gradient-to-r from-red-700 via-red-800 to-slate-900 border-b border-red-800 p-4 sm:p-5 flex items-center justify-between shrink-0 text-white">
@@ -652,6 +654,7 @@ export const PkbModal: React.FC<PkbModalProps> = ({ isOpen, onClose, currentUser
       )}
 
     </div>
+    </ModalPortal>
   );
 };
 

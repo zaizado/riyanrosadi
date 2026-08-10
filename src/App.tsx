@@ -17,9 +17,11 @@ import { StructureModule } from './components/StructureModule';
 import { ProfileModule } from './components/ProfileModule';
 import { InformationModule } from './components/InformationModule';
 import { FundraisingModule } from './components/FundraisingModule';
+import { SeveranceModule } from './components/SeveranceCalculator/SeveranceModule';
 import { MemberIdCardModal } from './components/MemberIdCardModal';
 import { NotificationsModal } from './components/NotificationsModal';
 import { LoginModal } from './components/LoginModal';
+import { ModalPortal } from './components/ModalPortal';
 import { FloatingBottomNav } from './components/FloatingBottomNav';
 import { playNotificationSound } from './lib/audio';
 import cheAvatar from './assets/images/pengurus_che_avatar_1785341733072.jpg';
@@ -73,7 +75,8 @@ export default function App() {
     financeRecords, setFinanceRecords,
     auditLogs, setAuditLogs,
     fundraisingCampaigns, setFundraisingCampaigns,
-    users, setUsers
+    users, setUsers,
+    severanceCalculations
   } = useAppData();
 
   const [currentUser, setCurrentUserAccount] = useState<UserAccount>(() => getCurrentUser());
@@ -712,7 +715,7 @@ export default function App() {
       />
 
       {/* Main Content Area (supports optional Android device frame mode) */}
-      <main className={`flex-1 min-h-0 w-full overflow-y-auto overflow-x-hidden relative z-10 ${isMobilePreview ? "p-2 sm:p-4 pb-6" : "p-3 sm:p-6 lg:p-8 pb-8"}`}>
+      <main className={`flex-1 min-h-0 w-full overflow-y-auto overflow-x-hidden ${isMobilePreview ? "p-2 sm:p-4 pb-6" : "p-3 sm:p-6 lg:p-8 pb-8"}`}>
         <div className={isMobilePreview ? 'max-w-md mx-auto border-[6px] sm:border-[10px] border-slate-800 rounded-[32px] sm:rounded-[40px] shadow-[0_0_50px_rgba(0,0,0,0.8)] bg-slate-900/90 p-3 sm:p-5 ring-1 ring-white/10 my-2 overflow-x-hidden backdrop-blur-xl' : 'w-full max-w-full lg:max-w-[1650px] mx-auto'}>
           <AnimatePresence mode="wait">
             <motion.div
@@ -789,6 +792,15 @@ export default function App() {
                 />
               )}
 
+              {/* Menu Simulasi Pesangon */}
+              {activeTab === 'severance' && (
+                <SeveranceModule
+                  members={members}
+                  historyItems={severanceCalculations}
+                  currentUser={currentUser}
+                />
+              )}
+
               {/* Menu 3: Anggota Sakit */}
               {activeTab === 'sick_visits' && (
                 <SickVisitModule
@@ -813,17 +825,14 @@ export default function App() {
                 />
               )}
 
-              {/* Menu Pusat Informasi Kegiatan (Point 7 requirement) */}
+              {/* Menu Informasi Agenda & Kegiatan Organisasi */}
               {activeTab === 'agendas' && (
-                <InformationModule
+                <AgendaModule
                   agendas={agendas}
-                  sembakoEvents={sembakoEvents}
-                  advocacyCases={advocacyCases}
-                  sickVisits={sickVisits}
-                  vehicleLogs={vehicleLogs}
-                  currentUser={currentUser}
                   onAddAgenda={handleAddAgenda}
+                  onUpdateAgenda={handleUpdateAgenda}
                   onDeleteAgenda={handleDeleteAgenda}
+                  currentUser={currentUser}
                 />
               )}
 
@@ -950,28 +959,30 @@ export default function App() {
 
       {/* Global Scan KTA Modal */}
       {isScanModalOpen && (
-        <div className="mobile-modal-backdrop">
-          <div className="mobile-modal-card bg-white border border-slate-200 rounded-2xl max-w-sm p-6 shadow-2xl relative text-center space-y-4">
-            <button onClick={() => setIsScanModalOpen(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 cursor-pointer">
-              <X className="w-5 h-5" />
-            </button>
-            <div className="w-16 h-16 rounded-full bg-red-100 text-red-600 border border-red-200 flex items-center justify-center mx-auto">
-              <QrCode className="w-8 h-8" />
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
+            <div className="mobile-modal-card bg-white border border-slate-200 rounded-2xl max-w-sm p-6 shadow-2xl relative text-center space-y-4">
+              <button onClick={() => setIsScanModalOpen(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 cursor-pointer">
+                <X className="w-5 h-5" />
+              </button>
+              <div className="w-16 h-16 rounded-full bg-red-100 text-red-600 border border-red-200 flex items-center justify-center mx-auto">
+                <QrCode className="w-8 h-8" />
+              </div>
+              <div>
+                <h3 className="text-lg font-black text-slate-900 uppercase">Scan KTA Digital SBN KASBI</h3>
+                <p className="text-xs text-slate-600 mt-1">Arahkan kamera ke QR Code KTA Anggota untuk memverifikasi status keanggotaan.</p>
+              </div>
+              <div className="w-48 h-48 mx-auto bg-slate-900 border-2 border-dashed border-red-500 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden">
+                <div className="w-full h-1 bg-red-600 absolute animate-pulse" />
+                <QrCode className="w-24 h-24 text-red-400 opacity-60" />
+                <span className="text-[10px] text-slate-300 font-bold mt-2">Kamera Aktif...</span>
+              </div>
+              <button onClick={() => setIsScanModalOpen(false)} className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md cursor-pointer">
+                Tutup Scanner
+              </button>
             </div>
-            <div>
-              <h3 className="text-lg font-black text-slate-900 uppercase">Scan KTA Digital SBN KASBI</h3>
-              <p className="text-xs text-slate-600 mt-1">Arahkan kamera ke QR Code KTA Anggota untuk memverifikasi status keanggotaan.</p>
-            </div>
-            <div className="w-48 h-48 mx-auto bg-slate-900 border-2 border-dashed border-red-500 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden">
-              <div className="w-full h-1 bg-red-600 absolute animate-pulse" />
-              <QrCode className="w-24 h-24 text-red-400 opacity-60" />
-              <span className="text-[10px] text-slate-300 font-bold mt-2">Kamera Aktif...</span>
-            </div>
-            <button onClick={() => setIsScanModalOpen(false)} className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md cursor-pointer">
-              Tutup Scanner
-            </button>
           </div>
-        </div>
+        </ModalPortal>
       )}
 
     </div>

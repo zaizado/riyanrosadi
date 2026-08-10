@@ -2,7 +2,9 @@
   "name": "SBN VCI",
   "description": "Sistem Koordinasi Internal Serikat Buruh Nasional (SBN) KASBI PT Victory Chingluh Indonesia",
   "requestFramePermissions": [
-    "camera"
+    "camera",
+    "microphone",
+    "geolocation"
   ],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

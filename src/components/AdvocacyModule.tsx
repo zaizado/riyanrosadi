@@ -22,6 +22,8 @@ import {
 import { AdvocacyCase, AdvocacyStatus, Member, UserAccount, AdvocacyUpdate } from '../types';
 import { MemberSearchSelect } from './MemberSearchSelect';
 import { exportAdvocacyToExcel } from '../lib/excelExport';
+import { ModalPortal } from './ModalPortal';
+import { SectionHeader, PrimaryButton, SecondaryButton } from './ui/DesignSystem';
 
 interface AdvocacyModuleProps {
   advocacyCases: AdvocacyCase[];
@@ -165,36 +167,29 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
     <div className="space-y-6 pb-12">
       
       {/* Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-md">
-        <div className="flex items-center gap-3">
-          <div className="p-3 rounded-xl bg-red-950 text-red-400 border border-red-800/40">
-            <Scale className="w-6 h-6" />
+      <SectionHeader
+        icon={Scale}
+        title="Pendampingan Advokasi"
+        description="Dokumentasi & Pengawalan Kasus Industrial Buruh SBN KASBI PT VCI"
+        action={
+          <div className="flex items-center gap-2 flex-wrap">
+            <SecondaryButton
+              icon={FileSpreadsheet}
+              onClick={() => exportAdvocacyToExcel(filteredCases)}
+              size="sm"
+            >
+              Laporan Excel ({filteredCases.length})
+            </SecondaryButton>
+            <PrimaryButton
+              icon={Plus}
+              onClick={() => setIsAddModalOpen(true)}
+              size="sm"
+            >
+              Buat Kasus Baru
+            </PrimaryButton>
           </div>
-          <div>
-            <h1 className="text-xl font-black text-white">Pendampingan Advokasi</h1>
-            <p className="text-xs text-slate-400">Dokumentasi & Pengawalan Kasus Industrial Buruh SBN KASBI PT VCI</p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2 flex-wrap">
-          <button
-            onClick={() => exportAdvocacyToExcel(filteredCases)}
-            className="px-4 py-2.5 rounded-xl bg-emerald-950 hover:bg-emerald-900 border border-emerald-700/60 text-emerald-300 font-bold text-xs shadow-sm flex items-center gap-2 transition-all cursor-pointer"
-            title="Download Laporan Format Tabel Excel (.xlsx) Siap Cetak"
-          >
-            <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
-            <span>Laporan Excel ({filteredCases.length})</span>
-          </button>
-
-          <button
-            onClick={() => setIsAddModalOpen(true)}
-            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold text-xs shadow-md shadow-red-900/30 flex items-center gap-2 transition-all cursor-pointer"
-          >
-            <Plus className="w-4 h-4" />
-            Buat Kasus Advokasi Baru
-          </button>
-        </div>
-      </div>
+        }
+      />
 
       {/* Filter & Search Bar */}
       <div className="bg-slate-900 p-4 rounded-2xl border border-slate-800 space-y-3">
@@ -293,7 +288,8 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
 
       {/* CASE DETAIL & TIMELINE MODAL */}
       {selectedCaseDetail && (
-        <div className="mobile-modal-backdrop">
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
           <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative max-w-3xl">
             <button
               onClick={() => setSelectedCaseDetail(null)}
@@ -374,11 +370,13 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
 
           </div>
         </div>
+        </ModalPortal>
       )}
 
       {/* UPDATE PROGRESS MODAL */}
       {isUpdateModalOpen && selectedCaseDetail && (
-        <div className="mobile-modal-backdrop">
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
           <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative max-w-md">
             <button
               onClick={() => setIsUpdateModalOpen(false)}
@@ -436,11 +434,13 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
 
           </div>
         </div>
+        </ModalPortal>
       )}
 
       {/* CREATE NEW ADVOCACY CASE MODAL */}
       {isAddModalOpen && (
-        <div className="mobile-modal-backdrop">
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
           <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative max-w-lg">
             <button
               onClick={() => setIsAddModalOpen(false)}
@@ -533,6 +533,7 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
 
           </div>
         </div>
+        </ModalPortal>
       )}
 
     </div>

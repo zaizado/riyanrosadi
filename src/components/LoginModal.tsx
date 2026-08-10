@@ -11,6 +11,7 @@ import {
 import { UserAccount } from '../types';
 import { INITIAL_USERS } from '../data/initialData';
 import fsbnLogo from '../assets/images/fsbn_logo_emblem_1785338169849.jpg';
+import { ModalPortal } from './ModalPortal';
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -88,7 +89,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   };
 
   return (
-    <div className={`z-[200] ${isFullPage ? 'min-h-[100dvh] w-full relative overflow-y-auto overflow-x-hidden flex flex-col items-center justify-center p-4 sm:p-6 bg-[#3a0000]' : 'mobile-modal-backdrop'}`}>
+    <ModalPortal>
+      <div className={`z-[9999] ${isFullPage ? 'min-h-[100dvh] w-full fixed inset-0 overflow-y-auto overflow-x-hidden flex flex-col items-center justify-center p-4 sm:p-6 bg-[#3a0000]' : 'mobile-modal-backdrop'}`}>
       
       {/* BACKGROUND GRAPHICS CONTAINER */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
@@ -336,5 +338,6 @@ export const LoginModal: React.FC<LoginModalProps> = ({
       </div>
 
     </div>
+    </ModalPortal>
   );
 };

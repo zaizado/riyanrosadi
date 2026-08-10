@@ -31,6 +31,10 @@ import { Member, Gender, EmploymentStatus, MemberStatus, ShiftType, UserAccount,
 import { ConfirmModal } from './ConfirmModal';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { compressImage } from '../lib/imageUtils';
+import { ModalPortal } from './ModalPortal';
+import { SectionHeader, PrimaryButton, SecondaryButton } from './ui/DesignSystem';
+
+import { exportWorkbookToExcel } from '../utils/exportAndPrintUtils';
 
 interface MembersModuleProps {
   members: Member[];
@@ -55,8 +59,6 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDept, setSelectedDept] = useState<string>('All');
   const [selectedStatus, setSelectedStatus] = useState<string>('All');
-  const [selectedStatusKerja, setSelectedStatusKerja] = useState<string>('All');
-  const [selectedShift, setSelectedShift] = useState<string>('All');
 
   // Table Pagination State
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -95,8 +97,10 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
   // Import Notification Popup Result
   const [importPopupResult, setImportPopupResult] = useState<{
     addedCount: number;
+    updatedCount: number;
     missingCount: number;
-    unchangedCount: number;
+    reactivatedCount: number;
+    errorCount: number;
   } | null>(null);
 
   // Dynamic Departments list for dropdowns
@@ -123,7 +127,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
   // Reset page when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, selectedDept, selectedStatus, selectedStatusKerja, selectedShift, pageSize]);
+  }, [searchQuery, selectedDept, selectedStatus, pageSize]);
 
   // Filtered Members
   const filteredMembers = useMemo(() => {
@@ -139,12 +143,10 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
       const matchDept = selectedDept === 'All' || m.departemen === selectedDept;
       const matchStatus = selectedStatus === 'All' || m.statusKeanggotaan === selectedStatus;
-      const matchStatusKerja = selectedStatusKerja === 'All' || m.statusKerja === selectedStatusKerja;
-      const matchShift = selectedShift === 'All' || m.shift === selectedShift;
 
-      return matchSearch && matchDept && matchStatus && matchStatusKerja && matchShift;
+      return matchSearch && matchDept && matchStatus;
     });
-  }, [members, searchQuery, selectedDept, selectedStatus, selectedStatusKerja, selectedShift]);
+  }, [members, searchQuery, selectedDept, selectedStatus]);
 
   // Paginated Members
   const totalPages = Math.max(1, Math.ceil(filteredMembers.length / pageSize));
@@ -156,28 +158,22 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
   // Export to Excel XLSX
   const handleExportExcel = () => {
     const exportData = filteredMembers.map(m => ({
-      'Nomor Anggota': m.nomorAnggota,
       'NIK': m.nik,
-      'Nama Lengkap': m.namaLengkap,
-      'Jenis Kelamin': m.jenisKelamin,
-      'Tempat Lahir': m.tempatLahir,
-      'Tanggal Lahir': m.tanggalLahir,
-      'Alamat': m.alamat,
-      'Nomor HP': m.nomorHp,
-      'Email': m.email,
-      'Departemen': m.departemen,
-      'Bagian': m.bagian,
-      'Jabatan Kerja': m.jabatanKerja,
-      'Shift': m.shift,
-      'Status Kerja': m.statusKerja,
-      'Status Keanggotaan': m.statusKeanggotaan,
-      'Tanggal Bergabung': m.tanggalBergabung,
+      'NAMA': m.namaLengkap,
+      'JENISKELAMIN': m.jenisKelamin === 'Perempuan' ? 'Female' : 'Male',
+      'GEDUNG': m.gedung || '-',
+      'LOKASI': m.lokasi || '-',
+      'DEPARTEMEN': m.departemen,
+      'TERHITUNG MULAI BEKERJA': m.tanggalBergabung,
+      'POSISI': m.jabatanKerja,
+      'Union': m.unionName || 'SBN-KASBI',
+      'ALAMAT': m.alamat,
     }));
 
     const worksheet = XLSX.utils.json_to_sheet(exportData);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Data Anggota SBN');
-    XLSX.writeFile(workbook, `Data_Anggota_SBN_KASBI_VCI_${new Date().toISOString().slice(0,10)}.xlsx`);
+    exportWorkbookToExcel(workbook, `Data_Anggota_SBN_KASBI_VCI_${new Date().toISOString().slice(0,10)}.xlsx`);
   };
 
   // Handle File Upload for Import (Excel / CSV)
@@ -211,10 +207,10 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
         reader.onload = (evt) => {
           try {
             const bstr = evt.target?.result;
-            const wb = XLSX.read(bstr, { type: 'binary' });
+            const wb = XLSX.read(bstr, { type: 'binary', cellDates: true });
             const wsname = wb.SheetNames[0];
             const ws = wb.Sheets[wsname];
-            const data = XLSX.utils.sheet_to_json(ws);
+            const data = XLSX.utils.sheet_to_json(ws, { raw: false, dateNF: 'yyyy-mm-dd' });
             processRawImportData(data);
           } catch (err: any) {
             setImportError('Gagal membaca file Excel: ' + (err.message || 'Format file tidak valid'));
@@ -239,88 +235,161 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
     const parsedMembers: Partial<Member>[] = rows.map((row, idx) => {
       const getVal = (keys: string[]) => {
+        // Direct match
         for (const k of keys) {
           if (row[k] !== undefined && row[k] !== null && String(row[k]).trim() !== '') {
             return String(row[k]).trim();
           }
         }
+        // Case-insensitive & normalized match
+        const rowKeys = Object.keys(row);
+        for (const k of keys) {
+          const kLower = k.toLowerCase().replace(/[^a-z0-9]/g, '');
+          const foundKey = rowKeys.find(rk => rk.toLowerCase().replace(/[^a-z0-9]/g, '') === kLower);
+          if (foundKey && row[foundKey] !== undefined && row[foundKey] !== null && String(row[foundKey]).trim() !== '') {
+            return String(row[foundKey]).trim();
+          }
+        }
         return '';
       };
 
-      const nik = getVal(['Employee ID', 'NIK', 'nik', 'Nik', 'NIP', 'No Karyawan', 'ID Karyawan']);
-      const nama = getVal(['Full name', 'Nama Lengkap', 'Nama', 'nama', 'Nama_Lengkap', 'Name', 'Full Name']);
-      const genderRaw = getVal(['Gender', 'Jenis Kelamin', 'JK', 'Sex']);
-      const dept = getVal(['Department', 'Departemen', 'Dept', 'Organizational unit']);
-      const gedung = getVal(['Gedung', 'Location', 'Bagian', 'Line', 'Section']);
-      const position = getVal(['Position', 'Jabatan Kerja', 'Jabatan', 'Role']);
-      const joinDate = getVal(['Chingluh employment date', 'Tanggal Bergabung', 'Tgl Masuk', 'Tgl Bergabung']);
-      const addr1 = getVal(['Home Addr.(Chinese)', 'Alamat 1']);
-      const addr2 = getVal(['Permanent Address', 'Alamat 2', 'Alamat', 'Address']);
-      const alamatClean = addr2 || addr1 || 'Tangerang';
+      const nik = getVal(['NIK', 'nik', 'Nik']);
+      const nama = getVal(['NAMA', 'Nama', 'nama']);
+      const genderRaw = getVal(['JENISKELAMIN', 'JenisKelamin', 'jeniskelamin', 'JENIS KELAMIN', 'Jenis Kelamin']);
+      const dept = getVal(['DEPARTEMEN', 'Departemen', 'departemen']);
+      const gedung = getVal(['GEDUNG', 'Gedung', 'gedung']);
+      const lokasi = getVal(['LOKASI', 'Lokasi', 'lokasi']);
+      const position = getVal(['POSISI', 'Posisi', 'posisi']);
+      const unionName = getVal(['Union', 'UNION', 'union']);
+      const joinDate = getVal(['TERHITUNG MULAI BEKERJA', 'Terhitung Mulai Bekerja', 'terhitung mulai bekerja']);
+      const alamatClean = getVal(['ALAMAT', 'Alamat', 'alamat']) || 'Tangerang';
 
-      const nomorAnggota = getVal(['Nomor Anggota', 'No Anggota', 'nomorAnggota', 'ID Anggota']) || `SBN-VCI-${String(members.length + idx + 1).padStart(4, '0')}`;
+      let formattedJoinDate = joinDate;
+      if (formattedJoinDate) {
+        // Handle DD/MM/YYYY or similar Excel text export
+        const parts = formattedJoinDate.split(/[\/\-]/);
+        if (parts.length === 3) {
+          if (parts[2].length === 4) {
+            // DD/MM/YYYY
+            formattedJoinDate = `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
+          } else if (parts[0].length === 4) {
+            // YYYY-MM-DD
+            formattedJoinDate = `${parts[0]}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`;
+          }
+        }
+      }
 
-      const isFemale = genderRaw.toLowerCase().includes('female') || genderRaw.toLowerCase().includes('perempuan') || genderRaw.toLowerCase() === 'p';
+      const nomorAnggota = `SBN-VCI-${String(members.length + idx + 1).padStart(4, '0')}`;
+
+      const isFemale = genderRaw.toLowerCase().includes('female') || genderRaw.toLowerCase().includes('perempuan') || genderRaw.toLowerCase() === 'p' || genderRaw.toLowerCase() === 'w' || genderRaw.toLowerCase() === 'wanita';
       const genderClean: Gender = isFemale ? 'Perempuan' : 'Laki-laki';
+      const finalNik = nik || `VCI-${idx + 100}`;
 
       return {
-        id: `mbr-imp-${Date.now()}-${idx}`,
+        id: finalNik,
         nomorAnggota,
-        nik: nik || `VCI-${idx + 100}`,
+        nik: finalNik,
         namaLengkap: nama || `Anggota Tanpa Nama ${idx + 1}`,
         jenisKelamin: genderClean,
-        tempatLahir: getVal(['Tempat Lahir', 'Tempat_Lahir']) || 'Tangerang',
-        tanggalLahir: getVal(['Tanggal Lahir', 'Tgl Lahir']) || '',
+        tempatLahir: 'Tangerang',
+        tanggalLahir: '',
         alamat: alamatClean,
-        nomorHp: getVal(['Nomor HP', 'No HP', 'Handphone', 'Phone']) || '-',
-        email: getVal(['Email', 'email']) || '',
-        departemen: dept || (gedung || 'Produksi'),
-        bagian: gedung || 'Line',
+        nomorHp: '-',
+        email: '',
+        gedung: gedung || '',
+        lokasi: lokasi || '',
+        departemen: dept || '',
+        bagian: 'Line',
         jabatanKerja: position || 'OPERATOR',
-        shift: (getVal(['Shift', 'shift']) as ShiftType) || 'Shift 1',
-        statusKerja: (getVal(['Status Kerja', 'Status_Kerja']) as EmploymentStatus) || 'PKWTT',
-        statusKeanggotaan: (getVal(['Status Keanggotaan', 'Status']) as MemberStatus) || 'Aktif',
-        tanggalBergabung: joinDate || new Date().toISOString().slice(0, 10),
+        unionName: unionName || 'SBN-KASBI',
+        statusKeanggotaan: 'Aktif' as MemberStatus,
+        tanggalBergabung: formattedJoinDate || new Date().toISOString().slice(0, 10),
         fotoUrl: cheAvatar
       };
     });
 
+    // Validate data
+    const niks = new Set();
+    let hasError = false;
+    for (let i = 0; i < parsedMembers.length; i++) {
+      const m = parsedMembers[i];
+      if (!m.nik || m.nik.startsWith('VCI-')) {
+        setImportError(`Baris ${i + 1}: NIK kosong atau tidak valid.`);
+        hasError = true;
+        break;
+      }
+      if (niks.has(m.nik)) {
+        setImportError(`Baris ${i + 1}: Terdapat duplikat NIK (${m.nik}) dalam file.`);
+        hasError = true;
+        break;
+      }
+      niks.add(m.nik);
+      if (!m.namaLengkap || m.namaLengkap.startsWith('Anggota Tanpa Nama')) {
+        setImportError(`Baris ${i + 1}: Nama Anggota tidak boleh kosong (NIK: ${m.nik}).`);
+        hasError = true;
+        break;
+      }
+    }
+
+    if (hasError) {
+      setIsProcessingFile(false);
+      return;
+    }
+
     setImportPreviewData(parsedMembers);
     setImportPage(1);
+    setIsProcessingFile(false);
   };
 
   const handleConfirmImport = () => {
     if (importPreviewData.length === 0) return;
 
-    // Build set of NIKs from the imported file
-    const excelNiksSet = new Set<string>();
+    // Build map of imported members by NIK
+    const importMap = new Map<string, Partial<Member>>();
     importPreviewData.forEach(item => {
       if (item.nik && String(item.nik).trim()) {
-        excelNiksSet.add(String(item.nik).trim().toLowerCase());
+        importMap.set(String(item.nik).trim().toLowerCase(), item);
       }
     });
 
-    // 1. Check existing members
-    // Rule: "ketika data sudah ada (biarkan jangan dirubah 1 pun)"
-    // Rule: "jika ada pengurangan maka buatlah anggota yang sudah tidak tersedia datanya dari excel terbaru menjadi berwarna merah bold"
     let missingCount = 0;
     let unchangedCount = 0;
+    let updatedCount = 0;
+    let reactivatedCount = 0;
 
     const updatedExistingMembers: Member[] = members.map(m => {
       const mNik = (m.nik || '').trim().toLowerCase();
-      const isPresentInExcel = mNik && excelNiksSet.has(mNik);
+      const importedData = mNik ? importMap.get(mNik) : undefined;
 
-      if (isPresentInExcel) {
-        unchangedCount++;
+      if (importedData) {
+        // Data exists in both, UPDATE the existing member with spreadsheet data
+        if (m.statusKeanggotaan === 'Non-Aktif') {
+          reactivatedCount++;
+        } else {
+          updatedCount++;
+        }
+        
         return {
           ...m,
+          ...importedData,
+          id: m.id, // Preserve original document ID in case it differs, but NIK is preferred
+          fotoUrl: m.fotoUrl || importedData.fotoUrl, // Preserve existing photo
+          statusKeanggotaan: 'Aktif' as MemberStatus,
+          updatedAt: new Date().toISOString(),
           isMissingFromExcel: false,
           isNewFromExcel: false
-        };
+        } as Member;
       } else {
-        missingCount++;
+        // Not in spreadsheet
+        if (m.statusKeanggotaan === 'Aktif') {
+          missingCount++;
+        } else {
+          unchangedCount++;
+        }
+
         return {
           ...m,
+          statusKeanggotaan: 'Non-Aktif' as MemberStatus,
           isMissingFromExcel: true,
           isNewFromExcel: false
         };
@@ -328,15 +397,14 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
     });
 
     // 2. Identify NEW members from Excel
-    // Rule: "jika ada penambahan data maka tampilkan di paling atas dengan pop up (.... penambahan anggota baru)"
     const existingNiksSet = new Set(members.map(m => (m.nik || '').trim().toLowerCase()));
     const newMembersFromExcel: Member[] = [];
 
     importPreviewData.forEach((imp, idx) => {
       const impNik = (imp.nik || '').trim().toLowerCase();
-      if (!impNik || !existingNiksSet.has(impNik)) {
+      if (impNik && !existingNiksSet.has(impNik)) {
         newMembersFromExcel.push({
-          id: imp.id || `mbr-new-${Date.now()}-${idx}`,
+          id: impNik, // Set id to NIK as requested
           nomorAnggota: imp.nomorAnggota || `SBN-VCI-${String(members.length + newMembersFromExcel.length + 1).padStart(4, '0')}`,
           nik: imp.nik || `VCI-${idx + 100}`,
           namaLengkap: imp.namaLengkap || 'Anggota Baru',
@@ -346,11 +414,12 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
           alamat: imp.alamat || '-',
           nomorHp: imp.nomorHp || '-',
           email: imp.email || '',
+          gedung: imp.gedung || '',
+          lokasi: imp.lokasi || '',
+          unionName: imp.unionName || 'SBN-KASBI',
           departemen: imp.departemen || 'Assembly',
           bagian: imp.bagian || 'Line',
           jabatanKerja: imp.jabatanKerja || 'OPERATOR',
-          shift: imp.shift || 'Shift 1',
-          statusKerja: imp.statusKerja || 'PKWTT',
           statusKeanggotaan: imp.statusKeanggotaan || 'Aktif',
           tanggalBergabung: imp.tanggalBergabung || new Date().toISOString().slice(0, 10),
           fotoUrl: imp.fotoUrl || cheAvatar,
@@ -369,8 +438,10 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
     // Trigger Popup Result
     setImportPopupResult({
       addedCount: newMembersFromExcel.length,
+      updatedCount: updatedCount,
       missingCount: missingCount,
-      unchangedCount: unchangedCount
+      reactivatedCount: reactivatedCount,
+      errorCount: 0 // Track any actual processing errors if implemented
     });
 
     setIsImportModalOpen(false);
@@ -496,8 +567,6 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
         departemen: formData.departemen || 'Assembly',
         bagian: formData.bagian || 'Line',
         jabatanKerja: formData.jabatanKerja || 'OPERATOR',
-        shift: (formData.shift as ShiftType) || 'Shift 1',
-        statusKerja: (formData.statusKerja as EmploymentStatus) || 'PKWTT',
         statusKeanggotaan: (formData.statusKeanggotaan as MemberStatus) || 'Aktif',
         tanggalBergabung: formData.tanggalBergabung || new Date().toISOString().slice(0, 10),
         fotoUrl: formData.fotoUrl || cheAvatar
@@ -512,59 +581,44 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
     <div className="space-y-6 pb-12">
       
       {/* Header Title Section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900 p-4 sm:p-6 rounded-2xl border border-slate-800 shadow-md">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="p-2 rounded-xl bg-red-950 text-red-400 border border-red-800/40 shrink-0">
-              <Users className="w-5 h-5" />
-            </span>
-            <div>
-              <h1 className="text-lg sm:text-xl font-black text-white leading-snug">Data Anggota SBN KASBI</h1>
-              <p className="text-xs text-slate-400">Pusat Informasi & Database Anggota PT Victory Chingluh Indonesia ({members.length} Terdaftar)</p>
-            </div>
+      <SectionHeader
+        icon={Users}
+        title="Data Anggota SBN KASBI"
+        description={`Pusat Informasi & Database Anggota PT Victory Chingluh Indonesia (${members.length} Terdaftar)`}
+        badge="Realtime Sync ⚡"
+        action={
+          <div className="flex flex-wrap items-center gap-2">
+            <SecondaryButton
+              icon={FileSpreadsheet}
+              onClick={() => setIsAuditModalOpen(true)}
+              size="sm"
+            >
+              Audit ({deletedAudits.length})
+            </SecondaryButton>
+            <SecondaryButton
+              icon={Upload}
+              onClick={() => setIsImportModalOpen(true)}
+              size="sm"
+            >
+              Import
+            </SecondaryButton>
+            <SecondaryButton
+              icon={Download}
+              onClick={handleExportExcel}
+              size="sm"
+            >
+              Export
+            </SecondaryButton>
+            <PrimaryButton
+              icon={Plus}
+              onClick={openAddModal}
+              size="sm"
+            >
+              Tambah Anggota
+            </PrimaryButton>
           </div>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            onClick={() => setIsAuditModalOpen(true)}
-            className="flex-1 sm:flex-none px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer relative"
-            title="Lihat Riwayat Audit & Alasan Penghapusan Anggota"
-          >
-            <FileSpreadsheet className="w-4 h-4 text-rose-400" />
-            <span>Audit Penghapusan ({deletedAudits.length})</span>
-            {deletedAudits.length > 0 && (
-              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
-            )}
-          </button>
-
-          <button
-            onClick={() => setIsImportModalOpen(true)}
-            className="flex-1 sm:flex-none px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
-            title="Import dari Excel / CSV"
-          >
-            <Upload className="w-4 h-4 text-emerald-400" />
-            Import Excel/CSV
-          </button>
-
-          <button
-            onClick={handleExportExcel}
-            className="flex-1 sm:flex-none px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
-            title="Export ke file Excel XLSX"
-          >
-            <Download className="w-4 h-4 text-blue-400" />
-            Export Excel
-          </button>
-
-          <button
-            onClick={openAddModal}
-            className="w-full sm:w-auto px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold text-xs shadow-md shadow-red-900/30 flex items-center justify-center gap-2 transition-all cursor-pointer"
-          >
-            <Plus className="w-4 h-4" />
-            Tambah Anggota
-          </button>
-        </div>
-      </div>
+        }
+      />
 
       {/* Search Bar & Multi Filter Toolbar */}
       <div className="bg-slate-900 p-3 sm:p-4 rounded-2xl border border-slate-800 space-y-3">
@@ -604,39 +658,6 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
               <option value="All">Semua Status</option>
               <option value="Aktif">Aktif</option>
               <option value="Non-Aktif">Non-Aktif</option>
-              <option value="Penangguhan">Penangguhan</option>
-              <option value="Cuti">Cuti</option>
-            </select>
-          </div>
-
-          {/* Status Kerja Filter */}
-          <div>
-            <label className="block text-[10px] text-slate-400 mb-1 font-semibold">Status Kerja</label>
-            <select
-              value={selectedStatusKerja}
-              onChange={(e) => setSelectedStatusKerja(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-slate-200 focus:outline-none focus:border-red-500 text-xs"
-            >
-              <option value="All">Semua Status Kerja</option>
-              <option value="PKWTT">PKWTT (Tetap)</option>
-              <option value="PKWT">PKWT (Kontrak)</option>
-              <option value="Outsourcing">Outsourcing</option>
-            </select>
-          </div>
-
-          {/* Shift Filter */}
-          <div>
-            <label className="block text-[10px] text-slate-400 mb-1 font-semibold">Shift</label>
-            <select
-              value={selectedShift}
-              onChange={(e) => setSelectedShift(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-slate-200 focus:outline-none focus:border-red-500 text-xs"
-            >
-              <option value="All">Semua Shift</option>
-              <option value="Shift 1">Shift 1</option>
-              <option value="Shift 2">Shift 2</option>
-              <option value="Shift 3">Shift 3</option>
-              <option value="Non-Shift">Non-Shift</option>
             </select>
           </div>
         </div>
@@ -672,7 +693,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
                 <th className="p-3.5">Anggota</th>
                 <th className="p-3.5">NIK (Data Excel)</th>
                 <th className="p-3.5">Departemen & Bagian</th>
-                <th className="p-3.5">Status Kerja & Shift</th>
+                <th className="p-3.5">TMK (Terhitung Mulai Kerja)</th>
                 <th className="p-3.5">Status Keanggotaan</th>
                 <th className="p-3.5 text-right">Aksi</th>
               </tr>
@@ -747,14 +768,15 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
                         <p className={`text-[11px] ${isMissing ? 'text-rose-300' : 'text-slate-400'}`}>{mbr.bagian}</p>
                       </td>
 
-                      {/* Work Status & Shift */}
-                      <td className="p-3.5">
-                        <span className={`px-2 py-0.5 text-[10px] font-semibold rounded border mr-1.5 ${
-                          isMissing ? 'bg-rose-900/60 text-rose-200 border-rose-700' : 'bg-slate-800 text-slate-300 border-slate-700'
+                      {/* TMK (Terhitung Mulai Kerja) */}
+                      <td className="p-3.5 font-mono">
+                        <span className={`px-2.5 py-1 rounded-md text-xs font-bold border ${
+                          isMissing 
+                            ? 'bg-rose-950/60 text-rose-300 border-rose-800' 
+                            : 'bg-amber-950/40 text-amber-300 border-amber-800/60'
                         }`}>
-                          {mbr.statusKerja}
+                          {mbr.tanggalBergabung || '-'}
                         </span>
-                        <span className={`text-[11px] ${isMissing ? 'text-rose-300' : 'text-slate-400'}`}>{mbr.shift}</span>
                       </td>
 
                       {/* Membership status */}
@@ -771,7 +793,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
                               : 'bg-rose-950 text-rose-400 border border-rose-800/60'
                           }`}>
                             {mbr.statusKeanggotaan === 'Aktif' ? <UserCheck className="w-3 h-3" /> : <UserX className="w-3 h-3" />}
-                            {mbr.statusKeanggotaan}
+                            {mbr.statusKeanggotaan === 'Non-Aktif' ? 'Tidak Aktif' : mbr.statusKeanggotaan}
                           </span>
                         )}
                       </td>
@@ -900,7 +922,8 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
       {/* MEMBER DETAIL BIODATA MODAL */}
       {isDetailModalOpen && selectedMember && (
-        <div className="mobile-modal-backdrop">
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
           <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-4 sm:p-6 shadow-2xl relative max-w-2xl">
             <button
               onClick={() => setIsDetailModalOpen(false)}
@@ -950,14 +973,8 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
                 <p className="text-xs text-slate-300 font-semibold">{selectedMember.jabatanKerja} • {selectedMember.departemen} ({selectedMember.bagian})</p>
                 
                 <div className="pt-2 flex flex-wrap gap-2 justify-center sm:justify-start text-[11px]">
-                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800">
-                    Status: {selectedMember.statusKeanggotaan}
-                  </span>
-                  <span className="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300">
-                    Kerja: {selectedMember.statusKerja}
-                  </span>
-                  <span className="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300">
-                    {selectedMember.shift}
+                  <span className={`px-2.5 py-0.5 rounded-full border ${selectedMember.statusKeanggotaan === 'Aktif' ? 'bg-emerald-950 text-emerald-400 border-emerald-800' : 'bg-rose-950 text-rose-400 border-rose-800'}`}>
+                    Status: {selectedMember.statusKeanggotaan === 'Non-Aktif' ? 'Tidak Aktif' : selectedMember.statusKeanggotaan}
                   </span>
                 </div>
               </div>
@@ -971,6 +988,11 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
               </div>
 
               <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
+                <p className="text-[10px] text-slate-400 font-semibold">Serikat / Union</p>
+                <p className="font-bold text-slate-200">{selectedMember.unionName || 'SBN-KASBI'}</p>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
                 <p className="text-[10px] text-slate-400 font-semibold">Tempat / Tanggal Lahir</p>
                 <p className="font-bold text-slate-200">{selectedMember.tempatLahir}{selectedMember.tanggalLahir ? `, ${selectedMember.tanggalLahir}` : ''}</p>
               </div>
@@ -981,6 +1003,16 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
               </div>
 
               <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
+                <p className="text-[10px] text-slate-400 font-semibold">TMK (Terhitung Mulai Kerja)</p>
+                <p className="font-bold text-amber-300 font-mono">{selectedMember.tanggalBergabung || '-'}</p>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
+                <p className="text-[10px] text-slate-400 font-semibold">Gedung / Lokasi</p>
+                <p className="font-bold text-slate-200">{selectedMember.gedung || '-'} {selectedMember.lokasi ? `/ ${selectedMember.lokasi}` : ''}</p>
+              </div>
+
+              <div className="md:col-span-2 p-3 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
                 <p className="text-[10px] text-slate-400 font-semibold">Email</p>
                 <p className="font-bold text-slate-200">{selectedMember.email || '-'}</p>
               </div>
@@ -1007,11 +1039,13 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
           </div>
         </div>
+        </ModalPortal>
       )}
 
       {/* IMPORT EXCEL / CSV MODAL */}
       {isImportModalOpen && (
-        <div className="mobile-modal-backdrop">
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
           <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-4 sm:p-6 shadow-2xl relative max-w-3xl">
             <button
               onClick={() => setIsImportModalOpen(false)}
@@ -1075,7 +1109,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
                         <th className="p-2">Nama Lengkap</th>
                         <th className="p-2">Departemen</th>
                         <th className="p-2">Bagian</th>
-                        <th className="p-2">Jabatan</th>
+                        <th className="p-2">TMK (Chingluh Date)</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-800">
@@ -1086,7 +1120,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
                           <td className="p-2 font-bold">{row.namaLengkap}</td>
                           <td className="p-2 max-w-xs truncate">{row.departemen}</td>
                           <td className="p-2">{row.bagian}</td>
-                          <td className="p-2">{row.jabatanKerja}</td>
+                          <td className="p-2 font-mono text-amber-300 font-semibold">{row.tanggalBergabung || '-'}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -1183,11 +1217,13 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
           </div>
         </div>
+        </ModalPortal>
       )}
 
       {/* ADD / EDIT MEMBER FORM MODAL */}
       {isAddEditModalOpen && (
-        <div className="mobile-modal-backdrop">
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
           <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white shadow-2xl relative max-w-2xl">
             <div className="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between shrink-0">
               <h2 className="text-base sm:text-lg font-bold text-white">
@@ -1298,30 +1334,13 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-slate-400 mb-1 font-semibold">Shift Kerja</label>
-                  <select
-                    value={formData.shift || 'Shift 1'}
-                    onChange={(e) => setFormData({ ...formData, shift: e.target.value as ShiftType })}
+                  <label className="block text-slate-400 mb-1 font-semibold">TMK (Terhitung Mulai Kerja)</label>
+                  <input
+                    type="date"
+                    value={formData.tanggalBergabung || ''}
+                    onChange={(e) => setFormData({ ...formData, tanggalBergabung: e.target.value })}
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
-                  >
-                    <option value="Shift 1">Shift 1</option>
-                    <option value="Shift 2">Shift 2</option>
-                    <option value="Shift 3">Shift 3</option>
-                    <option value="Non-Shift">Non-Shift</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-slate-400 mb-1 font-semibold">Status Kerja</label>
-                  <select
-                    value={formData.statusKerja || 'PKWTT'}
-                    onChange={(e) => setFormData({ ...formData, statusKerja: e.target.value as EmploymentStatus })}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
-                  >
-                    <option value="PKWTT">PKWTT (Tetap)</option>
-                    <option value="PKWT">PKWT (Kontrak)</option>
-                    <option value="Outsourcing">Outsourcing</option>
-                  </select>
+                  />
                 </div>
 
                 <div>
@@ -1333,9 +1352,39 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
                   >
                     <option value="Aktif">Aktif</option>
                     <option value="Non-Aktif">Non-Aktif</option>
-                    <option value="Penangguhan">Penangguhan</option>
-                    <option value="Cuti">Cuti</option>
                   </select>
+                </div>
+
+                <div>
+                  <label className="block text-slate-400 mb-1 font-semibold">Gedung</label>
+                  <input
+                    type="text"
+                    value={formData.gedung || ''}
+                    onChange={(e) => setFormData({ ...formData, gedung: e.target.value })}
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                    placeholder="Contoh: N1-N4"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-400 mb-1 font-semibold">Lokasi</label>
+                  <input
+                    type="text"
+                    value={formData.lokasi || ''}
+                    onChange={(e) => setFormData({ ...formData, lokasi: e.target.value })}
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                    placeholder="Contoh: JV / JVB"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-400 mb-1 font-semibold">Serikat / Union</label>
+                  <input
+                    type="text"
+                    value={formData.unionName || 'SBN-KASBI'}
+                    onChange={(e) => setFormData({ ...formData, unionName: e.target.value })}
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                  />
                 </div>
 
                 <div className="sm:col-span-2">
@@ -1370,11 +1419,13 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
           </div>
         </div>
+        </ModalPortal>
       )}
 
       {/* DELETION WITH AUDIT TRAIL MODAL (Requirement 5) */}
       {memberToDelete && (
-        <div className="mobile-modal-backdrop">
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
           <div className="mobile-modal-card bg-slate-900 border border-rose-800/80 text-white p-6 shadow-2xl relative max-w-lg animate-in fade-in zoom-in-95">
             <button
               onClick={() => {
@@ -1475,11 +1526,13 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
             </div>
           </div>
         </div>
+        </ModalPortal>
       )}
 
       {/* AUDIT LOG HISTORY MODAL */}
       {isAuditModalOpen && (
-        <div className="mobile-modal-backdrop">
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
           <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative max-w-3xl">
             <button
               onClick={() => setIsAuditModalOpen(false)}
@@ -1550,11 +1603,13 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
             </div>
           </div>
         </div>
+        </ModalPortal>
       )}
 
       {/* IMPORT NOTIFICATION RESULT POPUP (Requirement 4) */}
       {importPopupResult && (
-        <div className="mobile-modal-backdrop">
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
           <div className="mobile-modal-card bg-slate-900 border border-emerald-800/80 text-white p-6 shadow-2xl relative max-w-md">
             <div className="w-14 h-14 rounded-2xl bg-emerald-950 border border-emerald-800 text-emerald-400 flex items-center justify-center mx-auto mb-4 shadow-lg">
               <CheckCircle2 className="w-8 h-8" />
@@ -1572,23 +1627,33 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
             <div className="space-y-2.5 mb-6 text-xs">
               <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-800/60 flex items-center justify-between">
-                <span className="font-bold text-emerald-300">✨ Penambahan Anggota Baru:</span>
-                <span className="font-black text-emerald-400 font-mono text-sm">+{importPopupResult.addedCount} Data</span>
+                <span className="font-bold text-emerald-300">🟢 Anggota Baru:</span>
+                <span className="font-black text-emerald-400 font-mono text-sm">{importPopupResult.addedCount} Data</span>
               </div>
 
-              <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
-                <span className="font-bold text-slate-300">🔒 Data Tetap (Tidak Berubah):</span>
-                <span className="font-black text-slate-200 font-mono text-sm">{importPopupResult.unchangedCount} Data</span>
+              <div className="p-3 rounded-xl bg-blue-950/60 border border-blue-800/60 flex items-center justify-between">
+                <span className="font-bold text-blue-300">🔵 Data Diperbarui:</span>
+                <span className="font-black text-blue-400 font-mono text-sm">{importPopupResult.updatedCount} Data</span>
               </div>
 
               <div className="p-3 rounded-xl bg-rose-950/60 border border-rose-800/60 flex items-center justify-between">
-                <span className="font-bold text-rose-300">⚠️ Tidak Ada di Excel (Merah Bold):</span>
+                <span className="font-bold text-rose-300">🔴 Menjadi Tidak Aktif:</span>
                 <span className="font-black text-rose-400 font-mono text-sm">{importPopupResult.missingCount} Data</span>
+              </div>
+
+              <div className="p-3 rounded-xl bg-amber-950/60 border border-amber-800/60 flex items-center justify-between">
+                <span className="font-bold text-amber-300">🟡 Aktif Kembali:</span>
+                <span className="font-black text-amber-400 font-mono text-sm">{importPopupResult.reactivatedCount} Data</span>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 flex items-center justify-between">
+                <span className="font-bold text-slate-400">⚠️ Error:</span>
+                <span className="font-black text-slate-300 font-mono text-sm">{importPopupResult.errorCount} Data</span>
               </div>
             </div>
 
             <p className="text-[11px] text-slate-400 italic text-center mb-6 bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-              * Anggota baru langsung ditampilkan di paling atas daftar. Anggota yang tidak ada di Excel terbaru ditandai warna merah bold.
+              * Anggota yang tidak ada di Excel terbaru secara otomatis diubah menjadi "Tidak Aktif" tanpa menghapus histori data.
             </p>
 
             <button
@@ -1599,6 +1664,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
             </button>
           </div>
         </div>
+        </ModalPortal>
       )}
 
     </div>

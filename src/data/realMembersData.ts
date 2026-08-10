@@ -15,8 +15,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0530 Project Management Shoes Factory",
     "bagian": "N1-N4",
     "jabatanKerja": "ASSIST.SUPERVISOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "20-Jul-2010"
   },
@@ -34,8 +32,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01350 QC of IP JVB",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "20-Sep-2010"
   },
@@ -53,8 +49,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00410 Finish Goods Warehouse",
     "bagian": "W/H",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -72,8 +66,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -91,8 +83,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10808 Cutting OF Rubber 1st/Shift JVB",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -110,8 +100,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10809 Cutting OF Rubber 2nd/Shift JVB",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -129,8 +117,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1211 Fty1 Sttitching Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -148,8 +134,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1308 Fty1 Assembly Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "23-Nov-2010"
   },
@@ -167,8 +151,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1211 Fty1 Sttitching Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2011"
   },
@@ -186,8 +168,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC143 Line 43 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2011"
   },
@@ -205,8 +185,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2012"
   },
@@ -224,8 +202,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "28-Mar-2012"
   },
@@ -243,8 +219,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -262,8 +236,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -281,8 +253,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1312 Fty1 Assembly Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -300,8 +270,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -319,8 +287,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -338,8 +304,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0305 Fty1 Assembly Line 5 Packing",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Jun-2012"
   },
@@ -357,8 +321,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1239 Fty3 Sttitching Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Jan-2013"
   },
@@ -376,8 +338,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20524 Injection of IP - JVB / 1st Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Jan-2013"
   },
@@ -395,8 +355,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC243 Line 43 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Jan-2013"
   },
@@ -414,8 +372,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Feb-2013"
   },
@@ -433,8 +389,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM021 Line Mini Stitching Cmptr Central Fact 1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Feb-2013"
   },
@@ -452,8 +406,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4316 SF Section 3/group 16",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Feb-2013"
   },
@@ -471,8 +423,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111A Printing A, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "11-Feb-2013"
   },
@@ -490,8 +440,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC237 Line 37 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Feb-2013"
   },
@@ -509,8 +457,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00100 Site Security",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "18-Feb-2013"
   },
@@ -528,8 +474,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00400 Warehouse",
     "bagian": "W/H",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "20-Feb-2013"
   },
@@ -547,8 +491,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1139 Fty3 Cutting Line 39",
     "bagian": "S6",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "20-Feb-2013"
   },
@@ -566,8 +508,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10811 Supporting Cutting OF Rubber JVB 1st / S",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2013"
   },
@@ -585,8 +525,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2013"
   },
@@ -604,8 +542,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1240 Fty3 Sttitching Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Mar-2013"
   },
@@ -623,8 +559,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VC6000 VSM production S6",
     "bagian": "S5",
     "jabatanKerja": "SUPERVISOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2013"
   },
@@ -642,8 +576,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1211 Fty1 Sttitching Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "18-Mar-2013"
   },
@@ -661,8 +593,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC137 Line 37 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "18-Mar-2013"
   },
@@ -680,8 +610,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1311 Fty1 Assembly Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "20-Mar-2013"
   },
@@ -699,8 +627,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1301 Fty1 Assembly Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "20-Mar-2013"
   },
@@ -718,8 +644,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1300 Mixing Room Factory 1",
     "bagian": "N1-N4",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "20-Mar-2013"
   },
@@ -737,8 +661,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "20-Mar-2013"
   },
@@ -756,8 +678,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0311 Fty1 Assembly Line 11 Packing",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Mar-2013"
   },
@@ -775,8 +695,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1305 Fty1 Assembly Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Mar-2013"
   },
@@ -794,8 +712,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Mar-2013"
   },
@@ -813,8 +729,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20524 Injection of IP - JVB / 1st Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Mar-2013"
   },
@@ -832,8 +746,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1311 Fty1 Assembly Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Mar-2013"
   },
@@ -851,8 +763,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1306 Fty1 Assembly Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Mar-2013"
   },
@@ -870,8 +780,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC038 Line 38 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Mar-2013"
   },
@@ -889,8 +797,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1308 Fty1 Assembly Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Mar-2013"
   },
@@ -908,8 +814,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1208 Fty1 Sttitching Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Mar-2013"
   },
@@ -927,8 +831,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0308 Fty1 Assembly Line 8 Packing",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Apr-2013"
   },
@@ -946,8 +848,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1208 Fty1 Sttitching Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Apr-2013"
   },
@@ -965,8 +865,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1308 Fty1 Assembly Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Apr-2013"
   },
@@ -984,8 +882,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10803 Roller of Rubber JVB / 3rd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Apr-2013"
   },
@@ -1003,8 +899,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1308 Fty1 Assembly Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "11-Apr-2013"
   },
@@ -1022,8 +916,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1308 Fty1 Assembly Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "11-Apr-2013"
   },
@@ -1041,8 +933,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1208 Fty1 Sttitching Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Apr-2013"
   },
@@ -1060,8 +950,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1301 Fty1 Assembly Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Apr-2013"
   },
@@ -1079,8 +967,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -1098,8 +984,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -1117,8 +1001,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1338 Fty3 Assembly Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -1136,8 +1018,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0934 Facility Tech Assembly",
     "bagian": "C3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -1155,8 +1035,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1211 Fty1 Sttitching Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -1174,8 +1052,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -1193,8 +1069,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10419 Supporting Pressing of Rubber JVB/3rd",
     "bagian": "Building A - B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -1212,8 +1086,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0600 Equipment Management, C2B",
     "bagian": "C2B",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -1231,8 +1103,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC038 Line 38 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -1250,8 +1120,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1308 Fty1 Assembly Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -1269,8 +1137,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0950 Facility Tech PIC",
     "bagian": "C3",
     "jabatanKerja": "SUPERVISOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jun-2013"
   },
@@ -1288,8 +1154,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1338 Fty3 Assembly Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jun-2013"
   },
@@ -1307,8 +1171,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V09051 PTC Engineering - Jig Room - Computer St",
     "bagian": "W/H",
     "jabatanKerja": "Asst. Engineer",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Jun-2013"
   },
@@ -1326,8 +1188,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1306 Fty1 Assembly Line 6",
     "bagian": "N2",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "27-Jan-2014"
   },
@@ -1345,8 +1205,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10419 Supporting Pressing of Rubber JVB/3rd",
     "bagian": "Building A - B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "27-Jan-2014"
   },
@@ -1364,8 +1222,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC137 Line 37 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "27-Jan-2014"
   },
@@ -1383,8 +1239,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1340 Fty3 Assembly Line 40",
     "bagian": "S6",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Apr-2014"
   },
@@ -1402,8 +1256,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1235 Fty3 Sttitching Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Apr-2014"
   },
@@ -1421,8 +1273,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0931 Facility Tech Stitching Trial",
     "bagian": "C3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Jun-2014"
   },
@@ -1440,8 +1290,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1307 Fty1 Assembly Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "23-Jun-2014"
   },
@@ -1459,8 +1307,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "23-Jun-2014"
   },
@@ -1478,8 +1324,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10905 Finishing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Jul-2014"
   },
@@ -1497,8 +1341,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -1516,8 +1358,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1338 Fty3 Assembly Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -1535,8 +1375,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -1554,8 +1392,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -1573,8 +1409,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -1592,8 +1426,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1339 Fty3 Assembly Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Sep-2014"
   },
@@ -1611,8 +1443,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V50200 Printing Of Factory 1",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2014"
   },
@@ -1630,8 +1460,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10907 Finishing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2014"
   },
@@ -1649,8 +1477,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0930 Facility Tech Cutting",
     "bagian": "C3",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2014"
   },
@@ -1668,8 +1494,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC237 Line 37 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2014"
   },
@@ -1687,8 +1511,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2014"
   },
@@ -1706,8 +1528,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC137 Line 37 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2014"
   },
@@ -1725,8 +1545,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2014"
   },
@@ -1744,8 +1562,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20525 Injection of IP - JVB / 2nd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2014"
   },
@@ -1763,8 +1579,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2014"
   },
@@ -1782,8 +1596,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1308 Fty1 Assembly Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2014"
   },
@@ -1801,8 +1613,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2014"
   },
@@ -1820,8 +1630,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10810 Cutting OF Rubber 3rd/Shift JVB",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2014"
   },
@@ -1839,8 +1647,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1238 Fty3 Sttitching Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2014"
   },
@@ -1858,8 +1664,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1203 Fty1 Sttitching Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Sep-2014"
   },
@@ -1877,8 +1681,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "Staff B",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Sep-2014"
   },
@@ -1896,8 +1698,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1308 Fty1 Assembly Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Sep-2014"
   },
@@ -1915,8 +1715,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1238 Fty3 Sttitching Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Sep-2014"
   },
@@ -1934,8 +1732,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1243 Fty3 Sttitching Line 43",
     "bagian": "S7",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Sep-2014"
   },
@@ -1953,8 +1749,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0934 Facility Tech Assembly",
     "bagian": "C3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Sep-2014"
   },
@@ -1972,8 +1766,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10020 W/H of Mold Group/3rd JVB",
     "bagian": "Building Mold",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "23-Sep-2014"
   },
@@ -1991,8 +1783,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VC7000 VSM production S7",
     "bagian": "S5-S7",
     "jabatanKerja": "SUPERVISOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "23-Sep-2014"
   },
@@ -2010,8 +1800,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N30701 Bottom Inventory And Shipping JVb",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "23-Sep-2014"
   },
@@ -2029,8 +1817,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -2048,8 +1834,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -2067,8 +1851,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20526 Injection of IP - JVB / 3rd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Nov-2014"
   },
@@ -2086,8 +1868,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10706 Infrastructure Management",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2014"
   },
@@ -2105,8 +1885,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0303 Fty1 Assembly Line 3 Packing",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -2124,8 +1902,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01350 QC of IP JVB",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -2143,8 +1919,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10020 W/H of Mold Group/3rd JVB",
     "bagian": "Building Mold",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -2162,8 +1936,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20525 Injection of IP - JVB / 2nd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -2181,8 +1953,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "Staff B",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -2200,8 +1970,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -2219,8 +1987,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10709 Site Services",
     "bagian": "Office JVB",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Feb-2015"
   },
@@ -2238,8 +2004,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Feb-2015"
   },
@@ -2257,8 +2021,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10709 Site Services",
     "bagian": "Office JVB",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Feb-2015"
   },
@@ -2276,8 +2038,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "23-Feb-2015"
   },
@@ -2295,8 +2055,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00100 Site Security",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "11-Mar-2015"
   },
@@ -2314,8 +2072,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "23-Mar-2015"
   },
@@ -2333,8 +2089,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1238 Fty3 Sttitching Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "23-Mar-2015"
   },
@@ -2352,8 +2106,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1208 Fty1 Sttitching Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "23-Mar-2015"
   },
@@ -2371,8 +2123,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "23-Mar-2015"
   },
@@ -2390,8 +2140,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Mar-2015"
   },
@@ -2409,8 +2157,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1306 Fty1 Assembly Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Mar-2015"
   },
@@ -2428,8 +2174,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC0335 Fty3 Assembly Line 35 Packing",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Mar-2015"
   },
@@ -2447,8 +2191,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1305 Fty1 Assembly Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Mar-2015"
   },
@@ -2466,8 +2208,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1338 Fty3 Assembly Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "27-Mar-2015"
   },
@@ -2485,8 +2225,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "27-Mar-2015"
   },
@@ -2504,8 +2242,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1309 Fty1 Assembly Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Apr-2015"
   },
@@ -2523,8 +2259,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0118 Emboss N6, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Apr-2015"
   },
@@ -2542,8 +2276,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1234 Fty3 Sttitching Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Apr-2015"
   },
@@ -2561,8 +2293,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Apr-2015"
   },
@@ -2580,8 +2310,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10608 Supporting of Painting Rubber JVB",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Apr-2015"
   },
@@ -2599,8 +2327,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1236 Fty3 Sttitching Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Apr-2015"
   },
@@ -2618,8 +2344,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20526 Injection of IP - JVB / 3rd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Apr-2015"
   },
@@ -2637,8 +2361,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Apr-2015"
   },
@@ -2656,8 +2378,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Apr-2015"
   },
@@ -2675,8 +2395,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1211 Fty1 Sttitching Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Apr-2015"
   },
@@ -2694,8 +2412,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Apr-2015"
   },
@@ -2713,8 +2429,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00400 Warehouse",
     "bagian": "W/H",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Apr-2015"
   },
@@ -2732,8 +2446,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20103 PU Group C",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Apr-2015"
   },
@@ -2751,8 +2463,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1245 Fty3 Sttitching Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Apr-2015"
   },
@@ -2770,8 +2480,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1305 Fty1 Assembly Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Apr-2015"
   },
@@ -2789,8 +2497,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "UNIT LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Apr-2015"
   },
@@ -2808,8 +2514,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA1111 6S N1-N4",
     "bagian": "N1-N4",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Apr-2015"
   },
@@ -2827,8 +2531,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Apr-2015"
   },
@@ -2846,8 +2548,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Apr-2015"
   },
@@ -2865,8 +2565,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10809 Cutting OF Rubber 2nd/Shift JVB",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -2884,8 +2582,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1300 Mixing Room Factory 1",
     "bagian": "N1-N4",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -2903,8 +2599,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -2922,8 +2616,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "Staff B",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -2941,8 +2633,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jun-2015"
   },
@@ -2960,8 +2650,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jun-2015"
   },
@@ -2979,8 +2667,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jun-2015"
   },
@@ -2998,8 +2684,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10709 Site Services",
     "bagian": "Office JVB",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jun-2015"
   },
@@ -3017,8 +2701,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Jun-2015"
   },
@@ -3036,8 +2718,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0800 Embroidery of Factory 1",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2015"
   },
@@ -3055,8 +2735,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3074,8 +2752,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1239 Fty3 Sttitching Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3093,8 +2769,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1312 Fty1 Assembly Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3112,8 +2786,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1309 Fty1 Assembly Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "18-Nov-2015"
   },
@@ -3131,8 +2803,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Nov-2015"
   },
@@ -3150,8 +2820,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1236 Fty3 Sttitching Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3169,8 +2837,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1107 Fty1 Cutting Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3188,8 +2854,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3207,8 +2871,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0800 Embroidery of Factory 1",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3226,8 +2888,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM011 Line Mini Cutting Centralize Fact1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3245,8 +2905,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3264,8 +2922,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10418 Supporting Pressing of Rubber JVB/2nd",
     "bagian": "Building A - B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3283,8 +2939,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111A Printing A, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3302,8 +2956,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4108 SF Section 1/group 8",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3321,8 +2973,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N30701 Bottom Inventory And Shipping JVb",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3340,8 +2990,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC233 Line 33 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3359,8 +3007,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00502 Import",
     "bagian": "Office",
     "jabatanKerja": "Specialist1",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jan-2016"
   },
@@ -3378,8 +3024,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20100 PU JVB",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jan-2016"
   },
@@ -3397,8 +3041,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0933 Facility Tech Stitching Central",
     "bagian": "C3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Jan-2016"
   },
@@ -3416,8 +3058,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4316 SF Section 3/group 16",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "19-Jan-2016"
   },
@@ -3435,8 +3075,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01350 QC of IP JVB",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "19-Jan-2016"
   },
@@ -3454,8 +3092,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10905 Finishing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jan-2016"
   },
@@ -3473,8 +3109,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jan-2016"
   },
@@ -3492,8 +3126,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20446 JVB-IP NonShift Support Emp with Recom",
     "bagian": "C",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jan-2016"
   },
@@ -3511,8 +3143,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0118 Emboss N6, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Feb-2016"
   },
@@ -3530,8 +3160,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC136 Line 36 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Feb-2016"
   },
@@ -3549,8 +3177,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1245 Fty3 Sttitching Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Feb-2016"
   },
@@ -3568,8 +3194,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "UNIT LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Apr-2016"
   },
@@ -3587,8 +3211,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4662 SF Section 6/UV Group 1",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "23-Nov-2016"
   },
@@ -3606,8 +3228,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1203 Fty1 Sttitching Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "23-Nov-2016"
   },
@@ -3625,8 +3245,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10418 Supporting Pressing of Rubber JVB/2nd",
     "bagian": "Building A - B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3644,8 +3262,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10534 Supporting Finishing of Rubber JVB/2nd",
     "bagian": "Building A - B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3663,8 +3279,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC701 6S Centralize C2 Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3682,8 +3296,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00410 Finish Goods Warehouse",
     "bagian": "W/H",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3701,8 +3313,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1245 Fty3 Sttitching Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3720,8 +3330,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1301 Fty1 Assembly Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3739,8 +3347,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10802 Roller of Rubber JVB / 2nd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3758,8 +3364,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3777,8 +3381,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3796,8 +3398,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -3815,8 +3415,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0934 Facility Tech Assembly",
     "bagian": "C3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Jan-2017"
   },
@@ -3834,8 +3432,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1101 Fty1 Cutting Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Jan-2017"
   },
@@ -3853,8 +3449,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Jan-2017"
   },
@@ -3872,8 +3466,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20525 Injection of IP - JVB / 2nd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Jan-2017"
   },
@@ -3891,8 +3483,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC701 6S Centralize C2 Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2017"
   },
@@ -3910,8 +3500,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1245 Fty3 Sttitching Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2017"
   },
@@ -3929,8 +3517,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20525 Injection of IP - JVB / 2nd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2017"
   },
@@ -3948,8 +3534,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2017"
   },
@@ -3967,8 +3551,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1245 Fty3 Sttitching Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2017"
   },
@@ -3986,8 +3568,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1302 Fty1 Assembly Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2017"
   },
@@ -4005,8 +3585,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20427 TPR of IP JVB",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2017"
   },
@@ -4024,8 +3602,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2017"
   },
@@ -4043,8 +3619,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Jan-2017"
   },
@@ -4062,8 +3636,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00100 Site Security",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2017"
   },
@@ -4081,8 +3653,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00311 FUN, QA",
     "bagian": "N1-S7",
     "jabatanKerja": "Staff B",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Nov-2017"
   },
@@ -4100,8 +3670,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0790 Quality of Stockfit",
     "bagian": "C1-C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Nov-2017"
   },
@@ -4119,8 +3687,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10418 Supporting Pressing of Rubber JVB/2nd",
     "bagian": "Building A - B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "27-Nov-2017"
   },
@@ -4138,8 +3704,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC043 Line 43 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "27-Nov-2017"
   },
@@ -4157,8 +3721,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "27-Nov-2017"
   },
@@ -4176,8 +3738,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01350 QC of IP JVB",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "27-Nov-2017"
   },
@@ -4195,8 +3755,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1143 Fty3 Cutting Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -4214,8 +3772,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10907 Finishing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -4233,8 +3789,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0311 Fty1 Assembly Line 11 Packing",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -4252,8 +3806,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1109 Fty1 Cutting Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -4271,8 +3823,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -4290,8 +3840,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Jan-2018"
   },
@@ -4309,8 +3857,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V08000 Production Control",
     "bagian": "W/H",
     "jabatanKerja": "Specialist2",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Feb-2018"
   },
@@ -4328,8 +3874,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0702 Quality Second Process",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Feb-2018"
   },
@@ -4347,8 +3891,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Sep-2018"
   },
@@ -4366,8 +3908,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20108 Supporting of PU JVB",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -4385,8 +3925,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -4404,8 +3942,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20526 Injection of IP - JVB / 3rd Shift",
     "bagian": "Building C",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -4423,8 +3959,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10020 W/H of Mold Group/3rd JVB",
     "bagian": "Building Mold",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -4442,8 +3976,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10014 Mold Maintenance JVB",
     "bagian": "Building Mold",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -4461,8 +3993,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -4480,8 +4010,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10710 Internal Process & Improvement Managemen",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -4499,8 +4027,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -4518,8 +4044,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10703 Banbury of Rubber JVB / 3rd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -4537,8 +4061,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10802 Roller of Rubber JVB / 2nd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -4556,8 +4078,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V60000 Lamination",
     "bagian": "N7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -4575,8 +4095,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1340 Fty3 Assembly Line 40",
     "bagian": "S6",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Nov-2018"
   },
@@ -4594,8 +4112,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1238 Fty3 Sttitching Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Nov-2018"
   },
@@ -4613,8 +4129,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Nov-2018"
   },
@@ -4632,8 +4146,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1312 Fty1 Assembly Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Nov-2018"
   },
@@ -4651,8 +4163,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4112 SF Section 1/UV Group 1",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Nov-2018"
   },
@@ -4670,8 +4180,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20103 PU Group C",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Nov-2018"
   },
@@ -4689,8 +4197,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111B Printing B, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Nov-2018"
   },
@@ -4708,8 +4214,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Nov-2018"
   },
@@ -4727,8 +4231,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1305 Fty1 Assembly Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Nov-2018"
   },
@@ -4746,8 +4248,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Nov-2018"
   },
@@ -4765,8 +4265,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1311 Fty1 Assembly Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Nov-2018"
   },
@@ -4784,8 +4282,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC0343 Fty3 Assembly Line 43 Packing",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Nov-2018"
   },
@@ -4803,8 +4299,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC136 Line 36 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Nov-2018"
   },
@@ -4822,8 +4316,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20102 PU Group B",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Nov-2018"
   },
@@ -4841,8 +4333,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1340 Fty3 Assembly Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Nov-2018"
   },
@@ -4860,8 +4350,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1203 Fty1 Sttitching Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Nov-2018"
   },
@@ -4879,8 +4367,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Nov-2018"
   },
@@ -4898,8 +4384,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10904 Supporting of Rubber JVB",
     "bagian": "Building A - B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Nov-2018"
   },
@@ -4917,8 +4401,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Nov-2018"
   },
@@ -4936,8 +4418,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC0602 Supporting Consumable Factory 3",
     "bagian": "S5-S7",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Nov-2018"
   },
@@ -4955,8 +4435,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Nov-2018"
   },
@@ -4974,8 +4452,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00400 Warehouse",
     "bagian": "W/H",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Nov-2018"
   },
@@ -4993,8 +4469,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1336 Fty3 Assembly Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Nov-2018"
   },
@@ -5012,8 +4486,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1307 Fty1 Assembly Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Nov-2018"
   },
@@ -5031,8 +4503,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Nov-2018"
   },
@@ -5050,8 +4520,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1301 Fty1 Assembly Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Nov-2018"
   },
@@ -5069,8 +4537,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC200A Factory 3 Stitching Long Illness",
     "bagian": "S5-S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Nov-2018"
   },
@@ -5088,8 +4554,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1335 Fty3 Assembly Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Nov-2018"
   },
@@ -5107,8 +4571,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1234 Fty3 Sttitching Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Nov-2018"
   },
@@ -5126,8 +4588,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00400 Warehouse",
     "bagian": "W/H",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Nov-2018"
   },
@@ -5145,8 +4605,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1338 Fty3 Assembly Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Nov-2018"
   },
@@ -5164,8 +4622,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Nov-2018"
   },
@@ -5183,8 +4639,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Nov-2018"
   },
@@ -5202,8 +4656,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4108 SF Section 1/group 8",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Nov-2018"
   },
@@ -5221,8 +4673,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Nov-2018"
   },
@@ -5240,8 +4690,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC138 Line 38 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2018"
   },
@@ -5259,8 +4707,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1208 Fty1 Sttitching Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2018"
   },
@@ -5278,8 +4724,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1338 Fty3 Assembly Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2018"
   },
@@ -5297,8 +4741,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Nov-2018"
   },
@@ -5316,8 +4758,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VC0A02 Production Factory 03",
     "bagian": "S5-S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Nov-2018"
   },
@@ -5335,8 +4775,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1338 Fty3 Assembly Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Nov-2018"
   },
@@ -5354,8 +4792,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20102 PU Group B",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Nov-2018"
   },
@@ -5373,8 +4809,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0932 Facility Tech Stitching C2B",
     "bagian": "C3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Nov-2018"
   },
@@ -5392,8 +4826,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4106 SF Section 1/group 6",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5411,8 +4843,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4118 SF Section 7/UV Group 1",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5430,8 +4860,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111B Printing B, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5449,8 +4877,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111B Printing B, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5468,8 +4894,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5487,8 +4911,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC243 Line 43 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5506,8 +4928,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4221 SF Section 2/Degreasing Group 1",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5525,8 +4945,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10808 Cutting OF Rubber 1st/Shift JVB",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5544,8 +4962,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111C Printing C, Factory 2",
     "bagian": "N7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5563,8 +4979,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC238 Line 38 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5582,8 +4996,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5601,8 +5013,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20437 Kneader Barcode Scanning JVB",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5620,8 +5030,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5639,8 +5047,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5658,8 +5064,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20525 Injection of IP - JVB / 2nd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5677,8 +5081,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5696,8 +5098,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5715,8 +5115,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20525 Injection of IP - JVB / 2nd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5734,8 +5132,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10803 Roller of Rubber JVB / 3rd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5753,8 +5149,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5772,8 +5166,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00410 Finish Goods Warehouse",
     "bagian": "W/H",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5791,8 +5183,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20526 Injection of IP - JVB / 3rd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5810,8 +5200,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5829,8 +5217,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5848,8 +5234,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10907 Finishing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5867,8 +5251,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20524 Injection of IP - JVB / 1st Shift",
     "bagian": "Building C",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5886,8 +5268,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20525 Injection of IP - JVB / 2nd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5905,8 +5285,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10907 Finishing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5924,8 +5302,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5943,8 +5319,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20526 Injection of IP - JVB / 3rd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5962,8 +5336,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10020 W/H of Mold Group/3rd JVB",
     "bagian": "Building Mold",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -5981,8 +5353,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01352 QC of Rubber JVB",
     "bagian": "Building A -B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6000,8 +5370,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20526 Injection of IP - JVB / 3rd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6019,8 +5387,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111A Printing A, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6038,8 +5404,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4626 SF Section 6/group 26",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6057,8 +5421,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20447 JVB-IP Non-Shift Sup for Pregnant Emp",
     "bagian": "C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6076,8 +5438,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0800 Embroidery of Factory 1",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6095,8 +5455,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10908 Indirect Line Of Rubber JVB",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6114,8 +5472,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6133,8 +5489,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6152,8 +5506,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6171,8 +5523,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6190,8 +5540,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10020 W/H of Mold Group/3rd JVB",
     "bagian": "Building Mold",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6209,8 +5557,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VC0590 Inventory Of JV Bottom preparation",
     "bagian": "C1-C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6228,8 +5574,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4100 SF Section 1",
     "bagian": "C1",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6247,8 +5591,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC137 Line 37 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6266,8 +5608,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6285,8 +5625,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6304,8 +5642,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6323,8 +5659,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1307 Fty1 Assembly Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6342,8 +5676,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1103 Fty1 Cutting Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6361,8 +5693,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0934 Facility Tech Assembly",
     "bagian": "C3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6380,8 +5710,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0120 Cutting Laser Group A",
     "bagian": "N7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6399,8 +5727,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0101 Auto N1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6418,8 +5744,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20446 JVB-IP NonShift Support Emp with Recom",
     "bagian": "C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6437,8 +5761,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20427 TPR of IP JVB",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6456,8 +5778,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC238 Line 38 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6475,8 +5795,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0790 Quality of Stockfit",
     "bagian": "C1-C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6494,8 +5812,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0790 Quality of Stockfit",
     "bagian": "C1-C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6513,8 +5829,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00411 Warehouse JVb",
     "bagian": "W/H",
     "jabatanKerja": "Staff B",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6532,8 +5846,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V50200 Printing Of Factory 1",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6551,8 +5863,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0101 Auto N1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6570,8 +5880,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6589,8 +5897,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10517 Supporting Roller of Rubber JVB/2nd",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6608,8 +5914,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0790 Quality of Stockfit",
     "bagian": "C1-C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -6627,8 +5931,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA1111 6S N1-N4",
     "bagian": "N1-N4",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Jan-2019"
   },
@@ -6646,8 +5948,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01350 QC of IP JVB",
     "bagian": "Building B",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Jan-2019"
   },
@@ -6665,8 +5965,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Feb-2019"
   },
@@ -6684,8 +5982,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "11-Feb-2019"
   },
@@ -6703,8 +5999,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20525 Injection of IP - JVB / 2nd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Mar-2019"
   },
@@ -6722,8 +6016,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Mar-2019"
   },
@@ -6741,8 +6033,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Mar-2019"
   },
@@ -6760,8 +6050,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10906 Finishing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Mar-2019"
   },
@@ -6779,8 +6067,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10803 Roller of Rubber JVB / 3rd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Mar-2019"
   },
@@ -6798,8 +6084,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10703 Banbury of Rubber JVB / 3rd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Mar-2019"
   },
@@ -6817,8 +6101,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00411 Warehouse JVb",
     "bagian": "W/H",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Mar-2019"
   },
@@ -6836,8 +6118,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Mar-2019"
   },
@@ -6855,8 +6135,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "20-Mar-2019"
   },
@@ -6874,8 +6152,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10907 Finishing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "20-Mar-2019"
   },
@@ -6893,8 +6169,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "27-Mar-2019"
   },
@@ -6912,8 +6186,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "27-Mar-2019"
   },
@@ -6931,8 +6203,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00510 Custom Risk Management JV",
     "bagian": "Office",
     "jabatanKerja": "Staff B",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "27-Mar-2019"
   },
@@ -6950,8 +6220,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC236 Line 36 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "27-Mar-2019"
   },
@@ -6969,8 +6237,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Apr-2019"
   },
@@ -6988,8 +6254,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111A Printing A, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Apr-2019"
   },
@@ -7007,8 +6271,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC142 Line 42 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Apr-2019"
   },
@@ -7026,8 +6288,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4319 SF Section 3/group 19",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Apr-2019"
   },
@@ -7045,8 +6305,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4300 SF Section 3",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Apr-2019"
   },
@@ -7064,8 +6322,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4103 SF Section 1/group 3",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Apr-2019"
   },
@@ -7083,8 +6339,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Apr-2019"
   },
@@ -7102,8 +6356,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Apr-2019"
   },
@@ -7121,8 +6373,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1203 Fty1 Sttitching Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Apr-2019"
   },
@@ -7140,8 +6390,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20524 Injection of IP - JVB / 1st Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Apr-2019"
   },
@@ -7159,8 +6407,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20100 PU JVB",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Apr-2019"
   },
@@ -7178,8 +6424,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10904 Supporting of Rubber JVB",
     "bagian": "Building A - B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Apr-2019"
   },
@@ -7197,8 +6441,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Apr-2019"
   },
@@ -7216,8 +6458,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10518 Supporting Roller of Rubber JVb/3rd",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Apr-2019"
   },
@@ -7235,8 +6475,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1305 Fty1 Assembly Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Apr-2019"
   },
@@ -7254,8 +6492,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N30701 Bottom Inventory And Shipping JVb",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Apr-2019"
   },
@@ -7273,8 +6509,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1207 Fty1 Sttitching Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Apr-2019"
   },
@@ -7292,8 +6526,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC138 Line 38 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Apr-2019"
   },
@@ -7311,8 +6543,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1301 Fty1 Assembly Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Apr-2019"
   },
@@ -7330,8 +6560,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0800 Embroidery of Factory 1",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Apr-2019"
   },
@@ -7349,8 +6577,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1311 Fty1 Assembly Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Apr-2019"
   },
@@ -7368,8 +6594,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VC0590 Inventory Of JV Bottom preparation",
     "bagian": "C1-C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Apr-2019"
   },
@@ -7387,8 +6611,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4212 SF Section 2/group 12",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Apr-2019"
   },
@@ -7406,8 +6628,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20526 Injection of IP - JVB / 3rd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Apr-2019"
   },
@@ -7425,8 +6645,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC036 Line 36 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Apr-2019"
   },
@@ -7444,8 +6662,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4106 SF Section 1/group 6",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "25-Apr-2019"
   },
@@ -7463,8 +6679,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1338 Fty3 Assembly Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7482,8 +6696,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10807 Pressing of Rubber JVB / 3rd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7501,8 +6713,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1102 Fty1 Cutting Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7520,8 +6730,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1312 Fty1 Assembly Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7539,8 +6747,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7558,8 +6764,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7577,8 +6781,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111B Printing B, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7596,8 +6798,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1138 Fty3 Cutting Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7615,8 +6815,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7634,8 +6832,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10700 Banbury of Rubber JVB",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7653,8 +6849,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1108 Fty1 Cutting Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7672,8 +6866,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7691,8 +6883,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7710,8 +6900,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1101 Fty1 Cutting Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7729,8 +6917,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC70A Centralize Supporting Long Illness Fact",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7748,8 +6934,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1306 Fty1 Assembly Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7767,8 +6951,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1103 Fty1 Cutting Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7786,8 +6968,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC0334 Fty3 Assembly Line 34 Packing",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7805,8 +6985,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC034 Line 34 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7824,8 +7002,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7843,8 +7019,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1208 Fty1 Sttitching Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7862,8 +7036,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1140 Fty3 Cutting Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7881,8 +7053,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1309 Fty1 Assembly Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7900,8 +7070,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM021 Line Mini Stitching Cmptr Central Fact 1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7919,8 +7087,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7938,8 +7104,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7957,8 +7121,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7976,8 +7138,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1208 Fty1 Sttitching Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -7995,8 +7155,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1340 Fty3 Assembly Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8014,8 +7172,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1311 Fty1 Assembly Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8033,8 +7189,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4317 SF Section 3/group 17",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "19-Jun-2019"
   },
@@ -8052,8 +7206,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4626 SF Section 6/group 26",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jun-2019"
   },
@@ -8071,8 +7223,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8090,8 +7240,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8109,8 +7257,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10906 Finishing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8128,8 +7274,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Sep-2019"
   },
@@ -8147,8 +7291,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0604 Equipment Management, Chemical JVb",
     "bagian": "Building Mold",
     "jabatanKerja": "STAFF",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Sep-2019"
   },
@@ -8166,8 +7308,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00411 Warehouse JVb",
     "bagian": "W/H",
     "jabatanKerja": "UNIT LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Sep-2019"
   },
@@ -8185,8 +7325,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00512 Customs Matters, Import/Export JVb",
     "bagian": "Office JVB",
     "jabatanKerja": "Specialist2",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Sep-2019"
   },
@@ -8204,8 +7342,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1203 Fty1 Sttitching Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8223,8 +7359,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0604 Equipment Management, Chemical JVb",
     "bagian": "Building Mold",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8242,8 +7376,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8261,8 +7393,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2019"
   },
@@ -8280,8 +7410,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10710 Internal Process & Improvement Managemen",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Nov-2019"
   },
@@ -8299,8 +7427,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC240 Line 40 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8318,8 +7444,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8337,8 +7461,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SDA101 Comelz group A N6",
     "bagian": "N6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8356,8 +7478,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8375,8 +7495,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10707 Infrastructure Management",
     "bagian": "Office JVB",
     "jabatanKerja": "Staff B",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Jan-2020"
   },
@@ -8394,8 +7512,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N30706 JVB Bottom Production Control",
     "bagian": "Building E",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "20-Jan-2020"
   },
@@ -8413,8 +7529,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00130 Security Operational (JVB)",
     "bagian": "Office JVB",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Feb-2020"
   },
@@ -8432,8 +7546,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Feb-2020"
   },
@@ -8451,8 +7563,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00130 Security Operational (JVB)",
     "bagian": "Office JVB",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Feb-2020"
   },
@@ -8470,8 +7580,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00130 Security Operational (JVB)",
     "bagian": "Office JVB",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Feb-2020"
   },
@@ -8489,8 +7597,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10709 Site Services",
     "bagian": "Office JVB",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Feb-2020"
   },
@@ -8508,8 +7614,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00130 Security Operational (JVB)",
     "bagian": "Office JVB",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Feb-2020"
   },
@@ -8527,8 +7631,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00130 Security Operational (JVB)",
     "bagian": "Office JVB",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Feb-2020"
   },
@@ -8546,8 +7648,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "23-Mar-2020"
   },
@@ -8565,8 +7665,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00100 Site Security",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8584,8 +7682,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00130 Security Operational (JVB)",
     "bagian": "Office JVB",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8603,8 +7699,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00130 Security Operational (JVB)",
     "bagian": "Office JVB",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8622,8 +7716,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10535 Supporting Finishing of Rubber JVB/3rd",
     "bagian": "Building A - B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8641,8 +7733,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20103 PU Group C",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8660,8 +7750,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10907 Finishing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8679,8 +7767,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8698,8 +7784,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10907 Finishing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8717,8 +7801,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20407 Pelletize of IP JVB",
     "bagian": "Building B",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8736,8 +7818,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10516 Supporting Roller of Rubber JVB/1st",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8755,8 +7835,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10907 Finishing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8774,8 +7852,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20103 PU Group C",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8793,8 +7869,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20526 Injection of IP - JVB / 3rd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8812,8 +7886,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10908 Indirect Line Of Rubber JVB",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8831,8 +7903,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N30701 Bottom Inventory And Shipping JVb",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8850,8 +7920,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8869,8 +7937,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8888,8 +7954,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20524 Injection of IP - JVB / 1st Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8907,8 +7971,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8926,8 +7988,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10020 W/H of Mold Group/3rd JVB",
     "bagian": "Building Mold",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8945,8 +8005,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10709 Site Services",
     "bagian": "Office JVB",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8964,8 +8022,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10801 Roller of Rubber JVB / 1st Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -8983,8 +8039,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10803 Roller of Rubber JVB / 3rd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9002,8 +8056,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9021,8 +8073,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20103 PU Group C",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9040,8 +8090,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9059,8 +8107,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9078,8 +8124,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1203 Fty1 Sttitching Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9097,8 +8141,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0A02 Production Factory 01",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9116,8 +8158,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9135,8 +8175,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM021 Line Mini Stitching Cmptr Central Fact 1",
     "bagian": "N8",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9154,8 +8192,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1103 Fty1 Cutting Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9173,8 +8209,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM011 Line Mini Cutting Centralize Fact1",
     "bagian": "N8",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9192,8 +8226,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4100 SF Section 1",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9211,8 +8243,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9230,8 +8260,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1203 Fty1 Sttitching Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9249,8 +8277,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0101 Auto N1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9268,8 +8294,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1207 Fty1 Sttitching Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9287,8 +8311,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1109 Fty1 Cutting Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9306,8 +8328,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9325,8 +8345,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1103 Fty1 Cutting Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9344,8 +8362,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1106 Fty1 Cutting Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9363,8 +8379,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM011 Line Mini Cutting Centralize?Fact?3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9382,8 +8396,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1207 Fty1 Sttitching Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9401,8 +8413,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9420,8 +8430,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10904 Supporting of Rubber JVB",
     "bagian": "Building A - B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9439,8 +8447,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01350 QC of IP JVB",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9458,8 +8464,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20101 PU Group A",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9477,8 +8481,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10702 Banbury of Rubber JVB / 2nd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9496,8 +8498,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10535 Supporting Finishing of Rubber JVB/3rd",
     "bagian": "Building A - B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9515,8 +8515,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N30701 Bottom Inventory And Shipping JVb",
     "bagian": "Building E",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9534,8 +8532,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9553,8 +8549,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N3070A JVB BPC Long Illness",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9572,8 +8566,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20524 Injection of IP - JVB / 1st Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9591,8 +8583,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20525 Injection of IP - JVB / 2nd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9610,8 +8600,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10709 Site Services",
     "bagian": "Office JVB",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9629,8 +8617,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9648,8 +8634,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9667,8 +8651,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9686,8 +8668,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10803 Roller of Rubber JVB / 3rd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9705,8 +8685,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20526 Injection of IP - JVB / 3rd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9724,8 +8702,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01350 QC of IP JVB",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9743,8 +8719,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V09040 PTC Engineering - Sample Room",
     "bagian": "W/H",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9762,8 +8736,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20526 Injection of IP - JVB / 3rd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9781,8 +8753,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1109 Fty1 Cutting Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -9800,8 +8770,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1106 Fty1 Cutting Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -9819,8 +8787,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1101 Fty1 Cutting Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -9838,8 +8804,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -9857,8 +8821,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1112 Fty1 Cutting Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -9876,8 +8838,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4000 SF Dept.",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -9895,8 +8855,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -9914,8 +8872,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -9933,8 +8889,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM011 Line Mini Cutting Centralize Fact1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -9952,8 +8906,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -9971,8 +8923,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -9990,8 +8940,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1309 Fty1 Assembly Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10009,8 +8957,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10028,8 +8974,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10047,8 +8991,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10066,8 +9008,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1111 Fty1 Cutting Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10085,8 +9025,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10104,8 +9042,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1240 Fty3 Sttitching Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10123,8 +9059,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10142,8 +9076,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10161,8 +9093,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC045 Line 45 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10180,8 +9110,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10199,8 +9127,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10218,8 +9144,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10237,8 +9161,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10256,8 +9178,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10275,8 +9195,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10294,8 +9212,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1211 Fty1 Sttitching Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10313,8 +9229,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1335 Fty3 Assembly Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10332,8 +9246,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1301 Fty1 Assembly Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10351,8 +9263,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Nov-2020"
   },
@@ -10370,8 +9280,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1111 Fty1 Cutting Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10389,8 +9297,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10408,8 +9314,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10427,8 +9331,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM011 Line Mini Cutting Centralize?Fact?3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10446,8 +9348,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00202 IT WorkPlace Service",
     "bagian": "Office",
     "jabatanKerja": "Staff B",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10465,8 +9365,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V50200 Printing Of Factory 1",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10484,8 +9382,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111C Printing C, Factory 2",
     "bagian": "N7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10503,8 +9399,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10522,8 +9416,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1302 Fty1 Assembly Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10541,8 +9433,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1306 Fty1 Assembly Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10560,8 +9450,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1107 Fty1 Cutting Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10579,8 +9467,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10598,8 +9484,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10617,8 +9501,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10636,8 +9518,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1312 Fty1 Assembly Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10655,8 +9535,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1305 Fty1 Assembly Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10674,8 +9552,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA1111 6S N1-N4",
     "bagian": "N1-N4",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10693,8 +9569,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10712,8 +9586,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10731,8 +9603,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10750,8 +9620,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1103 Fty1 Cutting Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10769,8 +9637,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10788,8 +9654,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC037 Line 37 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10807,8 +9671,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10826,8 +9688,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10701 Banbury of Rubber JVB / 1st Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10845,8 +9705,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1245 Fty3 Sttitching Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10864,8 +9722,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10883,8 +9739,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA1111 6S N1-N4",
     "bagian": "N1-N4",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10902,8 +9756,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1108 Fty1 Cutting Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10921,8 +9773,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1311 Fty1 Assembly Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10940,8 +9790,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10959,8 +9807,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10978,8 +9824,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1305 Fty1 Assembly Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Nov-2020"
   },
@@ -10997,8 +9841,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1203 Fty1 Sttitching Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11016,8 +9858,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1312 Fty1 Assembly Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11035,8 +9875,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1240 Fty3 Sttitching Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11054,8 +9892,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1240 Fty3 Sttitching Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11073,8 +9909,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1102 Fty1 Cutting Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11092,8 +9926,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11111,8 +9943,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20525 Injection of IP - JVB / 2nd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11130,8 +9960,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1307 Fty1 Assembly Line 7",
     "bagian": "N2",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11149,8 +9977,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11168,8 +9994,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11187,8 +10011,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11206,8 +10028,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111B Printing B, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11225,8 +10045,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V09030 PTC Engineering - Pattern Engineering",
     "bagian": "W/H",
     "jabatanKerja": "Asst. Engineer",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11244,8 +10062,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10706 Infrastructure Management",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11263,8 +10079,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11282,8 +10096,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1207 Fty1 Sttitching Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11301,8 +10113,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1239 Fty3 Sttitching Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11320,8 +10130,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11339,8 +10147,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11358,8 +10164,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111B Printing B, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "9-Nov-2020"
   },
@@ -11377,8 +10181,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11396,8 +10198,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0105 Supporting Production Offline 6S",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11415,8 +10215,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VC0A02 Production Factory 03",
     "bagian": "S5-S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11434,8 +10232,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1335 Fty3 Assembly Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11453,8 +10249,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11472,8 +10266,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1109 Fty1 Cutting Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11491,8 +10283,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1234 Fty3 Sttitching Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11510,8 +10300,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4108 SF Section 1/group 8",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11529,8 +10317,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC242 Line 42 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11548,8 +10334,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11567,8 +10351,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11586,8 +10368,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1209 Fty1 Sttitching Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11605,8 +10385,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC233 Line 33 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11624,8 +10402,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11643,8 +10419,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11662,8 +10436,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V50200 Printing Of Factory 1",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11681,8 +10453,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC138 Line 38 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11700,8 +10470,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0118 Emboss N6, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11719,8 +10487,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VC1111 6s S5-S7",
     "bagian": "S5-S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11738,8 +10504,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1302 Fty1 Assembly Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11757,8 +10521,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0118 Emboss N6, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11776,8 +10538,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0118 Emboss N6, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11795,8 +10555,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1209 Fty1 Sttitching Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11814,8 +10572,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1211 Fty1 Sttitching Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11833,8 +10589,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0118 Emboss N6, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11852,8 +10606,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0118 Emboss N6, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11871,8 +10623,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC239 Line 39 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11890,8 +10640,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11909,8 +10657,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4100 SF Section 1",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11928,8 +10674,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4662 SF Section 6/UV Group 1",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11947,8 +10691,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20525 Injection of IP - JVB / 2nd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11966,8 +10708,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4107 SF Section 1/group 7",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -11985,8 +10725,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4107 SF Section 1/group 7",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -12004,8 +10742,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1112 Fty1 Cutting Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -12023,8 +10759,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC136 Line 36 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -12042,8 +10776,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1105 Fty1 Cutting Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -12061,8 +10793,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -12080,8 +10810,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -12099,8 +10827,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1101 Fty1 Cutting Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -12118,8 +10844,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -12137,8 +10861,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jul-2021"
   },
@@ -12156,8 +10878,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20126 JVB-PU Non-Shift Sup for Pregnant Emp",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12175,8 +10895,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC140 Line 40 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12194,8 +10912,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4101 SF Section 1/group 1",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12213,8 +10929,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12232,8 +10946,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12251,8 +10963,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10803 Roller of Rubber JVB / 3rd Shift",
     "bagian": "Building A",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12270,8 +10980,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12289,8 +10997,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10417 Supporting Pressing of Rubber JVB/1st",
     "bagian": "Building A - B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12308,8 +11014,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12327,8 +11031,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1235 Fty3 Sttitching Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12346,8 +11048,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1233 Fty3 Sttitching Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12365,8 +11065,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1243 Fty3 Sttitching Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12384,8 +11082,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12403,8 +11099,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1336 Fty3 Assembly Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12422,8 +11116,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12441,8 +11133,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12460,8 +11150,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC236 Line 36 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12479,8 +11167,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1234 Fty3 Sttitching Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12498,8 +11184,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12517,8 +11201,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1245 Fty3 Sttitching Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12536,8 +11218,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12555,8 +11235,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1239 Fty3 Sttitching Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12574,8 +11252,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1235 Fty3 Sttitching Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12593,8 +11269,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1137 Fty3 Cutting Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12612,8 +11286,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20100 PU JVB",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12631,8 +11303,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1236 Fty3 Sttitching Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12650,8 +11320,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12669,8 +11337,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10904 Supporting of Rubber JVB",
     "bagian": "Building A - B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12688,8 +11354,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC035 Line 35 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12707,8 +11371,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10014 Mold Maintenance JVB",
     "bagian": "Building Mold",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Jul-2021"
   },
@@ -12726,8 +11388,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10708 Site Services",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -12745,8 +11405,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1234 Fty3 Sttitching Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -12764,8 +11422,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1338 Fty3 Assembly Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -12783,8 +11439,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -12802,8 +11456,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1336 Fty3 Assembly Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -12821,8 +11473,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1309 Fty1 Assembly Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -12840,8 +11490,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -12859,8 +11507,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0934 Facility Tech Assembly",
     "bagian": "C3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -12878,8 +11524,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -12897,8 +11541,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1312 Fty1 Assembly Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -12916,8 +11558,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0934 Facility Tech Assembly",
     "bagian": "C3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -12935,8 +11575,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1336 Fty3 Assembly Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -12954,8 +11592,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC0337 Fty3 Assembly Line 37 Packing",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -12973,8 +11609,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1109 Fty1 Cutting Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -12992,8 +11626,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1309 Fty1 Assembly Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13011,8 +11643,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1302 Fty1 Assembly Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13030,8 +11660,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1302 Fty1 Assembly Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13049,8 +11677,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13068,8 +11694,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V50200 Printing Of Factory 1",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13087,8 +11711,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10803 Roller of Rubber JVB / 3rd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13106,8 +11728,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10516 Supporting Roller of Rubber JVB/1st",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13125,8 +11745,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10020 W/H of Mold Group/3rd JVB",
     "bagian": "Building Mold",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13144,8 +11762,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1308 Fty1 Assembly Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13163,8 +11779,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13182,8 +11796,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13201,8 +11813,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1338 Fty3 Assembly Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13220,8 +11830,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13239,8 +11847,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1311 Fty1 Assembly Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13258,8 +11864,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13277,8 +11881,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13296,8 +11898,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20101 PU Group A",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13315,8 +11915,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13334,8 +11932,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13353,8 +11949,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13372,8 +11966,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1335 Fty3 Assembly Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13391,8 +11983,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13410,8 +12000,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13429,8 +12017,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1336 Fty3 Assembly Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13448,8 +12034,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4101 SF Section 1/group 1",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13467,8 +12051,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0120 Cutting Laser Group A",
     "bagian": "N7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13486,8 +12068,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0120 Cutting Laser Group A",
     "bagian": "N7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13505,8 +12085,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13524,8 +12102,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM021 Line Mini Stitching Cmptr Central Fact 1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13543,8 +12119,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13562,8 +12136,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13581,8 +12153,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13600,8 +12170,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13619,8 +12187,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13638,8 +12204,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13657,8 +12221,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4117 SF Section 7/UV Group 1",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13676,8 +12238,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01352 QC of Rubber JVB",
     "bagian": "Building A -B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13695,8 +12255,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01350 QC of IP JVB",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13714,8 +12272,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1134 Fty3 Cutting Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13733,8 +12289,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20126 JVB-PU Non-Shift Sup for Pregnant Emp",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jul-2021"
   },
@@ -13752,8 +12306,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10907 Finishing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Jul-2021"
   },
@@ -13771,8 +12323,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20525 Injection of IP - JVB / 2nd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Jul-2021"
   },
@@ -13790,8 +12340,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Jul-2021"
   },
@@ -13809,8 +12357,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Jul-2021"
   },
@@ -13828,8 +12374,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Jul-2021"
   },
@@ -13847,8 +12391,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Jul-2021"
   },
@@ -13866,8 +12408,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V09040 PTC Engineering - Sample Room",
     "bagian": "W/H",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Jul-2021"
   },
@@ -13885,8 +12425,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Jul-2021"
   },
@@ -13904,8 +12442,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Jul-2021"
   },
@@ -13923,8 +12459,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V09051 PTC Engineering - Jig Room - Computer St",
     "bagian": "W/H",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Jul-2021"
   },
@@ -13942,8 +12476,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01352 QC of Rubber JVB",
     "bagian": "Building A -B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Jul-2021"
   },
@@ -13961,8 +12493,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1336 Fty3 Assembly Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Jul-2021"
   },
@@ -13980,8 +12510,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01352 QC of Rubber JVB",
     "bagian": "Building A -B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Jul-2021"
   },
@@ -13999,8 +12527,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14018,8 +12544,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00301 Raw Material, QA",
     "bagian": "W/H",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14037,8 +12561,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1208 Fty1 Sttitching Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14056,8 +12578,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC038 Line 38 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14075,8 +12595,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1238 Fty3 Sttitching Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14094,8 +12612,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111B Printing B, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14113,8 +12629,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1238 Fty3 Sttitching Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14132,8 +12646,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14151,8 +12663,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0934 Facility Tech Assembly",
     "bagian": "C3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14170,8 +12680,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10905 Finishing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14189,8 +12697,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14208,8 +12714,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14227,8 +12731,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14246,8 +12748,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1339 Fty3 Assembly Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14265,8 +12765,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14284,8 +12782,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14303,8 +12799,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SDA101 Comelz group A N6",
     "bagian": "N6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14322,8 +12816,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14341,8 +12833,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1135 Fty3 Cutting Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14360,8 +12850,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1136 Fty3 Cutting Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14379,8 +12867,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14398,8 +12884,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14417,8 +12901,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14436,8 +12918,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1207 Fty1 Sttitching Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14455,8 +12935,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14474,8 +12952,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1107 Fty1 Cutting Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14493,8 +12969,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1136 Fty3 Cutting Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14512,8 +12986,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4100 SF Section 1",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14531,8 +13003,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0790 Quality of Stockfit",
     "bagian": "C1-C2",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14550,8 +13020,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC036 Line 36 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14569,8 +13037,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1102 Fty1 Cutting Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14588,8 +13054,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14607,8 +13071,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1301 Fty1 Assembly Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14626,8 +13088,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM021 Line Mini Stitching Cmptr Central Fact 1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14645,8 +13105,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14664,8 +13122,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1133 Fty3 Cutting Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14683,8 +13139,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1338 Fty3 Assembly Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14702,8 +13156,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1238 Fty3 Sttitching Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14721,8 +13173,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4200 SF Section 2/ Buffing Group 2",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14740,8 +13190,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4109 SF Section 1/group 9",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14759,8 +13207,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14778,8 +13224,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0790 Quality of Stockfit",
     "bagian": "C1-C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "21-Jul-2021"
   },
@@ -14797,8 +13241,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -14816,8 +13258,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1301 Fty1 Assembly Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -14835,8 +13275,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -14854,8 +13292,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1240 Fty3 Sttitching Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -14873,8 +13309,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1142 Fty3 Cutting Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -14892,8 +13326,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1235 Fty3 Sttitching Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -14911,8 +13343,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1234 Fty3 Sttitching Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -14930,8 +13360,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1239 Fty3 Sttitching Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -14949,8 +13377,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -14968,8 +13394,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -14987,8 +13411,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1340 Fty3 Assembly Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15006,8 +13428,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15025,8 +13445,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15044,8 +13462,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15063,8 +13479,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15082,8 +13496,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1233 Fty3 Sttitching Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15101,8 +13513,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0702 Quality Second Process",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15120,8 +13530,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0730 Quality of Factory 3",
     "bagian": "S5-S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15139,8 +13547,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15158,8 +13564,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0730 Quality of Factory 3",
     "bagian": "S5-S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15177,8 +13581,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15196,8 +13598,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0702 Quality Second Process",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15215,8 +13615,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10020 W/H of Mold Group/3rd JVB",
     "bagian": "Building Mold",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15234,8 +13632,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1336 Fty3 Assembly Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15253,8 +13649,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15272,8 +13666,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM021 Line Mini Stitching Cmptr Central Fact 1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15291,8 +13683,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0312 Fty1 Assembly Line 12 Packing",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15310,8 +13700,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15329,8 +13717,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1339 Fty3 Assembly Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15348,8 +13734,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15367,8 +13751,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15386,8 +13768,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15405,8 +13785,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1238 Fty3 Sttitching Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15424,8 +13802,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1239 Fty3 Sttitching Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15443,8 +13819,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1203 Fty1 Sttitching Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15462,8 +13836,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1240 Fty3 Sttitching Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15481,8 +13853,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15500,8 +13870,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15519,8 +13887,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1233 Fty3 Sttitching Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "26-Jul-2021"
   },
@@ -15538,8 +13904,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SDC101 Comelz group C N6",
     "bagian": "N6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15557,8 +13921,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC138 Line 38 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15576,8 +13938,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM011 Line Mini Cutting Centralize?Fact?3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15595,8 +13955,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC037 Line 37 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15614,8 +13972,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1103 Fty1 Cutting Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15633,8 +13989,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC137 Line 37 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15652,8 +14006,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SDB101 Comelz group B N6",
     "bagian": "N6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15671,8 +14023,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC240 Line 40 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15690,8 +14040,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15709,8 +14057,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15728,8 +14074,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC041 Line 41 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15747,8 +14091,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15766,8 +14108,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC036 Line 36 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15785,8 +14125,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1105 Fty1 Cutting Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15804,8 +14142,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15823,8 +14159,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15842,8 +14176,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC141 Line 41 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15861,8 +14193,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SDB101 Comelz group B N6",
     "bagian": "N6",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15880,8 +14210,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC200A Factory 3 Stitching Long Illness",
     "bagian": "S5-S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15899,8 +14227,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1236 Fty3 Sttitching Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15918,8 +14244,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1236 Fty3 Sttitching Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15937,8 +14261,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15956,8 +14278,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15975,8 +14295,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111A Printing A, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -15994,8 +14312,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC0341 Fty3 Assembly Line 41 Packing",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16013,8 +14329,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0934 Facility Tech Assembly",
     "bagian": "C3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16032,8 +14346,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1238 Fty3 Sttitching Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16051,8 +14363,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1240 Fty3 Sttitching Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16070,8 +14380,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1338 Fty3 Assembly Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16089,8 +14397,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1236 Fty3 Sttitching Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16108,8 +14414,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1234 Fty3 Sttitching Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16127,8 +14431,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1143 Fty3 Cutting Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16146,8 +14448,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC042 Line 42 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16165,8 +14465,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1101 Fty1 Cutting Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16184,8 +14482,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC137 Line 37 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16203,8 +14499,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1238 Fty3 Sttitching Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16222,8 +14516,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16241,8 +14533,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20446 JVB-IP NonShift Support Emp with Recom",
     "bagian": "C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16260,8 +14550,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16279,8 +14567,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC145 Line 45 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16298,8 +14584,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0101 Auto N1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16317,8 +14601,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16336,8 +14618,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16355,8 +14635,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC143 Line 43 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16374,8 +14652,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1336 Fty3 Assembly Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16393,8 +14669,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10906 Finishing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16412,8 +14686,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1236 Fty3 Sttitching Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16431,8 +14703,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1236 Fty3 Sttitching Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16450,8 +14720,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1339 Fty3 Assembly Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16469,8 +14737,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC0343 Fty3 Assembly Line 43 Packing",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16488,8 +14754,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20525 Injection of IP - JVB / 2nd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16507,8 +14771,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20427 TPR of IP JVB",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16526,8 +14788,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00301 Raw Material, QA",
     "bagian": "W/H",
     "jabatanKerja": "STAFF",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16545,8 +14805,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16564,8 +14822,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V60000 Lamination",
     "bagian": "N7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16583,8 +14839,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V60000 Lamination",
     "bagian": "N7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16602,8 +14856,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V50200 Printing Of Factory 1",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16621,8 +14873,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V50200 Printing Of Factory 1",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16640,8 +14890,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1236 Fty3 Sttitching Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16659,8 +14907,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1236 Fty3 Sttitching Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16678,8 +14924,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC0336 Fty3 Assembly Line 36 Packing",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16697,8 +14941,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0933 Facility Tech Stitching Central",
     "bagian": "C3",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16716,8 +14958,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1336 Fty3 Assembly Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16735,8 +14975,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC245 Line 45 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16754,8 +14992,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1211 Fty1 Sttitching Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16773,8 +15009,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16792,8 +15026,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20126 JVB-PU Non-Shift Sup for Pregnant Emp",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16811,8 +15043,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM021 Line Mini Stitching Cmptr Central Fact 1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16830,8 +15060,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16849,8 +15077,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16868,8 +15094,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC703 TL / GL Centralize C2 Fact 3",
     "bagian": "C2",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16887,8 +15111,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16906,8 +15128,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16925,8 +15145,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16944,8 +15162,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10704 Supporting Banbury of Rubber JVB / 1st S",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16963,8 +15179,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4623 SF Section 6/group 23",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -16982,8 +15196,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4108 SF Section 1/group 8",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -17001,8 +15213,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC140 Line 40 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -17020,8 +15230,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC236 Line 36 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -17039,8 +15247,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC241 Line 41 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -17058,8 +15264,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -17077,8 +15281,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111B Printing B, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -17096,8 +15298,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1235 Fty3 Sttitching Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Sep-2021"
   },
@@ -17115,8 +15315,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1235 Fty3 Sttitching Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Sep-2021"
   },
@@ -17134,8 +15332,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1235 Fty3 Sttitching Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Sep-2021"
   },
@@ -17153,8 +15349,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1236 Fty3 Sttitching Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Sep-2021"
   },
@@ -17172,8 +15366,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1336 Fty3 Assembly Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Sep-2021"
   },
@@ -17191,8 +15383,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Sep-2021"
   },
@@ -17210,8 +15400,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17229,8 +15417,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1235 Fty3 Sttitching Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17248,8 +15434,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1335 Fty3 Assembly Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17267,8 +15451,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1335 Fty3 Assembly Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17286,8 +15468,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1336 Fty3 Assembly Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17305,8 +15485,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17324,8 +15502,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1335 Fty3 Assembly Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17343,8 +15519,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1235 Fty3 Sttitching Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17362,8 +15536,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17381,8 +15553,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1335 Fty3 Assembly Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17400,8 +15570,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1235 Fty3 Sttitching Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17419,8 +15587,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0101 Auto N1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17438,8 +15604,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1335 Fty3 Assembly Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17457,8 +15621,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1235 Fty3 Sttitching Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17476,8 +15638,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1235 Fty3 Sttitching Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17495,8 +15655,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC235 Line 35 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17514,8 +15672,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1208 Fty1 Sttitching Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17533,8 +15689,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1209 Fty1 Sttitching Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Sep-2021"
   },
@@ -17552,8 +15706,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20102 PU Group B",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2021"
   },
@@ -17571,8 +15723,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0101 Auto N1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2021"
   },
@@ -17590,8 +15740,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20108 Supporting of PU JVB",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2021"
   },
@@ -17609,8 +15757,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1335 Fty3 Assembly Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2021"
   },
@@ -17628,8 +15774,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1335 Fty3 Assembly Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2021"
   },
@@ -17647,8 +15791,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC035 Line 35 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2021"
   },
@@ -17666,8 +15808,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC042 Line 42 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2021"
   },
@@ -17685,8 +15825,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111B Printing B, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2021"
   },
@@ -17704,8 +15842,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC039 Line 39 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2021"
   },
@@ -17723,8 +15859,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1203 Fty1 Sttitching Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2021"
   },
@@ -17742,8 +15876,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1106 Fty1 Cutting Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2021"
   },
@@ -17761,8 +15893,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1335 Fty3 Assembly Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "8-Sep-2021"
   },
@@ -17780,8 +15910,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4441 SF Section 4/Degreasing Group 1",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Sep-2021"
   },
@@ -17799,8 +15927,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC045 Line 45 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Sep-2021"
   },
@@ -17818,8 +15944,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC043 Line 43 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Sep-2021"
   },
@@ -17837,8 +15961,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC038 Line 38 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Sep-2021"
   },
@@ -17856,8 +15978,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC034 Line 34 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Sep-2021"
   },
@@ -17875,8 +15995,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC038 Line 38 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Sep-2021"
   },
@@ -17894,8 +16012,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC045 Line 45 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Sep-2021"
   },
@@ -17913,8 +16029,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "13-Sep-2021"
   },
@@ -17932,8 +16046,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA118A Offline Emboss Long Illness",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Sep-2021"
   },
@@ -17951,8 +16063,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20524 Injection of IP - JVB / 1st Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -17970,8 +16080,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -17989,8 +16097,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18008,8 +16114,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18027,8 +16131,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10907 Finishing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18046,8 +16148,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20525 Injection of IP - JVB / 2nd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18065,8 +16165,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20524 Injection of IP - JVB / 1st Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18084,8 +16182,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20100 PU JVB",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18103,8 +16199,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18122,8 +16216,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1134 Fty3 Cutting Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18141,8 +16233,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10904 Supporting of Rubber JVB",
     "bagian": "Building A - B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18160,8 +16250,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18179,8 +16267,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18198,8 +16284,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20002 Facility Tech Team of JVB",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18217,8 +16301,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10803 Roller of Rubber JVB / 3rd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18236,8 +16318,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10020 W/H of Mold Group/3rd JVB",
     "bagian": "Building Mold",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18255,8 +16335,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20524 Injection of IP - JVB / 1st Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18274,8 +16352,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10907 Finishing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18293,8 +16369,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18312,8 +16386,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18331,8 +16403,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10904 Supporting of Rubber JVB",
     "bagian": "Building A - B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18350,8 +16420,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20526 Injection of IP - JVB / 3rd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18369,8 +16437,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10906 Finishing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18388,8 +16454,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18407,8 +16471,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18426,8 +16488,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1335 Fty3 Assembly Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18445,8 +16505,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "22-Sep-2021"
   },
@@ -18464,8 +16522,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18483,8 +16539,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18502,8 +16556,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18521,8 +16573,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18540,8 +16590,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18559,8 +16607,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18578,8 +16624,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18597,8 +16641,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18616,8 +16658,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1340 Fty3 Assembly Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18635,8 +16675,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18654,8 +16692,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18673,8 +16709,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1336 Fty3 Assembly Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18692,8 +16726,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111B Printing B, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18711,8 +16743,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18730,8 +16760,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18749,8 +16777,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18768,8 +16794,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SDA101 Comelz group A N6",
     "bagian": "N6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18787,8 +16811,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18806,8 +16828,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18825,8 +16845,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18844,8 +16862,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC0334 Fty3 Assembly Line 34 Packing",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18863,8 +16879,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18882,8 +16896,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC234 Line 34 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18901,8 +16913,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC0334 Fty3 Assembly Line 34 Packing",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18920,8 +16930,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1233 Fty3 Sttitching Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18939,8 +16947,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18958,8 +16964,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18977,8 +16981,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -18996,8 +16998,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19015,8 +17015,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1235 Fty3 Sttitching Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19034,8 +17032,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19053,8 +17049,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1235 Fty3 Sttitching Line 35",
     "bagian": "S5",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19072,8 +17066,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19091,8 +17083,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1234 Fty3 Sttitching Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19110,8 +17100,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1234 Fty3 Sttitching Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19129,8 +17117,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1340 Fty3 Assembly Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19148,8 +17134,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19167,8 +17151,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1135 Fty3 Cutting Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19186,8 +17168,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1133 Fty3 Cutting Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19205,8 +17185,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1133 Fty3 Cutting Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19224,8 +17202,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1239 Fty3 Sttitching Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19243,8 +17219,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0930 Facility Tech Cutting",
     "bagian": "C3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19262,8 +17236,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4316 SF Section 3/group 16",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19281,8 +17253,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N30701 Bottom Inventory And Shipping JVb",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19300,8 +17270,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1234 Fty3 Sttitching Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19319,8 +17287,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00311 FUN, QA",
     "bagian": "N1-S7",
     "jabatanKerja": "STAFF",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19338,8 +17304,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1236 Fty3 Sttitching Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19357,8 +17321,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1234 Fty3 Sttitching Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19376,8 +17338,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19395,8 +17355,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01351 JVB Lab (Laboratory for bottom)",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19414,8 +17372,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01350 QC of IP JVB",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19433,8 +17389,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01350 QC of IP JVB",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19452,8 +17406,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01350 QC of IP JVB",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19471,8 +17423,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01354 QC of Function JVB",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19490,8 +17440,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19509,8 +17457,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1336 Fty3 Assembly Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19528,8 +17474,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19547,8 +17491,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19566,8 +17508,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1233 Fty3 Sttitching Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19585,8 +17525,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19604,8 +17542,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1245 Fty3 Sttitching Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19623,8 +17559,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19642,8 +17576,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19661,8 +17593,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19680,8 +17610,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1243 Fty3 Sttitching Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19699,8 +17627,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19718,8 +17644,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1233 Fty3 Sttitching Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19737,8 +17661,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19756,8 +17678,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19775,8 +17695,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19794,8 +17712,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19813,8 +17729,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19832,8 +17746,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19851,8 +17763,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1233 Fty3 Sttitching Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19870,8 +17780,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1239 Fty3 Sttitching Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19889,8 +17797,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1234 Fty3 Sttitching Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19908,8 +17814,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1233 Fty3 Sttitching Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19927,8 +17831,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1233 Fty3 Sttitching Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19946,8 +17848,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19965,8 +17865,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1233 Fty3 Sttitching Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -19984,8 +17882,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1233 Fty3 Sttitching Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -20003,8 +17899,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VC0A02 Production Factory 03",
     "bagian": "S5-S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -20022,8 +17916,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1233 Fty3 Sttitching Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -20041,8 +17933,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC0333 Fty3 Assembly Line 33 Packing",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -20060,8 +17950,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N01352 QC of Rubber JVB",
     "bagian": "Building A -B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -20079,8 +17967,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -20098,8 +17984,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0A02 Production Factory 01",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -20117,8 +18001,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20136,8 +18018,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC241 Line 41 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20155,8 +18035,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1107 Fty1 Cutting Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20174,8 +18052,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1207 Fty1 Sttitching Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20193,8 +18069,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10702 Banbury of Rubber JVB / 2nd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20212,8 +18086,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4118 SF Section 7/UV Group 1",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20231,8 +18103,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SDA101 Comelz group A N6",
     "bagian": "N6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20250,8 +18120,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC141 Line 41 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20269,8 +18137,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC136 Line 36 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20288,8 +18154,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20103 PU Group C",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20307,8 +18171,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20101 PU Group A",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20326,8 +18188,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10908 Indirect Line Of Rubber JVB",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20345,8 +18205,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1101 Fty1 Cutting Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20364,8 +18222,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1211 Fty1 Sttitching Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20383,8 +18239,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1102 Fty1 Cutting Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20402,8 +18256,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC133 Line 33 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20421,8 +18273,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20440,8 +18290,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4316 SF Section 3/group 16",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20459,8 +18307,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20478,8 +18324,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC234 Line 34 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20497,8 +18341,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4118 SF Section 7/UV Group 1",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20516,8 +18358,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0118 Emboss N6, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20535,8 +18375,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC143 Line 43 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20554,8 +18392,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1141 Fty3 Cutting Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20573,8 +18409,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC143 Line 43 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20592,8 +18426,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20611,8 +18443,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC236 Line 36 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20630,8 +18460,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1108 Fty1 Cutting Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20649,8 +18477,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1209 Fty1 Sttitching Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20668,8 +18494,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20687,8 +18511,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC139 Line 39 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20706,8 +18528,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1209 Fty1 Sttitching Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20725,8 +18545,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20744,8 +18562,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM021 Line Mini Stitching Cmptr Central Fact 1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20763,8 +18579,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0600 Equipment Management, C2B",
     "bagian": "C2B",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20782,8 +18596,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1208 Fty1 Sttitching Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20801,8 +18613,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC139 Line 39 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20820,8 +18630,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA1111 6S N1-N4",
     "bagian": "N1-N4",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20839,8 +18647,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1107 Fty1 Cutting Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20858,8 +18664,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SDA101 Comelz group A N6",
     "bagian": "N6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20877,8 +18681,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4332 SF Section 3/UV Group 1",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20896,8 +18698,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4118 SF Section 7/UV Group 1",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20915,8 +18715,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1236 Fty3 Sttitching Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20934,8 +18732,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC037 Line 37 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20953,8 +18749,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4200 SF Section 2/ Buffing Group 2",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20972,8 +18766,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4108 SF Section 1/group 8",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -20991,8 +18783,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111C Printing C, Factory 2",
     "bagian": "N7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -21010,8 +18800,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0730 Quality of Factory 3",
     "bagian": "S5-S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "15-Nov-2021"
   },
@@ -21029,8 +18817,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4106 SF Section 1/group 6",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21048,8 +18834,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC133 Line 33 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21067,8 +18851,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1108 Fty1 Cutting Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21086,8 +18868,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1106 Fty1 Cutting Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21105,8 +18885,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21124,8 +18902,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC142 Line 42 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21143,8 +18919,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC703 TL / GL Centralize C2 Fact 3",
     "bagian": "C2",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21162,8 +18936,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00400 Warehouse",
     "bagian": "W/H",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21181,8 +18953,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1306 Fty1 Assembly Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21200,8 +18970,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21219,8 +18987,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1305 Fty1 Assembly Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21238,8 +19004,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1301 Fty1 Assembly Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21257,8 +19021,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21276,8 +19038,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1302 Fty1 Assembly Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21295,8 +19055,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21314,8 +19072,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1243 Fty3 Sttitching Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21333,8 +19089,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC136 Line 36 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21352,8 +19106,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1301 Fty1 Assembly Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21371,8 +19123,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21390,8 +19140,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1307 Fty1 Assembly Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21409,8 +19157,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VC0590 Inventory Of JV Bottom preparation",
     "bagian": "C1-C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21428,8 +19174,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4212 SF Section 2/group 12",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21447,8 +19191,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4106 SF Section 1/group 6",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21466,8 +19208,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC136 Line 36 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21485,8 +19225,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4212 SF Section 2/group 12",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21504,8 +19242,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4316 SF Section 3/group 16",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21523,8 +19259,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4600 SF Section 6/ Buffing Group 6",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21542,8 +19276,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4316 SF Section 3/group 16",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21561,8 +19293,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4107 SF Section 1/group 7",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21580,8 +19310,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4106 SF Section 1/group 6",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21599,8 +19327,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4106 SF Section 1/group 6",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21618,8 +19344,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21637,8 +19361,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21656,8 +19378,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21675,8 +19395,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21694,8 +19412,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21713,8 +19429,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1245 Fty3 Sttitching Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21732,8 +19446,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21751,8 +19463,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21770,8 +19480,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1245 Fty3 Sttitching Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21789,8 +19497,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21808,8 +19514,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM021 Line Mini Stitching Cmptr Central Fact 1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21827,8 +19531,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1305 Fty1 Assembly Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21846,8 +19548,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1238 Fty3 Sttitching Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21865,8 +19565,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1238 Fty3 Sttitching Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21884,8 +19582,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1208 Fty1 Sttitching Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21903,8 +19599,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC245 Line 45 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21922,8 +19616,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21941,8 +19633,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21960,8 +19650,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21979,8 +19667,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1306 Fty1 Assembly Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -21998,8 +19684,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1301 Fty1 Assembly Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22017,8 +19701,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM021 Line Mini Stitching Cmptr Central Fact 1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22036,8 +19718,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1238 Fty3 Sttitching Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22055,8 +19735,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111C Printing C, Factory 2",
     "bagian": "N7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22074,8 +19752,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22093,8 +19769,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1312 Fty1 Assembly Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22112,8 +19786,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1308 Fty1 Assembly Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22131,8 +19803,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20525 Injection of IP - JVB / 2nd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22150,8 +19820,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1245 Fty3 Sttitching Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22169,8 +19837,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22188,8 +19854,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20427 TPR of IP JVB",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22207,8 +19871,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22226,8 +19888,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1238 Fty3 Sttitching Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22245,8 +19905,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22264,8 +19922,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1238 Fty3 Sttitching Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22283,8 +19939,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1336 Fty3 Assembly Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22302,8 +19956,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22321,8 +19973,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22340,8 +19990,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1305 Fty1 Assembly Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22359,8 +20007,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1338 Fty3 Assembly Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "24-Nov-2021"
   },
@@ -22378,8 +20024,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC240 Line 40 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22397,8 +20041,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC242 Line 42 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22416,8 +20058,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1335 Fty3 Assembly Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22435,8 +20075,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC233 Line 33 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22454,8 +20092,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC234 Line 34 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22473,8 +20109,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22492,8 +20126,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20427 TPR of IP JVB",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22511,8 +20143,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC234 Line 34 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22530,8 +20160,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22549,8 +20177,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22568,8 +20194,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1333 Fty3 Assembly Line 33",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22587,8 +20211,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC234 Line 34 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22606,8 +20228,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22625,8 +20245,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC243 Line 43 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22644,8 +20262,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1109 Fty1 Cutting Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22663,8 +20279,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22682,8 +20296,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC243 Line 43 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22701,8 +20313,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22720,8 +20330,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22739,8 +20347,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22758,8 +20364,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22777,8 +20381,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC235 Line 35 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22796,8 +20398,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC145 Line 45 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22815,8 +20415,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22834,8 +20432,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1340 Fty3 Assembly Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22853,8 +20449,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22872,8 +20466,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1207 Fty1 Sttitching Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22891,8 +20483,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22910,8 +20500,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC0600 Supporting Production S5-S7",
     "bagian": "S5-S7",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22929,8 +20517,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22948,8 +20534,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1243 Fty3 Sttitching Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22967,8 +20551,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -22986,8 +20568,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23005,8 +20585,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC234 Line 34 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23024,8 +20602,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SDA101 Comelz group A N6",
     "bagian": "N6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23043,8 +20619,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23062,8 +20636,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23081,8 +20653,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1339 Fty3 Assembly Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23100,8 +20670,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23119,8 +20687,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23138,8 +20704,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC0342 Fty3 Assembly Line 42 Packing",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23157,8 +20721,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23176,8 +20738,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23195,8 +20755,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23214,8 +20772,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23233,8 +20789,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23252,8 +20806,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1142 Fty3 Cutting Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23271,8 +20823,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1243 Fty3 Sttitching Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23290,8 +20840,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23309,8 +20857,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23328,8 +20874,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC138 Line 38 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23347,8 +20891,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC143 Line 43 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23366,8 +20908,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23385,8 +20925,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1243 Fty3 Sttitching Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23404,8 +20942,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111B Printing B, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23423,8 +20959,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC140 Line 40 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23442,8 +20976,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC142 Line 42 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23461,8 +20993,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC20A Centralize Stitching Long Illness Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -23480,8 +21010,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4100 SF Section 1",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23499,8 +21027,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4212 SF Section 2/group 12",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23518,8 +21044,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4100 SF Section 1",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23537,8 +21061,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4627 SF Section 6/group 27",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23556,8 +21078,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4332 SF Section 3/UV Group 1",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23575,8 +21095,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4623 SF Section 6/group 23",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23594,8 +21112,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4623 SF Section 6/group 23",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23613,8 +21129,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23632,8 +21146,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20446 JVB-IP NonShift Support Emp with Recom",
     "bagian": "C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23651,8 +21163,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23670,8 +21180,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1305 Fty1 Assembly Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23689,8 +21197,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111C Printing C, Factory 2",
     "bagian": "N7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23708,8 +21214,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1208 Fty1 Sttitching Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23727,8 +21231,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4021 UV Line 1/Shift B/ SF Dept",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23746,8 +21248,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23765,8 +21265,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC242 Line 42 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23784,8 +21282,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23803,8 +21299,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23822,8 +21316,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1112 Fty1 Cutting Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23841,8 +21333,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20427 TPR of IP JVB",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23860,8 +21350,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC238 Line 38 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23879,8 +21367,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1106 Fty1 Cutting Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23898,8 +21384,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1203 Fty1 Sttitching Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23917,8 +21401,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VC0A02 Production Factory 03",
     "bagian": "S5-S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23936,8 +21418,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM021 Line Mini Stitching Cmptr Central Fact 1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23955,8 +21435,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23974,8 +21452,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20427 TPR of IP JVB",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -23993,8 +21469,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N30701 Bottom Inventory And Shipping JVb",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24012,8 +21486,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24031,8 +21503,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1203 Fty1 Sttitching Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24050,8 +21520,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1211 Fty1 Sttitching Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24069,8 +21537,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20524 Injection of IP - JVB / 1st Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24088,8 +21554,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24107,8 +21571,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC240 Line 40 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24126,8 +21588,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC245 Line 45 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24145,8 +21605,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC141 Line 41 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24164,8 +21622,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10709 Site Services",
     "bagian": "Office JVB",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24183,8 +21639,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N30701 Bottom Inventory And Shipping JVb",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24202,8 +21656,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC236 Line 36 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24221,8 +21673,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1211 Fty1 Sttitching Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24240,8 +21690,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1209 Fty1 Sttitching Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24259,8 +21707,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20102 PU Group B",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24278,8 +21724,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1103 Fty1 Cutting Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24297,8 +21741,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC238 Line 38 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "3-Jan-2022"
   },
@@ -24316,8 +21758,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24335,8 +21775,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24354,8 +21792,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC037 Line 37 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24373,8 +21809,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20524 Injection of IP - JVB / 1st Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24392,8 +21826,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1209 Fty1 Sttitching Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24411,8 +21843,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC140 Line 40 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24430,8 +21860,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC139 Line 39 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24449,8 +21877,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1102 Fty1 Cutting Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24468,8 +21894,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1235 Fty3 Sttitching Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24487,8 +21911,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC136 Line 36 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24506,8 +21928,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24525,8 +21945,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20101 PU Group A",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24544,8 +21962,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC140 Line 40 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24563,8 +21979,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC238 Line 38 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24582,8 +21996,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC133 Line 33 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24601,8 +22013,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1339 Fty3 Assembly Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24620,8 +22030,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N30701 Bottom Inventory And Shipping JVb",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24639,8 +22047,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC136 Line 36 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24658,8 +22064,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC136 Line 36 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24677,8 +22081,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4117 SF Section 7/UV Group 1",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24696,8 +22098,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0A02 Production Factory 01",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24715,8 +22115,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1235 Fty3 Sttitching Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24734,8 +22132,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC238 Line 38 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "6-Jan-2022"
   },
@@ -24753,8 +22149,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC041 Line 41 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -24772,8 +22166,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC239 Line 39 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -24791,8 +22183,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1109 Fty1 Cutting Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -24810,8 +22200,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -24829,8 +22217,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -24848,8 +22234,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -24867,8 +22251,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -24886,8 +22268,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1108 Fty1 Cutting Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -24905,8 +22285,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -24924,8 +22302,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -24943,8 +22319,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VC0A02 Production Factory 03",
     "bagian": "S5-S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -24962,8 +22336,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC245 Line 45 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -24981,8 +22353,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC243 Line 43 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25000,8 +22370,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC236 Line 36 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25019,8 +22387,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC243 Line 43 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25038,8 +22404,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1340 Fty3 Assembly Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25057,8 +22421,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1209 Fty1 Sttitching Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25076,8 +22438,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1101 Fty1 Cutting Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25095,8 +22455,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1208 Fty1 Sttitching Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25114,8 +22472,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25133,8 +22489,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10710 Internal Process & Improvement Managemen",
     "bagian": "Office",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25152,8 +22506,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1108 Fty1 Cutting Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25171,8 +22523,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1203 Fty1 Sttitching Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25190,8 +22540,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC034 Line 34 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25209,8 +22557,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC233 Line 33 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25228,8 +22574,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC041 Line 41 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25247,8 +22591,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25266,8 +22608,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM011 Line Mini Cutting Centralize Fact1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25285,8 +22625,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VC0A02 Production Factory 03",
     "bagian": "S5-S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25304,8 +22642,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC138 Line 38 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25323,8 +22659,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC238 Line 38 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25342,8 +22676,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC245 Line 45 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25361,8 +22693,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC033 Line 33 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25380,8 +22710,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC237 Line 37 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25399,8 +22727,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25418,8 +22744,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25437,8 +22761,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25456,8 +22778,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25475,8 +22795,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25494,8 +22812,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25513,8 +22829,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25532,8 +22846,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC300A Factory 3 Assembling Long Illness",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25551,8 +22863,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Jan-2022"
   },
@@ -25570,8 +22880,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25589,8 +22897,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25608,8 +22914,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25627,8 +22931,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25646,8 +22948,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25665,8 +22965,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25684,8 +22982,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1336 Fty3 Assembly Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25703,8 +22999,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1142 Fty3 Cutting Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25722,8 +23016,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20103 PU Group C",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25741,8 +23033,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1339 Fty3 Assembly Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25760,8 +23050,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1339 Fty3 Assembly Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25779,8 +23067,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25798,8 +23084,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1111 Fty1 Cutting Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25817,8 +23101,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC037 Line 37 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25836,8 +23118,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10908 Indirect Line Of Rubber JVB",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25855,8 +23135,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10802 Roller of Rubber JVB / 2nd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25874,8 +23152,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM011 Line Mini Cutting Centralize Fact1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25893,8 +23169,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1112 Fty1 Cutting Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25912,8 +23186,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1207 Fty1 Sttitching Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25931,8 +23203,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25950,8 +23220,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1334 Fty3 Assembly Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25969,8 +23237,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -25988,8 +23254,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1111 Fty1 Cutting Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26007,8 +23271,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26026,8 +23288,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM011 Line Mini Cutting Centralize Fact1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26045,8 +23305,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SDA101 Comelz group A N6",
     "bagian": "N6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26064,8 +23322,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26083,8 +23339,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26102,8 +23356,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM021 Line Mini Stitching Cmptr Central Fact 1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26121,8 +23373,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26140,8 +23390,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0A02 Production Factory 01",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26159,8 +23407,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26178,8 +23424,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26197,8 +23441,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26216,8 +23458,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26235,8 +23475,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26254,8 +23492,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1245 Fty3 Sttitching Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26273,8 +23509,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26292,8 +23526,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26311,8 +23543,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26330,8 +23560,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC139 Line 39 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26349,8 +23577,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26368,8 +23594,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM011 Line Mini Cutting Centralize Fact1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26387,8 +23611,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0101 Auto N1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26406,8 +23628,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26425,8 +23645,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26444,8 +23662,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM011 Line Mini Cutting Centralize?Fact?3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26463,8 +23679,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26482,8 +23696,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26501,8 +23713,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26520,8 +23730,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26539,8 +23747,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1105 Fty1 Cutting Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "12-Jan-2022"
   },
@@ -26558,8 +23764,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC142 Line 42 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26577,8 +23781,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC245 Line 45 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26596,8 +23798,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26615,8 +23815,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26634,8 +23832,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1236 Fty3 Sttitching Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26653,8 +23849,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26672,8 +23866,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26691,8 +23883,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26710,8 +23900,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1239 Fty3 Sttitching Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26729,8 +23917,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1108 Fty1 Cutting Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26748,8 +23934,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26767,8 +23951,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1339 Fty3 Assembly Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26786,8 +23968,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC240 Line 40 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26805,8 +23985,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26824,8 +24002,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00400 Warehouse",
     "bagian": "W/H",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26843,8 +24019,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1340 Fty3 Assembly Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26862,8 +24036,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26881,8 +24053,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26900,8 +24070,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM021 Line Mini Stitching Cmptr Central Fact 1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26919,8 +24087,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1107 Fty1 Cutting Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26938,8 +24104,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N30701 Bottom Inventory And Shipping JVb",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26957,8 +24121,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26976,8 +24138,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -26995,8 +24155,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1105 Fty1 Cutting Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27014,8 +24172,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC136 Line 36 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27033,8 +24189,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27052,8 +24206,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27071,8 +24223,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1345 Fty3 Assembly Line 45",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27090,8 +24240,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27109,8 +24257,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27128,8 +24274,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27147,8 +24291,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27166,8 +24308,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27185,8 +24325,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1243 Fty3 Sttitching Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27204,8 +24342,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27223,8 +24359,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27242,8 +24376,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1236 Fty3 Sttitching Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27261,8 +24393,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27280,8 +24410,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0101 Auto N1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27299,8 +24427,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27318,8 +24444,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27337,8 +24461,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1234 Fty3 Sttitching Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27356,8 +24478,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27375,8 +24495,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27394,8 +24512,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SDA101 Comelz group A N6",
     "bagian": "N6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27413,8 +24529,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27432,8 +24546,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27451,8 +24563,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27470,8 +24580,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SDC101 Comelz group C N6",
     "bagian": "N6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27489,8 +24597,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC0341 Fty3 Assembly Line 41 Packing",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27508,8 +24614,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1238 Fty3 Sttitching Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27527,8 +24631,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10709 Site Services",
     "bagian": "Office JVB",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27546,8 +24648,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27565,8 +24665,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1337 Fty3 Assembly Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27584,8 +24682,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20103 PU Group C",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27603,8 +24699,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V10709 Site Services",
     "bagian": "Office JVB",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27622,8 +24716,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1338 Fty3 Assembly Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27641,8 +24733,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC037 Line 37 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27660,8 +24750,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC140 Line 40 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27679,8 +24767,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1209 Fty1 Sttitching Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "17-Jan-2022"
   },
@@ -27698,8 +24784,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC141 Line 41 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -27717,8 +24801,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10905 Finishing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -27736,8 +24818,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20526 Injection of IP - JVB / 3rd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -27755,8 +24835,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20108 Supporting of PU JVB",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -27774,8 +24852,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1208 Fty1 Sttitching Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -27793,8 +24869,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4316 SF Section 3/group 16",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -27812,8 +24886,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4108 SF Section 1/group 8",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -27831,8 +24903,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10907 Finishing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -27850,8 +24920,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10608 Supporting of Painting Rubber JVB",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -27869,8 +24937,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10904 Supporting of Rubber JVB",
     "bagian": "Building A - B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -27888,8 +24954,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20526 Injection of IP - JVB / 3rd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -27907,8 +24971,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC241 Line 41 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -27926,8 +24988,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1335 Fty3 Assembly Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -27945,8 +25005,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10905 Finishing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -27964,8 +25022,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC134 Line 34 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -27983,8 +25039,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC136 Line 36 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -28002,8 +25056,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VC0590 Inventory Of JV Bottom preparation",
     "bagian": "C1-C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -28021,8 +25073,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0600 Equipment Management, C2B",
     "bagian": "C2B",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -28040,8 +25090,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4109 SF Section 1/group 9",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -28059,8 +25107,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC136 Line 36 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -28078,8 +25124,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC136 Line 36 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -28097,8 +25141,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC134 Line 34 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -28116,8 +25158,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1308 Fty1 Assembly Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -28135,8 +25175,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4109 SF Section 1/group 9",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -28154,8 +25192,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -28173,8 +25209,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10905 Finishing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -28192,8 +25226,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC233 Line 33 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -28211,8 +25243,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0118 Emboss N6, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -28230,8 +25260,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4101 SF Section 1/group 1",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -28249,8 +25277,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SDC101 Comelz group C N6",
     "bagian": "N6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -28268,8 +25294,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4200 SF Section 2/ Buffing Group 2",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "2-Feb-2022"
   },
@@ -28287,8 +25311,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4102 SF Section 1/group 2",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28306,8 +25328,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM021 Line Mini Stitching Cmptr Central Fact 1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28325,8 +25345,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28344,8 +25362,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4662 SF Section 6/UV Group 1",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28363,8 +25379,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111C Printing C, Factory 2",
     "bagian": "N7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28382,8 +25396,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC241 Line 41 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28401,8 +25413,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1338 Fty3 Assembly Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28420,8 +25430,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC134 Line 34 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28439,8 +25447,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4623 SF Section 6/group 23",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28458,8 +25464,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28477,8 +25481,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1107 Fty1 Cutting Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28496,8 +25498,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10608 Supporting of Painting Rubber JVB",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28515,8 +25515,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC243 Line 43 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28534,8 +25532,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4222 SF Section 2/UV Group 1",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28553,8 +25549,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC234 Line 34 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28572,8 +25566,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10809 Cutting OF Rubber 2nd/Shift JVB",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28591,8 +25583,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1112 Fty1 Cutting Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28610,8 +25600,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC243 Line 43 Stitching Com Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28629,8 +25617,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28648,8 +25634,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N30701 Bottom Inventory And Shipping JVb",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28667,8 +25651,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1102 Fty1 Cutting Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28686,8 +25668,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28705,8 +25685,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4111 SF Section 1/Degreasing Group 1",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28724,8 +25702,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28743,8 +25719,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28762,8 +25736,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1306 Fty1 Assembly Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Feb-2022"
   },
@@ -28781,8 +25753,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111B Printing B, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -28800,8 +25770,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1240 Fty3 Sttitching Line 40",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -28819,8 +25787,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1243 Fty3 Sttitching Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -28838,8 +25804,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1303 Fty1 Assembly Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -28857,8 +25821,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -28876,8 +25838,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -28895,8 +25855,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC041 Line 41 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -28914,8 +25872,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1341 Fty3 Assembly Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -28933,8 +25889,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1342 Fty3 Assembly Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -28952,8 +25906,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20102 PU Group B",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -28971,8 +25923,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00100 Site Security",
     "bagian": "Office",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -28990,8 +25940,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N30701 Bottom Inventory And Shipping JVb",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29009,8 +25957,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111B Printing B, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29028,8 +25974,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1239 Fty3 Sttitching Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29047,8 +25991,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1234 Fty3 Sttitching Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29066,8 +26008,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1242 Fty3 Sttitching Line 42",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29085,8 +26025,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20101 PU Group A",
     "bagian": "Building D",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29104,8 +26042,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29123,8 +26059,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1143 Fty3 Cutting Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29142,8 +26076,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29161,8 +26093,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0934 Facility Tech Assembly",
     "bagian": "C3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29180,8 +26110,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29199,8 +26127,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29218,8 +26144,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1243 Fty3 Sttitching Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29237,8 +26161,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC134 Line 34 Cutting Prepar Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29256,8 +26178,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1236 Fty3 Sttitching Line 36",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29275,8 +26195,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SDC101 Comelz group C N6",
     "bagian": "N6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29294,8 +26212,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VC1111 6s S5-S7",
     "bagian": "S5-S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Feb-2022"
   },
@@ -29313,8 +26229,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1239 Fty3 Sttitching Line 39",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29332,8 +26246,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1243 Fty3 Sttitching Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29351,8 +26263,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1243 Fty3 Sttitching Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29370,8 +26280,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1335 Fty3 Assembly Line 35",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29389,8 +26297,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29408,8 +26314,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1243 Fty3 Sttitching Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29427,8 +26331,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29446,8 +26348,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V50200 Printing Of Factory 1",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29465,8 +26365,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1241 Fty3 Sttitching Line 41",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29484,8 +26382,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29503,8 +26399,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10801 Roller of Rubber JVB / 1st Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29522,8 +26416,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29541,8 +26433,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1243 Fty3 Sttitching Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29560,8 +26450,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1234 Fty3 Sttitching Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29579,8 +26467,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1234 Fty3 Sttitching Line 34",
     "bagian": "S5",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29598,8 +26484,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1307 Fty1 Assembly Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29617,8 +26501,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1243 Fty3 Sttitching Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29636,8 +26518,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29655,8 +26535,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1343 Fty3 Assembly Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29674,8 +26552,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1243 Fty3 Sttitching Line 43",
     "bagian": "S7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "16-Feb-2022"
   },
@@ -29693,8 +26569,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCC037 Line 37 Cutting Centralize Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -29712,8 +26586,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1105 Fty1 Cutting Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -29731,8 +26603,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM011 Line Mini Cutting Centralize Fact1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -29750,8 +26620,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0101 Auto N1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -29769,8 +26637,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -29788,8 +26654,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1209 Fty1 Sttitching Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -29807,8 +26671,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM011 Line Mini Cutting Centralize Fact1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -29826,8 +26688,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0A02 Production Factory 01",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -29845,8 +26705,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -29864,8 +26722,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20446 JVB-IP NonShift Support Emp with Recom",
     "bagian": "C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -29883,8 +26739,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1108 Fty1 Cutting Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -29902,8 +26756,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1309 Fty1 Assembly Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -29921,8 +26773,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V50200 Printing Of Factory 1",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -29940,8 +26790,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0307 Fty1 Assembly Line 7 Packing",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -29959,8 +26807,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SCM021 Line Mini Stitching Cmptr Central Fact 3",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -29978,8 +26824,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1209 Fty1 Sttitching Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -29997,8 +26841,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0303 Fty1 Assembly Line 3 Packing",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -30016,8 +26858,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111B Printing B, Factory 2",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "1-Mar-2022"
   },
@@ -30035,8 +26875,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1109 Fty1 Cutting Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30054,8 +26892,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1211 Fty1 Sttitching Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30073,8 +26909,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10813 Supporting Cutting OF Rubber JVB 3rd / S",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30092,8 +26926,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30111,8 +26943,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VL111C Printing C, Factory 2",
     "bagian": "N7",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30130,8 +26960,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30149,8 +26977,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1202 Fty1 Sttitching Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30168,8 +26994,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30187,8 +27011,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10801 Roller of Rubber JVB / 1st Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30206,8 +27028,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1207 Fty1 Sttitching Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30225,8 +27045,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1106 Fty1 Cutting Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30244,8 +27062,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30263,8 +27079,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1109 Fty1 Cutting Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30282,8 +27096,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1108 Fty1 Cutting Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30301,8 +27113,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30320,8 +27130,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1203 Fty1 Sttitching Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30339,8 +27147,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1112 Fty1 Cutting Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30358,8 +27164,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30377,8 +27181,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1207 Fty1 Sttitching Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30396,8 +27198,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30415,8 +27215,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30434,8 +27232,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1105 Fty1 Cutting Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30453,8 +27249,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20526 Injection of IP - JVB / 3rd Shift",
     "bagian": "Building C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30472,8 +27266,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30491,8 +27283,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1208 Fty1 Sttitching Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30510,8 +27300,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1111 Fty1 Cutting Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30529,8 +27317,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM021 Line Mini Stitching Cmptr Central Fact 1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30548,8 +27334,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VA0710 Quality of Factory 1",
     "bagian": "N1-N4",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30567,8 +27351,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1309 Fty1 Assembly Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30586,8 +27368,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30605,8 +27385,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1112 Fty1 Cutting Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30624,8 +27402,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "SECTION LEADER",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30643,8 +27419,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30662,8 +27436,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1108 Fty1 Cutting Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30681,8 +27453,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1207 Fty1 Sttitching Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30700,8 +27470,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1112 Fty1 Cutting Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30719,8 +27487,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SAM021 Line Mini Stitching Cmptr Central Fact 1",
     "bagian": "N8",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30738,8 +27504,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1209 Fty1 Sttitching Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30757,8 +27521,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1208 Fty1 Sttitching Line 8",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30776,8 +27538,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30795,8 +27555,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30814,8 +27572,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1302 Fty1 Assembly Line 2",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30833,8 +27589,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "7-Mar-2022"
   },
@@ -30852,8 +27606,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1307 Fty1 Assembly Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Mar-2022"
   },
@@ -30871,8 +27623,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1305 Fty1 Assembly Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Mar-2022"
   },
@@ -30890,8 +27640,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1201 Fty1 Sttitching Line 1",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Mar-2022"
   },
@@ -30909,8 +27657,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20447 JVB-IP Non-Shift Sup for Pregnant Emp",
     "bagian": "C",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Mar-2022"
   },
@@ -30928,8 +27674,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1209 Fty1 Sttitching Line 9",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Mar-2022"
   },
@@ -30947,8 +27691,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V50200 Printing Of Factory 1",
     "bagian": "Printing & Emboss N",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Mar-2022"
   },
@@ -30966,8 +27708,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1306 Fty1 Assembly Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Mar-2022"
   },
@@ -30985,8 +27725,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Mar-2022"
   },
@@ -31004,8 +27742,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1311 Fty1 Assembly Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Mar-2022"
   },
@@ -31023,8 +27759,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Mar-2022"
   },
@@ -31042,8 +27776,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1311 Fty1 Assembly Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Mar-2022"
   },
@@ -31061,8 +27793,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1311 Fty1 Assembly Line 11",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Mar-2022"
   },
@@ -31080,8 +27810,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1307 Fty1 Assembly Line 7",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Mar-2022"
   },
@@ -31099,8 +27827,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1203 Fty1 Sttitching Line 3",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Mar-2022"
   },
@@ -31118,8 +27844,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1205 Fty1 Sttitching Line 5",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Mar-2022"
   },
@@ -31137,8 +27861,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N30701 Bottom Inventory And Shipping JVb",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "10-Mar-2022"
   },
@@ -31156,8 +27878,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Mar-2022"
   },
@@ -31175,8 +27895,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10812 Supporting Cutting OF Rubber JVB 2nd / S",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Mar-2022"
   },
@@ -31194,8 +27912,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1212 Fty1 Sttitching Line 12",
     "bagian": "N3",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Mar-2022"
   },
@@ -31213,8 +27929,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1237 Fty3 Sttitching Line 37",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Mar-2022"
   },
@@ -31232,8 +27946,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1306 Fty1 Assembly Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Mar-2022"
   },
@@ -31251,8 +27963,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SC1338 Fty3 Assembly Line 38",
     "bagian": "S6",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Mar-2022"
   },
@@ -31270,8 +27980,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA1206 Fty1 Sttitching Line 6",
     "bagian": "N2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Mar-2022"
   },
@@ -31289,8 +27997,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VD4000 SF dept.",
     "bagian": "C1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Mar-2022"
   },
@@ -31308,8 +28014,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "SA0303 Fty1 Assembly Line 3 Packing",
     "bagian": "N1",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Mar-2022"
   },
@@ -31327,8 +28031,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "VE4108 SF Section 1/group 8",
     "bagian": "C2",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "14-Mar-2022"
   },
@@ -31346,8 +28048,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V09040 PTC Engineering - Sample Room",
     "bagian": "W/H",
     "jabatanKerja": "Staff A",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Apr-2022"
   },
@@ -31365,8 +28065,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V09021 PTC Dimension - Project Management",
     "bagian": "W/H",
     "jabatanKerja": "Asst. Engineer",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Apr-2022"
   },
@@ -31384,8 +28082,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V00510 Custom Risk Management JV",
     "bagian": "Office",
     "jabatanKerja": "Specialist1",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "4-Apr-2022"
   },
@@ -31403,8 +28099,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10703 Banbury of Rubber JVB / 3rd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31422,8 +28116,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31441,8 +28133,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31460,8 +28150,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31479,8 +28167,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31498,8 +28184,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10803 Roller of Rubber JVB / 3rd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31517,8 +28201,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31536,8 +28218,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10803 Roller of Rubber JVB / 3rd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31555,8 +28235,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31574,8 +28252,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31593,8 +28269,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10803 Roller of Rubber JVB / 3rd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31612,8 +28286,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31631,8 +28303,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31650,8 +28320,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31669,8 +28337,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10803 Roller of Rubber JVB / 3rd Shift",
     "bagian": "Building A",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31688,8 +28354,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V07000 Purchasing in Business",
     "bagian": "W/H",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31707,8 +28371,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31726,8 +28388,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31745,8 +28405,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31764,8 +28422,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31783,8 +28439,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31802,8 +28456,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N20002 Facility Tech Team of JVB",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31821,8 +28473,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31840,8 +28490,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31859,8 +28507,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31878,8 +28524,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "-"
   },
@@ -31897,8 +28541,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jun-2023"
   },
@@ -31916,8 +28558,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10414 Pressing of Rubber B JVB/1st",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jun-2023"
   },
@@ -31935,8 +28575,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jun-2023"
   },
@@ -31954,8 +28592,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V09040 PTC Engineering - Sample Room",
     "bagian": "W/H",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jun-2023"
   },
@@ -31973,8 +28609,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jun-2023"
   },
@@ -31992,8 +28626,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "V09023 PTC Dimension - Material",
     "bagian": "W/H",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jun-2023"
   },
@@ -32011,8 +28643,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jun-2023"
   },
@@ -32030,8 +28660,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10415 Pressing of Rubber B JVB/2nd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jun-2023"
   },
@@ -32049,8 +28677,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jun-2023"
   },
@@ -32068,8 +28694,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N10416 Pressing of Rubber B JVB/3rd",
     "bagian": "Building B",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jun-2023"
   },
@@ -32087,8 +28711,6 @@ export const REAL_MEMBERS_DATA: Member[] = [
     "departemen": "N30701 Bottom Inventory And Shipping JVb",
     "bagian": "Building E",
     "jabatanKerja": "OPERATOR",
-    "shift": "Shift 1",
-    "statusKerja": "PKWTT",
     "statusKeanggotaan": "Aktif",
     "tanggalBergabung": "5-Jun-2023"
   }

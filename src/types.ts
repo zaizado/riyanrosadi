@@ -32,9 +32,9 @@ export const checkIsSuperAdmin = (user?: UserAccount | null): boolean => {
 };
 
 export type Gender = 'Laki-laki' | 'Perempuan';
-export type EmploymentStatus = 'PKWT' | 'PKWTT' | 'Outsourcing';
-export type MemberStatus = 'Aktif' | 'Non-Aktif' | 'Penangguhan' | 'Cuti';
-export type ShiftType = 'Shift 1' | 'Shift 2' | 'Shift 3' | 'Non-Shift';
+export type MemberStatus = 'Aktif' | 'Non-Aktif';
+export type EmploymentStatus = 'PKWTT' | 'PKWT' | 'Training';
+export type ShiftType = 'Shift 1' | 'Shift 2' | 'Shift 3' | 'Non Shift';
 
 export interface Member {
   id: string;
@@ -47,13 +47,16 @@ export interface Member {
   alamat: string;
   nomorHp: string;
   email: string;
+  gedung?: string; // e.g. N1-N4, Building B
+  lokasi?: string; // e.g. JV, JVB
   departemen: string; // Cutting, Sewing, Assembly, Bottom, Quality, HR, Maintenance, Logistics
   bagian: string; // e.g. Line 04, Stockfit, Stitching 12
   jabatanKerja: string; // e.g. Operator Sewing, Leader, Inspector
-  shift: ShiftType;
-  statusKerja: EmploymentStatus;
   statusKeanggotaan: MemberStatus;
   tanggalBergabung: string;
+  unionName?: string; // e.g. SBN-KASBI
+  upahPokok?: number;
+  tunjanganTetap?: number;
   fotoUrl?: string;
   updatedAt?: string;
   isMissingFromExcel?: boolean;
@@ -151,6 +154,62 @@ export type AgendaType =
   | 'Kegiatan Sosial' 
   | 'Lainnya';
 
+export interface TindakLanjutItem {
+  id: string;
+  task: string;
+  pic: string;
+  deadline: string;
+  status: 'Belum Dimulai' | 'Berjalan' | 'Selesai';
+  notes?: string;
+}
+
+export interface LampiranNotulensiItem {
+  id: string;
+  fileName: string;
+  fileType: string;
+  fileDataUrl: string;
+  uploadedAt: string;
+}
+
+export interface NotulensiHistoryItem {
+  id: string;
+  changedBy: string;
+  userRole?: string;
+  changedAt: string;
+  summary: string;
+}
+
+export interface NotulensiAgenda {
+  id: string;
+  agendaId: string;
+  judulRapat: string;
+  tanggalWaktu: string;
+  tempat: string;
+  pimpinanRapat: string;
+  notulis: string;
+  pesertaText: string;
+  agendaPembahasan: string;
+  isiPembahasan: string;
+  keputusanRapat: string[];
+  aspirasiMasukan?: string;
+  catatanTambahan?: string;
+  tindakLanjutList: TindakLanjutItem[];
+  lampiranList?: LampiranNotulensiItem[];
+  history?: NotulensiHistoryItem[];
+  createdBy?: string;
+  createdAt?: string;
+  updatedBy?: string;
+  updatedAt?: string;
+
+  // Legacy field support for fallback
+  judulNotulensi?: string;
+  waktuDibuat?: string;
+  isiNotulensi?: string;
+  poinKeputusan?: string[];
+  fileLampiranName?: string;
+  fileLampiranDataUrl?: string;
+}
+
 export interface OrganizationAgenda {
   id: string;
   judul: string;
@@ -163,6 +222,7 @@ export interface OrganizationAgenda {
   dokumentasiUrl?: string[];
   status: 'Akan Datang' | 'Berjalan' | 'Selesai' | 'Dibatalkan';
   notifikasiTerkirim: boolean;
+  notulensi?: NotulensiAgenda;
 }
 
 export interface SembakoEvent {
@@ -219,7 +279,7 @@ export interface AuditLog {
   timestamp: string;
   userNama: string;
   userRole: UserRole;
-  modul: 'Data Anggota' | 'Advokasi' | 'Anggota Sakit' | 'Agenda' | 'Sembako' | 'Kendaraan' | 'Keuangan' | 'Penggalangan Dana' | 'Sistem';
+  modul: 'Data Anggota' | 'Advokasi' | 'Anggota Sakit' | 'Agenda' | 'Sembako' | 'Kendaraan' | 'Keuangan' | 'Penggalangan Dana' | 'Simulasi Pesangon' | 'Sistem';
   aksi: string;
   detail: string;
 }

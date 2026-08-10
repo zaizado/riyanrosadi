@@ -4,6 +4,7 @@ import { AuditLog } from '../types';
 import { ActiveTab } from './Sidebar';
 import { playNotificationSound } from '../lib/audio';
 import { sortAuditLogsNewestFirst } from '../lib/storage';
+import { ModalPortal } from './ModalPortal';
 
 interface NotificationsModalProps {
   auditLogs: AuditLog[];
@@ -63,8 +64,9 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-[200] bg-slate-950/80 backdrop-blur-md flex items-center justify-end">
-      <div className="bg-white border-l border-slate-200 w-full max-w-md h-full text-slate-900 p-4 sm:p-6 shadow-2xl flex flex-col justify-between relative overflow-hidden pb-[calc(1.5rem+var(--sab))]">
+    <ModalPortal>
+      <div className="fixed inset-0 z-[9999] bg-slate-950/80 backdrop-blur-md flex items-center justify-end">
+        <div className="bg-white border-l border-slate-200 w-full max-w-md h-full text-slate-900 p-4 sm:p-6 shadow-2xl flex flex-col justify-between relative overflow-hidden pb-[calc(1.5rem+var(--sab))]">
         
         {/* Main Content */}
         <div className="flex-1 flex flex-col min-h-0">
@@ -285,5 +287,6 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
 
       </div>
     </div>
+    </ModalPortal>
   );
 };

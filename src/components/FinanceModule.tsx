@@ -43,6 +43,7 @@ import {
 import * as XLSX from 'xlsx';
 import { FinanceDailyRecord, DailyExpenseItem, UserAccount, checkIsSuperAdmin } from '../types';
 import { ConfirmModal } from './ConfirmModal';
+import { ModalPortal } from './ModalPortal';
 import { generateEncryptedFinancePDF } from '../utils/pdfGenerator';
 
 // Robust helper to parse any numeric string or formatted number with dots/commas into integer
@@ -1055,7 +1056,8 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
 
       {/* ------------------- MODAL FORM: CREATE / EDIT DAILY RECORD ------------------- */}
       {isRecordModalOpen && (
-        <div className="mobile-modal-backdrop">
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
           <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white shadow-2xl relative max-w-2xl">
             
             {/* Header - Fixed top */}
@@ -1348,11 +1350,13 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
 
           </div>
         </div>
+        </ModalPortal>
       )}
 
       {/* ------------------- MODAL DETAIL RECORD ------------------- */}
       {selectedRecordForDetail && (
-        <div className="mobile-modal-backdrop">
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
           <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-4 sm:p-6 shadow-2xl relative max-w-xl">
             <button
               onClick={() => setSelectedRecordForDetail(null)}
@@ -1442,11 +1446,13 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
             </div>
           </div>
         </div>
+        </ModalPortal>
       )}
 
       {/* ------------------- MODAL EKSPOR LAPORAN PDF TERENKRIPSI ------------------- */}
       {isExportModalOpen && (
-        <div className="mobile-modal-backdrop">
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
           <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-4 sm:p-6 shadow-2xl relative max-w-lg">
             <button
               onClick={() => setIsExportModalOpen(false)}
@@ -1617,6 +1623,7 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
             </div>
           </div>
         </div>
+        </ModalPortal>
       )}
 
       {/* ------------------- CONFIRM DELETE MODAL ------------------- */}

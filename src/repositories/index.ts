@@ -11,6 +11,7 @@ import {
   UserAccount, 
   FundraisingCampaign 
 } from '../types';
+import { SeveranceCalculationResult, PkbRuleConfig } from '../types/severance';
 
 export class MemberRepository extends BaseRepository<Member> { constructor() { super('members'); } }
 export class AdvocacyRepository extends BaseRepository<AdvocacyCase> { constructor() { super('advocacyCases'); } }
@@ -22,6 +23,8 @@ export class VehicleLogRepository extends BaseRepository<VehicleLog> { construct
 export class FinanceRepository extends BaseRepository<FinanceDailyRecord> { constructor() { super('financeRecords'); } }
 export class UserRepository extends BaseRepository<UserAccount> { constructor() { super('users'); } }
 export class FundraisingRepository extends BaseRepository<FundraisingCampaign> { constructor() { super('fundraising'); } }
+export class SeveranceCalculationRepository extends BaseRepository<SeveranceCalculationResult> { constructor() { super('severanceCalculations'); } }
+export class SeveranceRuleRepository extends BaseRepository<PkbRuleConfig> { constructor() { super('severanceRules'); } }
 
 export interface UserClearedNotifs {
   id: string;
@@ -41,5 +44,7 @@ export const repositories = {
   finance: new FinanceRepository(),
   users: new UserRepository(),
   fundraising: new FundraisingRepository(),
+  severanceCalculations: new SeveranceCalculationRepository(),
+  severanceRules: new SeveranceRuleRepository(),
   userClearedNotifs: new UserClearedNotifsRepository(),
 };

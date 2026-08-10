@@ -13,6 +13,7 @@ import { Member } from '../types';
 import { FsbnLogo } from './FsbnLogo';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { compressImage } from '../lib/imageUtils';
+import { ModalPortal } from './ModalPortal';
 
 interface MemberIdCardModalProps {
   member: Member;
@@ -391,7 +392,8 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
   };
 
   return (
-    <div className="mobile-modal-backdrop">
+    <ModalPortal>
+      <div className="mobile-modal-backdrop">
       
       {/* CSS Styles for Realistic Portrait 5.4cm x 8.56cm (54mm x 85.6mm) & Native Window Print */}
       <style>{`
@@ -446,8 +448,8 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
           }
 
           @page {
-            size: 54mm 85.6mm portrait;
-            margin: 0;
+            size: A4 portrait;
+            margin: 10mm;
           }
         }
       `}</style>
@@ -938,5 +940,6 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
       </div>
 
     </div>
+    </ModalPortal>
   );
 };

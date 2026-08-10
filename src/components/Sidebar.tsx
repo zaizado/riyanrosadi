@@ -22,18 +22,21 @@ import {
   User,
   UserCheck,
   Newspaper,
-  HeartHandshake
+  HeartHandshake,
+  Calculator
 } from 'lucide-react';
 import { UserAccount, checkIsSuperAdmin } from '../types';
 import { ConfirmModal } from './ConfirmModal';
 import { FsbnLogo } from './FsbnLogo';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
+import { ModalPortal } from './ModalPortal';
 
 export type ActiveTab = 
   | 'dashboard'
   | 'members'
   | 'structure'
   | 'advocacy'
+  | 'severance'
   | 'sick_visits'
   | 'fundraising'
   | 'agendas'
@@ -107,6 +110,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
       color: 'text-red-500'
     },
     {
+      id: 'severance' as ActiveTab,
+      label: 'Simulasi Pesangon',
+      subtitle: 'Kalkulator Hak PHK & PKB',
+      icon: Calculator,
+      badge: 'BARU',
+      color: 'text-amber-400'
+    },
+    {
       id: 'sick_visits' as ActiveTab,
       label: 'Anggota Sakit',
       subtitle: 'Pendampingan & Kunjungan',
@@ -124,8 +135,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
     },
     {
       id: 'agendas' as ActiveTab,
-      label: 'Pusat Informasi Agenda',
-      subtitle: 'Kegiatan, Sembako & Operasional',
+      label: 'Agenda & Notulensi Kegiatan',
+      subtitle: 'Rapat, Risalah Notulen & Action Plan',
       icon: CalendarDays,
       badge: null,
       color: 'text-red-500'
@@ -177,14 +188,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <>
+        <ModalPortal>
           {/* Overlay backdrop */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-slate-950/70 backdrop-blur-md z-40 transition-opacity"
+            className="fixed inset-0 bg-slate-950/70 backdrop-blur-md z-[9998] transition-opacity"
           />
 
           {/* Drawer Panel */}
@@ -193,7 +204,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-            className="fixed top-0 left-0 bottom-0 w-80 sm:w-84 bg-slate-900/95 text-slate-100 z-50 border-r border-white/10 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur-2xl pt-[var(--sat)] pb-[max(1rem,var(--sab))] overflow-hidden"
+            className="fixed top-0 left-0 bottom-0 w-80 sm:w-84 bg-slate-900/95 text-slate-100 z-[9999] border-r border-white/10 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur-2xl pt-[var(--sat)] pb-[max(1rem,var(--sab))] overflow-hidden"
           >
             {/* Top Header Drawer */}
             <div className="p-4 border-b border-white/10 flex items-center justify-between bg-gradient-to-r from-red-950/90 via-red-900/80 to-slate-900 text-white relative overflow-hidden">
@@ -353,7 +364,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               onCancel={() => setShowLogoutConfirm(false)}
             />
           </motion.aside>
-        </>
+        </ModalPortal>
       )}
     </AnimatePresence>
   );

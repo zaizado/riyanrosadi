@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { VehicleLog, VehicleType, VehicleStatus, ParkingLocation, Member, UserAccount } from '../types';
 import { MemberSearchSelect } from './MemberSearchSelect';
+import { ModalPortal } from './ModalPortal';
 
 interface VehicleManagerProps {
   vehicleLogs: VehicleLog[];
@@ -598,7 +599,8 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
 
       {/* MODAL ADD / EDIT VEHICLE LOG */}
       {isModalOpen && (
-        <div className="mobile-modal-backdrop">
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
           <div className="mobile-modal-card bg-white border border-slate-200 text-slate-900 p-5 sm:p-6 shadow-2xl relative space-y-4 max-w-2xl">
             <button
               onClick={() => setIsModalOpen(false)}
@@ -865,11 +867,13 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
             </form>
           </div>
         </div>
+        </ModalPortal>
       )}
 
       {/* MODAL RETURN / COMPLETE VEHICLE LOG */}
       {isReturnModalOpen && selectedReturnLog && (
-        <div className="mobile-modal-backdrop">
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
           <div className="mobile-modal-card bg-white border border-slate-200 text-slate-900 p-6 shadow-2xl relative space-y-4 max-w-lg">
             <button
               onClick={() => setIsReturnModalOpen(false)}
@@ -931,6 +935,7 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
             </div>
           </div>
         </div>
+        </ModalPortal>
       )}
     </div>
   );
