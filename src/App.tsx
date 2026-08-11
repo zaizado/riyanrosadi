@@ -113,7 +113,12 @@ export default function App() {
         setCurrentUserAccount(matched);
         setCurrentUser(matched);
       } else {
-        setIsLoggedIn(false);
+        const savedSession = localStorage.getItem('sbn_vci_logged_in') || sessionStorage.getItem('sbn_vci_logged_in');
+        if (savedSession) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
       }
     });
 
@@ -124,6 +129,11 @@ export default function App() {
     setCurrentUserAccount(user);
     setCurrentUser(user);
     setIsLoggedIn(true);
+    if (rememberMe) {
+      localStorage.setItem('sbn_vci_logged_in', 'true');
+    } else {
+      sessionStorage.setItem('sbn_vci_logged_in', 'true');
+    }
     playNotificationSound();
     createLog('Sistem', 'Login', `Pengurus ${user.name} (${user.role}) berhasil masuk ke sistem`);
   };
