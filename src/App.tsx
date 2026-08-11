@@ -378,8 +378,8 @@ export default function App() {
 
   const handleImportMembers = async (importedMembers: Member[]) => {
     setMembers(importedMembers);
-    AppService.saveAllMembers(importedMembers);
-    createLog('Data Anggota', 'Import Spreadsheet Data Anggota', `Berhasil melakukan impor/sinkronisasi ${importedMembers.length} data anggota dari Excel/CSV.`);
+    await AppService.saveAllMembers(importedMembers);
+    await createLog('Data Anggota', 'Import Spreadsheet Data Anggota', `Berhasil melakukan impor/sinkronisasi ${importedMembers.length} data anggota dari Excel/CSV.`);
   };
 
 // ADVOCACY HANDLERS

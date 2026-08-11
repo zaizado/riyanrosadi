@@ -32,7 +32,7 @@ export const checkIsSuperAdmin = (user?: UserAccount | null): boolean => {
 };
 
 export type Gender = 'Laki-laki' | 'Perempuan';
-export type MemberStatus = 'Aktif' | 'Non-Aktif';
+export type MemberStatus = 'Aktif' | 'Tidak Aktif' | 'Non-Aktif';
 export type EmploymentStatus = 'PKWTT' | 'PKWT' | 'Training';
 export type ShiftType = 'Shift 1' | 'Shift 2' | 'Shift 3' | 'Non Shift';
 
@@ -63,9 +63,30 @@ export interface Member {
   lastImportedAt?: string;
   lastImportedBy?: string;
   importBatchId?: string;
+  lastImportBatchId?: string;
   sourceFileName?: string;
+  source?: string; // e.g. 'management_excel'
   isMissingFromExcel?: boolean;
   isNewFromExcel?: boolean;
+  inactiveSince?: string;
+  reactivatedAt?: string;
+}
+
+export interface ImportHistoryRecord {
+  id: string;
+  importBatchId: string;
+  timestamp: string;
+  importedAt: string;
+  importedBy: string;
+  fileName: string;
+  sourceFileName: string;
+  totalRows: number;
+  newMembers: number;
+  updatedMembers: number;
+  inactiveMembers: number;
+  reactivatedMembers: number;
+  errors: number;
+  status: 'Sukses' | 'Gagal';
 }
 
 export interface DeletedMemberAudit {
