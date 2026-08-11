@@ -157,60 +157,12 @@ export const DEFAULT_TERMINATION_TYPES: TerminationTypeConfig[] = [
     notes: '2× Uang Pesangon, 1× UPMK, UPH 15% sesuai Pasal 77 PKB'
   },
   {
-    id: 'meninggal',
-    typeName: 'Pekerja Meninggal Dunia',
-    severanceMultiplier: 2,
-    upmkMultiplier: 1,
-    uphEligible15: true,
-    notes: 'Diberikan kepada ahli waris pekerja'
-  },
-  {
     id: 'sakit_berkepanjangan',
     typeName: 'Sakit Berkepanjangan (>12 Bulan) / Cacat Akibat Kerja',
     severanceMultiplier: 2,
     upmkMultiplier: 1,
     uphEligible15: true,
     notes: '2× Uang Pesangon, 1× UPMK, UPH 15%'
-  },
-  {
-    id: 'efisiensi_rugi',
-    typeName: 'Efisiensi Karena Kerugian / Pailit / Force Majeure',
-    severanceMultiplier: 1,
-    upmkMultiplier: 1,
-    uphEligible15: true,
-    notes: '1× Uang Pesangon, 1× UPMK, UPH 15%'
-  },
-  {
-    id: 'penggabungan',
-    typeName: 'Penggabungan / Peleburan (Pekerja Tidak Bersedia)',
-    severanceMultiplier: 1,
-    upmkMultiplier: 1,
-    uphEligible15: true,
-    notes: '1× Uang Pesangon, 1× UPMK, UPH 15%'
-  },
-  {
-    id: 'indisipliner',
-    typeName: 'Indisipliner / Pelanggaran Ketentuan SP3',
-    severanceMultiplier: 0.5,
-    upmkMultiplier: 1,
-    uphEligible15: true,
-    notes: '0.5× Uang Pesangon, 1× UPMK, UPH 15% (Sesuai Ketentuan PKB)'
-  },
-  {
-    id: 'resign',
-    typeName: 'Mengundurkan Diri (Resign Sukarela)',
-    severanceMultiplier: 0,
-    upmkMultiplier: 0,
-    uphEligible15: false,
-    notes: 'Mendapatkan Hak UPH (Cuti) & Uang Pisah sesuai PKB'
-  },
-  {
-    id: 'pelanggaran_berat',
-    typeName: 'Pelanggaran Berat / Putusan Pidana',
-    severanceMultiplier: 0,
-    upmkMultiplier: 0,
-    uphEligible15: false,
-    notes: 'Mendapatkan Hak UPH (Cuti) & Uang Pisah (Aturan perlu verifikasi)'
   }
 ];
 
