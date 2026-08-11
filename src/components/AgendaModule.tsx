@@ -18,7 +18,6 @@ import {
   Paperclip,
   AlertTriangle,
   Printer,
-  Sparkles,
   ChevronRight,
   Eye,
   History,
@@ -27,10 +26,8 @@ import {
   Info,
   FileCheck,
   FilePlus,
-  Share2,
-  Check,
-  Send,
-  MoreVertical
+  Loader2,
+  ExternalLink
 } from 'lucide-react';
 import { 
   OrganizationAgenda, 
@@ -40,24 +37,39 @@ import {
   NotulensiAgenda,
   TindakLanjutItem,
   LampiranNotulensiItem,
-  NotulensiHistoryItem
+  NotulensiHistoryItem,
+  NotulensiFileItem
 } from '../types';
 import { ConfirmModal } from './ConfirmModal';
 import { ModalPortal } from './ModalPortal';
 import { SectionHeader, PrimaryButton } from './ui/DesignSystem';
 import { exportNotulensiPdf, exportNotulensiDocx } from '../utils/notulensiExport';
 import { parseUploadedFile } from '../utils/documentParser';
+import { uploadFileToStorage } from '../lib/firebase';
+import { AppService } from '../services/appService';
+import { AuditService } from '../services/auditService';
 
 interface AgendaModuleProps {
   agendas: OrganizationAgenda[];
+  notulensiFiles: NotulensiFileItem[];
   onAddAgenda: (newAgenda: OrganizationAgenda) => void;
   onUpdateAgenda: (updatedAgenda: OrganizationAgenda) => void;
   onDeleteAgenda: (agendaId: string) => void;
   currentUser: UserAccount;
 }
 
+const formatFileSize = (bytes: number | string): string => {
+  if (typeof bytes === 'string') return bytes;
+  if (!bytes || bytes === 0) return '0 B';
+  const k = 1024;
+  const sizes = ['B', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+};
+
 export const AgendaModule: React.FC<AgendaModuleProps> = ({
   agendas,
+  notulensiFiles = [],
   onAddAgenda,
   onUpdateAgenda,
   onDeleteAgenda,
@@ -71,7 +83,20 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
   // Modals state
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingAgenda, setEditingAgenda] = useState<OrganizationAgenda | null>(null);
+  
+  // Delete Agenda Modal state
   const [deleteAgendaConfirmObj, setDeleteAgendaConfirmObj] = useState<OrganizationAgenda | null>(null);
+  const [isDeletingAgenda, setIsDeletingAgenda] = useState(false);
+  
+  // Delete Notulensi File Modal state
+  const [confirmDeleteNotulensiFileObj, setConfirmDeleteNotulensiFileObj] = useState<NotulensiFileItem | null>(null);
+  const [isDeletingNotulensiFile, setIsDeletingNotulensiFile] = useState(false);
+
+  // File Upload State
+  const [isUploadingNotulensi, setIsUploadingNotulensi] = useState(false);
+  const [uploadStatusMsg, setUploadStatusMsg] = useState('');
+  const [notulensiNotification, setNotulensiNotification] = useState<string | null>(null);
+  const [agendaNotification, setAgendaNotification] = useState<string | null>(null);
 
   // Detail & Notulensi Integrated Modal State
   const [selectedAgenda, setSelectedAgenda] = useState<OrganizationAgenda | null>(null);
@@ -122,8 +147,6 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
     notes: ''
   });
 
-  const [importNotice, setImportNotice] = useState<string | null>(null);
-
   // Form state for add/edit agenda
   const [formData, setFormData] = useState<Partial<OrganizationAgenda>>({
     judul: '',
@@ -149,7 +172,30 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
     'Lainnya'
   ];
 
-  // Enhanced Global Search across title, date, participants, discussion content, decisions, PIC
+  // Helper to extract date & time formatted strings
+  const parseDateTimeFields = (dtStr?: string) => {
+    if (!dtStr) {
+      const now = new Date();
+      return {
+        tanggal: now.toLocaleDateString('id-ID', { dateStyle: 'full' }),
+        waktu: now.toLocaleTimeString('id-ID', { timeStyle: 'short' })
+      };
+    }
+    const d = new Date(dtStr);
+    if (isNaN(d.getTime())) {
+      const parts = dtStr.split('T');
+      return {
+        tanggal: parts[0] || dtStr,
+        waktu: parts[1] || '00:00'
+      };
+    }
+    return {
+      tanggal: d.toLocaleDateString('id-ID', { dateStyle: 'full' }),
+      waktu: d.toLocaleTimeString('id-ID', { timeStyle: 'short' })
+    };
+  };
+
+  // Enhanced Global Search across title, date, participants, discussion content, decisions, files
   const filteredAgendas = agendas.filter((agd) => {
     const query = searchQuery.toLowerCase().trim();
     if (!query) {
@@ -159,6 +205,8 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
     }
 
     const notulensi = agd.notulensi;
+    const files = notulensiFiles.filter(f => f.agendaId === agd.id);
+
     const isMatchInAgenda = 
       agd.judul.toLowerCase().includes(query) ||
       agd.lokasi.toLowerCase().includes(query) ||
@@ -174,16 +222,18 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
       (notulensi.pesertaText && notulensi.pesertaText.toLowerCase().includes(query)) ||
       (notulensi.agendaPembahasan && notulensi.agendaPembahasan.toLowerCase().includes(query)) ||
       (notulensi.isiPembahasan && notulensi.isiPembahasan.toLowerCase().includes(query)) ||
-      (notulensi.isiNotulensi && notulensi.isiNotulensi.toLowerCase().includes(query)) ||
-      (notulensi.keputusanRapat && notulensi.keputusanRapat.some(k => k.toLowerCase().includes(query))) ||
-      (notulensi.poinKeputusan && notulensi.poinKeputusan.some(k => k.toLowerCase().includes(query))) ||
-      (notulensi.tindakLanjutList && notulensi.tindakLanjutList.some(t => t.task.toLowerCase().includes(query) || t.pic.toLowerCase().includes(query)))
+      (notulensi.keputusanRapat && notulensi.keputusanRapat.some(k => k.toLowerCase().includes(query)))
     ) : false;
+
+    const isMatchInFiles = files.some(f => 
+      f.fileName.toLowerCase().includes(query) || 
+      f.uploadedByName.toLowerCase().includes(query)
+    );
 
     const matchType = selectedTypeFilter === 'All' || agd.jenis === selectedTypeFilter;
     const matchStatus = statusFilter === 'All' || agd.status === statusFilter;
 
-    return (isMatchInAgenda || isMatchInNotulensi) && matchType && matchStatus;
+    return (isMatchInAgenda || isMatchInNotulensi || isMatchInFiles) && matchType && matchStatus;
   });
 
   const handleOpenAdd = () => {
@@ -210,53 +260,121 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
     setIsAddModalOpen(true);
   };
 
-  const handleSaveAgenda = (e: React.FormEvent) => {
+  const handleSaveAgenda = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isSuperAdmin || !formData.judul) return;
 
+    const nowIso = new Date().toISOString();
+    const dtInfo = parseDateTimeFields(formData.tanggalWaktu);
+
     if (editingAgenda) {
-      const updated = {
+      const updated: OrganizationAgenda = {
         ...editingAgenda,
-        ...formData
+        ...formData,
+        tanggal: dtInfo.tanggal,
+        waktu: dtInfo.waktu,
+        updatedAt: nowIso,
+        updatedBy: currentUser.name
       } as OrganizationAgenda;
+
       onUpdateAgenda(updated);
+
+      await AuditService.createLog(
+        currentUser.name,
+        currentUser.role,
+        'Agenda',
+        'Mengubah Agenda',
+        `Mengubah agenda "${updated.judul}" status: ${updated.status}.`
+      );
+
       if (selectedAgenda && selectedAgenda.id === updated.id) {
         setSelectedAgenda(updated);
       }
+      setAgendaNotification(`Agenda "${updated.judul}" berhasil diperbarui.`);
     } else {
       const newAgd: OrganizationAgenda = {
         id: `agd-${Date.now()}`,
         judul: formData.judul || 'Agenda Baru',
         jenis: (formData.jenis as AgendaType) || 'Rapat',
-        tanggalWaktu: formData.tanggalWaktu || new Date().toISOString(),
+        tanggalWaktu: formData.tanggalWaktu || nowIso,
+        tanggal: dtInfo.tanggal,
+        waktu: dtInfo.waktu,
         lokasi: formData.lokasi || 'Sekretariat',
         penanggungJawab: formData.penanggungJawab || currentUser.name,
         deskripsi: formData.deskripsi || '',
         daftarPeserta: formData.daftarPeserta || ['Pengurus Harian SBN KASBI'],
         status: (formData.status as any) || 'Akan Datang',
-        notifikasiTerkirim: true
+        notifikasiTerkirim: true,
+        createdAt: nowIso,
+        createdBy: currentUser.name,
+        updatedAt: nowIso,
+        updatedBy: currentUser.name
       };
+
       onAddAgenda(newAgd);
+
+      await AuditService.createLog(
+        currentUser.name,
+        currentUser.role,
+        'Agenda',
+        'Membuat Agenda Baru',
+        `Membuat agenda kegiatan baru "${newAgd.judul}" (${newAgd.tanggalWaktu}).`
+      );
+
+      setAgendaNotification(`Agenda "${newAgd.judul}" berhasil dibuat.`);
     }
 
     setIsAddModalOpen(false);
   };
 
-  const handleDeleteAgendaConfirm = () => {
-    if (deleteAgendaConfirmObj) {
-      onDeleteAgenda(deleteAgendaConfirmObj.id);
-      if (selectedAgenda && selectedAgenda.id === deleteAgendaConfirmObj.id) {
+  // Delete Agenda Confirm Handler
+  const handleDeleteAgendaConfirm = async () => {
+    if (!deleteAgendaConfirmObj) return;
+
+    const target = deleteAgendaConfirmObj;
+    setIsDeletingAgenda(true);
+
+    try {
+      // 1. Delete agenda from Firestore
+      onDeleteAgenda(target.id);
+
+      // 2. Cleanup all associated notulensi files from Storage & Firestore
+      const filesToDelete = notulensiFiles.filter(f => f.agendaId === target.id);
+      for (const fileItem of filesToDelete) {
+        try {
+          await AppService.deleteNotulensiFile(fileItem);
+        } catch (err) {
+          console.warn("Storage cleanup warning during agenda delete:", err);
+        }
+      }
+
+      // 3. Audit Log
+      await AuditService.createLog(
+        currentUser.name,
+        currentUser.role,
+        'Agenda',
+        'Menghapus Agenda',
+        `Menghapus agenda "${target.judul}" beserta seluruh data notulensi terkait.`
+      );
+
+      setAgendaNotification('Agenda berhasil dihapus.');
+      if (selectedAgenda && selectedAgenda.id === target.id) {
         setSelectedAgenda(null);
       }
       setDeleteAgendaConfirmObj(null);
+    } catch (err) {
+      console.error("Gagal menghapus agenda:", err);
+      setAgendaNotification('Agenda gagal dihapus. Silakan coba lagi.');
+    } finally {
+      setIsDeletingAgenda(false);
     }
   };
 
-  // Open Integrated Agenda Modal
+  // Open Integrated Agenda Detail Modal
   const handleOpenAgendaDetail = (agenda: OrganizationAgenda, initialTab: 'info' | 'participants' | 'minutes' | 'followup' | 'attachments' = 'minutes') => {
     setSelectedAgenda(agenda);
     setActiveTab(initialTab);
-    setImportNotice(null);
+    setNotulensiNotification(null);
 
     const existing = agenda.notulensi;
     if (existing) {
@@ -294,49 +412,118 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
     }
   };
 
-  // File Upload & Text Extraction for Import Notulensi
-  const handleImportNotulensiFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file || !selectedAgenda) return;
+  // Upload Notulensi File to Firebase Storage
+  const handleUploadNotulensiToStorage = async (file: File) => {
+    if (!selectedAgenda) return;
+
+    // Validate extension
+    const validExtensions = ['.pdf', '.doc', '.docx', '.txt', '.rtf', '.csv', '.json', '.md'];
+    const ext = '.' + (file.name.split('.').pop()?.toLowerCase() || '');
+    const isValidExtension = validExtensions.includes(ext) || 
+      file.type.includes('pdf') || 
+      file.type.includes('word') || 
+      file.type.includes('text');
+
+    if (!isValidExtension) {
+      setNotulensiNotification(`⚠️ Format file "${file.name}" tidak didukung. Harap unggah file PDF, DOC, DOCX, atau TXT.`);
+      return;
+    }
+
+    // Validate size (max 20MB)
+    if (file.size > 20 * 1024 * 1024) {
+      setNotulensiNotification(`⚠️ Ukuran file "${file.name}" melebihi batas maksimal 20MB.`);
+      return;
+    }
+
+    setIsUploadingNotulensi(true);
+    setUploadStatusMsg("Mengupload notulensi...");
+    setNotulensiNotification(null);
 
     try {
-      const parsed = await parseUploadedFile(file);
+      const storagePath = `notulensi/${selectedAgenda.id}/${Date.now()}_${file.name}`;
+      const uploadRes = await uploadFileToStorage(storagePath, file);
 
-      // Create Attachment object
-      const reader = new FileReader();
-      reader.onload = (evt) => {
-        const dataUrl = evt.target?.result as string || '';
-        const newAttachment: LampiranNotulensiItem = {
-          id: `att-${Date.now()}`,
-          fileName: file.name,
-          fileType: file.type || file.name.split('.').pop() || 'document',
-          fileDataUrl: dataUrl,
-          uploadedAt: new Date().toISOString()
-        };
-
-        const currentNotulensi = selectedAgenda.notulensi;
-        const currentLampiran = currentNotulensi?.lampiranList || [];
-
-        setNotulensiForm(prev => ({
-          ...prev,
-          judulRapat: parsed.extractedTitle || prev.judulRapat || selectedAgenda.judul,
-          pimpinanRapat: parsed.extractedLeader || prev.pimpinanRapat || selectedAgenda.penanggungJawab,
-          notulis: parsed.extractedNotulis || prev.notulis || currentUser.name,
-          pesertaText: parsed.extractedParticipants || prev.pesertaText || selectedAgenda.daftarPeserta.join(', '),
-          isiPembahasan: parsed.rawText || parsed.extractedDiscussion || prev.isiPembahasan,
-          keputusanRapat: parsed.extractedDecisions && parsed.extractedDecisions.length > 0 
-            ? Array.from(new Set([...prev.keputusanRapat, ...parsed.extractedDecisions]))
-            : prev.keputusanRapat
-        }));
-
-        setImportNotice(`Dokumen "${file.name}" berhasil di-import dan dilampirkan! Teks telah di-ekstrak ke dalam form notulensi.`);
-        setIsEditingMinutes(true);
+      const fileItem: NotulensiFileItem = {
+        id: `notulfile-${Date.now()}`,
+        agendaId: selectedAgenda.id,
+        fileName: file.name,
+        fileType: file.type || ext.replace('.', ''),
+        fileSize: formatFileSize(file.size),
+        storagePath: uploadRes.storagePath,
+        downloadUrl: uploadRes.downloadUrl,
+        uploadedAt: new Date().toISOString(),
+        uploadedBy: currentUser.id,
+        uploadedByName: currentUser.name,
+        updatedAt: new Date().toISOString()
       };
-      reader.readAsDataURL(file);
 
-    } catch (err) {
-      console.error("Gagal membaca file import:", err);
-      setImportNotice(`Gagal meng-ekstrak file "${file.name}". Silakan ketik atau tempel isi catatan secara manual.`);
+      await AppService.addNotulensiFile(fileItem);
+
+      await AuditService.createLog(
+        currentUser.name,
+        currentUser.role,
+        'Agenda',
+        'Upload Notulensi',
+        `Mengunggah file notulensi "${file.name}" (${fileItem.fileSize}) untuk agenda "${selectedAgenda.judul}"`
+      );
+
+      // Extract text as fallback to populate editor form
+      try {
+        const parsed = await parseUploadedFile(file);
+        if (parsed.rawText && parsed.rawText.length > 10) {
+          setNotulensiForm(prev => ({
+            ...prev,
+            judulRapat: parsed.extractedTitle || prev.judulRapat || selectedAgenda.judul,
+            pimpinanRapat: parsed.extractedLeader || prev.pimpinanRapat || selectedAgenda.penanggungJawab,
+            notulis: parsed.extractedNotulis || prev.notulis || currentUser.name,
+            pesertaText: parsed.extractedParticipants || prev.pesertaText || selectedAgenda.daftarPeserta.join(', '),
+            isiPembahasan: parsed.rawText || parsed.extractedDiscussion || prev.isiPembahasan,
+            keputusanRapat: parsed.extractedDecisions && parsed.extractedDecisions.length > 0 
+              ? Array.from(new Set([...prev.keputusanRapat, ...parsed.extractedDecisions]))
+              : prev.keputusanRapat
+          }));
+          setIsEditingMinutes(true);
+        }
+      } catch (e) {
+        console.warn("Parsing text fallback error:", e);
+      }
+
+      setNotulensiNotification(`✅ File notulensi "${file.name}" berhasil diunggah ke Firebase Storage.`);
+    } catch (err: any) {
+      console.error("Gagal mengunggah file notulensi:", err);
+      setNotulensiNotification(`❌ File notulensi gagal diunggah: ${err?.message || 'Silakan coba lagi.'}`);
+    } finally {
+      setIsUploadingNotulensi(false);
+      setUploadStatusMsg('');
+    }
+  };
+
+  // Delete Notulensi File Confirm Handler
+  const handleDeleteNotulensiFileConfirm = async () => {
+    if (!confirmDeleteNotulensiFileObj || !selectedAgenda) return;
+
+    const targetFile = confirmDeleteNotulensiFileObj;
+    setIsDeletingNotulensiFile(true);
+    setNotulensiNotification("Menghapus notulensi...");
+
+    try {
+      await AppService.deleteNotulensiFile(targetFile);
+
+      await AuditService.createLog(
+        currentUser.name,
+        currentUser.role,
+        'Agenda',
+        'Hapus Notulensi',
+        `Menghapus file notulensi "${targetFile.fileName}" dari agenda "${selectedAgenda.judul}"`
+      );
+
+      setNotulensiNotification(`File notulensi berhasil dihapus.`);
+      setConfirmDeleteNotulensiFileObj(null);
+    } catch (err: any) {
+      console.error("Gagal menghapus file notulensi:", err);
+      setNotulensiNotification(`Gagal menghapus file notulensi. Silakan coba lagi.`);
+    } finally {
+      setIsDeletingNotulensiFile(false);
     }
   };
 
@@ -358,8 +545,8 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
     }));
   };
 
-  // Save Notulensi & Synchronize with Firestore Realtime
-  const handleSaveNotulensi = (e: React.FormEvent) => {
+  // Save Notulensi Form Data to Firestore Agenda Doc
+  const handleSaveNotulensi = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedAgenda) return;
 
@@ -389,29 +576,33 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
       aspirasiMasukan: notulensiForm.aspirasiMasukan,
       catatanTambahan: notulensiForm.catatanTambahan,
       tindakLanjutList: existingNotulensi?.tindakLanjutList || [],
-      lampiranList: existingNotulensi?.lampiranList || [],
       history: [historyItem, ...(existingNotulensi?.history || [])],
       createdBy: existingNotulensi?.createdBy || currentUser.name,
       createdAt: existingNotulensi?.createdAt || now,
       updatedBy: currentUser.name,
       updatedAt: now,
-
-      // Legacy fallback
-      judulNotulensi: notulensiForm.judulRapat,
-      waktuDibuat: now,
-      isiNotulensi: notulensiForm.isiPembahasan,
-      poinKeputusan: notulensiForm.keputusanRapat
     };
 
     const updatedAgenda: OrganizationAgenda = {
       ...selectedAgenda,
-      notulensi: newNotulensiObj
+      notulensi: newNotulensiObj,
+      updatedAt: now,
+      updatedBy: currentUser.name
     };
 
     onUpdateAgenda(updatedAgenda);
     setSelectedAgenda(updatedAgenda);
     setIsEditingMinutes(false);
-    setImportNotice('Notulensi berhasil disimpan ke Firestore! Perubahan otomatis tersinkron ke semua perangkat pengurus.');
+
+    await AuditService.createLog(
+      currentUser.name,
+      currentUser.role,
+      'Agenda',
+      'Simpan Notulensi Text',
+      `Menyimpan risalah notulensi rapat untuk agenda "${selectedAgenda.judul}".`
+    );
+
+    setNotulensiNotification('Catatan notulensi berhasil disimpan ke Firestore!');
   };
 
   // Convert Decision Point to Tindak Lanjut Task
@@ -530,40 +721,6 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
     setSelectedAgenda(updatedAgenda);
   };
 
-  // Upload Additional Lampiran
-  const handleUploadLampiranDirect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file || !selectedAgenda || !selectedAgenda.notulensi) return;
-
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      const dataUrl = evt.target?.result as string || '';
-      const newAtt: LampiranNotulensiItem = {
-        id: `att-${Date.now()}`,
-        fileName: file.name,
-        fileType: file.type || 'document',
-        fileDataUrl: dataUrl,
-        uploadedAt: new Date().toISOString()
-      };
-
-      const currentNotulensi = selectedAgenda.notulensi;
-      const updatedNotulensi: NotulensiAgenda = {
-        ...currentNotulensi,
-        lampiranList: [...(currentNotulensi.lampiranList || []), newAtt],
-        updatedAt: new Date().toISOString()
-      };
-
-      const updatedAgenda: OrganizationAgenda = {
-        ...selectedAgenda,
-        notulensi: updatedNotulensi
-      };
-
-      onUpdateAgenda(updatedAgenda);
-      setSelectedAgenda(updatedAgenda);
-    };
-    reader.readAsDataURL(file);
-  };
-
   // Status Badge Helper
   const renderStatusBadge = (status: OrganizationAgenda['status']) => {
     switch (status) {
@@ -602,8 +759,8 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
       {/* SECTION HEADER */}
       <SectionHeader
         icon={CalendarDays}
-        title="Agenda & Notulensi Serikat"
-        description="Sistem Terintegrasi Jadwal Rapat, Risalah Notulensi, Decision Tracking & Progress Tindak Lanjut"
+        title="INFORMASI AGENDA & KEGIATAN SERIKAT"
+        description="Sistem Terintegrasi Agenda Rapat, Risalah Notulensi Realtime, Storage Dokumen & Tindak Lanjut"
         action={
           isSuperAdmin ? (
             <PrimaryButton
@@ -616,6 +773,19 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
         }
       />
 
+      {/* Global Notification Banner */}
+      {agendaNotification && (
+        <div className="p-3 bg-emerald-950/90 border border-emerald-700 text-emerald-300 rounded-xl text-xs flex items-center justify-between">
+          <span className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            {agendaNotification}
+          </span>
+          <button onClick={() => setAgendaNotification(null)} className="text-slate-400 hover:text-white p-1">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
       {/* FILTER & GLOBAL SEARCH BAR */}
       <div className="bg-slate-900 p-4 rounded-2xl border border-slate-800 space-y-3">
         <div className="flex flex-col md:flex-row gap-3">
@@ -623,7 +793,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
             <input
               type="text"
-              placeholder="Cari agenda, notulensi, keputusan, peserta, kata kunci (misal: 'kenaikan upah')..."
+              placeholder="Cari agenda, notulensi, file, keputusan, kata kunci..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
@@ -676,9 +846,9 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
           </div>
         ) : (
           filteredAgendas.map((agd) => {
-            const hasNotulensi = !!agd.notulensi;
-            const followUps = agd.notulensi?.tindakLanjutList || [];
-            const completedFollowUps = followUps.filter(f => f.status === 'Selesai').length;
+            const currentFiles = notulensiFiles.filter(f => f.agendaId === agd.id);
+            const hasNotulensiText = !!agd.notulensi;
+            const hasFiles = currentFiles.length > 0;
 
             return (
               <div
@@ -723,23 +893,22 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                     </p>
                   </div>
 
-                  {/* Notulensi Status Indicator */}
-                  <div className="flex items-center justify-between pt-1">
-                    {hasNotulensi ? (
+                  {/* Notulensi & File Indicators */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
+                    {hasFiles ? (
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-800 rounded-lg">
+                        <Paperclip className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                        {currentFiles.length} File Notulensi Terunggah
+                      </span>
+                    ) : hasNotulensiText ? (
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-800 rounded-lg">
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                        ✓ Notulensi Tersedia
+                        ✓ Notulensi Text Tersedia
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-bold bg-slate-950 text-slate-400 border border-slate-800 rounded-lg">
                         <Plus className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-                        + Tambahkan Notulensi
-                      </span>
-                    )}
-
-                    {followUps.length > 0 && (
-                      <span className="text-[10px] text-emerald-400 font-bold bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">
-                        {completedFollowUps}/{followUps.length} Tindak Lanjut Selesai
+                        Belum Ada Notulensi
                       </span>
                     )}
                   </div>
@@ -764,13 +933,15 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                       📝 Notulensi
                     </button>
 
+                    {/* MANDATED "📥 IMPORT NOTULENSI" BUTTON FOR AGENDA STATUS "BERJALAN" */}
                     {agd.status === 'Berjalan' && (
                       <button
-                        onClick={() => handleOpenAgendaDetail(agd, 'minutes')}
-                        className="px-2.5 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded-lg font-black text-[11px] flex items-center gap-1 cursor-pointer shadow-md transition-colors animate-pulse"
+                        onClick={() => handleOpenAgendaDetail(agd, 'attachments')}
+                        className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-black text-[11px] flex items-center gap-1 cursor-pointer shadow-lg transition-colors animate-pulse"
                         title="Import File Notulensi untuk Agenda Berjalan"
                       >
-                        📥 Import Notulensi
+                        <Upload className="w-3.5 h-3.5" />
+                        📥 IMPORT NOTULENSI
                       </button>
                     )}
                   </div>
@@ -863,8 +1034,18 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                   }`}
                 >
                   <FileText className="w-4 h-4" />
-                  Notulensi Rapat
-                  {selectedAgenda.notulensi && <span className="w-2 h-2 rounded-full bg-emerald-400"></span>}
+                  Risalah Text
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('attachments')}
+                  className={`pb-2.5 px-3 flex items-center gap-1.5 border-b-2 transition-colors shrink-0 cursor-pointer ${
+                    activeTab === 'attachments' ? 'border-emerald-500 text-emerald-400' : 'border-transparent text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  <Paperclip className="w-4 h-4" />
+                  File Notulensi Storage ({notulensiFiles.filter(f => f.agendaId === selectedAgenda.id).length})
                 </button>
 
                 <button
@@ -877,24 +1058,15 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                   <ListTodo className="w-4 h-4" />
                   Tindak Lanjut ({selectedAgenda.notulensi?.tindakLanjutList?.length || 0})
                 </button>
-
-                <button
-                  type="button"
-                  onClick={() => setActiveTab('attachments')}
-                  className={`pb-2.5 px-3 flex items-center gap-1.5 border-b-2 transition-colors shrink-0 cursor-pointer ${
-                    activeTab === 'attachments' ? 'border-emerald-500 text-emerald-400' : 'border-transparent text-slate-400 hover:text-slate-200'
-                  }`}
-                >
-                  <Paperclip className="w-4 h-4" />
-                  Lampiran ({selectedAgenda.notulensi?.lampiranList?.length || 0})
-                </button>
               </div>
 
-              {/* Notice Banner */}
-              {importNotice && (
-                <div className="p-3 bg-emerald-950/80 border border-emerald-700/60 text-emerald-300 rounded-xl text-xs flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>{importNotice}</span>
+              {/* Notification Banner Inside Modal */}
+              {notulensiNotification && (
+                <div className="p-3 bg-slate-950 border border-emerald-700/80 text-emerald-300 rounded-xl text-xs flex items-center justify-between">
+                  <span>{notulensiNotification}</span>
+                  <button onClick={() => setNotulensiNotification(null)} className="text-slate-400 hover:text-white p-1">
+                    <X className="w-4 h-4" />
+                  </button>
                 </div>
               )}
 
@@ -913,7 +1085,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                         <strong className="text-white">{selectedAgenda.lokasi}</strong>
                       </div>
                       <div>
-                        <span className="text-slate-500 block text-[10px]">WAKTU SAMPAI SELESAI</span>
+                        <span className="text-slate-500 block text-[10px]">WAKTU AGENDA</span>
                         <strong className="text-white">{new Date(selectedAgenda.tanggalWaktu).toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'short' })}</strong>
                       </div>
                       <div>
@@ -928,13 +1100,6 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                         {selectedAgenda.deskripsi || 'Tidak ada deskripsi khusus.'}
                       </p>
                     </div>
-                  </div>
-
-                  <div className="flex justify-between items-center p-3 bg-slate-950 rounded-xl border border-slate-800">
-                    <span className="text-slate-400">Notifikasi otomatis telah terkirim ke seluruh pengurus</span>
-                    <span className="px-2.5 py-1 bg-emerald-950 text-emerald-400 border border-emerald-800 rounded font-bold text-[10px]">
-                      ✓ Terkirim
-                    </span>
                   </div>
                 </div>
               )}
@@ -961,7 +1126,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                 </div>
               )}
 
-              {/* TAB 3: NOTULENSI RAPAT (VIEWER / EDITOR / IMPORT / EXPORT) */}
+              {/* TAB 3: NOTULENSI RISALAH TEXT */}
               {activeTab === 'minutes' && (
                 <div className="space-y-4 text-xs">
 
@@ -969,33 +1134,15 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                   <div className="flex flex-wrap items-center justify-between gap-2 p-3 bg-slate-950 rounded-xl border border-slate-800">
                     <div className="flex items-center gap-2">
                       {!isEditingMinutes ? (
-                        <>
-                          <button
-                            type="button"
-                            onClick={() => setIsEditingMinutes(true)}
-                            disabled={!isSuperAdmin}
-                            className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white rounded-lg font-bold flex items-center gap-1.5 cursor-pointer"
-                          >
-                            <Edit3 className="w-3.5 h-3.5" />
-                            Edit Notulensi
-                          </button>
-
-                          {/* File Import Button */}
-                          <label
-                            htmlFor="importNotulensiInput"
-                            className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-800 rounded-lg font-bold flex items-center gap-1.5 cursor-pointer"
-                          >
-                            <Upload className="w-3.5 h-3.5" />
-                            Import File (.txt/.pdf/.docx)
-                          </label>
-                          <input
-                            type="file"
-                            id="importNotulensiInput"
-                            onChange={handleImportNotulensiFile}
-                            accept=".txt,.doc,.docx,.pdf,.csv,.json,.md"
-                            className="hidden"
-                          />
-                        </>
+                        <button
+                          type="button"
+                          onClick={() => setIsEditingMinutes(true)}
+                          disabled={!isSuperAdmin}
+                          className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white rounded-lg font-bold flex items-center gap-1.5 cursor-pointer"
+                        >
+                          <Edit3 className="w-3.5 h-3.5" />
+                          Edit Risalah Text
+                        </button>
                       ) : (
                         <button
                           type="button"
@@ -1015,7 +1162,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                           className="px-2.5 py-1.5 bg-rose-950 hover:bg-rose-900 text-rose-300 border border-rose-800 rounded-lg font-bold flex items-center gap-1 cursor-pointer"
                         >
                           <Download className="w-3.5 h-3.5" />
-                          PDF
+                          Export PDF
                         </button>
 
                         <button
@@ -1024,16 +1171,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                           className="px-2.5 py-1.5 bg-blue-950 hover:bg-blue-900 text-blue-300 border border-blue-800 rounded-lg font-bold flex items-center gap-1 cursor-pointer"
                         >
                           <Download className="w-3.5 h-3.5" />
-                          DOCX
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() => window.print()}
-                          className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg font-bold flex items-center gap-1 cursor-pointer"
-                        >
-                          <Printer className="w-3.5 h-3.5" />
-                          Print
+                          Export DOCX
                         </button>
                       </div>
                     )}
@@ -1075,9 +1213,9 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                         {/* Keputusan Rapat List */}
                         <div className="space-y-1.5">
                           <label className="text-[10px] font-black text-emerald-400 uppercase tracking-wider">Keputusan / Kesepakatan Rapat</label>
-                          {(selectedAgenda.notulensi.keputusanRapat && selectedAgenda.notulensi.keputusanRapat.length > 0) || (selectedAgenda.notulensi.poinKeputusan && selectedAgenda.notulensi.poinKeputusan.length > 0) ? (
+                          {(selectedAgenda.notulensi.keputusanRapat && selectedAgenda.notulensi.keputusanRapat.length > 0) ? (
                             <div className="space-y-2">
-                              {(selectedAgenda.notulensi.keputusanRapat?.length ? selectedAgenda.notulensi.keputusanRapat : selectedAgenda.notulensi.poinKeputusan!).map((kep, idx) => (
+                              {selectedAgenda.notulensi.keputusanRapat.map((kep, idx) => (
                                 <div key={idx} className="p-3 bg-emerald-950/40 rounded-xl border border-emerald-900/60 flex items-start justify-between gap-2">
                                   <div className="flex items-start gap-2.5">
                                     <span className="p-1 bg-emerald-900 text-emerald-300 font-bold text-[10px] rounded shrink-0 mt-0.5">
@@ -1106,63 +1244,18 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                           )}
                         </div>
 
-                        {/* Aspirasi & Catatan Tambahan */}
-                        {(selectedAgenda.notulensi.aspirasiMasukan || selectedAgenda.notulensi.catatanTambahan) && (
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            {selectedAgenda.notulensi.aspirasiMasukan && (
-                              <div className="space-y-1">
-                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">Aspirasi &amp; Masukan Peserta</label>
-                                <p className="p-3 bg-slate-900 rounded-xl border border-slate-800 text-slate-300">
-                                  {selectedAgenda.notulensi.aspirasiMasukan}
-                                </p>
-                              </div>
-                            )}
-
-                            {selectedAgenda.notulensi.catatanTambahan && (
-                              <div className="space-y-1">
-                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">Catatan Tambahan</label>
-                                <p className="p-3 bg-slate-900 rounded-xl border border-slate-800 text-slate-300">
-                                  {selectedAgenda.notulensi.catatanTambahan}
-                                </p>
-                              </div>
-                            )}
-                          </div>
-                        )}
-
-                        {/* RIWAYAT PERUBAHAN / VERSION HISTORY LOG */}
-                        {selectedAgenda.notulensi.history && selectedAgenda.notulensi.history.length > 0 && (
-                          <div className="pt-3 border-t border-slate-800 space-y-2">
-                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider flex items-center gap-1">
-                              <History className="w-3.5 h-3.5 text-emerald-400" />
-                              Riwayat Perubahan Notulensi ({selectedAgenda.notulensi.history.length})
-                            </label>
-                            <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1">
-                              {selectedAgenda.notulensi.history.map((hist) => (
-                                <div key={hist.id} className="p-2 bg-slate-900 rounded-lg border border-slate-800 text-[11px] flex justify-between items-center text-slate-300">
-                                  <div>
-                                    <strong className="text-white">{hist.changedBy}</strong> <span className="text-slate-500">({hist.userRole || 'Pengurus'})</span>: {hist.summary}
-                                  </div>
-                                  <span className="text-[10px] text-slate-500 shrink-0">
-                                    {new Date(hist.changedAt).toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'short' })}
-                                  </span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-
                       </div>
                     ) : (
                       <div className="p-8 bg-slate-950 rounded-2xl border border-slate-800 text-center space-y-3">
                         <FileText className="w-10 h-10 text-slate-600 mx-auto" />
-                        <p className="text-xs text-slate-400">Belum ada risalah notulensi yang dibuat untuk agenda ini.</p>
+                        <p className="text-xs text-slate-400">Belum ada risalah text yang dibuat untuk agenda ini.</p>
                         {isSuperAdmin && (
                           <button
                             type="button"
                             onClick={() => setIsEditingMinutes(true)}
                             className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl cursor-pointer"
                           >
-                            ✍️ Buat / Input Notulensi Baru
+                            ✍️ Input Risalah Text
                           </button>
                         )}
                       </div>
@@ -1171,7 +1264,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                     /* EDITING / FORM MODE */
                     <form onSubmit={handleSaveNotulensi} className="space-y-4">
                       <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-3">
-                        <h3 className="font-bold text-white text-sm">Form Notulensi Rapat &amp; Risalah</h3>
+                        <h3 className="font-bold text-white text-sm">Form Risalah &amp; Notulensi Rapat</h3>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                           <div>
@@ -1230,16 +1323,6 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                         </div>
 
                         <div>
-                          <label className="block text-slate-400 mb-1 font-semibold">Pokok Agenda Pembahasan</label>
-                          <input
-                            type="text"
-                            value={notulensiForm.agendaPembahasan}
-                            onChange={(e) => setNotulensiForm({ ...notulensiForm, agendaPembahasan: e.target.value })}
-                            className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-white"
-                          />
-                        </div>
-
-                        <div>
                           <label className="block text-slate-400 mb-1 font-semibold">Isi Pembahasan &amp; Risalah Rapat (Detail Diskusi)</label>
                           <textarea
                             rows={6}
@@ -1289,28 +1372,6 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          <div>
-                            <label className="block text-slate-400 mb-1 font-semibold">Aspirasi &amp; Masukan</label>
-                            <textarea
-                              rows={2}
-                              value={notulensiForm.aspirasiMasukan}
-                              onChange={(e) => setNotulensiForm({ ...notulensiForm, aspirasiMasukan: e.target.value })}
-                              className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-white"
-                            />
-                          </div>
-
-                          <div>
-                            <label className="block text-slate-400 mb-1 font-semibold">Catatan Tambahan</label>
-                            <textarea
-                              rows={2}
-                              value={notulensiForm.catatanTambahan}
-                              onChange={(e) => setNotulensiForm({ ...notulensiForm, catatanTambahan: e.target.value })}
-                              className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-white"
-                            />
-                          </div>
-                        </div>
-
                       </div>
 
                       <div className="flex justify-end gap-2 pt-2">
@@ -1325,7 +1386,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                           type="submit"
                           className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl cursor-pointer shadow-lg"
                         >
-                          💾 Simpan Notulensi ke Firestore
+                          💾 Simpan Risalah ke Firestore
                         </button>
                       </div>
                     </form>
@@ -1334,7 +1395,129 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                 </div>
               )}
 
-              {/* TAB 4: TINDAK LANJUT KEPUTUSAN (PROGRESS TRACKING) */}
+              {/* TAB 4: FILE NOTULENSI FIREBASE STORAGE */}
+              {activeTab === 'attachments' && (
+                <div className="space-y-4 text-xs">
+                  
+                  {/* Upload Box */}
+                  <div className="p-5 bg-slate-950 rounded-2xl border border-dashed border-slate-800 text-center space-y-3">
+                    <Upload className="w-8 h-8 text-blue-400 mx-auto" />
+                    <div>
+                      <h4 className="font-bold text-white text-sm">Unggah File Notulensi Resmi ke Firebase Storage</h4>
+                      <p className="text-[11px] text-slate-400 mt-1">Format didukung: PDF, DOC, DOCX, TXT (Maksimal 20MB)</p>
+                    </div>
+
+                    <input
+                      type="file"
+                      id="notulensiStorageInput"
+                      accept=".pdf,.doc,.docx,.txt,.rtf,.csv,.json,.md"
+                      disabled={isUploadingNotulensi}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) handleUploadNotulensiToStorage(file);
+                        e.target.value = '';
+                      }}
+                      className="hidden"
+                    />
+
+                    <div>
+                      <label
+                        htmlFor="notulensiStorageInput"
+                        className={`inline-flex items-center gap-2 px-5 py-2.5 ${
+                          isUploadingNotulensi ? 'bg-slate-800 text-slate-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-500 text-white cursor-pointer shadow-lg'
+                        } font-black rounded-xl text-xs transition-colors`}
+                      >
+                        {isUploadingNotulensi ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin text-blue-400" />
+                            {uploadStatusMsg || 'Mengupload notulensi...'}
+                          </>
+                        ) : (
+                          <>
+                            <Upload className="w-4 h-4" />
+                            📥 IMPORT / UNGGAH FILE NOTULENSI
+                          </>
+                        )}
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* List of Files from Firestore `notulensi` collection */}
+                  <div className="space-y-2">
+                    <h4 className="font-bold text-slate-300 text-xs flex items-center gap-1.5">
+                      <Paperclip className="w-4 h-4 text-emerald-400" />
+                      Daftar Dokumen Notulensi Terunggah ({notulensiFiles.filter(f => f.agendaId === selectedAgenda.id).length})
+                    </h4>
+
+                    {notulensiFiles.filter(f => f.agendaId === selectedAgenda.id).length > 0 ? (
+                      notulensiFiles.filter(f => f.agendaId === selectedAgenda.id).map((att) => (
+                        <div key={att.id} className="p-3.5 bg-slate-950 rounded-xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                          <div className="flex items-start gap-3 overflow-hidden text-slate-300">
+                            <div className="p-2 bg-blue-950/80 border border-blue-800/60 text-blue-400 rounded-lg shrink-0 mt-0.5">
+                              <FileText className="w-5 h-5" />
+                            </div>
+                            <div className="truncate space-y-0.5">
+                              <p className="font-bold text-white truncate text-xs">{att.fileName}</p>
+                              <p className="text-[10px] text-slate-400 flex flex-wrap gap-x-3">
+                                <span>Ukuran: <strong className="text-slate-200">{att.fileSize}</strong></span>
+                                <span>Pengunggah: <strong className="text-emerald-400">{att.uploadedByName || 'Pengurus'}</strong></span>
+                                <span>Waktu: <strong className="text-slate-300">{new Date(att.uploadedAt).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })}</strong></span>
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-2 shrink-0">
+                            {/* LIHAT BUTTON */}
+                            <a
+                              href={att.downloadUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-[11px] rounded-lg flex items-center gap-1 cursor-pointer transition-colors"
+                              title="Lihat dokumen di tab baru"
+                            >
+                              <Eye className="w-3.5 h-3.5 text-emerald-400" />
+                              LIHAT
+                            </a>
+
+                            {/* DOWNLOAD BUTTON */}
+                            <a
+                              href={att.downloadUrl}
+                              download={att.fileName}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-[11px] rounded-lg flex items-center gap-1 cursor-pointer transition-colors shadow-sm"
+                              title="Unduh file notulensi"
+                            >
+                              <Download className="w-3.5 h-3.5" />
+                              DOWNLOAD
+                            </a>
+
+                            {/* HAPUS BUTTON */}
+                            {isSuperAdmin && (
+                              <button
+                                type="button"
+                                onClick={() => setConfirmDeleteNotulensiFileObj(att)}
+                                className="p-1.5 hover:bg-slate-800 text-slate-400 hover:text-rose-400 rounded-lg transition-colors cursor-pointer"
+                                title="Hapus file notulensi ini"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="p-8 bg-slate-950 rounded-2xl border border-slate-800 text-center text-slate-500 text-xs italic space-y-1">
+                        <Paperclip className="w-8 h-8 text-slate-700 mx-auto" />
+                        <p>Belum ada file notulensi yang diunggah ke Storage untuk agenda ini.</p>
+                      </div>
+                    )}
+                  </div>
+
+                </div>
+              )}
+
+              {/* TAB 5: TINDAK LANJUT KEPUTUSAN (PROGRESS TRACKING) */}
               {activeTab === 'followup' && (
                 <div className="space-y-4 text-xs">
                   
@@ -1474,65 +1657,6 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                 </div>
               )}
 
-              {/* TAB 5: LAMPIRAN DOKUMEN */}
-              {activeTab === 'attachments' && (
-                <div className="space-y-4 text-xs">
-                  
-                  {/* Upload Lampiran Box */}
-                  {isSuperAdmin && (
-                    <div className="p-4 bg-slate-950 rounded-2xl border border-dashed border-slate-800 text-center space-y-2">
-                      <Upload className="w-6 h-6 text-emerald-400 mx-auto" />
-                      <p className="font-bold text-white">Unggah File Lampiran Dokumen Notulensi</p>
-                      <input
-                        type="file"
-                        id="directLampiranUpload"
-                        onChange={handleUploadLampiranDirect}
-                        className="hidden"
-                      />
-                      <label
-                        htmlFor="directLampiranUpload"
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white font-bold rounded-xl text-xs cursor-pointer shadow-md"
-                      >
-                        <Upload className="w-3.5 h-3.5" />
-                        Unggah Lampiran Baru
-                      </label>
-                    </div>
-                  )}
-
-                  <div className="space-y-2">
-                    {selectedAgenda.notulensi?.lampiranList && selectedAgenda.notulensi.lampiranList.length > 0 ? (
-                      selectedAgenda.notulensi.lampiranList.map((att) => (
-                        <div key={att.id} className="p-3 bg-slate-950 rounded-xl border border-slate-800 flex items-center justify-between">
-                          <div className="flex items-center gap-2 overflow-hidden text-slate-300">
-                            <Paperclip className="w-4 h-4 text-emerald-400 shrink-0" />
-                            <div className="truncate">
-                              <p className="font-bold text-white truncate">{att.fileName}</p>
-                              <p className="text-[10px] text-slate-500">Diunggah: {new Date(att.uploadedAt).toLocaleString('id-ID')}</p>
-                            </div>
-                          </div>
-
-                          {att.fileDataUrl && (
-                            <a
-                              href={att.fileDataUrl}
-                              download={att.fileName}
-                              className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] rounded-lg flex items-center gap-1 shrink-0 cursor-pointer"
-                            >
-                              <Download className="w-3.5 h-3.5" />
-                              Unduh
-                            </a>
-                          )}
-                        </div>
-                      ))
-                    ) : (
-                      <div className="p-8 bg-slate-950 rounded-2xl border border-slate-800 text-center text-slate-500 text-xs italic">
-                        Belum ada file lampiran terunggah.
-                      </div>
-                    )}
-                  </div>
-
-                </div>
-              )}
-
             </div>
           </div>
         </ModalPortal>
@@ -1658,18 +1782,123 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
         </ModalPortal>
       )}
 
-      {/* CONFIRM DELETE AGENDA MODAL WITH EXPLICIT MANDATED WARNING TEXT */}
-      <ConfirmModal
-        isOpen={!!deleteAgendaConfirmObj}
-        title="⚠️ Konfirmasi Hapus Agenda Kegiatan"
-        message={`Yakin ingin menghapus agenda "${deleteAgendaConfirmObj?.judul}"? Data agenda dan notulensi yang terkait akan ikut terhapus dan tidak dapat dikembalikan.`}
-        confirmText="Ya, Hapus"
-        cancelText="Batal"
-        type="danger"
-        icon="trash"
-        onConfirm={handleDeleteAgendaConfirm}
-        onCancel={() => setDeleteAgendaConfirmObj(null)}
-      />
+      {/* MANDATED CONFIRM DELETE AGENDA MODAL WITH EXACT SPECIFICATION */}
+      {deleteAgendaConfirmObj && (
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
+            <div className="mobile-modal-card bg-slate-900 border border-rose-900/60 text-white p-6 shadow-2xl relative max-w-md w-full space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="p-3 bg-rose-950 text-rose-400 rounded-xl shrink-0">
+                  <AlertTriangle className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base text-white">Konfirmasi Hapus Agenda</h3>
+                  <p className="text-xs text-slate-300 mt-1">Apakah Anda yakin ingin menghapus agenda ini?</p>
+                </div>
+              </div>
+
+              {/* Detail Agenda yang akan dihapus */}
+              <div className="p-3.5 bg-slate-950 rounded-xl border border-slate-800 text-xs space-y-1.5">
+                <div>
+                  <span className="text-slate-500 block text-[10px]">JUDUL AGENDA</span>
+                  <strong className="text-white text-sm">{deleteAgendaConfirmObj.judul}</strong>
+                </div>
+                <div className="grid grid-cols-2 gap-2 pt-1 border-t border-slate-800">
+                  <div>
+                    <span className="text-slate-500 block text-[10px]">TANGGAL</span>
+                    <span className="text-slate-200 font-semibold">
+                      {deleteAgendaConfirmObj.tanggal || parseDateTimeFields(deleteAgendaConfirmObj.tanggalWaktu).tanggal}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500 block text-[10px]">WAKTU</span>
+                    <span className="text-slate-200 font-semibold">
+                      {deleteAgendaConfirmObj.waktu || parseDateTimeFields(deleteAgendaConfirmObj.tanggalWaktu).waktu}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-2 flex justify-end gap-2 border-t border-slate-800">
+                <button
+                  type="button"
+                  disabled={isDeletingAgenda}
+                  onClick={() => setDeleteAgendaConfirmObj(null)}
+                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl cursor-pointer"
+                >
+                  BATAL
+                </button>
+                <button
+                  type="button"
+                  disabled={isDeletingAgenda}
+                  onClick={handleDeleteAgendaConfirm}
+                  className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white text-xs font-black rounded-xl cursor-pointer flex items-center gap-1.5 shadow-lg"
+                >
+                  {isDeletingAgenda ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      MENGHAPUS...
+                    </>
+                  ) : (
+                    'HAPUS AGENDA'
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </ModalPortal>
+      )}
+
+      {/* CONFIRM DELETE NOTULENSI FILE MODAL */}
+      {confirmDeleteNotulensiFileObj && (
+        <ModalPortal>
+          <div className="mobile-modal-backdrop">
+            <div className="mobile-modal-card bg-slate-900 border border-slate-800 text-white p-6 shadow-2xl relative max-w-md w-full space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="p-3 bg-rose-950 text-rose-400 rounded-xl shrink-0">
+                  <Trash2 className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base text-white">Konfirmasi Hapus File Notulensi</h3>
+                  <p className="text-xs text-slate-300 mt-1">
+                    Yakin ingin menghapus file notulensi "<strong className="text-white">{confirmDeleteNotulensiFileObj.fileName}</strong>"?
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-xs text-slate-400 bg-slate-950 p-3 rounded-xl border border-slate-800">
+                File akan dihapus permanen dari Firebase Storage dan data referensi di Firestore akan dibersihkan.
+              </p>
+
+              <div className="pt-2 flex justify-end gap-2 border-t border-slate-800">
+                <button
+                  type="button"
+                  disabled={isDeletingNotulensiFile}
+                  onClick={() => setConfirmDeleteNotulensiFileObj(null)}
+                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl cursor-pointer"
+                >
+                  BATAL
+                </button>
+                <button
+                  type="button"
+                  disabled={isDeletingNotulensiFile}
+                  onClick={handleDeleteNotulensiFileConfirm}
+                  className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white text-xs font-black rounded-xl cursor-pointer flex items-center gap-1.5 shadow-lg"
+                >
+                  {isDeletingNotulensiFile ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      MENGHAPUS...
+                    </>
+                  ) : (
+                    'HAPUS FILE'
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </ModalPortal>
+      )}
 
     </div>
   );

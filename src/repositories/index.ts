@@ -9,7 +9,8 @@ import {
   VehicleLog, 
   FinanceDailyRecord, 
   UserAccount, 
-  FundraisingCampaign 
+  FundraisingCampaign,
+  NotulensiFileItem
 } from '../types';
 import { SeveranceCalculationResult, PkbRuleConfig } from '../types/severance';
 
@@ -17,6 +18,7 @@ export class MemberRepository extends BaseRepository<Member> { constructor() { s
 export class AdvocacyRepository extends BaseRepository<AdvocacyCase> { constructor() { super('advocacyCases'); } }
 export class SickVisitRepository extends BaseRepository<SickVisit> { constructor() { super('sickVisits'); } }
 export class AgendaRepository extends BaseRepository<OrganizationAgenda> { constructor() { super('agendas'); } }
+export class NotulensiRepository extends BaseRepository<NotulensiFileItem> { constructor() { super('notulensi'); } }
 export class SembakoEventRepository extends BaseRepository<SembakoEvent> { constructor() { super('sembakoEvents'); } }
 export class SembakoClaimRepository extends BaseRepository<SembakoClaim> { constructor() { super('sembakoClaims'); } }
 export class VehicleLogRepository extends BaseRepository<VehicleLog> { constructor() { super('vehicleLogs'); } }
@@ -38,6 +40,7 @@ export const repositories = {
   advocacy: new AdvocacyRepository(),
   sickVisits: new SickVisitRepository(),
   agendas: new AgendaRepository(),
+  notulensi: new NotulensiRepository(),
   sembakoEvents: new SembakoEventRepository(),
   sembakoClaims: new SembakoClaimRepository(),
   vehicles: new VehicleLogRepository(),

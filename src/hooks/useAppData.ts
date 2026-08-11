@@ -11,6 +11,7 @@ import {
   UserAccount,
   AuditLog,
   FundraisingCampaign,
+  NotulensiFileItem,
 } from '../types';
 import { repositories } from '../repositories';
 import { auditLogRepository } from '../repositories/auditLogRepository';
@@ -23,6 +24,7 @@ export const useAppData = () => {
   const [advocacyCases, setAdvocacyCases] = useState<AdvocacyCase[]>([]);
   const [sickVisits, setSickVisits] = useState<SickVisit[]>([]);
   const [agendas, setAgendas] = useState<OrganizationAgenda[]>([]);
+  const [notulensiFiles, setNotulensiFiles] = useState<NotulensiFileItem[]>([]);
   const [sembakoEvents, setSembakoEvents] = useState<SembakoEvent[]>([]);
   const [sembakoClaims, setSembakoClaims] = useState<SembakoClaim[]>([]);
   const [vehicleLogs, setVehicleLogs] = useState<VehicleLog[]>([]);
@@ -66,6 +68,11 @@ export const useAppData = () => {
     const unsubAgendas = repositories.agendas.subscribe([], (items) => {
       setIsSyncOffline(false);
       setAgendas(items);
+    }, handleErr);
+
+    const unsubNotulensi = repositories.notulensi.subscribe([], (items) => {
+      setIsSyncOffline(false);
+      setNotulensiFiles(items);
     }, handleErr);
 
     const unsubSembakoEvents = repositories.sembakoEvents.subscribe([], (items) => {
@@ -113,6 +120,7 @@ export const useAppData = () => {
       unsubSickVisits();
       unsubFundraising();
       unsubAgendas();
+      unsubNotulensi();
       unsubSembakoEvents();
       unsubSembakoClaims();
       unsubVehicles();
@@ -128,6 +136,7 @@ export const useAppData = () => {
     advocacyCases, setAdvocacyCases,
     sickVisits, setSickVisits,
     agendas, setAgendas,
+    notulensiFiles, setNotulensiFiles,
     sembakoEvents, setSembakoEvents,
     sembakoClaims, setSembakoClaims,
     vehicleLogs, setVehicleLogs,

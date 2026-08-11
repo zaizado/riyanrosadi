@@ -19,6 +19,13 @@ import {
   updatePassword,
   User as FirebaseUser
 } from 'firebase/auth';
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject
+} from 'firebase/storage';
 
 // Silence standard connection retry warnings in console/metadata
 setLogLevel('error');
@@ -39,6 +46,33 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 // Initialize Firebase Auth
 export const auth = getAuth(app);
+
+// Initialize Firebase Storage
+export const storage = getStorage(app);
+
+export const uploadFileToStorage = async (
+  path: string, 
+  file: File
+): Promise<{ downloadUrl: string; storagePath: string }> => {
+  const storageRef = ref(storage, path);
+  const snapshot = await uploadBytes(storageRef, file, {
+    contentType: file.type || 'application/octet-stream',
+  });
+  const downloadUrl = await getDownloadURL(snapshot.ref);
+  return {
+    downloadUrl,
+    storagePath: snapshot.ref.fullPath
+  };
+};
+
+export const deleteFileFromStorage = async (storagePath: string): Promise<void> => {
+  try {
+    const storageRef = ref(storage, storagePath);
+    await deleteObject(storageRef);
+  } catch (err: any) {
+    console.warn("Storage delete warning:", err?.message || err);
+  }
+};
 
 // Initialize Firestore with auto detect long polling for stable container sandbox connectivity
 export const db = (() => {

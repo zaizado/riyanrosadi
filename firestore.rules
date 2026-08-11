@@ -80,6 +80,9 @@ service cloud.firestore {
     match /userClearedNotifs/{docId} {
       allow read, write: if isSignedIn();
     }
+    match /notulensi/{docId} {
+      allow read, write: if isSignedIn();
+    }
     match /importHistory/{docId} {
       allow read, write: if isSignedIn();
     }

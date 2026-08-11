@@ -80,6 +80,7 @@ export default function App() {
     fundraisingCampaigns, setFundraisingCampaigns,
     users, setUsers,
     severanceCalculations,
+    notulensiFiles, setNotulensiFiles,
     isSyncOffline
   } = useAppData();
 
@@ -867,6 +868,7 @@ export default function App() {
               {activeTab === 'agendas' && (
                 <AgendaModule
                   agendas={agendas}
+                  notulensiFiles={notulensiFiles}
                   onAddAgenda={handleAddAgenda}
                   onUpdateAgenda={handleUpdateAgenda}
                   onDeleteAgenda={handleDeleteAgenda}

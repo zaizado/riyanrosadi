@@ -236,19 +236,39 @@ export interface NotulensiAgenda {
   fileLampiranDataUrl?: string;
 }
 
+export interface NotulensiFileItem {
+  id: string;
+  agendaId: string;
+  fileName: string;
+  fileType: string;
+  fileSize: number | string;
+  storagePath: string;
+  downloadUrl: string;
+  uploadedAt: string;
+  uploadedBy: string;
+  uploadedByName: string;
+  updatedAt?: string;
+}
+
 export interface OrganizationAgenda {
   id: string;
   judul: string;
   jenis: AgendaType;
   tanggalWaktu: string;
+  tanggal?: string;
+  waktu?: string;
   lokasi: string;
   penanggungJawab: string;
   deskripsi: string;
   daftarPeserta: string[]; // List of names or roles
   dokumentasiUrl?: string[];
   status: 'Akan Datang' | 'Berjalan' | 'Selesai' | 'Dibatalkan';
-  notifikasiTerkirim: boolean;
+  notifikasiTerkirim?: boolean;
   notulensi?: NotulensiAgenda;
+  createdAt?: string;
+  createdBy?: string;
+  updatedAt?: string;
+  updatedBy?: string;
 }
 
 export interface SembakoEvent {

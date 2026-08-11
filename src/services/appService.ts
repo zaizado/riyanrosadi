@@ -8,9 +8,11 @@ import {
   VehicleLog, 
   FinanceDailyRecord, 
   UserAccount, 
-  FundraisingCampaign 
+  FundraisingCampaign,
+  NotulensiFileItem
 } from '../types';
 import { repositories } from '../repositories';
+import { deleteFileFromStorage } from '../lib/firebase';
 import { AuditService } from './auditService';
 import { UserRole } from '../types';
 
@@ -31,6 +33,14 @@ export class AppService {
   static async addAgenda(item: OrganizationAgenda) { await repositories.agendas.save(item); }
   static async updateAgenda(item: OrganizationAgenda) { await repositories.agendas.save(item); }
   static async deleteAgenda(id: string) { await repositories.agendas.delete(id); }
+
+  static async addNotulensiFile(item: NotulensiFileItem) { await repositories.notulensi.save(item); }
+  static async deleteNotulensiFile(fileItem: NotulensiFileItem) {
+    if (fileItem.storagePath) {
+      await deleteFileFromStorage(fileItem.storagePath);
+    }
+    await repositories.notulensi.delete(fileItem.id);
+  }
 
   static async addFundraising(item: FundraisingCampaign) { await repositories.fundraising.save(item); }
   static async updateFundraising(item: FundraisingCampaign) { await repositories.fundraising.save(item); }

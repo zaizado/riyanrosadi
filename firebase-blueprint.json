@@ -267,6 +267,23 @@
           "updatedBy": { "type": "string" }
         }
       }
+    },
+    "notulensi": {
+      "entity": {
+        "fields": {
+          "id": { "type": "string" },
+          "agendaId": { "type": "string" },
+          "fileName": { "type": "string" },
+          "fileType": { "type": "string" },
+          "fileSize": { "type": "string" },
+          "storagePath": { "type": "string" },
+          "downloadUrl": { "type": "string" },
+          "uploadedAt": { "type": "string" },
+          "uploadedBy": { "type": "string" },
+          "uploadedByName": { "type": "string" },
+          "updatedAt": { "type": "string" }
+        }
+      }
     }
   }
 }
