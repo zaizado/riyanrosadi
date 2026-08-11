@@ -100,7 +100,6 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
       const newUsr: UserAccount = {
         id: `usr-${Date.now()}`,
         username: (formData.name ? formData.name.toLowerCase().replace(/\s+/g, '_') : 'user'),
-        password: '123456',
         name: formData.name || 'User',
         email: formData.email || 'user@sbn.or.id',
         nik: formData.nik || 'VCI-00000',

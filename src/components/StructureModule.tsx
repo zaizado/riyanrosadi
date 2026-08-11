@@ -188,7 +188,6 @@ export const StructureModule: React.FC<StructureModuleProps> = ({
       const newUsr: UserAccount = {
         id: `usr-${targetOfficer.nik || Date.now()}`,
         username: (targetOfficer.nama || 'pengurus').toLowerCase().replace(/\s+/g, '_'),
-        password: '123456',
         name: targetOfficer.nama,
         email: 'pengurus@sbn.or.id',
         nik: targetOfficer.nik || '',

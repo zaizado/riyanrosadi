@@ -87,7 +87,7 @@ export const getStoredUsers = (): UserAccount[] => {
     avatarUrl: sanitizeAvatarUrl(u.avatarUrl)
   }));
 
-  // Ensure Super Admin account (sbnkasbivci1) exists and has password set
+  // Ensure Super Admin account (sbnkasbivci1) exists
   const superAdminIdx = userList.findIndex(u => u.username?.toLowerCase() === 'sbnkasbivci1' || u.id === 'usr-superadmin');
   if (superAdminIdx === -1) {
     userList = [{ ...INITIAL_USERS[0], avatarUrl: cheAvatar }, ...userList];
@@ -97,7 +97,6 @@ export const getStoredUsers = (): UserAccount[] => {
       ...INITIAL_USERS[0],
       ...userList[superAdminIdx],
       username: 'sbnkasbivci1',
-      password: userList[superAdminIdx].password || 'superadmin1',
       role: 'Super Admin',
       isSuperAdmin: true,
       avatarUrl: sanitizeAvatarUrl(userList[superAdminIdx].avatarUrl || cheAvatar)

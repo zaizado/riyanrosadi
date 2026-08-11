@@ -8,7 +8,6 @@ export type UserRole =
 export interface UserAccount {
   id: string;
   username: string;
-  password?: string;
   name: string;
   email: string;
   nik: string;

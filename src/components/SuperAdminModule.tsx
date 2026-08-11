@@ -169,7 +169,6 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
     setAccountForm({
       name: acc.name,
       username: acc.username || '',
-      password: acc.password || '',
       nik: acc.nik,
       role: acc.role,
       department: acc.department || 'Assembly',
@@ -189,7 +188,6 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
         ...editingAccount,
         name: accountForm.name,
         username: accountForm.username.trim(),
-        password: accountForm.password || editingAccount.password || '123456',
         nik: accountForm.nik,
         role: accountForm.role,
         department: accountForm.department,
@@ -205,7 +203,6 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
         id: `usr-${Date.now()}`,
         name: accountForm.name,
         username: accountForm.username.trim(),
-        password: accountForm.password || '123456',
         nik: accountForm.nik,
         role: accountForm.role,
         department: accountForm.department,
@@ -222,18 +219,13 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
     setIsAddAccountModalOpen(false);
   };
 
-  // Handler: Quick Reset Password
+  // Handler: Quick Reset Password Info
   const handleQuickResetPassword = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!resetPassModalAccount || !quickNewPass) return;
+    if (!resetPassModalAccount) return;
 
-    const updated: UserAccount = {
-      ...resetPassModalAccount,
-      password: quickNewPass
-    };
-    onUpdateUser(updated);
     if (onLogAudit) {
-      onLogAudit('Sistem', 'Reset Password Akun', `Super Admin mereset password akun ${updated.name} (${updated.username}).`);
+      onLogAudit('Sistem', 'Reset Password Akun', `Super Admin memicu permintaan reset password akun ${resetPassModalAccount.name} (${resetPassModalAccount.username}).`);
     }
 
     setResetPassModalAccount(null);
@@ -480,7 +472,7 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
                   <tr>
                     <th className="p-3.5">Pengurus / Nama</th>
                     <th className="p-3.5">Username Login</th>
-                    <th className="p-3.5">Password</th>
+                    <th className="p-3.5">Autentikasi</th>
                     <th className="p-3.5">Role Hak Akses</th>
                     <th className="p-3.5">NIK & Jabatan</th>
                     <th className="p-3.5 text-center">Aksi / Kontrol</th>
@@ -496,7 +488,6 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
                   ) : (
                     filteredUsers.map((acc) => {
                       const isSuper = acc.isSuperAdmin || acc.role === 'Super Admin' || acc.username === 'sbnkasbivci1';
-                      const isShowPass = !!visiblePasswords[acc.id];
 
                       return (
                         <tr key={acc.id} className="hover:bg-slate-850/60 transition-colors">
@@ -532,18 +523,10 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
                           </td>
 
                           <td className="p-3.5">
-                            <div className="flex items-center gap-1.5">
-                              <span className="font-mono font-bold text-amber-300 bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800">
-                                {isShowPass ? (acc.password || '••••••••') : '••••••••'}
-                              </span>
-                              <button
-                                onClick={() => togglePasswordVisibility(acc.id)}
-                                className="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
-                                title={isShowPass ? "Sembunyikan Password" : "Lihat Password"}
-                              >
-                                {isShowPass ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                              </button>
-                            </div>
+                            <span className="font-mono text-[11px] font-bold text-emerald-400 bg-emerald-950/40 px-2.5 py-1 rounded-lg border border-emerald-800/40 inline-flex items-center gap-1.5">
+                              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                              Firebase Auth
+                            </span>
                           </td>
 
                           <td className="p-3.5">
@@ -687,7 +670,6 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
                           nik: p.nik,
                           name: p.nama,
                           username: cleanUsername,
-                          password: cleanUsername,
                           department: p.jabatan,
                           phoneNumber: p.noHp || accountForm.phoneNumber,
                           email: `${cleanUsername}@sbn-kasbi-vci.or.id`
@@ -721,29 +703,16 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="text-xs font-bold text-slate-300 block mb-1">Username Login *</label>
-                  <input
-                    type="text"
-                    value={accountForm.username}
-                    onChange={(e) => setAccountForm({ ...accountForm, username: e.target.value })}
-                    required
-                    placeholder="Contoh: ahmad_admin"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-500 font-mono"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-xs font-bold text-slate-300 block mb-1">Password Login *</label>
-                  <input
-                    type="text"
-                    value={accountForm.password}
-                    onChange={(e) => setAccountForm({ ...accountForm, password: e.target.value })}
-                    placeholder="Password login..."
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-500 font-mono"
-                  />
-                </div>
+              <div>
+                <label className="text-xs font-bold text-slate-300 block mb-1">Username Login *</label>
+                <input
+                  type="text"
+                  value={accountForm.username}
+                  onChange={(e) => setAccountForm({ ...accountForm, username: e.target.value })}
+                  required
+                  placeholder="Contoh: ahmad_admin"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-500 font-mono"
+                />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
