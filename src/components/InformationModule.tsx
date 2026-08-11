@@ -32,6 +32,14 @@ export const InformationModule: React.FC<InformationModuleProps> = ({
 
   // Active items calculations
   const activeAgendas = agendas.filter((a) => a.status !== 'Dibatalkan' && a.status !== 'Selesai');
+  const [deleteAgendaConfirmObj, setDeleteAgendaConfirmObj] = useState<{ id: string; judul: string } | null>(null);
+
+  const confirmDeleteAgenda = () => {
+    if (deleteAgendaConfirmObj) {
+      onDeleteAgenda(deleteAgendaConfirmObj.id);
+      setDeleteAgendaConfirmObj(null);
+    }
+  };
   const activeSembako = sembakoEvents.filter((s) => s.status === 'Aktif');
   const activeAdvocacy = advocacyCases.filter((a) => a.status !== 'Selesai' && a.status !== 'Ditutup');
   const activeSickVisits = sickVisits.filter((s) => s.status !== 'Selesai');
@@ -126,7 +134,7 @@ export const InformationModule: React.FC<InformationModuleProps> = ({
                       <h3 className="text-sm font-black text-white">{a.judul}</h3>
                       {isSuperAdmin && (
                         <button
-                          onClick={() => onDeleteAgenda(a.id)}
+                          onClick={() => setDeleteAgendaConfirmObj({ id: a.id, judul: a.judul })}
                           className="text-gray-500 hover:text-red-400 transition-colors p-1"
                           title="Hapus Agenda"
                         >
@@ -295,6 +303,32 @@ export const InformationModule: React.FC<InformationModuleProps> = ({
               </button>
             </div>
           </form>
+        </div>
+      )}
+
+      {/* Confirmation Modal Delete Agenda */}
+      {deleteAgendaConfirmObj && (
+        <div className="mobile-modal-backdrop">
+          <div className="mobile-modal-card bg-[#121212] border border-red-950 text-white p-6 space-y-4 shadow-2xl max-w-sm">
+            <h3 className="text-sm font-black text-red-500 uppercase">Konfirmasi Hapus Agenda</h3>
+            <p className="text-xs text-gray-300 leading-relaxed">
+              Yakin ingin menghapus agenda &quot;{deleteAgendaConfirmObj.judul}&quot;? Data agenda dan notulensi terkait akan ikut terhapus dan tidak dapat dikembalikan.
+            </p>
+            <div className="flex justify-end gap-2 pt-2">
+              <button
+                onClick={() => setDeleteAgendaConfirmObj(null)}
+                className="px-4 py-2 bg-[#222] hover:bg-[#333] text-gray-300 font-bold text-xs rounded-xl cursor-pointer"
+              >
+                Batal
+              </button>
+              <button
+                onClick={confirmDeleteAgenda}
+                className="px-5 py-2 bg-red-600 hover:bg-red-500 text-white font-bold text-xs rounded-xl cursor-pointer"
+              >
+                Ya, Hapus
+              </button>
+            </div>
+          </div>
         </div>
       )}
 

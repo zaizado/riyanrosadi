@@ -70,7 +70,7 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
   const [fotoUrl, setFotoUrl] = useState<string>(
     initialMember.fotoUrl || cheAvatar
   );
-  const [logoFsbnUrl, setLogoFsbnUrl] = useState<string | null>('/fsbn_logo.svg');
+  const [logoFsbnUrl, setLogoFsbnUrl] = useState<string | null>('/assets/branding/logo-fsbn-original.jpg');
   const [logoKasbiUrl, setLogoKasbiUrl] = useState<string | null>('/kasbi_logo.svg');
 
   // Edit toggles
@@ -177,7 +177,7 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
       ctx.fillRect(30, 30, 95, 95);
       ctx.strokeRect(30, 30, 95, 95);
       const fsbnImg = new Image();
-      fsbnImg.src = logoFsbnUrl || '/fsbn_logo.svg';
+      fsbnImg.src = logoFsbnUrl || '/assets/branding/logo-fsbn-original.jpg';
       try {
         ctx.drawImage(fsbnImg, 32, 32, 91, 91);
       } catch (e) {}
@@ -669,7 +669,7 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
                         title="Klik untuk ganti Logo FSBN"
                       >
                         <img
-                          src={logoFsbnUrl || '/fsbn_logo.svg'}
+                          src={logoFsbnUrl || '/assets/branding/logo-fsbn-original.jpg'}
                           alt="Logo FSBN"
                           className="w-full h-full object-contain"
                         />

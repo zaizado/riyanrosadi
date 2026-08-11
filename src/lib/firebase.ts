@@ -170,32 +170,24 @@ export const saveFirestoreDoc = async <T extends { id: string }>(
   }
 };
 
-// Replace entire collection (for imports / reset) - removes old deleted docs from Firestore
+// Batch merge collection (for imports / sync) without destructive total wipes
 export const saveFullCollection = async <T extends { id: string }>(
   collectionName: string,
   items: T[]
 ) => {
   try {
     const colRef = collection(db, collectionName);
-    const existingSnap = await getDocs(colRef);
-    const newItemIds = new Set(items.map(i => i.id));
 
-    // Delete existing docs in Firestore that are no longer in items
-    const docsToDelete = existingSnap.docs.filter(d => !newItemIds.has(d.id));
-    for (let i = 0; i < docsToDelete.length; i += 400) {
-      const chunk = docsToDelete.slice(i, i + 400);
-      const batch = writeBatch(db);
-      chunk.forEach(docSnap => batch.delete(docSnap.ref));
-      await batch.commit();
-    }
-
-    // Set/update all items
+    // Set/update all items in chunks of 400 with merge
     for (let i = 0; i < items.length; i += 400) {
       const chunk = items.slice(i, i + 400);
       const batch = writeBatch(db);
       chunk.forEach(item => {
         const docRef = doc(colRef, item.id);
-        let itemToSave: any = { ...item };
+        let itemToSave: any = { 
+          ...item,
+          updatedAt: new Date().toISOString()
+        };
         if (itemToSave.avatarUrl && typeof itemToSave.avatarUrl === 'string' && itemToSave.avatarUrl.length > 500000) {
           itemToSave.avatarUrl = '/che_avatar.jpg';
         }
@@ -203,12 +195,12 @@ export const saveFullCollection = async <T extends { id: string }>(
           itemToSave.fotoUrl = '/che_avatar.jpg';
         }
         const cleaned = cleanForFirestore(itemToSave);
-        batch.set(docRef, cleaned);
+        batch.set(docRef, cleaned, { merge: true });
       });
       await batch.commit();
     }
   } catch (err) {
-    console.error(`Error replacing collection ${collectionName}:`, err);
+    console.error(`Error updating collection batch for ${collectionName}:`, err);
   }
 };
 

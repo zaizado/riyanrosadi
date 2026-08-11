@@ -36,6 +36,7 @@ import { SectionHeader, PrimaryButton, SecondaryButton } from './ui/DesignSystem
 import { CameraCaptureModal } from './CameraCaptureModal';
 
 import { exportWorkbookToExcel } from '../utils/exportAndPrintUtils';
+import { saveFirestoreDoc } from '../lib/firebase';
 
 interface MembersModuleProps {
   members: Member[];
@@ -344,8 +345,12 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
     setIsProcessingFile(false);
   };
 
-  const handleConfirmImport = () => {
+  const handleConfirmImport = async () => {
     if (importPreviewData.length === 0) return;
+
+    const importBatchId = `batch-${Date.now()}`;
+    const nowIso = new Date().toISOString();
+    const operatorName = currentUser?.name || 'Pengurus SBN';
 
     // Build map of imported members by NIK
     const importMap = new Map<string, Partial<Member>>();
@@ -365,7 +370,6 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
       const importedData = mNik ? importMap.get(mNik) : undefined;
 
       if (importedData) {
-        // Data exists in both, UPDATE the existing member with spreadsheet data
         if (m.statusKeanggotaan === 'Non-Aktif') {
           reactivatedCount++;
         } else {
@@ -375,15 +379,19 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
         return {
           ...m,
           ...importedData,
-          id: m.id, // Preserve original document ID in case it differs, but NIK is preferred
-          fotoUrl: m.fotoUrl || importedData.fotoUrl, // Preserve existing photo
+          id: m.id,
+          fotoUrl: m.fotoUrl || importedData.fotoUrl,
           statusKeanggotaan: 'Aktif' as MemberStatus,
-          updatedAt: new Date().toISOString(),
+          updatedAt: nowIso,
+          updatedBy: operatorName,
+          lastImportedAt: nowIso,
+          lastImportedBy: operatorName,
+          importBatchId,
+          sourceFileName: importFileName,
           isMissingFromExcel: false,
           isNewFromExcel: false
         } as Member;
       } else {
-        // Not in spreadsheet
         if (m.statusKeanggotaan === 'Aktif') {
           missingCount++;
         } else {
@@ -399,7 +407,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
       }
     });
 
-    // 2. Identify NEW members from Excel
+    // Identify NEW members from Excel
     const existingNiksSet = new Set(members.map(m => (m.nik || '').trim().toLowerCase()));
     const newMembersFromExcel: Member[] = [];
 
@@ -407,7 +415,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
       const impNik = (imp.nik || '').trim().toLowerCase();
       if (impNik && !existingNiksSet.has(impNik)) {
         newMembersFromExcel.push({
-          id: impNik, // Set id to NIK as requested
+          id: impNik,
           nomorAnggota: imp.nomorAnggota || `SBN-VCI-${String(members.length + newMembersFromExcel.length + 1).padStart(4, '0')}`,
           nik: imp.nik || `VCI-${idx + 100}`,
           namaLengkap: imp.namaLengkap || 'Anggota Baru',
@@ -426,17 +434,40 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
           statusKeanggotaan: imp.statusKeanggotaan || 'Aktif',
           tanggalBergabung: imp.tanggalBergabung || new Date().toISOString().slice(0, 10),
           fotoUrl: imp.fotoUrl || cheAvatar,
-          updatedAt: new Date().toISOString(),
+          updatedAt: nowIso,
+          updatedBy: operatorName,
+          lastImportedAt: nowIso,
+          lastImportedBy: operatorName,
+          importBatchId,
+          sourceFileName: importFileName,
           isNewFromExcel: true,
           isMissingFromExcel: false
         });
       }
     });
 
-    // Put NEW members at the VERY TOP
     const finalMembersList = [...newMembersFromExcel, ...updatedExistingMembers];
 
     onImportMembers(finalMembersList);
+
+    // Save history record to Firestore
+    try {
+      await saveFirestoreDoc('importHistory', {
+        id: importBatchId,
+        timestamp: nowIso,
+        importedBy: operatorName,
+        sourceFileName: importFileName,
+        totalRowsInFile: importPreviewData.length,
+        addedCount: newMembersFromExcel.length,
+        updatedCount: updatedCount,
+        missingCount: missingCount,
+        reactivatedCount: reactivatedCount,
+        skippedCount: unchangedCount,
+        moduleName: 'Data Anggota'
+      });
+    } catch (err) {
+      console.warn('Failed saving importHistory record to Firestore', err);
+    }
 
     // Trigger Popup Result
     setImportPopupResult({
@@ -444,7 +475,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
       updatedCount: updatedCount,
       missingCount: missingCount,
       reactivatedCount: reactivatedCount,
-      errorCount: 0 // Track any actual processing errors if implemented
+      errorCount: 0
     });
 
     setIsImportModalOpen(false);
@@ -1146,37 +1177,14 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
                 )}
 
                 {/* Mode Pengolahan Data Impor */}
-                <div className="mt-4 p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-2 text-xs">
-                  <p className="font-bold text-slate-200">Metode Pengolahan Data Impor:</p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <label className={`p-3 rounded-xl border cursor-pointer flex items-start gap-2.5 transition-all ${importMode === 'replace' ? 'bg-red-950/80 border-red-500 text-white' : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'}`}>
-                      <input 
-                        type="radio" 
-                        name="importMode" 
-                        checked={importMode === 'replace'} 
-                        onChange={() => setImportMode('replace')}
-                        className="mt-0.5 accent-red-500 shrink-0" 
-                      />
-                      <div>
-                        <p className="font-bold text-red-400">Ganti Total / Reset Data (Default)</p>
-                        <p className="text-[11px] text-slate-300 mt-0.5">Menghapus seluruh {members.length} data lama dan menggantikan murni dengan {importPreviewData.length} data baru agar tidak tumpang tindih.</p>
-                      </div>
-                    </label>
-
-                    <label className={`p-3 rounded-xl border cursor-pointer flex items-start gap-2.5 transition-all ${importMode === 'merge' ? 'bg-slate-800 border-slate-600 text-white' : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'}`}>
-                      <input 
-                        type="radio" 
-                        name="importMode" 
-                        checked={importMode === 'merge'} 
-                        onChange={() => setImportMode('merge')}
-                        className="mt-0.5 accent-slate-400 shrink-0" 
-                      />
-                      <div>
-                        <p className="font-bold text-slate-200">Gabungkan (Merge) dengan Data Lama</p>
-                        <p className="text-[11px] text-slate-400 mt-0.5">Mempertahankan data lama dan memperbarui/menambahkan data berdasarkan NIK yang sama.</p>
-                      </div>
-                    </label>
+                <div className="mt-4 p-3.5 bg-slate-950 rounded-xl border border-red-500/40 space-y-2 text-xs">
+                  <div className="flex items-center gap-2 text-red-400 font-bold">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Metode Standar: Sinkronisasi Otomatis Data Excel Manajemen (NIK Indexing)</span>
                   </div>
+                  <p className="text-[11px] text-slate-300 leading-relaxed">
+                    Sistem akan mencocokkan NIK secara otomatis, memperbarui data anggota aktif, menandai anggota baru, serta mencatat batch ID dan riwayat audit impor secara transparan ke Firestore.
+                  </p>
                 </div>
               </div>
             )}

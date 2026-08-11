@@ -204,9 +204,13 @@ export const LoginModal: React.FC<LoginModalProps> = ({
           {/* Official FSBN Logo Image */}
           <div className="w-44 sm:w-52 relative drop-shadow-[0_12px_25px_rgba(0,0,0,0.9)]">
             <img 
-              src={fsbnLogo} 
-              alt="Logo FSBN" 
+              src="/assets/branding/logo-fsbn-original.jpg" 
+              alt="Logo FSBN SBN KASBI PT VCI" 
               className="w-full h-auto object-contain rounded-xl"
+              onError={(e) => {
+                e.currentTarget.onerror = null;
+                e.currentTarget.src = fsbnLogo;
+              }}
             />
           </div>
 

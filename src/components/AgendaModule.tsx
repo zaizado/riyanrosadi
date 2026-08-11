@@ -747,10 +747,10 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
 
                 {/* Footer Action Buttons */}
                 <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2 text-xs">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 flex-wrap">
                     <button
                       onClick={() => handleOpenAgendaDetail(agd, 'info')}
-                      className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg font-bold text-[11px] flex items-center gap-1 cursor-pointer transition-colors"
+                      className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg font-bold text-[11px] flex items-center gap-1 cursor-pointer transition-colors"
                     >
                       <Info className="w-3.5 h-3.5 text-emerald-400" />
                       Detail
@@ -758,11 +758,21 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
 
                     <button
                       onClick={() => handleOpenAgendaDetail(agd, 'minutes')}
-                      className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg font-bold text-[11px] flex items-center gap-1.5 cursor-pointer shadow-md transition-colors"
+                      className="px-2.5 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg font-bold text-[11px] flex items-center gap-1.5 cursor-pointer shadow-md transition-colors"
                     >
                       <FileText className="w-3.5 h-3.5" />
                       📝 Notulensi
                     </button>
+
+                    {agd.status === 'Berjalan' && (
+                      <button
+                        onClick={() => handleOpenAgendaDetail(agd, 'minutes')}
+                        className="px-2.5 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded-lg font-black text-[11px] flex items-center gap-1 cursor-pointer shadow-md transition-colors animate-pulse"
+                        title="Import File Notulensi untuk Agenda Berjalan"
+                      >
+                        📥 Import Notulensi
+                      </button>
+                    )}
                   </div>
 
                   {isSuperAdmin && (

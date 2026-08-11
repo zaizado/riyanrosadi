@@ -3,7 +3,7 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/fsbn_logo.svg'
+  '/assets/branding/logo-fsbn-original.jpg'
 ];
 
 self.addEventListener('install', (event) => {

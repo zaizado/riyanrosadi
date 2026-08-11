@@ -59,6 +59,11 @@ export interface Member {
   tunjanganTetap?: number;
   fotoUrl?: string;
   updatedAt?: string;
+  updatedBy?: string;
+  lastImportedAt?: string;
+  lastImportedBy?: string;
+  importBatchId?: string;
+  sourceFileName?: string;
   isMissingFromExcel?: boolean;
   isNewFromExcel?: boolean;
 }
