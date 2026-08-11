@@ -1,8 +1,88 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    // Default deny catch-all for any unmentioned path
     match /{document=**} {
-      allow read, write: if true;
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function isSuperAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'superadmin@sbn-kasbi-vci.or.id' ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+          (getUserData().get('role', '') == 'Super Admin' || getUserData().get('isSuperAdmin', false) == true))
+      );
+    }
+
+    // Rules for `users` collection - users cannot elevate their own role or permissions
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update: if isSignedIn() && (
+        isSuperAdmin() || 
+        (request.auth.uid == userId && 
+         !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'isSuperAdmin', 'permissions', 'departmentRole']))
+      );
+      allow delete: if isSuperAdmin();
+    }
+
+    // Rules for organization data collections - requires authentication
+    match /members/{docId} {
+      allow read, write: if isSignedIn();
+    }
+    match /advocacyCases/{docId} {
+      allow read, write: if isSignedIn();
+    }
+    match /sickVisits/{docId} {
+      allow read, write: if isSignedIn();
+    }
+    match /agendas/{docId} {
+      allow read, write: if isSignedIn();
+    }
+    match /sembakoEvents/{docId} {
+      allow read, write: if isSignedIn();
+    }
+    match /sembakoClaims/{docId} {
+      allow read, write: if isSignedIn();
+    }
+    match /auditLogs/{docId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update, delete: if isSuperAdmin();
+    }
+    match /vehicleLogs/{docId} {
+      allow read, write: if isSignedIn();
+    }
+    match /financeRecords/{docId} {
+      allow read, write: if isSignedIn();
+    }
+    match /fundraising/{docId} {
+      allow read, write: if isSignedIn();
+    }
+    match /criticalNews/{docId} {
+      allow read, write: if isSignedIn();
+    }
+    match /severanceCalculations/{docId} {
+      allow read, write: if isSignedIn();
+    }
+    match /severanceRules/{docId} {
+      allow read, write: if isSignedIn();
+    }
+    match /userClearedNotifs/{docId} {
+      allow read, write: if isSignedIn();
+    }
+    match /importHistory/{docId} {
+      allow read, write: if isSignedIn();
     }
   }
 }
+

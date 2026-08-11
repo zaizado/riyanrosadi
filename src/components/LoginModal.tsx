@@ -6,12 +6,17 @@ import {
   EyeOff, 
   AlertCircle, 
   CheckCircle2, 
-  X
+  X,
+  Loader2
 } from 'lucide-react';
 import { UserAccount } from '../types';
 import { INITIAL_USERS } from '../data/initialData';
 import fsbnLogo from '../assets/images/fsbn_logo_emblem_1785338169849.jpg';
+import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { ModalPortal } from './ModalPortal';
+import { auth } from '../lib/firebase';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { repositories } from '../repositories';
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -33,12 +38,13 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
     setSuccessMessage(null);
@@ -47,45 +53,90 @@ export const LoginModal: React.FC<LoginModalProps> = ({
     const inputPass = password.trim();
 
     if (!inputUser) {
-      setErrorMessage('Username / NIK harus diisi!');
+      setErrorMessage('Username / Email / NIK harus diisi!');
+      return;
+    }
+    if (!inputPass) {
+      setErrorMessage('Password harus diisi!');
       return;
     }
 
-    // Find account by username, email, name, or NIK
-    let foundUser = users.find(u => 
-      (u.username && u.username.trim().toLowerCase() === inputUser) ||
-      (u.name && u.name.trim().toLowerCase() === inputUser) ||
-      (u.email && u.email.trim().toLowerCase() === inputUser) ||
-      (u.nik && u.nik.trim().toLowerCase() === inputUser)
-    );
+    setIsLoading(true);
 
-    // Fallback for primary Super Admin account if not found in state list yet
-    if (!foundUser && (inputUser === 'sbnkasbivci1' || inputUser === 'superadmin' || inputUser === 'superadmin@sbn-kasbi-vci.or.id')) {
-      foundUser = INITIAL_USERS[0];
+    try {
+      // Determine email address for Firebase Auth
+      let emailToUse = inputUser;
+      if (!emailToUse.includes('@')) {
+        let foundUser = users.find(u => 
+          (u.username && u.username.trim().toLowerCase() === inputUser) ||
+          (u.nik && u.nik.trim().toLowerCase() === inputUser) ||
+          (u.name && u.name.trim().toLowerCase() === inputUser)
+        );
+        if (foundUser && foundUser.email) {
+          emailToUse = foundUser.email;
+        } else if (inputUser === 'sbnkasbivci1' || inputUser === 'superadmin') {
+          emailToUse = 'superadmin@sbn-kasbi-vci.or.id';
+        } else {
+          emailToUse = `${inputUser}@sbn-kasbi-vci.or.id`;
+        }
+      }
+
+      // Perform Firebase Authentication
+      let userCred;
+      try {
+        userCred = await signInWithEmailAndPassword(auth, emailToUse, inputPass);
+      } catch (authError: any) {
+        // If user is superadmin or known user and not registered in Firebase Auth yet, bootstrap creation
+        if ((authError.code === 'auth/user-not-found' || authError.code === 'auth/invalid-credential') && inputPass.length >= 6) {
+          try {
+            userCred = await createUserWithEmailAndPassword(auth, emailToUse, inputPass);
+          } catch (createErr: any) {
+            throw authError;
+          }
+        } else {
+          throw authError;
+        }
+      }
+
+      const firebaseUser = userCred.user;
+      let matchedProfile = users.find(u => u.id === firebaseUser.uid || u.email?.toLowerCase() === emailToUse.toLowerCase());
+
+      if (!matchedProfile) {
+        const isSA = emailToUse.toLowerCase() === 'superadmin@sbn-kasbi-vci.or.id' || inputUser === 'sbnkasbivci1';
+        matchedProfile = {
+          id: firebaseUser.uid,
+          username: inputUser.includes('@') ? inputUser.split('@')[0] : inputUser,
+          name: isSA ? 'Super Admin SBN KASBI' : (inputUser.charAt(0).toUpperCase() + inputUser.slice(1)),
+          email: emailToUse,
+          nik: isSA ? 'SA-00001' : '010000',
+          role: isSA ? 'Super Admin' : 'Pengurus',
+          department: isSA ? 'Dewan Pimpinan Utama' : 'PT Victory Chingluh Indonesia',
+          isSuperAdmin: isSA,
+          avatarUrl: cheAvatar
+        };
+        await repositories.users.save(matchedProfile);
+      }
+
+      setSuccessMessage(`Login berhasil! Selamat datang, ${matchedProfile.name}.`);
+      setTimeout(() => {
+        onLoginSuccess(matchedProfile!, rememberMe);
+        if (onClose) onClose();
+      }, 400);
+
+    } catch (err: any) {
+      console.error('Firebase Auth error:', err);
+      if (err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
+        setErrorMessage('Password yang Anda masukkan salah. Silakan coba lagi.');
+      } else if (err.code === 'auth/user-not-found') {
+        setErrorMessage(`Akun "${username}" tidak ditemukan di Firebase Auth.`);
+      } else if (err.code === 'auth/too-many-requests') {
+        setErrorMessage('Terlalu banyak percobaan login gagal. Silakan coba lagi nanti.');
+      } else {
+        setErrorMessage(err.message || 'Gagal melakukan autentikasi dengan Firebase Auth.');
+      }
+    } finally {
+      setIsLoading(false);
     }
-
-    if (!foundUser) {
-      setErrorMessage(`Akun username/NIK "${username}" tidak ditemukan!`);
-      return;
-    }
-
-    // Check password (support exact match or case-insensitive for master superadmin)
-    const expectedPassword = foundUser.password || (foundUser.username?.toLowerCase() === 'sbnkasbivci1' ? 'superadmin1' : '');
-    const isPassValid = 
-      expectedPassword === inputPass || 
-      expectedPassword.toLowerCase() === inputPass.toLowerCase();
-
-    if (!isPassValid) {
-      setErrorMessage('Password yang Anda masukkan salah. Silakan coba lagi.');
-      return;
-    }
-
-    // Success
-    setSuccessMessage(`Login berhasil! Selamat datang, ${foundUser.name}.`);
-    setTimeout(() => {
-      onLoginSuccess(foundUser, rememberMe);
-      if (onClose) onClose();
-    }, 400);
   };
 
   return (

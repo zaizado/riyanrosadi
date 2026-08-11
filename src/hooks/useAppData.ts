@@ -14,116 +14,98 @@ import {
 } from '../types';
 import { repositories } from '../repositories';
 import { auditLogRepository } from '../repositories/auditLogRepository';
-import {
-  getStoredMembers,
-  setStoredMembers,
-  getStoredAdvocacy,
-  setStoredAdvocacy,
-  getStoredSickVisits,
-  setStoredSickVisits,
-  getStoredAgendas,
-  setStoredAgendas,
-  getStoredSembakoEvents,
-  setStoredSembakoEvents,
-  getStoredSembakoClaims,
-  setStoredSembakoClaims,
-  getStoredVehicles,
-  setStoredVehicles,
-  getStoredFinance,
-  setStoredFinance,
-  getStoredFundraising,
-  setStoredFundraising,
-  getStoredAuditLogs,
-  sortAuditLogsNewestFirst,
-  getStoredUsers,
-  setStoredUsers,
-  getStoredSeverance,
-  setStoredSeverance,
-} from '../lib/storage';
+import { sortAuditLogsNewestFirst } from '../lib/storage';
 import { SeveranceCalculationResult } from '../types/severance';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 
 export const useAppData = () => {
-  const [members, setMembers] = useState<Member[]>(() => getStoredMembers());
-  const [advocacyCases, setAdvocacyCases] = useState<AdvocacyCase[]>(() => getStoredAdvocacy());
-  const [sickVisits, setSickVisits] = useState<SickVisit[]>(() => getStoredSickVisits());
-  const [agendas, setAgendas] = useState<OrganizationAgenda[]>(() => getStoredAgendas());
-  const [sembakoEvents, setSembakoEvents] = useState<SembakoEvent[]>(() => getStoredSembakoEvents());
-  const [sembakoClaims, setSembakoClaims] = useState<SembakoClaim[]>(() => getStoredSembakoClaims());
-  const [vehicleLogs, setVehicleLogs] = useState<VehicleLog[]>(() => getStoredVehicles());
-  const [financeRecords, setFinanceRecords] = useState<FinanceDailyRecord[]>(() => getStoredFinance());
-  const [auditLogs, setAuditLogs] = useState<AuditLog[]>(() => getStoredAuditLogs());
-  const [fundraisingCampaigns, setFundraisingCampaigns] = useState<FundraisingCampaign[]>(() => getStoredFundraising());
-  const [users, setUsers] = useState<UserAccount[]>(() => getStoredUsers());
-  const [severanceCalculations, setSeveranceCalculations] = useState<SeveranceCalculationResult[]>(() => getStoredSeverance());
+  const [members, setMembers] = useState<Member[]>([]);
+  const [advocacyCases, setAdvocacyCases] = useState<AdvocacyCase[]>([]);
+  const [sickVisits, setSickVisits] = useState<SickVisit[]>([]);
+  const [agendas, setAgendas] = useState<OrganizationAgenda[]>([]);
+  const [sembakoEvents, setSembakoEvents] = useState<SembakoEvent[]>([]);
+  const [sembakoClaims, setSembakoClaims] = useState<SembakoClaim[]>([]);
+  const [vehicleLogs, setVehicleLogs] = useState<VehicleLog[]>([]);
+  const [financeRecords, setFinanceRecords] = useState<FinanceDailyRecord[]>([]);
+  const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
+  const [fundraisingCampaigns, setFundraisingCampaigns] = useState<FundraisingCampaign[]>([]);
+  const [users, setUsers] = useState<UserAccount[]>([]);
+  const [severanceCalculations, setSeveranceCalculations] = useState<SeveranceCalculationResult[]>([]);
+  const [isSyncOffline, setIsSyncOffline] = useState<boolean>(false);
 
   useEffect(() => {
-    const unsubMembers = repositories.members.subscribe(getStoredMembers(), (items) => {
+    const handleErr = (err: Error) => {
+      console.warn('Firestore subscription offline or error:', err.message);
+      setIsSyncOffline(true);
+    };
+
+    const unsubMembers = repositories.members.subscribe([], (items) => {
+      setIsSyncOffline(false);
       const formatted = items.map(m => ({
         ...m,
         fotoUrl: m.fotoUrl || cheAvatar
       }));
       setMembers(formatted);
-      setStoredMembers(formatted);
-    });
+    }, handleErr);
 
-    const unsubAdvocacy = repositories.advocacy.subscribe(getStoredAdvocacy(), (items) => {
+    const unsubAdvocacy = repositories.advocacy.subscribe([], (items) => {
+      setIsSyncOffline(false);
       setAdvocacyCases(items);
-      setStoredAdvocacy(items);
-    });
+    }, handleErr);
 
-    const unsubSickVisits = repositories.sickVisits.subscribe(getStoredSickVisits(), (items) => {
+    const unsubSickVisits = repositories.sickVisits.subscribe([], (items) => {
+      setIsSyncOffline(false);
       setSickVisits(items);
-      setStoredSickVisits(items);
-    });
+    }, handleErr);
 
-    const unsubFundraising = repositories.fundraising.subscribe(getStoredFundraising(), (items) => {
+    const unsubFundraising = repositories.fundraising.subscribe([], (items) => {
+      setIsSyncOffline(false);
       setFundraisingCampaigns(items);
-      setStoredFundraising(items);
-    });
+    }, handleErr);
 
-    const unsubAgendas = repositories.agendas.subscribe(getStoredAgendas(), (items) => {
+    const unsubAgendas = repositories.agendas.subscribe([], (items) => {
+      setIsSyncOffline(false);
       setAgendas(items);
-      setStoredAgendas(items);
-    });
+    }, handleErr);
 
-    const unsubSembakoEvents = repositories.sembakoEvents.subscribe(getStoredSembakoEvents(), (items) => {
+    const unsubSembakoEvents = repositories.sembakoEvents.subscribe([], (items) => {
+      setIsSyncOffline(false);
       setSembakoEvents(items);
-      setStoredSembakoEvents(items);
-    });
+    }, handleErr);
 
-    const unsubSembakoClaims = repositories.sembakoClaims.subscribe(getStoredSembakoClaims(), (items) => {
+    const unsubSembakoClaims = repositories.sembakoClaims.subscribe([], (items) => {
+      setIsSyncOffline(false);
       setSembakoClaims(items);
-      setStoredSembakoClaims(items);
-    });
+    }, handleErr);
 
-    const unsubVehicles = repositories.vehicles.subscribe(getStoredVehicles(), (items) => {
+    const unsubVehicles = repositories.vehicles.subscribe([], (items) => {
+      setIsSyncOffline(false);
       setVehicleLogs(items);
-      setStoredVehicles(items);
-    });
+    }, handleErr);
 
-    const unsubFinance = repositories.finance.subscribe(getStoredFinance(), (items) => {
+    const unsubFinance = repositories.finance.subscribe([], (items) => {
+      setIsSyncOffline(false);
       setFinanceRecords(items);
-      setStoredFinance(items);
-    });
+    }, handleErr);
 
-    const unsubUsers = repositories.users.subscribe(getStoredUsers(), (items) => {
+    const unsubUsers = repositories.users.subscribe([], (items) => {
+      setIsSyncOffline(false);
       const formatted = items.map(u => ({
         ...u,
         avatarUrl: u.avatarUrl || cheAvatar
       }));
       setUsers(formatted);
-      setStoredUsers(formatted);
-    });
+    }, handleErr);
 
-    const unsubSeverance = repositories.severanceCalculations.subscribe(getStoredSeverance(), (items) => {
+    const unsubSeverance = repositories.severanceCalculations.subscribe([], (items) => {
+      setIsSyncOffline(false);
       setSeveranceCalculations(items);
-      setStoredSeverance(items);
-    });
+    }, handleErr);
 
-    const unsubAudit = auditLogRepository.subscribe(getStoredAuditLogs(), (items) => {
+    const unsubAudit = auditLogRepository.subscribe([], (items) => {
+      setIsSyncOffline(false);
       setAuditLogs(sortAuditLogsNewestFirst(items));
-    });
+    }, handleErr);
 
     return () => {
       unsubMembers();
@@ -153,6 +135,7 @@ export const useAppData = () => {
     auditLogs, setAuditLogs,
     fundraisingCampaigns, setFundraisingCampaigns,
     users, setUsers,
-    severanceCalculations, setSeveranceCalculations
+    severanceCalculations, setSeveranceCalculations,
+    isSyncOffline
   };
 };

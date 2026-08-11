@@ -18,7 +18,6 @@ export const INITIAL_USERS: UserAccount[] = [
   {
     id: 'usr-superadmin',
     username: 'sbnkasbivci1',
-    password: 'superadmin1',
     name: 'Super Admin SBN KASBI',
     email: 'superadmin@sbn-kasbi-vci.or.id',
     nik: 'SA-00001',
@@ -31,7 +30,6 @@ export const INITIAL_USERS: UserAccount[] = [
   {
     id: 'usr-1',
     username: 'pengurus1',
-    password: 'pengurus123',
     name: 'Awaludin',
     email: 'awaludin@sbn-kasbi-vci.or.id',
     nik: '010670',
@@ -43,7 +41,6 @@ export const INITIAL_USERS: UserAccount[] = [
   {
     id: 'usr-2',
     username: 'ketua1',
-    password: 'ketua123',
     name: 'Darja',
     email: 'darja@sbn-kasbi-vci.or.id',
     nik: '016373',
@@ -55,7 +52,6 @@ export const INITIAL_USERS: UserAccount[] = [
   {
     id: 'usr-3',
     username: 'sekretaris1',
-    password: 'sekretaris123',
     name: 'Heri Fadli',
     email: 'herifadli@sbn-kasbi-vci.or.id',
     nik: '021224',

@@ -8,6 +8,8 @@ import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { compressImage } from '../lib/imageUtils';
 import { CameraCaptureModal } from './CameraCaptureModal';
 import { INITIAL_USERS } from '../data/initialData';
+import { auth } from '../lib/firebase';
+import { updatePassword } from 'firebase/auth';
 
 interface ProfileModuleProps {
   currentUser: UserAccount;
@@ -74,44 +76,21 @@ export const ProfileModule: React.FC<ProfileModuleProps> = ({ currentUser, onUpd
     setTimeout(() => setSaveSuccess(false), 3000);
   };
 
-  const handleChangePassword = (e: React.FormEvent) => {
+  const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     setPassError(null);
     setPassSuccess(null);
 
-    const inputOld = oldPassword.trim();
     const inputNew = newPassword.trim();
     const inputConfirm = confirmPassword.trim();
-
-    if (!inputOld) {
-      setPassError('Password lama / saat ini wajib diisi!');
-      return;
-    }
-
-    // Determine expected current password
-    const defaultFallbackPass = INITIAL_USERS.find(u => 
-      (u.id && u.id === currentUser.id) || 
-      (u.username && u.username.toLowerCase() === currentUser.username?.toLowerCase())
-    )?.password;
-
-    const currentExpectedPass = currentUser.password || defaultFallbackPass || (currentUser.username?.toLowerCase() === 'sbnkasbivci1' ? 'superadmin1' : '123456');
-
-    const isOldValid = 
-      inputOld === currentExpectedPass || 
-      inputOld.toLowerCase() === currentExpectedPass.toLowerCase();
-
-    if (!isOldValid) {
-      setPassError('Password lama yang Anda masukkan salah!');
-      return;
-    }
 
     if (!inputNew) {
       setPassError('Password baru wajib diisi!');
       return;
     }
 
-    if (inputNew.length < 4) {
-      setPassError('Password baru minimal 4 karakter!');
+    if (inputNew.length < 6) {
+      setPassError('Password baru minimal 6 karakter!');
       return;
     }
 
@@ -120,20 +99,33 @@ export const ProfileModule: React.FC<ProfileModuleProps> = ({ currentUser, onUpd
       return;
     }
 
-    // Save updated password to database and state
-    onUpdateUser({
-      ...currentUser,
-      password: inputNew,
-      avatarUrl: photoUrl,
-      phoneNumber: phone,
-      email: email
-    });
+    try {
+      if (auth.currentUser) {
+        await updatePassword(auth.currentUser, inputNew);
+      } else {
+        throw new Error('Sesi Firebase Auth tidak ditemukan. Silakan login kembali.');
+      }
 
-    setPassSuccess('Password berhasil diperbarui dan tersimpan di database! Gunakan password baru ini untuk login berikutnya.');
-    setOldPassword('');
-    setNewPassword('');
-    setConfirmPassword('');
-    setTimeout(() => setPassSuccess(null), 5000);
+      onUpdateUser({
+        ...currentUser,
+        avatarUrl: photoUrl,
+        phoneNumber: phone,
+        email: email
+      });
+
+      setPassSuccess('Password berhasil diperbarui via Firebase Authentication! Gunakan password baru ini untuk login berikutnya.');
+      setOldPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+      setTimeout(() => setPassSuccess(null), 5000);
+    } catch (err: any) {
+      console.error('Password change error:', err);
+      if (err.code === 'auth/requires-recent-login') {
+        setPassError('Sesi Anda sudah lama. Silakan logout dan login kembali sebelum mengubah password.');
+      } else {
+        setPassError(err.message || 'Gagal mengubah password via Firebase Auth.');
+      }
+    }
   };
 
   return (

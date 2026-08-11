@@ -62,8 +62,11 @@ import {
   deleteFirestoreDoc
 } from './lib/firebase';
 
+import { auth } from './lib/firebase';
+import { onAuthStateChanged, signOut as firebaseSignOut } from 'firebase/auth';
+
 export default function App() {
-  // State Initialization from LocalStorage & Firestore via Hook
+  // State Initialization from Firestore via Hook
   const {
     members, setMembers,
     advocacyCases, setAdvocacyCases,
@@ -76,33 +79,60 @@ export default function App() {
     auditLogs, setAuditLogs,
     fundraisingCampaigns, setFundraisingCampaigns,
     users, setUsers,
-    severanceCalculations
+    severanceCalculations,
+    isSyncOffline
   } = useAppData();
 
   const [currentUser, setCurrentUserAccount] = useState<UserAccount>(() => getCurrentUser());
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  // Authentication State with "Remember Me" / session check
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
-    return localStorage.getItem('sbn_vci_logged_in') === 'true' || sessionStorage.getItem('sbn_vci_logged_in') === 'true';
-  });
+  // Subscribe to Firebase Authentication state
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        setIsLoggedIn(true);
+        // Match user profile in loaded users array or construct profile
+        const emailLower = firebaseUser.email?.toLowerCase() || '';
+        let matched = users.find(u => u.id === firebaseUser.uid || u.email?.toLowerCase() === emailLower);
+        if (!matched) {
+          const isSA = emailLower === 'superadmin@sbn-kasbi-vci.or.id';
+          matched = {
+            id: firebaseUser.uid,
+            username: isSA ? 'sbnkasbivci1' : (emailLower ? emailLower.split('@')[0] : 'user'),
+            name: isSA ? 'Super Admin SBN KASBI' : (firebaseUser.displayName || 'Pengurus SBN KASBI'),
+            email: firebaseUser.email || 'user@sbn-kasbi-vci.or.id',
+            nik: isSA ? 'SA-00001' : '010000',
+            role: isSA ? 'Super Admin' : 'Pengurus',
+            department: isSA ? 'Dewan Pimpinan Utama' : 'PT Victory Chingluh Indonesia',
+            isSuperAdmin: isSA,
+            avatarUrl: cheAvatar
+          };
+          saveFirestoreDoc('users', matched).catch(err => console.warn('Could not auto-save user profile to firestore', err));
+        }
+        setCurrentUserAccount(matched);
+        setCurrentUser(matched);
+      } else {
+        setIsLoggedIn(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [users]);
 
   const handleLoginSuccess = (user: UserAccount, rememberMe: boolean) => {
     setCurrentUserAccount(user);
     setCurrentUser(user);
     setIsLoggedIn(true);
-
-    if (rememberMe) {
-      localStorage.setItem('sbn_vci_logged_in', 'true');
-    } else {
-      sessionStorage.setItem('sbn_vci_logged_in', 'true');
-      localStorage.removeItem('sbn_vci_logged_in');
-    }
-
     playNotificationSound();
     createLog('Sistem', 'Login', `Pengurus ${user.name} (${user.role}) berhasil masuk ke sistem`);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await firebaseSignOut(auth);
+    } catch (e) {
+      console.warn('Firebase signOut error:', e);
+    }
     localStorage.removeItem('sbn_vci_logged_in');
     sessionStorage.removeItem('sbn_vci_logged_in');
     setIsLoggedIn(false);
@@ -703,6 +733,14 @@ export default function App() {
         unreadCount={activeNotifications.length}
         onLogout={handleLogout}
       />
+
+      {/* Offline Sync Status Banner */}
+      {isSyncOffline && (
+        <div className="bg-amber-500/20 border-b border-amber-500/40 text-amber-200 px-4 py-2 text-xs font-bold text-center flex items-center justify-center gap-2 z-20">
+          <ShieldAlert className="w-4 h-4 text-amber-400 animate-pulse shrink-0" />
+          <span>OFFLINE — DATA BELUM TERSINKRON</span>
+        </div>
+      )}
 
       {/* Drawer Sidebar Navigation */}
       <Sidebar

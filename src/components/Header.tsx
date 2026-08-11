@@ -28,6 +28,8 @@ import { UserAccount, UserRole, checkIsSuperAdmin } from '../types';
 import { ConfirmModal } from './ConfirmModal';
 import { AndroidInstallModal } from './AndroidInstallModal';
 import { INITIAL_USERS } from '../data/initialData';
+import { auth } from '../lib/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { FsbnLogo } from './FsbnLogo';
 import fsbnLogo from '../assets/images/fsbn_logo_emblem_1785338169849.jpg';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
@@ -128,42 +130,50 @@ export const Header: React.FC<HeaderProps> = ({
 
   const availableUsers = users.length > 0 ? users : [currentUser];
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError(null);
 
     const uName = inputUsername.trim().toLowerCase();
     const uPass = inputPassword.trim();
 
-    let targetUser = availableUsers.find(u => 
-      (u.username && u.username.trim().toLowerCase() === uName) || 
-      (u.name && u.name.trim().toLowerCase() === uName) ||
-      (u.email && u.email.trim().toLowerCase() === uName) ||
-      (u.nik && u.nik.trim().toLowerCase() === uName)
-    );
-
-    if (!targetUser && (uName === 'sbnkasbivci1' || uName === 'superadmin' || uName === 'superadmin@sbn-kasbi-vci.or.id')) {
-      targetUser = INITIAL_USERS[0];
-    }
-
-    if (!targetUser) {
-      setLoginError('Username/NIK tidak ditemukan!');
+    if (!uName || !uPass) {
+      setLoginError('Username/Email dan Password wajib diisi!');
       return;
     }
 
-    const expectedPass = targetUser.password || (targetUser.username?.toLowerCase() === 'sbnkasbivci1' ? 'superadmin1' : '');
-    const isPassValid = expectedPass === uPass || expectedPass.toLowerCase() === uPass.toLowerCase();
+    try {
+      let emailToUse = uName;
+      if (!emailToUse.includes('@')) {
+        const found = availableUsers.find(u => 
+          (u.username && u.username.trim().toLowerCase() === uName) ||
+          (u.nik && u.nik.trim().toLowerCase() === uName)
+        );
+        if (found && found.email) {
+          emailToUse = found.email;
+        } else if (uName === 'sbnkasbivci1' || uName === 'superadmin') {
+          emailToUse = 'superadmin@sbn-kasbi-vci.or.id';
+        } else {
+          emailToUse = `${uName}@sbn-kasbi-vci.or.id`;
+        }
+      }
 
-    if (!isPassValid) {
-      setLoginError('Password tidak sesuai!');
-      return;
+      const userCred = await signInWithEmailAndPassword(auth, emailToUse, uPass);
+      const firebaseUser = userCred.user;
+
+      let targetUser = availableUsers.find(u => u.id === firebaseUser.uid || u.email?.toLowerCase() === emailToUse.toLowerCase());
+      if (!targetUser) {
+        targetUser = availableUsers.find(u => u.username?.toLowerCase() === uName) || INITIAL_USERS[0];
+      }
+
+      onSwitchUser(targetUser);
+      setIsLoginModalOpen(false);
+      setInputUsername('');
+      setInputPassword('');
+    } catch (err: any) {
+      console.error('Header Auth switch error:', err);
+      setLoginError('Password atau kredensial yang Anda masukkan salah!');
     }
-
-    // Success login
-    onSwitchUser(targetUser);
-    setIsLoginModalOpen(false);
-    setInputUsername('');
-    setInputPassword('');
   };
 
   return (

@@ -884,8 +884,8 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
                   <h2 className="font-black text-[6.5px] text-black uppercase">FEDERASI SERIKAT BURUH NUSANTARA</h2>
                   <h3 className="font-bold text-[5.5px] text-black">SBA Konfederasi KASBI</h3>
                 </div>
-                <div className="bg-[#ff0000] border border-black rounded-[3px] p-[1px] flex items-center justify-center h-[30px] text-white font-black text-[7px]">
-                  KASBI
+                <div className="bg-black border border-black rounded-[3px] p-[0.5px] flex items-center justify-center h-[30px] overflow-hidden">
+                  <img src={logoKasbiUrl || '/kasbi_logo.svg'} alt="Logo KASBI" className="w-full h-full object-contain" />
                 </div>
               </div>
               <div className="bg-[#ffff00] border border-black rounded-[2px] py-[1px] text-center">

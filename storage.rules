@@ -1,32 +1,70 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
+    
+    // Default deny catch-all
     match /{allPaths=**} {
       allow read, write: if false;
     }
 
-    match /notulensi/{agendaId}/{attachmentId}/{fileName} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null 
-                   && request.resource.size < 20 * 1024 * 1024
-                   && (request.resource.contentType.matches('application/pdf')
-                       || request.resource.contentType.matches('application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                       || request.resource.contentType.matches('application/msword')
-                       || request.resource.contentType.matches('image/.*'));
+    function isSignedIn() {
+      return request.auth != null;
     }
 
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+
+    function isDocument() {
+      return request.resource.contentType.matches('application/pdf') ||
+             request.resource.contentType.matches('application/msword') ||
+             request.resource.contentType.matches('application/vnd.openxmlformats-officedocument.wordprocessingml.document') ||
+             request.resource.contentType.matches('application/vnd.ms-excel') ||
+             request.resource.contentType.matches('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    }
+
+    function isWithin5MB() {
+      return request.resource.size < 5 * 1024 * 1024;
+    }
+
+    function isWithin20MB() {
+      return request.resource.size < 20 * 1024 * 1024;
+    }
+
+    // User avatars
     match /avatars/{userId}/{fileName} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null 
-                   && request.resource.size < 5 * 1024 * 1024
-                   && request.resource.contentType.matches('image/.*');
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isWithin5MB() && isImage();
     }
 
+    // Member photos
     match /members/{memberId}/{fileName} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null 
-                   && request.resource.size < 5 * 1024 * 1024
-                   && request.resource.contentType.matches('image/.*');
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isWithin5MB() && isImage();
+    }
+
+    // Agenda & minute attachments
+    match /notulensi/{agendaId}/{attachmentId}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isWithin20MB() && (isImage() || isDocument());
+    }
+
+    // Advocacy attachments
+    match /advocacy/{caseId}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isWithin20MB() && (isImage() || isDocument());
+    }
+
+    // Sick visit attachments
+    match /sickVisits/{visitId}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isWithin20MB() && (isImage() || isDocument());
+    }
+
+    // General uploads
+    match /uploads/{folder}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isWithin20MB() && (isImage() || isDocument());
     }
   }
 }

@@ -26,6 +26,9 @@ import { ConfirmModal } from './ConfirmModal';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { STRUKTUR_PENGURUS_DATA } from '../data/strukturPengurusData';
 
+import { auth } from '../lib/firebase';
+import { updatePassword } from 'firebase/auth';
+
 interface SuperAdminModuleProps {
   users: UserAccount[];
   currentUser: UserAccount;
@@ -96,18 +99,12 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
   ];
 
   // Handler: Update Super Admin Password / Username
-  const handleSaveSuperAdminPassword = (e: React.FormEvent) => {
+  const handleSaveSuperAdminPassword = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaMessage(null);
 
-    // Verify old password if set
-    if (superAdminAccount.password && saOldPassword !== superAdminAccount.password) {
-      setSaMessage({ type: 'error', text: 'Password lama Super Admin tidak cocok!' });
-      return;
-    }
-
-    if (!saNewPassword || saNewPassword.length < 4) {
-      setSaMessage({ type: 'error', text: 'Password baru minimal 4 karakter!' });
+    if (!saNewPassword || saNewPassword.length < 6) {
+      setSaMessage({ type: 'error', text: 'Password baru minimal 6 karakter!' });
       return;
     }
 
@@ -116,23 +113,33 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
       return;
     }
 
-    const updatedSA: UserAccount = {
-      ...superAdminAccount,
-      username: saUsername.trim() || 'sbnkasbivci1',
-      password: saNewPassword,
-      role: 'Super Admin',
-      isSuperAdmin: true
-    };
+    try {
+      if (auth.currentUser) {
+        await updatePassword(auth.currentUser, saNewPassword);
+      } else {
+        throw new Error('Sesi Firebase Auth tidak ditemukan. Silakan login kembali.');
+      }
 
-    onUpdateUser(updatedSA);
-    if (onLogAudit) {
-      onLogAudit('Sistem', 'Ubah Password Super Admin', `Super Admin mengubah username menjadi (${updatedSA.username}) dan memperbarui password.`);
+      const updatedSA: UserAccount = {
+        ...superAdminAccount,
+        username: saUsername.trim() || 'sbnkasbivci1',
+        role: 'Super Admin',
+        isSuperAdmin: true
+      };
+
+      onUpdateUser(updatedSA);
+      if (onLogAudit) {
+        onLogAudit('Sistem', 'Ubah Password Super Admin', `Super Admin mengubah username menjadi (${updatedSA.username}) dan memperbarui password via Firebase Auth.`);
+      }
+
+      setSaMessage({ type: 'success', text: 'Password Super Admin berhasil diperbarui via Firebase Authentication!' });
+      setSaOldPassword('');
+      setSaNewPassword('');
+      setSaConfirmPassword('');
+    } catch (err: any) {
+      console.error('SA Password update error:', err);
+      setSaMessage({ type: 'error', text: err.message || 'Gagal memperbarui password Super Admin via Firebase Auth.' });
     }
-
-    setSaMessage({ type: 'success', text: 'Password Super Admin berhasil diperbarui!' });
-    setSaOldPassword('');
-    setSaNewPassword('');
-    setSaConfirmPassword('');
   };
 
   // Handler: Toggle password visibility in table

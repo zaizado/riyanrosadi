@@ -15,7 +15,11 @@ export abstract class BaseRepository<T extends { id: string }> {
     await deleteFirestoreDoc(this.collectionName, id);
   }
 
-  public subscribe(initialItems: T[], onUpdate: (items: T[]) => void): () => void {
-    return subscribeCollection<T>(this.collectionName, initialItems, onUpdate);
+  public subscribe(
+    initialItems: T[], 
+    onUpdate: (items: T[]) => void, 
+    onError?: (err: Error) => void
+  ): () => void {
+    return subscribeCollection<T>(this.collectionName, initialItems, onUpdate, onError);
   }
 }
