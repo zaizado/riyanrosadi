@@ -51,14 +51,12 @@ service cloud.firestore {
 
     // 1. Collection `users`
     match /users/{userId} {
-      allow read: if isSignedIn();
+      allow read: if isSignedIn() && (isPengurus() || request.auth.uid == userId);
       allow create: if isSignedIn() && (
         isSuperAdmin() ||
         (
           request.auth.uid == userId &&
-          request.resource.data.get('role', 'Pengurus') != 'Super Admin' &&
-          request.resource.data.get('role', 'Pengurus') != 'Admin' &&
-          request.resource.data.get('role', 'Pengurus') != 'Administrator' &&
+          !(request.resource.data.get('role', 'Pengurus') in ['Super Admin', 'Admin', 'Administrator', 'Ketua', 'Sekretaris']) &&
           request.resource.data.get('isSuperAdmin', false) != true &&
           request.resource.data.get('isAdmin', false) != true
         )
@@ -177,7 +175,7 @@ service cloud.firestore {
 
     // 17. Collection `userClearedNotifs`
     match /userClearedNotifs/{docId} {
-      allow read, write: if isSignedIn();
+      allow read, write: if isSignedIn() && (request.auth.uid == docId || docId.startsWith(request.auth.uid));
     }
   }
 }

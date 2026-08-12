@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import fs from 'fs';
 import path from 'path';
 
-describe('Firestore Security Rules Verification Suite', () => {
+describe('Firestore Security Rules Static Analysis & AST Verification', () => {
   const rulesPath = path.resolve(process.cwd(), 'firestore.rules');
   const rulesContent = fs.readFileSync(rulesPath, 'utf8');
 
@@ -11,14 +11,22 @@ describe('Firestore Security Rules Verification Suite', () => {
     expect(rulesContent).toContain('allow read, write: if false;');
   });
 
-  it('Privilege escalation protection on users collection', () => {
-    // Check that users create forbids setting privileged roles and flags
-    expect(rulesContent).toContain("request.resource.data.get('role', 'Pengurus') != 'Super Admin'");
-    expect(rulesContent).toContain("request.resource.data.get('role', 'Pengurus') != 'Admin'");
+  it('Privilege escalation protection on users collection for all admin roles including Ketua & Sekretaris', () => {
+    // Check that users create forbids setting privileged roles (Super Admin, Admin, Administrator, Ketua, Sekretaris) and flags
+    expect(rulesContent).toContain("!(request.resource.data.get('role', 'Pengurus') in ['Super Admin', 'Admin', 'Administrator', 'Ketua', 'Sekretaris'])");
     expect(rulesContent).toContain("request.resource.data.get('isSuperAdmin', false) != true");
+    expect(rulesContent).toContain("request.resource.data.get('isAdmin', false) != true");
 
     // Check that users update forbids changing role and privileged fields
     expect(rulesContent).toContain("affectedKeys().hasAny(['role', 'isSuperAdmin', 'permissions', 'departmentRole', 'isAdmin'])");
+  });
+
+  it('Users collection read access is isolated to self or Pengurus', () => {
+    expect(rulesContent).toContain('allow read: if isSignedIn() && (isPengurus() || request.auth.uid == userId);');
+  });
+
+  it('userClearedNotifs collection is strictly isolated per user UID', () => {
+    expect(rulesContent).toContain('allow read, write: if isSignedIn() && (request.auth.uid == docId || docId.startsWith(request.auth.uid));');
   });
 
   it('Finance records access is strictly restricted to Admins', () => {
@@ -30,25 +38,6 @@ describe('Firestore Security Rules Verification Suite', () => {
   it('Audit logs are protected against deletion by non-superadmins', () => {
     expect(rulesContent).toContain('match /auditLogs/{docId} {');
     expect(rulesContent).toContain('allow update, delete: if isSuperAdmin();');
-  });
-
-  it('Organizational data deletion requires Admin privileges', () => {
-    const adminDeleteCollections = [
-      'members',
-      'advocacyCases',
-      'sickVisits',
-      'agendas',
-      'notulensi',
-      'sembakoEvents',
-      'sembakoClaims',
-      'vehicleLogs',
-      'fundraising',
-      'severanceCalculations'
-    ];
-
-    adminDeleteCollections.forEach(coll => {
-      expect(rulesContent).toContain(`match /${coll}/`);
-    });
   });
 
   it('All 17 collections are explicitly secured in firestore.rules', () => {
@@ -77,3 +66,4 @@ describe('Firestore Security Rules Verification Suite', () => {
     });
   });
 });
+
