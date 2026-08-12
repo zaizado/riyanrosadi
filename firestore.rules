@@ -25,8 +25,8 @@ service cloud.firestore {
 
     // Rules for `users` collection - users cannot elevate their own role or permissions
     match /users/{userId} {
-      allow read: if isSignedIn();
-      allow create: if isSignedIn();
+      allow read: if true;
+      allow create: if true;
       allow update: if isSignedIn() && (
         isSuperAdmin() || 
         (request.auth.uid == userId && 
@@ -35,56 +35,71 @@ service cloud.firestore {
       allow delete: if isSuperAdmin();
     }
 
-    // Rules for organization data collections - requires authentication
+    // Rules for organization data collections
     match /members/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if true;
+      allow write: if isSignedIn();
     }
     match /advocacyCases/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if true;
+      allow write: if isSignedIn();
     }
     match /sickVisits/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if true;
+      allow write: if isSignedIn();
     }
     match /agendas/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if true;
+      allow write: if isSignedIn();
     }
     match /sembakoEvents/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if true;
+      allow write: if isSignedIn();
     }
     match /sembakoClaims/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if true;
+      allow write: if isSignedIn();
     }
     match /auditLogs/{docId} {
-      allow read: if isSignedIn();
-      allow create: if isSignedIn();
+      allow read: if true;
+      allow create: if true;
       allow update, delete: if isSuperAdmin();
     }
     match /vehicleLogs/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if true;
+      allow write: if isSignedIn();
     }
     match /financeRecords/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if true;
+      allow write: if isSignedIn();
     }
     match /fundraising/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if true;
+      allow write: if isSignedIn();
     }
     match /criticalNews/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if true;
+      allow write: if isSignedIn();
     }
     match /severanceCalculations/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if true;
+      allow write: if isSignedIn();
     }
     match /severanceRules/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if true;
+      allow write: if isSignedIn();
     }
     match /userClearedNotifs/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if true;
+      allow write: if true;
     }
     match /notulensi/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if true;
+      allow write: if isSignedIn();
     }
     match /importHistory/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if true;
+      allow write: if isSignedIn();
     }
   }
 }
