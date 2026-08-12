@@ -99,7 +99,6 @@ export const formatRupiah = (amount: number): string => {
 export const resetAllData = () => {
   try {
     localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
-    localStorage.removeItem('sbn_vci_deleted_member_audits');
   } catch (err) {
     console.warn('Could not clear local session keys:', err);
   }

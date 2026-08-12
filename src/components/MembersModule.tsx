@@ -29,7 +29,7 @@ import {
 } from 'lucide-react';
 import * as XLSX from 'xlsx';
 import Papa from 'papaparse';
-import { Member, Gender, EmploymentStatus, MemberStatus, ShiftType, UserAccount, DeletedMemberAudit } from '../types';
+import { Member, Gender, EmploymentStatus, MemberStatus, ShiftType, UserAccount, DeletedMemberAudit, AuditLog } from '../types';
 import { ConfirmModal } from './ConfirmModal';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { compressImage } from '../lib/imageUtils';
@@ -66,6 +66,7 @@ interface SyncPreviewAnalysis {
 
 interface MembersModuleProps {
   members: Member[];
+  auditLogs?: AuditLog[];
   onAddMember: (newMember: Member) => void;
   onUpdateMember: (updatedMember: Member) => void;
   onDeleteMember: (memberId: string) => void;
@@ -76,6 +77,7 @@ interface MembersModuleProps {
 
 export const MembersModule: React.FC<MembersModuleProps> = ({
   members,
+  auditLogs = [],
   onAddMember,
   onUpdateMember,
   onDeleteMember,
@@ -103,14 +105,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
   const [deleteReason, setDeleteReason] = useState<string>('Mengundurkan Diri / Resign');
   const [deleteNotesManual, setDeleteNotesManual] = useState<string>('');
   const [deleteError, setDeleteError] = useState<string | null>(null);
-  const [deletedAudits, setDeletedAudits] = useState<DeletedMemberAudit[]>(() => {
-    try {
-      const saved = localStorage.getItem('sbn_vci_deleted_member_audits');
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
-  });
+  const [deletedAudits, setDeletedAudits] = useState<DeletedMemberAudit[]>([]);
   const [isAuditModalOpen, setIsAuditModalOpen] = useState<boolean>(false);
 
   // Excel Sync Modal State
@@ -664,11 +659,6 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
     const updatedAudits = [auditRecord, ...deletedAudits];
     setDeletedAudits(updatedAudits);
-    try {
-      localStorage.setItem('sbn_vci_deleted_member_audits', JSON.stringify(updatedAudits));
-    } catch (err) {
-      console.error('Gagal menyimpan audit log ke localStorage:', err);
-    }
 
     // Execute member deletion
     onDeleteMember(memberToDelete.id);

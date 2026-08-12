@@ -37,6 +37,10 @@ class SyncManager {
     }
   }
 
+  public setOnlineState(online: boolean) {
+    this.handleNetworkChange(online);
+  }
+
   private handleNetworkChange(online: boolean) {
     this.isOnline = online;
     if (!online) {

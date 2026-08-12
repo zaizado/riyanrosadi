@@ -794,6 +794,7 @@ export default function App() {
               {activeTab === 'members' && (
                 <MembersModule
                   members={members}
+                  auditLogs={auditLogs}
                   onAddMember={handleAddMember}
                   onUpdateMember={handleUpdateMember}
                   onDeleteMember={handleDeleteMember}

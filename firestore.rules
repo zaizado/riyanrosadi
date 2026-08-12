@@ -7,8 +7,13 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
+    // Helper Functions
     function isSignedIn() {
       return request.auth != null;
+    }
+
+    function isUserDocExist() {
+      return isSignedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
     }
 
     function getUserData() {
@@ -18,80 +23,160 @@ service cloud.firestore {
     function isSuperAdmin() {
       return isSignedIn() && (
         request.auth.token.email == 'superadmin@sbn-kasbi-vci.or.id' ||
-        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
-          (getUserData().get('role', '') == 'Super Admin' || getUserData().get('isSuperAdmin', false) == true))
+        (isUserDocExist() && (
+          getUserData().get('role', '') == 'Super Admin' || 
+          getUserData().get('isSuperAdmin', false) == true
+        ))
       );
     }
 
     function isAdmin() {
       return isSignedIn() && (
         isSuperAdmin() ||
-        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
-          (getUserData().get('role', '') == 'Admin'))
+        (isUserDocExist() && (
+          getUserData().get('role', '') == 'Admin' ||
+          getUserData().get('role', '') == 'Administrator' ||
+          getUserData().get('role', '') == 'Ketua' ||
+          getUserData().get('role', '') == 'Sekretaris'
+        ))
       );
     }
 
-    // Rules for `users` collection - users cannot elevate their own role or permissions
+    function isPengurus() {
+      return isSignedIn() && (
+        isAdmin() ||
+        (isUserDocExist() && getUserData().get('role', '') == 'Pengurus')
+      );
+    }
+
+    // 1. Collection `users`
     match /users/{userId} {
       allow read: if isSignedIn();
-      allow create: if isSignedIn();
+      allow create: if isSignedIn() && (
+        isSuperAdmin() ||
+        (
+          request.auth.uid == userId &&
+          request.resource.data.get('role', 'Pengurus') != 'Super Admin' &&
+          request.resource.data.get('role', 'Pengurus') != 'Admin' &&
+          request.resource.data.get('role', 'Pengurus') != 'Administrator' &&
+          request.resource.data.get('isSuperAdmin', false) != true &&
+          request.resource.data.get('isAdmin', false) != true
+        )
+      );
       allow update: if isSignedIn() && (
-        isSuperAdmin() || 
-        (request.auth.uid == userId && 
-         !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'isSuperAdmin', 'permissions', 'departmentRole']))
+        isSuperAdmin() ||
+        (
+          request.auth.uid == userId &&
+          !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'isSuperAdmin', 'permissions', 'departmentRole', 'isAdmin'])
+        )
       );
       allow delete: if isSuperAdmin();
     }
 
-    // Rules for organization data collections - protected by authenticated session
+    // 2. Collection `members`
     match /members/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if isSignedIn();
+      allow create, update: if isPengurus();
+      allow delete: if isAdmin();
     }
+
+    // 3. Collection `advocacyCases`
     match /advocacyCases/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if isSignedIn();
+      allow create, update: if isPengurus();
+      allow delete: if isAdmin();
     }
+
+    // 4. Collection `sickVisits`
     match /sickVisits/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if isSignedIn();
+      allow create, update: if isPengurus();
+      allow delete: if isAdmin();
     }
+
+    // 5. Collection `agendas`
     match /agendas/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if isSignedIn();
+      allow create, update: if isPengurus();
+      allow delete: if isAdmin();
     }
+
+    // 6. Collection `notulensi`
+    match /notulensi/{docId} {
+      allow read: if isSignedIn();
+      allow create, update: if isPengurus();
+      allow delete: if isAdmin();
+    }
+
+    // 7. Collection `sembakoEvents`
     match /sembakoEvents/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if isSignedIn();
+      allow create, update: if isPengurus();
+      allow delete: if isAdmin();
     }
+
+    // 8. Collection `sembakoClaims`
     match /sembakoClaims/{docId} {
-      allow read, write: if isSignedIn();
+      allow read: if isSignedIn();
+      allow create, update: if isPengurus();
+      allow delete: if isAdmin();
     }
+
+    // 9. Collection `vehicleLogs`
+    match /vehicleLogs/{docId} {
+      allow read: if isSignedIn();
+      allow create, update: if isPengurus();
+      allow delete: if isAdmin();
+    }
+
+    // 10. Collection `financeRecords` (Restricted to Admins/SuperAdmin)
+    match /financeRecords/{docId} {
+      allow read: if isAdmin();
+      allow create, update, delete: if isAdmin();
+    }
+
+    // 11. Collection `fundraising`
+    match /fundraising/{docId} {
+      allow read: if isSignedIn();
+      allow create, update: if isPengurus();
+      allow delete: if isAdmin();
+    }
+
+    // 12. Collection `severanceCalculations`
+    match /severanceCalculations/{docId} {
+      allow read: if isSignedIn();
+      allow create, update: if isPengurus();
+      allow delete: if isAdmin();
+    }
+
+    // 13. Collection `severanceRules` (Restricted parameter configuration)
+    match /severanceRules/{docId} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isAdmin();
+    }
+
+    // 14. Collection `auditLogs` (Immutable audit trail)
     match /auditLogs/{docId} {
       allow read: if isSignedIn();
       allow create: if isSignedIn();
       allow update, delete: if isSuperAdmin();
     }
-    match /vehicleLogs/{docId} {
-      allow read, write: if isSignedIn();
-    }
-    match /financeRecords/{docId} {
-      allow read, write: if isSignedIn();
-    }
-    match /fundraising/{docId} {
-      allow read, write: if isSignedIn();
-    }
-    match /criticalNews/{docId} {
-      allow read, write: if isSignedIn();
-    }
-    match /severanceCalculations/{docId} {
-      allow read, write: if isSignedIn();
-    }
-    match /severanceRules/{docId} {
-      allow read, write: if isSignedIn();
-    }
-    match /userClearedNotifs/{docId} {
-      allow read, write: if isSignedIn();
-    }
-    match /notulensi/{docId} {
-      allow read, write: if isSignedIn();
-    }
+
+    // 15. Collection `importHistory`
     match /importHistory/{docId} {
+      allow read: if isPengurus();
+      allow create: if isPengurus();
+      allow update, delete: if isSuperAdmin();
+    }
+
+    // 16. Collection `criticalNews`
+    match /criticalNews/{docId} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isAdmin();
+    }
+
+    // 17. Collection `userClearedNotifs`
+    match /userClearedNotifs/{docId} {
       allow read, write: if isSignedIn();
     }
   }
