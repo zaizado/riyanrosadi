@@ -300,8 +300,8 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
               Unduh seluruh file backup database (Data Anggota, Advokasi, Sakit, Agenda, Sembako, Audit Logs) untuk disimpan aman secara offline.
             </p>
             <button
-              onClick={exportFullBackup}
-              className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg"
+              onClick={() => exportFullBackup({ users, auditLogs })}
+              className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg cursor-pointer"
             >
               <Download className="w-4 h-4" />
               Unduh File Backup JSON

@@ -49,9 +49,7 @@ import { useAppData } from './hooks/useAppData';
 import {
   getCurrentUser,
   setCurrentUser,
-  getStoredAuditLogs,
   sortAuditLogsNewestFirst,
-  addAuditLog,
   resetAllData 
 } from './lib/storage';
 
