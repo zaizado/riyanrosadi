@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../lib/firebase';
 import {
   Member,
   AdvocacyCase,
@@ -48,84 +50,90 @@ export const useAppData = () => {
   const isSyncOffline = syncDetails.syncState === 'offline';
 
   useEffect(() => {
-    const handleErr = (err: Error) => {
-      console.warn('Firestore subscription warning:', err.message);
-    };
+    let unsubs: (() => void)[] = [];
 
-    const unsubMembers = repositories.members.subscribe([], (items) => {
-      const formatted = items.map(m => ({
-        ...m,
-        fotoUrl: m.fotoUrl || cheAvatar
-      }));
-      setMembers(formatted);
-    }, handleErr);
+    const unsubscribeAuth = onAuthStateChanged(auth, (currentUser) => {
+      // Clean up any existing collection listeners when auth state changes
+      unsubs.forEach(fn => {
+        try { fn(); } catch (e) { /* ignore cleanup errors */ }
+      });
+      unsubs = [];
 
-    const unsubAdvocacy = repositories.advocacy.subscribe([], (items) => {
-      setAdvocacyCases(items);
-    }, handleErr);
+      if (!currentUser) {
+        // User is logged out / unauthenticated - do not subscribe to protected collections
+        return;
+      }
 
-    const unsubSickVisits = repositories.sickVisits.subscribe([], (items) => {
-      setSickVisits(items);
-    }, handleErr);
+      const handleErr = (err: Error) => {
+        console.warn('Firestore subscription warning:', err.message);
+      };
 
-    const unsubFundraising = repositories.fundraising.subscribe([], (items) => {
-      setFundraisingCampaigns(items);
-    }, handleErr);
+      unsubs.push(repositories.members.subscribe([], (items) => {
+        const formatted = items.map(m => ({
+          ...m,
+          fotoUrl: m.fotoUrl || cheAvatar
+        }));
+        setMembers(formatted);
+      }, handleErr));
 
-    const unsubAgendas = repositories.agendas.subscribe([], (items) => {
-      setAgendas(items);
-    }, handleErr);
+      unsubs.push(repositories.advocacy.subscribe([], (items) => {
+        setAdvocacyCases(items);
+      }, handleErr));
 
-    const unsubNotulensi = repositories.notulensi.subscribe([], (items) => {
-      setNotulensiFiles(items);
-    }, handleErr);
+      unsubs.push(repositories.sickVisits.subscribe([], (items) => {
+        setSickVisits(items);
+      }, handleErr));
 
-    const unsubSembakoEvents = repositories.sembakoEvents.subscribe([], (items) => {
-      setSembakoEvents(items);
-    }, handleErr);
+      unsubs.push(repositories.fundraising.subscribe([], (items) => {
+        setFundraisingCampaigns(items);
+      }, handleErr));
 
-    const unsubSembakoClaims = repositories.sembakoClaims.subscribe([], (items) => {
-      setSembakoClaims(items);
-    }, handleErr);
+      unsubs.push(repositories.agendas.subscribe([], (items) => {
+        setAgendas(items);
+      }, handleErr));
 
-    const unsubVehicles = repositories.vehicles.subscribe([], (items) => {
-      setVehicleLogs(items);
-    }, handleErr);
+      unsubs.push(repositories.notulensi.subscribe([], (items) => {
+        setNotulensiFiles(items);
+      }, handleErr));
 
-    const unsubFinance = repositories.finance.subscribe([], (items) => {
-      setFinanceRecords(items);
-    }, handleErr);
+      unsubs.push(repositories.sembakoEvents.subscribe([], (items) => {
+        setSembakoEvents(items);
+      }, handleErr));
 
-    const unsubUsers = repositories.users.subscribe([], (items) => {
-      const formatted = items.map(u => ({
-        ...u,
-        avatarUrl: u.avatarUrl || cheAvatar
-      }));
-      setUsers(formatted);
-    }, handleErr);
+      unsubs.push(repositories.sembakoClaims.subscribe([], (items) => {
+        setSembakoClaims(items);
+      }, handleErr));
 
-    const unsubSeverance = repositories.severanceCalculations.subscribe([], (items) => {
-      setSeveranceCalculations(items);
-    }, handleErr);
+      unsubs.push(repositories.vehicles.subscribe([], (items) => {
+        setVehicleLogs(items);
+      }, handleErr));
 
-    const unsubAudit = auditLogRepository.subscribe([], (items) => {
-      setAuditLogs(sortAuditLogsNewestFirst(items));
-    }, handleErr);
+      unsubs.push(repositories.finance.subscribe([], (items) => {
+        setFinanceRecords(items);
+      }, handleErr));
+
+      unsubs.push(repositories.users.subscribe([], (items) => {
+        const formatted = items.map(u => ({
+          ...u,
+          avatarUrl: u.avatarUrl || cheAvatar
+        }));
+        setUsers(formatted);
+      }, handleErr));
+
+      unsubs.push(repositories.severanceCalculations.subscribe([], (items) => {
+        setSeveranceCalculations(items);
+      }, handleErr));
+
+      unsubs.push(auditLogRepository.subscribe([], (items) => {
+        setAuditLogs(sortAuditLogsNewestFirst(items));
+      }, handleErr));
+    });
 
     return () => {
-      unsubMembers();
-      unsubAdvocacy();
-      unsubSickVisits();
-      unsubFundraising();
-      unsubAgendas();
-      unsubNotulensi();
-      unsubSembakoEvents();
-      unsubSembakoClaims();
-      unsubVehicles();
-      unsubFinance();
-      unsubUsers();
-      unsubSeverance();
-      unsubAudit();
+      unsubs.forEach(fn => {
+        try { fn(); } catch (e) { /* ignore cleanup errors */ }
+      });
+      unsubscribeAuth();
     };
   }, []);
 

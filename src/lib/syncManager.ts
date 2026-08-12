@@ -2,10 +2,11 @@ export type SyncState = 'connecting' | 'synced' | 'offline' | 'error';
 
 export interface ListenerDetail {
   collectionName: string;
+  hasReceivedSnapshot: boolean;
+  hasServerConfirmation: boolean;
   isFromCache: boolean;
-  hasReceivedFirstSnapshot: boolean;
-  hasError: boolean;
-  errorType?: 'network' | 'permission' | 'other';
+  lastError: Error | null;
+  errorType: 'network' | 'permission' | 'unauthenticated' | 'other' | null;
   errorMessage?: string;
   lastUpdated?: number;
 }
@@ -16,8 +17,10 @@ export interface GlobalSyncDetails {
   totalListeners: number;
   syncedListeners: number;
   connectingListeners: number;
+  cacheListeners: number;
   errorListeners: number;
   offlineListeners: number;
+  permissionErrorListeners: number;
 }
 
 export type SyncListenerCallback = (details: GlobalSyncDetails) => void;
@@ -26,7 +29,6 @@ class SyncManager {
   private isOnline: boolean = typeof navigator !== 'undefined' ? navigator.onLine : true;
   private listenersMap: Map<string, ListenerDetail> = new Map();
   private subscribers: Set<SyncListenerCallback> = new Set();
-  private globalState: SyncState = 'connecting';
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -37,23 +39,29 @@ class SyncManager {
 
   private handleNetworkChange(online: boolean) {
     this.isOnline = online;
+    if (!online) {
+      // Mark all listeners as not server confirmed when offline
+      for (const [key, detail] of this.listenersMap.entries()) {
+        this.listenersMap.set(key, {
+          ...detail,
+          hasServerConfirmation: false,
+          isFromCache: true,
+        });
+      }
+    }
     this.recalculateState();
   }
 
   public reportListenerUpdate(collectionName: string, isFromCache: boolean) {
-    const existing = this.listenersMap.get(collectionName) || {
-      collectionName,
-      isFromCache: true,
-      hasReceivedFirstSnapshot: false,
-      hasError: false,
-    };
+    const existing = this.listenersMap.get(collectionName);
 
     this.listenersMap.set(collectionName, {
-      ...existing,
+      collectionName,
+      hasReceivedSnapshot: true,
+      hasServerConfirmation: !isFromCache,
       isFromCache,
-      hasReceivedFirstSnapshot: true,
-      hasError: false,
-      errorType: undefined,
+      lastError: null,
+      errorType: null,
       errorMessage: undefined,
       lastUpdated: Date.now(),
     });
@@ -61,12 +69,16 @@ class SyncManager {
     this.recalculateState();
   }
 
-  public reportListenerError(collectionName: string, error: Error) {
+  public reportListenerError(collectionName: string, error: any) {
     const errorMsg = error?.message || String(error);
+    const errorCode = error?.code || '';
     const errorLower = errorMsg.toLowerCase();
 
-    let errorType: 'network' | 'permission' | 'other' = 'other';
+    let errorType: 'network' | 'permission' | 'unauthenticated' | 'other' = 'other';
     if (
+      errorCode === 'unavailable' ||
+      errorCode === 'cancelled' ||
+      errorCode === 'deadline-exceeded' ||
       errorLower.includes('offline') || 
       errorLower.includes('unavailable') || 
       errorLower.includes('could not reach') ||
@@ -74,20 +86,27 @@ class SyncManager {
       errorLower.includes('transport')
     ) {
       errorType = 'network';
-    } else if (errorLower.includes('permission') || errorLower.includes('insufficient')) {
+    } else if (
+      errorCode === 'permission-denied' ||
+      errorLower.includes('permission') || 
+      errorLower.includes('insufficient')
+    ) {
       errorType = 'permission';
+    } else if (
+      errorCode === 'unauthenticated' ||
+      errorLower.includes('unauthenticated')
+    ) {
+      errorType = 'unauthenticated';
     }
 
-    const existing = this.listenersMap.get(collectionName) || {
-      collectionName,
-      isFromCache: true,
-      hasReceivedFirstSnapshot: false,
-      hasError: true,
-    };
+    const existing = this.listenersMap.get(collectionName);
 
     this.listenersMap.set(collectionName, {
-      ...existing,
-      hasError: true,
+      collectionName,
+      hasReceivedSnapshot: existing ? existing.hasReceivedSnapshot : false,
+      hasServerConfirmation: false,
+      isFromCache: true,
+      lastError: error instanceof Error ? error : new Error(errorMsg),
       errorType,
       errorMessage: errorMsg,
       lastUpdated: Date.now(),
@@ -105,33 +124,45 @@ class SyncManager {
     const total = this.listenersMap.size;
     let synced = 0;
     let connecting = 0;
+    let cacheOnly = 0;
     let errorCount = 0;
     let offlineCount = 0;
+    let permissionErrorCount = 0;
 
     for (const [, info] of this.listenersMap) {
-      if (info.hasError) {
+      if (info.lastError) {
         if (info.errorType === 'network') {
           offlineCount++;
+        } else if (info.errorType === 'permission' || info.errorType === 'unauthenticated') {
+          permissionErrorCount++;
+          errorCount++;
         } else {
           errorCount++;
         }
-      } else if (!info.hasReceivedFirstSnapshot) {
+      } else if (!info.hasReceivedSnapshot) {
         connecting++;
+      } else if (!info.hasServerConfirmation) {
+        cacheOnly++;
       } else {
         synced++;
       }
     }
 
-    let calculatedState: SyncState = 'synced';
+    let calculatedState: SyncState = 'connecting';
 
     if (!this.isOnline || offlineCount > 0) {
       calculatedState = 'offline';
-    } else if (errorCount > 0 && synced === 0) {
-      calculatedState = 'error';
-    } else if (synced === 0 && total > 0) {
+    } else if (total === 0) {
       calculatedState = 'connecting';
-    } else {
+    } else if (synced === total && total > 0) {
       calculatedState = 'synced';
+    } else if (synced > 0) {
+      // Partial sync: Some modules are synced with server
+      calculatedState = 'synced';
+    } else if (errorCount > 0) {
+      calculatedState = 'error';
+    } else {
+      calculatedState = 'connecting';
     }
 
     return {
@@ -140,8 +171,10 @@ class SyncManager {
       totalListeners: total,
       syncedListeners: synced,
       connectingListeners: connecting,
+      cacheListeners: cacheOnly,
       errorListeners: errorCount,
       offlineListeners: offlineCount,
+      permissionErrorListeners: permissionErrorCount,
     };
   }
 
@@ -149,9 +182,12 @@ class SyncManager {
     return this.getDetails().syncState;
   }
 
+  public getListenerDetail(collectionName: string): ListenerDetail | undefined {
+    return this.listenersMap.get(collectionName);
+  }
+
   private recalculateState() {
     const details = this.getDetails();
-    this.globalState = details.syncState;
     this.notifySubscribers(details);
   }
 
