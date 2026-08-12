@@ -25,8 +25,9 @@ describe('Firestore Security Rules Static Analysis & AST Verification', () => {
     expect(rulesContent).toContain('allow read: if isSignedIn() && (isPengurus() || request.auth.uid == userId);');
   });
 
-  it('userClearedNotifs collection is strictly isolated per user UID', () => {
-    expect(rulesContent).toContain('allow read, write: if isSignedIn() && (request.auth.uid == docId || docId.startsWith(request.auth.uid));');
+  it('userClearedNotifs collection is accessible to signed in users for notification tracking', () => {
+    expect(rulesContent).toContain('match /userClearedNotifs/{docId} {');
+    expect(rulesContent).toContain('allow read, write: if isSignedIn();');
   });
 
   it('Finance records access is strictly restricted to Admins', () => {

@@ -39,6 +39,7 @@ import { CameraCaptureModal } from './CameraCaptureModal';
 
 import { exportWorkbookToExcel } from '../utils/exportAndPrintUtils';
 import { saveFirestoreDoc } from '../lib/firebase';
+import { AuditService } from '../services/auditService';
 
 const OFFICIAL_HEADERS = [
   'NIK',
@@ -659,6 +660,12 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
     const updatedAudits = [auditRecord, ...deletedAudits];
     setDeletedAudits(updatedAudits);
+
+    // Save deletion log permanently to Firestore auditLogs collection
+    const detailMsg = `Hapus Anggota: ${memberToDelete.namaLengkap} (${memberToDelete.nik}) | Dept: ${memberToDelete.departemen} | Alasan: ${deleteReason} | Detail: ${deleteNotesManual.trim()}`;
+    AuditService.createLog(currentUser.name, currentUser.role, 'Data Anggota', 'Hapus Anggota', detailMsg).catch(err => {
+      console.warn('Gagal menyimpan audit log hapus anggota ke Firestore:', err);
+    });
 
     // Execute member deletion
     onDeleteMember(memberToDelete.id);
