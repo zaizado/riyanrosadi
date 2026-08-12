@@ -81,7 +81,8 @@ export default function App() {
     users, setUsers,
     severanceCalculations,
     notulensiFiles, setNotulensiFiles,
-    isSyncOffline
+    isSyncOffline,
+    syncState
   } = useAppData();
 
   const [currentUser, setCurrentUserAccount] = useState<UserAccount>(() => getCurrentUser());
@@ -731,13 +732,20 @@ export default function App() {
         onOpenNotifications={() => setIsNotificationsOpen(true)}
         unreadCount={activeNotifications.length}
         onLogout={handleLogout}
+        syncState={syncState}
       />
 
       {/* Offline Sync Status Banner */}
-      {isSyncOffline && (
-        <div className="bg-amber-500/20 border-b border-amber-500/40 text-amber-200 px-4 py-2 text-xs font-bold text-center flex items-center justify-center gap-2 z-20">
-          <ShieldAlert className="w-4 h-4 text-amber-400 animate-pulse shrink-0" />
-          <span>OFFLINE — DATA BELUM TERSINKRON</span>
+      {syncState === 'offline' && (
+        <div className="bg-rose-950/90 border-b border-rose-500/50 text-rose-200 px-4 py-2 text-xs font-bold text-center flex items-center justify-center gap-2 z-20 shadow-md">
+          <ShieldAlert className="w-4 h-4 text-rose-400 animate-pulse shrink-0" />
+          <span>🔴 OFFLINE — Menunggu koneksi internet. Data lokal tetap dapat diakses.</span>
+        </div>
+      )}
+      {syncState === 'error' && (
+        <div className="bg-amber-950/90 border-b border-amber-500/50 text-amber-200 px-4 py-2 text-xs font-bold text-center flex items-center justify-center gap-2 z-20 shadow-md">
+          <ShieldAlert className="w-4 h-4 text-amber-400 shrink-0" />
+          <span>⚠️ SINKRONISASI BERMASALAH — Memeriksa koneksi database Firestore.</span>
         </div>
       )}
 

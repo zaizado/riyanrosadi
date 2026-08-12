@@ -34,6 +34,8 @@ import { FsbnLogo } from './FsbnLogo';
 import fsbnLogo from '../assets/images/fsbn_logo_emblem_1785338169849.jpg';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 
+import { syncManager, GlobalSyncDetails, SyncState } from '../lib/syncManager';
+
 interface HeaderProps {
   currentUser: UserAccount;
   users?: UserAccount[];
@@ -44,6 +46,7 @@ interface HeaderProps {
   onOpenNotifications: () => void;
   unreadCount: number;
   onLogout?: () => void;
+  syncState?: SyncState;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -56,16 +59,17 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenNotifications,
   unreadCount,
   onLogout,
+  syncState,
 }) => {
   const [showRoleDropdown, setShowRoleDropdown] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   
-  // Internet Connection State
-  const [isOnline, setIsOnline] = useState<boolean>(() => typeof navigator !== 'undefined' ? navigator.onLine : true);
-
   // Live Clock State
   const [timeString, setTimeString] = useState<string>('');
+
+  // Firestore Sync State from SyncManager
+  const [syncDetails, setSyncDetails] = useState<GlobalSyncDetails>(() => syncManager.getDetails());
 
   useEffect(() => {
     const updateTime = () => {
@@ -78,17 +82,13 @@ export const Header: React.FC<HeaderProps> = ({
   }, []);
 
   useEffect(() => {
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
-
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
+    const unsub = syncManager.subscribe((details) => {
+      setSyncDetails(details);
+    });
+    return () => unsub();
   }, []);
+
+  const currentSyncState = syncState || syncDetails.syncState;
 
   // PWA Install Prompt State
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
@@ -236,30 +236,47 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
               )}
 
-              {/* Internet Connection Status Badge */}
-              <div 
-                className={`flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-black uppercase rounded-full border shadow-md transition-all ${
-                  isOnline 
-                    ? 'bg-emerald-950/80 text-emerald-400 border-emerald-500/40 glow-emerald' 
-                    : 'bg-rose-950/90 text-rose-300 border-rose-500/60 animate-pulse'
-                }`}
-                title={isOnline ? 'Status Internet: Terhubung (Online)' : 'Status Internet: Terputus (Offline)'}
-              >
-                <span className={`w-2 h-2 rounded-full ${isOnline ? 'bg-emerald-400 animate-pulse' : 'bg-rose-500'}`}></span>
-                {isOnline ? (
+              {/* Firestore Realtime Connection Status Badge */}
+              {currentSyncState === 'synced' && (
+                <div 
+                  className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-black uppercase rounded-full border shadow-md transition-all bg-emerald-950/80 text-emerald-400 border-emerald-500/40 glow-emerald"
+                  title="Status Firestore: Online • Data tersinkron"
+                >
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                   <Wifi className="w-3.5 h-3.5 text-emerald-400" />
-                ) : (
-                  <WifiOff className="w-3.5 h-3.5 text-rose-400" />
-                )}
-                <span className="hidden xs:inline tracking-wide">{isOnline ? 'Online' : 'Offline'}</span>
-              </div>
+                  <span className="hidden xs:inline tracking-wide">Online • Data tersinkron</span>
+                </div>
+              )}
 
-              {/* Cloud Realtime Badge */}
-              <span className="hidden md:flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 rounded-full shadow-sm" title="Terhubung Real-time ke Cloud Database Firebase">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <Cloud className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Cloud Sync</span>
-              </span>
+              {currentSyncState === 'connecting' && (
+                <div 
+                  className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-black uppercase rounded-full border shadow-md transition-all bg-amber-950/80 text-amber-300 border-amber-500/50"
+                  title="Status Firestore: Menyinkronkan..."
+                >
+                  <RefreshCw className="w-3.5 h-3.5 text-amber-400 animate-spin" />
+                  <span className="hidden xs:inline tracking-wide">Menyinkronkan...</span>
+                </div>
+              )}
+
+              {currentSyncState === 'offline' && (
+                <div 
+                  className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-black uppercase rounded-full border shadow-md transition-all bg-rose-950/90 text-rose-300 border-rose-500/60 animate-pulse"
+                  title="Status Firestore: Offline • Menunggu koneksi"
+                >
+                  <WifiOff className="w-3.5 h-3.5 text-rose-400" />
+                  <span className="hidden xs:inline tracking-wide">Offline • Menunggu koneksi</span>
+                </div>
+              )}
+
+              {currentSyncState === 'error' && (
+                <div 
+                  className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-black uppercase rounded-full border shadow-md transition-all bg-amber-950/90 text-amber-300 border-amber-500/60"
+                  title="Status Firestore: Sinkronisasi bermasalah"
+                >
+                  <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
+                  <span className="hidden xs:inline tracking-wide">Sinkronisasi bermasalah</span>
+                </div>
+              )}
 
               {/* Current Active User Info */}
               <div className="hidden lg:flex flex-col text-right">

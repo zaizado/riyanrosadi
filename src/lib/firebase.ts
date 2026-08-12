@@ -102,6 +102,56 @@ const cleanForFirestore = (obj: any): any => {
   return cleaned;
 };
 
+import { syncManager } from './syncManager';
+
+export enum OperationType {
+  CREATE = 'create',
+  UPDATE = 'update',
+  DELETE = 'delete',
+  LIST = 'list',
+  GET = 'get',
+  WRITE = 'write',
+}
+
+export interface FirestoreErrorInfo {
+  error: string;
+  operationType: OperationType;
+  path: string | null;
+  authInfo: {
+    userId?: string | null;
+    email?: string | null;
+    emailVerified?: boolean | null;
+    isAnonymous?: boolean | null;
+    tenantId?: string | null;
+    providerInfo?: {
+      providerId?: string | null;
+      email?: string | null;
+    }[];
+  };
+}
+
+export function handleFirestoreError(error: unknown, operationType: OperationType, path: string | null) {
+  const currentUser = auth.currentUser;
+  const errInfo: FirestoreErrorInfo = {
+    error: error instanceof Error ? error.message : String(error),
+    authInfo: {
+      userId: currentUser?.uid,
+      email: currentUser?.email,
+      emailVerified: currentUser?.emailVerified,
+      isAnonymous: currentUser?.isAnonymous,
+      tenantId: currentUser?.tenantId,
+      providerInfo: currentUser?.providerData?.map(provider => ({
+        providerId: provider.providerId,
+        email: provider.email,
+      })) || []
+    },
+    operationType,
+    path
+  };
+  console.error('Firestore Error Details:', JSON.stringify(errInfo));
+  return errInfo;
+}
+
 // Generic Realtime Subscription for Firestore collection - Firestore is Single Source of Truth
 export const subscribeCollection = <T extends { id: string }>(
   collectionName: string,
@@ -111,24 +161,37 @@ export const subscribeCollection = <T extends { id: string }>(
 ) => {
   const colRef = collection(db, collectionName);
 
-  const unsubscribe = onSnapshot(colRef, (snapshot) => {
-    if (snapshot.empty) {
-      onUpdate([]);
-    } else {
-      const items = snapshot.docs.map(docSnap => ({
-        ...(docSnap.data() as T),
-        id: docSnap.id
-      }));
-      onUpdate(items);
-    }
-  }, (error) => {
-    console.warn(`Firestore subscription error for collection '${collectionName}':`, error.message);
-    if (onError) {
-      onError(error);
-    }
-  });
+  const unsubscribe = onSnapshot(
+    colRef,
+    { includeMetadataChanges: true },
+    (snapshot) => {
+      const isFromCache = snapshot.metadata.fromCache;
+      syncManager.reportListenerUpdate(collectionName, isFromCache);
 
-  return unsubscribe;
+      if (snapshot.empty) {
+        onUpdate([]);
+      } else {
+        const items = snapshot.docs.map(docSnap => ({
+          ...(docSnap.data() as T),
+          id: docSnap.id
+        }));
+        onUpdate(items);
+      }
+    },
+    (error) => {
+      console.warn(`Firestore subscription error for collection '${collectionName}':`, error.message);
+      syncManager.reportListenerError(collectionName, error);
+      handleFirestoreError(error, OperationType.LIST, collectionName);
+      if (onError) {
+        onError(error);
+      }
+    }
+  );
+
+  return () => {
+    syncManager.reportListenerUnsubscribe(collectionName);
+    unsubscribe();
+  };
 };
 
 // Save single item with timestamp - throws on error so caller can handle failure
@@ -148,7 +211,12 @@ export const saveFirestoreDoc = async <T extends { id: string }>(
     itemToSave.fotoUrl = '/che_avatar.jpg';
   }
   const cleaned = cleanForFirestore(itemToSave);
-  await setDoc(docRef, cleaned, { merge: true });
+  try {
+    await setDoc(docRef, cleaned, { merge: true });
+  } catch (error) {
+    handleFirestoreError(error, OperationType.WRITE, `${collectionName}/${item.id}`);
+    throw error;
+  }
 };
 
 // Batch merge collection without destructive total wipes
@@ -176,7 +244,12 @@ export const saveFullCollection = async <T extends { id: string }>(
       const cleaned = cleanForFirestore(itemToSave);
       batch.set(docRef, cleaned, { merge: true });
     });
-    await batch.commit();
+    try {
+      await batch.commit();
+    } catch (error) {
+      handleFirestoreError(error, OperationType.WRITE, collectionName);
+      throw error;
+    }
   }
 };
 
@@ -186,6 +259,11 @@ export const deleteFirestoreDoc = async (
   id: string
 ) => {
   const docRef = doc(db, collectionName, id);
-  await deleteDoc(docRef);
+  try {
+    await deleteDoc(docRef);
+  } catch (error) {
+    handleFirestoreError(error, OperationType.DELETE, `${collectionName}/${id}`);
+    throw error;
+  }
 };
 

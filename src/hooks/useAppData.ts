@@ -18,6 +18,7 @@ import { auditLogRepository } from '../repositories/auditLogRepository';
 import { sortAuditLogsNewestFirst } from '../lib/storage';
 import { SeveranceCalculationResult } from '../types/severance';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
+import { syncManager, SyncState, GlobalSyncDetails } from '../lib/syncManager';
 
 export const useAppData = () => {
   const [members, setMembers] = useState<Member[]>([]);
@@ -33,16 +34,25 @@ export const useAppData = () => {
   const [fundraisingCampaigns, setFundraisingCampaigns] = useState<FundraisingCampaign[]>([]);
   const [users, setUsers] = useState<UserAccount[]>([]);
   const [severanceCalculations, setSeveranceCalculations] = useState<SeveranceCalculationResult[]>([]);
-  const [isSyncOffline, setIsSyncOffline] = useState<boolean>(false);
+  
+  const [syncDetails, setSyncDetails] = useState<GlobalSyncDetails>(() => syncManager.getDetails());
+
+  useEffect(() => {
+    const unsubSync = syncManager.subscribe((details) => {
+      setSyncDetails(details);
+    });
+    return () => unsubSync();
+  }, []);
+
+  const syncState: SyncState = syncDetails.syncState;
+  const isSyncOffline = syncDetails.syncState === 'offline';
 
   useEffect(() => {
     const handleErr = (err: Error) => {
-      console.warn('Firestore subscription offline or error:', err.message);
-      setIsSyncOffline(true);
+      console.warn('Firestore subscription warning:', err.message);
     };
 
     const unsubMembers = repositories.members.subscribe([], (items) => {
-      setIsSyncOffline(false);
       const formatted = items.map(m => ({
         ...m,
         fotoUrl: m.fotoUrl || cheAvatar
@@ -51,52 +61,42 @@ export const useAppData = () => {
     }, handleErr);
 
     const unsubAdvocacy = repositories.advocacy.subscribe([], (items) => {
-      setIsSyncOffline(false);
       setAdvocacyCases(items);
     }, handleErr);
 
     const unsubSickVisits = repositories.sickVisits.subscribe([], (items) => {
-      setIsSyncOffline(false);
       setSickVisits(items);
     }, handleErr);
 
     const unsubFundraising = repositories.fundraising.subscribe([], (items) => {
-      setIsSyncOffline(false);
       setFundraisingCampaigns(items);
     }, handleErr);
 
     const unsubAgendas = repositories.agendas.subscribe([], (items) => {
-      setIsSyncOffline(false);
       setAgendas(items);
     }, handleErr);
 
     const unsubNotulensi = repositories.notulensi.subscribe([], (items) => {
-      setIsSyncOffline(false);
       setNotulensiFiles(items);
     }, handleErr);
 
     const unsubSembakoEvents = repositories.sembakoEvents.subscribe([], (items) => {
-      setIsSyncOffline(false);
       setSembakoEvents(items);
     }, handleErr);
 
     const unsubSembakoClaims = repositories.sembakoClaims.subscribe([], (items) => {
-      setIsSyncOffline(false);
       setSembakoClaims(items);
     }, handleErr);
 
     const unsubVehicles = repositories.vehicles.subscribe([], (items) => {
-      setIsSyncOffline(false);
       setVehicleLogs(items);
     }, handleErr);
 
     const unsubFinance = repositories.finance.subscribe([], (items) => {
-      setIsSyncOffline(false);
       setFinanceRecords(items);
     }, handleErr);
 
     const unsubUsers = repositories.users.subscribe([], (items) => {
-      setIsSyncOffline(false);
       const formatted = items.map(u => ({
         ...u,
         avatarUrl: u.avatarUrl || cheAvatar
@@ -105,12 +105,10 @@ export const useAppData = () => {
     }, handleErr);
 
     const unsubSeverance = repositories.severanceCalculations.subscribe([], (items) => {
-      setIsSyncOffline(false);
       setSeveranceCalculations(items);
     }, handleErr);
 
     const unsubAudit = auditLogRepository.subscribe([], (items) => {
-      setIsSyncOffline(false);
       setAuditLogs(sortAuditLogsNewestFirst(items));
     }, handleErr);
 
@@ -145,6 +143,8 @@ export const useAppData = () => {
     fundraisingCampaigns, setFundraisingCampaigns,
     users, setUsers,
     severanceCalculations, setSeveranceCalculations,
-    isSyncOffline
+    isSyncOffline,
+    syncState,
+    syncDetails
   };
 };
