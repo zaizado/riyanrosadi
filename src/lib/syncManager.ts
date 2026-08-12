@@ -53,8 +53,6 @@ class SyncManager {
   }
 
   public reportListenerUpdate(collectionName: string, isFromCache: boolean) {
-    const existing = this.listenersMap.get(collectionName);
-
     this.listenersMap.set(collectionName, {
       collectionName,
       hasReceivedSnapshot: true,
@@ -154,14 +152,12 @@ class SyncManager {
       calculatedState = 'offline';
     } else if (total === 0) {
       calculatedState = 'connecting';
-    } else if (synced === total && total > 0) {
-      calculatedState = 'synced';
-    } else if (synced > 0) {
-      // Partial sync: Some modules are synced with server
-      calculatedState = 'synced';
     } else if (errorCount > 0) {
       calculatedState = 'error';
+    } else if (synced === total && total > 0) {
+      calculatedState = 'synced';
     } else {
+      // Partial sync or still waiting for all listeners to get server confirmation
       calculatedState = 'connecting';
     }
 
