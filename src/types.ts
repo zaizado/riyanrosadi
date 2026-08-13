@@ -327,6 +327,7 @@ export interface AuditLog {
   modul: 'Data Anggota' | 'Advokasi' | 'Anggota Sakit' | 'Agenda' | 'Sembako' | 'Kendaraan' | 'Keuangan' | 'Penggalangan Dana' | 'Simulasi Pesangon' | 'Sistem';
   aksi: string;
   detail: string;
+  deletedMemberAudit?: DeletedMemberAudit;
 }
 
 export type FamilyRelationship = 'Anggota' | 'Anak' | 'Istri' | 'Suami' | 'Orang Tua';

@@ -55,6 +55,7 @@ import {
 
 import {
   subscribeCollection,
+  subscribeDocument,
   saveFirestoreDoc,
   saveFullCollection,
   deleteFirestoreDoc
@@ -245,9 +246,8 @@ export default function App() {
     }
     setClearedNotifIds(localCleared);
 
-// 2. Realtime sync with Firestore userClearedNotifs collection
-    const unsub = subscribeCollection<{ id: string; clearedIds?: string[] }>('userClearedNotifs', [], (docs) => {
-      const userDoc = docs.find(d => d.id === userNotifKey);
+// 2. Realtime sync with Firestore userClearedNotifs document based on UID
+    const unsub = subscribeDocument<{ id: string; clearedIds?: string[] }>('userClearedNotifs', userNotifKey, (userDoc) => {
       if (userDoc && Array.isArray(userDoc.clearedIds)) {
         const merged = Array.from(new Set([...localCleared, ...userDoc.clearedIds]));
         setClearedNotifIds(merged);

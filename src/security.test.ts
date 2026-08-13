@@ -1,70 +1,213 @@
-import { describe, it, expect } from 'vitest';
-import fs from 'fs';
-import path from 'path';
+import {
+  initializeTestEnvironment,
+  assertFails,
+  assertSucceeds,
+  RulesTestEnvironment
+} from '@firebase/rules-unit-testing';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
+import { describe, it, beforeAll, afterAll, beforeEach } from 'vitest';
+import { doc, getDoc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 
-describe('Firestore Security Rules Static Analysis & AST Verification', () => {
-  const rulesPath = path.resolve(process.cwd(), 'firestore.rules');
-  const rulesContent = fs.readFileSync(rulesPath, 'utf8');
+let testEnv: RulesTestEnvironment;
 
-  it('Default catch-all rule is default-deny', () => {
-    expect(rulesContent).toContain('match /{document=**} {');
-    expect(rulesContent).toContain('allow read, write: if false;');
-  });
-
-  it('Privilege escalation protection on users collection for all admin roles including Ketua & Sekretaris', () => {
-    // Check that users create forbids setting privileged roles (Super Admin, Admin, Administrator, Ketua, Sekretaris) and flags
-    expect(rulesContent).toContain("!(request.resource.data.get('role', 'Pengurus') in ['Super Admin', 'Admin', 'Administrator', 'Ketua', 'Sekretaris'])");
-    expect(rulesContent).toContain("request.resource.data.get('isSuperAdmin', false) != true");
-    expect(rulesContent).toContain("request.resource.data.get('isAdmin', false) != true");
-
-    // Check that users update forbids changing role and privileged fields
-    expect(rulesContent).toContain("affectedKeys().hasAny(['role', 'isSuperAdmin', 'permissions', 'departmentRole', 'isAdmin'])");
-  });
-
-  it('Users collection read access is isolated to self or Pengurus', () => {
-    expect(rulesContent).toContain('allow read: if isSignedIn() && (isPengurus() || request.auth.uid == userId);');
-  });
-
-  it('userClearedNotifs collection is accessible to signed in users for notification tracking', () => {
-    expect(rulesContent).toContain('match /userClearedNotifs/{docId} {');
-    expect(rulesContent).toContain('allow read, write: if isSignedIn();');
-  });
-
-  it('Finance records access is strictly restricted to Admins', () => {
-    expect(rulesContent).toContain('match /financeRecords/{docId} {');
-    expect(rulesContent).toContain('allow read: if isAdmin();');
-    expect(rulesContent).toContain('allow create, update, delete: if isAdmin();');
-  });
-
-  it('Audit logs are protected against deletion by non-superadmins', () => {
-    expect(rulesContent).toContain('match /auditLogs/{docId} {');
-    expect(rulesContent).toContain('allow update, delete: if isSuperAdmin();');
-  });
-
-  it('All 17 collections are explicitly secured in firestore.rules', () => {
-    const requiredCollections = [
-      'users',
-      'members',
-      'advocacyCases',
-      'sickVisits',
-      'agendas',
-      'notulensi',
-      'sembakoEvents',
-      'sembakoClaims',
-      'vehicleLogs',
-      'financeRecords',
-      'fundraising',
-      'severanceCalculations',
-      'severanceRules',
-      'auditLogs',
-      'importHistory',
-      'criticalNews',
-      'userClearedNotifs'
-    ];
-
-    requiredCollections.forEach(coll => {
-      expect(rulesContent).toContain(`match /${coll}/`);
-    });
+beforeAll(async () => {
+  const rules = readFileSync(resolve(process.cwd(), 'firestore.rules'), 'utf8');
+  testEnv = await initializeTestEnvironment({
+    projectId: 'demo-sbn-kasbi-security-rules-test',
+    firestore: {
+      host: '127.0.0.1',
+      port: 8088,
+      rules
+    }
   });
 });
 
+afterAll(async () => {
+  if (testEnv) {
+    await testEnv.cleanup();
+  }
+});
+
+beforeEach(async () => {
+  if (testEnv) {
+    await testEnv.clearFirestore();
+  }
+});
+
+describe('REAL Firebase Emulator Security Rules Integration Tests', () => {
+  it('1. Default catch-all rule: unauthenticated requests to any collection are DENIED', async () => {
+    const unauthDb = testEnv.unauthenticatedContext().firestore();
+    await assertFails(getDoc(doc(unauthDb, 'members/m1')));
+    await assertFails(getDoc(doc(unauthDb, 'users/u1')));
+    await assertFails(getDoc(doc(unauthDb, 'financeRecords/f1')));
+    await assertFails(getDoc(doc(unauthDb, 'unknownCollection/x1')));
+    await assertFails(setDoc(doc(unauthDb, 'members/m1'), { namaLengkap: 'Illegal' }));
+  });
+
+  it('2. Privilege escalation protection on user document creation: setting admin roles/flags as regular user is DENIED', async () => {
+    const memberContext = testEnv.authenticatedContext('user-regular');
+    const db = memberContext.firestore();
+
+    // Setting Super Admin -> DENIED
+    await assertFails(
+      setDoc(doc(db, 'users/user-regular'), {
+        username: 'regular',
+        role: 'Super Admin',
+        isSuperAdmin: true
+      })
+    );
+
+    // Setting Ketua -> DENIED
+    await assertFails(
+      setDoc(doc(db, 'users/user-regular'), {
+        username: 'regular',
+        role: 'Ketua',
+        isAdmin: true
+      })
+    );
+
+    // Setting Sekretaris -> DENIED
+    await assertFails(
+      setDoc(doc(db, 'users/user-regular'), {
+        username: 'regular',
+        role: 'Sekretaris',
+        isAdmin: true
+      })
+    );
+
+    // Creating normal Pengurus account -> SUCCEEDS
+    await assertSucceeds(
+      setDoc(doc(db, 'users/user-regular'), {
+        username: 'regular',
+        role: 'Pengurus',
+        isSuperAdmin: false,
+        isAdmin: false
+      })
+    );
+  });
+
+  it('3. User profile privilege escalation on update: changing role or admin flags is DENIED', async () => {
+    await testEnv.withSecurityRulesDisabled(async (context) => {
+      await setDoc(doc(context.firestore(), 'users/user-regular'), {
+        username: 'regular',
+        role: 'Pengurus',
+        isSuperAdmin: false,
+        isAdmin: false
+      });
+    });
+
+    const db = testEnv.authenticatedContext('user-regular').firestore();
+
+    // Modifying role -> DENIED
+    await assertFails(
+      updateDoc(doc(db, 'users/user-regular'), {
+        role: 'Super Admin'
+      })
+    );
+
+    // Modifying isAdmin flag -> DENIED
+    await assertFails(
+      updateDoc(doc(db, 'users/user-regular'), {
+        isAdmin: true
+      })
+    );
+
+    // Updating non-security profile field -> SUCCEEDS
+    await assertSucceeds(
+      updateDoc(doc(db, 'users/user-regular'), {
+        phone: '08123456789'
+      })
+    );
+  });
+
+  it('4. User profile read access: isolated to self or Pengurus/Admin roles', async () => {
+    await testEnv.withSecurityRulesDisabled(async (context) => {
+      await setDoc(doc(context.firestore(), 'users/user-anggota'), {
+        role: 'Anggota'
+      });
+      await setDoc(doc(context.firestore(), 'users/user-target'), {
+        role: 'Anggota',
+        phone: '0812222333'
+      });
+    });
+
+    const dbAnggota = testEnv.authenticatedContext('user-anggota').firestore();
+
+    // Reading other user profile as regular Anggota -> DENIED
+    await assertFails(getDoc(doc(dbAnggota, 'users/user-target')));
+
+    // Reading own profile as regular Anggota -> SUCCEEDS
+    await assertSucceeds(getDoc(doc(dbAnggota, 'users/user-anggota')));
+  });
+
+  it('5. userClearedNotifs collection: signed-in users can read/write their document by UID', async () => {
+    const user1Db = testEnv.authenticatedContext('user-101').firestore();
+
+    // Write cleared notifications doc for user-101 -> SUCCEEDS
+    await assertSucceeds(
+      setDoc(doc(user1Db, 'userClearedNotifs/user-101'), {
+        clearedIds: ['notif-1', 'notif-2']
+      })
+    );
+
+    // Read cleared notifications doc for user-101 -> SUCCEEDS
+    await assertSucceeds(
+      getDoc(doc(user1Db, 'userClearedNotifs/user-101'))
+    );
+  });
+
+  it('6. financeRecords collection: restricted strictly to Admins', async () => {
+    await testEnv.withSecurityRulesDisabled(async (context) => {
+      await setDoc(doc(context.firestore(), 'users/user-anggota'), {
+        role: 'Anggota',
+        isAdmin: false
+      });
+      await setDoc(doc(context.firestore(), 'users/user-admin'), {
+        role: 'Bendahara',
+        isAdmin: true
+      });
+      await setDoc(doc(context.firestore(), 'financeRecords/fin-100'), {
+        amount: 1500000,
+        type: 'pemasukan'
+      });
+    });
+
+    const dbAnggota = testEnv.authenticatedContext('user-anggota').firestore();
+    const dbAdmin = testEnv.authenticatedContext('user-admin').firestore();
+
+    // Anggota reading financeRecords -> DENIED
+    await assertFails(getDoc(doc(dbAnggota, 'financeRecords/fin-100')));
+
+    // Admin reading financeRecords -> SUCCEEDS
+    await assertSucceeds(getDoc(doc(dbAdmin, 'financeRecords/fin-100')));
+  });
+
+  it('7. auditLogs collection: non-superadmin update/deletion is DENIED', async () => {
+    await testEnv.withSecurityRulesDisabled(async (context) => {
+      await setDoc(doc(context.firestore(), 'users/user-admin'), {
+        role: 'Ketua',
+        isAdmin: true,
+        isSuperAdmin: false
+      });
+      await setDoc(doc(context.firestore(), 'users/user-superadmin'), {
+        role: 'Super Admin',
+        isAdmin: true,
+        isSuperAdmin: true
+      });
+      await setDoc(doc(context.firestore(), 'auditLogs/log-999'), {
+        userNama: 'John',
+        aksi: 'Hapus Anggota'
+      });
+    });
+
+    const dbAdmin = testEnv.authenticatedContext('user-admin').firestore();
+    const dbSuperAdmin = testEnv.authenticatedContext('user-superadmin').firestore();
+
+    // Non-superadmin deleting auditLog -> DENIED
+    await assertFails(deleteDoc(doc(dbAdmin, 'auditLogs/log-999')));
+
+    // SuperAdmin deleting auditLog -> SUCCEEDS
+    await assertSucceeds(deleteDoc(doc(dbSuperAdmin, 'auditLogs/log-999')));
+  });
+});

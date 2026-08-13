@@ -1,4 +1,4 @@
-import { AuditLog, UserRole } from '../types';
+import { AuditLog, UserRole, DeletedMemberAudit } from '../types';
 import { auditLogRepository } from '../repositories/auditLogRepository';
 
 export class AuditService {
@@ -7,7 +7,8 @@ export class AuditService {
     userRole: UserRole,
     modul: AuditLog['modul'],
     aksi: string,
-    detail: string
+    detail: string,
+    deletedMemberAudit?: DeletedMemberAudit
   ): Promise<void> {
     const now = new Date();
     const timestampStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
@@ -19,7 +20,8 @@ export class AuditService {
       userRole,
       modul,
       aksi,
-      detail
+      detail,
+      ...(deletedMemberAudit ? { deletedMemberAudit } : {})
     };
 
     try {

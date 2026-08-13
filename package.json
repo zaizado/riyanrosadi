@@ -10,8 +10,8 @@
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
     "test": "npm run test:unit && npm run test:rules",
-    "test:unit": "vitest run src/utils/severanceCalculator.test.ts src/lib/syncManager.test.ts src/security.test.ts",
-    "test:rules": "firebase emulators:exec --only firestore \"vitest run src/firestoreRules.test.ts\""
+    "test:unit": "vitest run src/utils/severanceCalculator.test.ts src/lib/syncManager.test.ts",
+    "test:rules": "firebase emulators:exec --only firestore \"vitest run src/firestoreRules.test.ts src/security.test.ts\""
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

@@ -194,6 +194,52 @@ export const subscribeCollection = <T extends { id: string }>(
   };
 };
 
+// Generic Realtime Subscription for a single document in Firestore
+export const subscribeDocument = <T extends { id: string }>(
+  collectionName: string,
+  docId: string,
+  onUpdate: (item: T | null) => void,
+  onError?: (err: Error) => void
+) => {
+  if (!docId) {
+    onUpdate(null);
+    return () => {};
+  }
+  const documentRef = doc(db, collectionName, docId);
+
+  const unsubscribe = onSnapshot(
+    documentRef,
+    { includeMetadataChanges: true },
+    (docSnap) => {
+      const isFromCache = docSnap.metadata.fromCache;
+      syncManager.reportListenerUpdate(`${collectionName}/${docId}`, isFromCache);
+
+      if (docSnap.exists()) {
+        const item = {
+          ...(docSnap.data() as T),
+          id: docSnap.id
+        };
+        onUpdate(item);
+      } else {
+        onUpdate(null);
+      }
+    },
+    (error) => {
+      console.warn(`Firestore subscription error for document '${collectionName}/${docId}':`, error.message);
+      syncManager.reportListenerError(`${collectionName}/${docId}`, error);
+      handleFirestoreError(error, OperationType.GET, `${collectionName}/${docId}`);
+      if (onError) {
+        onError(error);
+      }
+    }
+  );
+
+  return () => {
+    syncManager.reportListenerUnsubscribe(`${collectionName}/${docId}`);
+    unsubscribe();
+  };
+};
+
 // Save single item with timestamp - throws on error so caller can handle failure
 export const saveFirestoreDoc = async <T extends { id: string }>(
   collectionName: string, 

@@ -109,6 +109,33 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
   const [deletedAudits, setDeletedAudits] = useState<DeletedMemberAudit[]>([]);
   const [isAuditModalOpen, setIsAuditModalOpen] = useState<boolean>(false);
 
+  // Synchronize deletedAudits from persistent auditLogs Firestore collection
+  useEffect(() => {
+    if (auditLogs && auditLogs.length > 0) {
+      const extractedAudits: DeletedMemberAudit[] = auditLogs
+        .filter(log => log.modul === 'Data Anggota' && log.aksi === 'Hapus Anggota')
+        .map(log => {
+          if (log.deletedMemberAudit) {
+            return log.deletedMemberAudit;
+          }
+          return {
+            id: `del-audit-${log.id}`,
+            memberId: 'N/A',
+            nomorAnggota: 'N/A',
+            nik: 'N/A',
+            namaLengkap: log.detail ? log.detail.split('|')[0]?.replace('Hapus Anggota:', '').trim() || log.detail : 'Anggota',
+            departemen: 'N/A',
+            bagian: 'N/A',
+            alasanPenghapusan: 'Hapus Anggota',
+            keteranganDetail: log.detail,
+            deletedBy: `${log.userNama} (${log.userRole})`,
+            deletedAt: log.timestamp
+          };
+        });
+      setDeletedAudits(extractedAudits);
+    }
+  }, [auditLogs]);
+
   // Excel Sync Modal State
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [importFileName, setImportFileName] = useState('');
@@ -663,7 +690,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
     // Save deletion log permanently to Firestore auditLogs collection
     const detailMsg = `Hapus Anggota: ${memberToDelete.namaLengkap} (${memberToDelete.nik}) | Dept: ${memberToDelete.departemen} | Alasan: ${deleteReason} | Detail: ${deleteNotesManual.trim()}`;
-    AuditService.createLog(currentUser.name, currentUser.role, 'Data Anggota', 'Hapus Anggota', detailMsg).catch(err => {
+    AuditService.createLog(currentUser.name, currentUser.role, 'Data Anggota', 'Hapus Anggota', detailMsg, auditRecord).catch(err => {
       console.warn('Gagal menyimpan audit log hapus anggota ke Firestore:', err);
     });
 
