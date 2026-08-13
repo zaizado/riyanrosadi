@@ -220,15 +220,7 @@ export const Header: React.FC<HeaderProps> = ({
                   whileHover={{ rotate: 5, scale: 1.05 }}
                   className="relative shrink-0"
                 >
-                  <img 
-                    src="/assets/branding/logo-fsbn-original.jpg" 
-                    alt="Logo SBN KASBI PT VCI" 
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl object-contain bg-slate-950 p-0.5 border border-red-500/60 shadow-lg glow-red-sm shrink-0" 
-                    onError={(e) => {
-                      e.currentTarget.onerror = null;
-                      e.currentTarget.src = fsbnLogo;
-                    }}
-                  />
+                  <FsbnLogo className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl object-contain bg-slate-950 p-0.5 border border-red-500/60 shadow-lg glow-red-sm shrink-0" />
                   <span className="absolute -bottom-1 -right-1 flex h-2.5 w-2.5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>

@@ -11,7 +11,9 @@ import {
 } from 'lucide-react';
 import { Member } from '../types';
 import { FsbnLogo } from './FsbnLogo';
+import FSBN_LOGO_DATA_URL from '../assets/images/fsbnLogoDataUrl';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
+import fsbnLogo from '../assets/images/fsbn_logo_emblem_1785338169849.jpg';
 import { compressImage } from '../lib/imageUtils';
 import { ModalPortal } from './ModalPortal';
 
@@ -70,7 +72,7 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
   const [fotoUrl, setFotoUrl] = useState<string>(
     initialMember.fotoUrl || cheAvatar
   );
-  const [logoFsbnUrl, setLogoFsbnUrl] = useState<string | null>('/assets/branding/logo-fsbn-original.jpg');
+  const [logoFsbnUrl, setLogoFsbnUrl] = useState<string | null>(FSBN_LOGO_DATA_URL);
   const [logoKasbiUrl, setLogoKasbiUrl] = useState<string | null>('/kasbi_logo.svg');
 
   // Edit toggles
@@ -177,7 +179,7 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
       ctx.fillRect(30, 30, 95, 95);
       ctx.strokeRect(30, 30, 95, 95);
       const fsbnImg = new Image();
-      fsbnImg.src = logoFsbnUrl || '/assets/branding/logo-fsbn-original.jpg';
+      fsbnImg.src = logoFsbnUrl || FSBN_LOGO_DATA_URL;
       try {
         ctx.drawImage(fsbnImg, 32, 32, 91, 91);
       } catch (e) {}
@@ -669,7 +671,7 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
                         title="Klik untuk ganti Logo FSBN"
                       >
                         <img
-                          src={logoFsbnUrl || '/assets/branding/logo-fsbn-original.jpg'}
+                          src={logoFsbnUrl || FSBN_LOGO_DATA_URL}
                           alt="Logo FSBN"
                           className="w-full h-full object-contain"
                         />

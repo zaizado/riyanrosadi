@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500" width="500" height="500">
+  <!-- Red background -->
+  <rect width="500" height="500" fill="#FF0000"/>
+
+  <defs>
+    <!-- Path for curved text: top half of circle radius 112 at center (250, 205) -->
+    <path id="textArc" d="M 128,205 A 122,122 0 1,1 372,205" />
+  </defs>
+
+  <!-- Gear Group centered at (250, 205) -->
+  <g id="gear">
+    <!-- 8 Gear Teeth -->
+    <rect x="230" y="50" width="40" height="35" rx="3" fill="#000000" />
+    <rect x="230" y="50" width="40" height="35" rx="3" fill="#000000" transform="rotate(45 250 205)" />
+    <rect x="230" y="50" width="40" height="35" rx="3" fill="#000000" transform="rotate(90 250 205)" />
+    <rect x="230" y="50" width="40" height="35" rx="3" fill="#000000" transform="rotate(135 250 205)" />
+    <rect x="230" y="50" width="40" height="35" rx="3" fill="#000000" transform="rotate(180 250 205)" />
+    <rect x="230" y="50" width="40" height="35" rx="3" fill="#000000" transform="rotate(225 250 205)" />
+    <rect x="230" y="50" width="40" height="35" rx="3" fill="#000000" transform="rotate(270 250 205)" />
+    <rect x="230" y="50" width="40" height="35" rx="3" fill="#000000" transform="rotate(315 250 205)" />
+
+    <!-- Gear Outer Black Circle -->
+    <circle cx="250" cy="205" r="135" fill="#000000" />
+
+    <!-- Gear Inner Red Circle -->
+    <circle cx="250" cy="205" r="92" fill="#FF0000" />
+
+    <!-- Arc text on black gear ring -->
+    <text fill="#FFE600" font-family="'Arial Black', 'Impact', 'Trebuchet MS', sans-serif" font-weight="900" font-size="18.5" letter-spacing="1.2">
+      <textPath href="#textArc" startOffset="50%" text-anchor="middle">FEDERASI SERIKAT BURUH NUSANTARA</textPath>
+    </text>
+
+    <!-- 5-Pointed Yellow Star centered at (250, 205) -->
+    <polygon points="
+      250,117
+      270,178
+      334,178
+      282,216
+      302,277
+      250,239
+      198,277
+      218,216
+      166,178
+      230,178"
+      fill="#FFE600" />
+
+    <!-- Obor (Torch) in Center -->
+    <!-- Torch Handle/Holder -->
+    <path d="M 238,228 L 262,228 L 255,290 L 245,290 Z" fill="#000000" />
+    <ellipse cx="250" cy="228" rx="13" ry="4" fill="#000000" />
+    <!-- Torch Cup top rim -->
+    <path d="M 235,225 C 235,220 265,220 265,225 L 261,232 L 239,232 Z" fill="#000000" />
+    
+    <!-- Torch Flame -->
+    <path d="M 250,152 
+             C 258,170 266,182 264,198 
+             C 268,190 270,180 267,172 
+             C 272,185 271,202 263,212 
+             C 260,216 256,222 250,224 
+             C 244,222 240,216 237,212 
+             C 229,202 228,185 233,172 
+             C 230,180 232,190 236,198 
+             C 234,182 242,170 250,152 Z" 
+          fill="#000000" />
+    <path d="M 250,168 C 254,180 258,190 255,205 C 253,212 247,212 245,205 C 242,190 246,180 250,168 Z" fill="#FF0000" />
+    <path d="M 250,175 C 252,184 254,192 252,202 C 251,206 249,206 248,202 C 246,192 248,184 250,175 Z" fill="#FFE600" />
+  </g>
+
+  <!-- FSBN Text at bottom -->
+  <text x="250" y="455" text-anchor="middle" fill="#FFE600" font-family="'Arial Black', 'Impact', 'Times New Roman', serif" font-weight="900" font-size="82" letter-spacing="4">FSBN</text>
+</svg>

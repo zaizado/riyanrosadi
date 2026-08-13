@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImg from '../assets/images/fsbn_logo_emblem_1785338169849.jpg';
+import FSBN_LOGO_DATA_URL from '../assets/images/fsbnLogoDataUrl';
 
 interface FsbnLogoProps {
   className?: string;
@@ -8,21 +8,18 @@ interface FsbnLogoProps {
 }
 
 export const FsbnLogo: React.FC<FsbnLogoProps> = ({ 
-  className = "w-10 h-10 rounded-xl object-contain", 
+  className = "w-10 h-10 object-contain rounded-xl", 
   size
 }) => {
   return (
     <img 
-      src="/assets/branding/logo-fsbn-original.jpg" 
-      alt="Logo FSBN Original"
+      src={FSBN_LOGO_DATA_URL} 
+      alt="Logo FSBN SBN KASBI PT VCI"
       className={className}
       style={size ? { width: size, height: size } : undefined}
-      onError={(e) => {
-        // Fallback to imported asset if public folder path fails
-        e.currentTarget.onerror = null;
-        e.currentTarget.src = logoImg;
-      }}
     />
   );
 };
+
+
 

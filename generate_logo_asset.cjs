@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500" width="500" height="500">
+const fs = require('fs');
+
+const svgText = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500" width="500" height="500">
   <!-- Solid red background -->
   <rect width="500" height="500" fill="#E60000"/>
 
@@ -65,4 +67,17 @@
 
   <!-- FSBN Text at bottom -->
   <text x="250" y="458" text-anchor="middle" fill="#FFE600" font-family="'Arial Black', 'Impact', sans-serif" font-weight="900" font-size="82" letter-spacing="3">FSBN</text>
-</svg>
+</svg>`;
+
+const base64Svg = 'data:image/svg+xml;base64,' + Buffer.from(svgText).toString('base64');
+
+fs.writeFileSync('public/fsbn_logo.svg', svgText);
+
+const tsContent = `// Auto-generated SVG Logo Data URL for FSBN SBN KASBI PT VCI
+export const FSBN_LOGO_SVG = \`${svgText}\`;
+export const FSBN_LOGO_DATA_URL = "${base64Svg}";
+export default FSBN_LOGO_DATA_URL;
+`;
+
+fs.writeFileSync('src/assets/images/fsbnLogoDataUrl.ts', tsContent);
+console.log('Asset files generated successfully');

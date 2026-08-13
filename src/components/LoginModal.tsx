@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { UserAccount } from '../types';
 import { INITIAL_USERS } from '../data/initialData';
+import { FsbnLogo } from './FsbnLogo';
 import fsbnLogo from '../assets/images/fsbn_logo_emblem_1785338169849.jpg';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { ModalPortal } from './ModalPortal';
@@ -277,15 +278,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         <div className="flex flex-col items-center text-center mb-4">
           {/* Official FSBN Logo Image */}
           <div className="w-44 sm:w-52 relative drop-shadow-[0_12px_25px_rgba(0,0,0,0.9)]">
-            <img 
-              src="/assets/branding/logo-fsbn-original.jpg" 
-              alt="Logo FSBN SBN KASBI PT VCI" 
-              className="w-full h-auto object-contain rounded-xl"
-              onError={(e) => {
-                e.currentTarget.onerror = null;
-                e.currentTarget.src = fsbnLogo;
-              }}
-            />
+            <FsbnLogo className="w-full h-auto object-contain rounded-2xl shadow-2xl border border-red-500/40" />
           </div>
 
           {/* Subtitle Headline */}
