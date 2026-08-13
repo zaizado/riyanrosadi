@@ -12,7 +12,6 @@ import {
 import { UserAccount } from '../types';
 import { INITIAL_USERS } from '../data/initialData';
 import { FsbnLogo } from './FsbnLogo';
-import fsbnLogo from '../assets/images/fsbn_logo_emblem_1785338169849.jpg';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { ModalPortal } from './ModalPortal';
 import { auth } from '../lib/firebase';
@@ -274,13 +273,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({
           </button>
         )}
 
-        {/* TOP FSBN EMBLEM / LOGO */}
+        {/* TOP TITLE */}
         <div className="flex flex-col items-center text-center mb-4">
-          {/* Official FSBN Logo Image */}
-          <div className="w-44 sm:w-52 relative drop-shadow-[0_12px_25px_rgba(0,0,0,0.9)]">
-            <FsbnLogo className="w-full h-auto object-contain rounded-2xl shadow-2xl border border-red-500/40" />
-          </div>
-
           {/* Subtitle Headline */}
           <div className="mt-2 text-center text-white px-2">
             <h2 className="text-xs sm:text-sm font-black tracking-wide leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] uppercase">

@@ -79,6 +79,7 @@ export default function App() {
     fundraisingCampaigns, setFundraisingCampaigns,
     users, setUsers,
     severanceCalculations,
+    pkbRules,
     notulensiFiles, setNotulensiFiles,
     isSyncOffline,
     syncState
@@ -842,6 +843,7 @@ export default function App() {
                   members={members}
                   historyItems={severanceCalculations}
                   currentUser={currentUser}
+                  pkbRules={pkbRules}
                 />
               )}
 

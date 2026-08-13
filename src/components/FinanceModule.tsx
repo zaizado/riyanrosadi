@@ -42,6 +42,7 @@ import {
 } from 'recharts';
 import * as XLSX from 'xlsx';
 import { FinanceDailyRecord, DailyExpenseItem, UserAccount, checkIsSuperAdmin } from '../types';
+import { getLocalDateISO } from '../utils/dateUtils';
 import { ConfirmModal } from './ConfirmModal';
 import { ModalPortal } from './ModalPortal';
 import { generateEncryptedFinancePDF } from '../utils/pdfGenerator';
@@ -154,7 +155,7 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
   onSaveRecord,
   onDeleteRecord
 }) => {
-  const todayStr = useMemo(() => new Date().toISOString().slice(0, 10), []);
+  const todayStr = useMemo(() => getLocalDateISO(), []);
 
   // Filter States
   const [searchTerm, setSearchTerm] = useState('');
@@ -621,8 +622,8 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
       const startDt = new Date(endDt);
       startDt.setDate(startDt.getDate() - 6);
 
-      const startStr = startDt.toISOString().slice(0, 10);
-      const endStr = endDt.toISOString().slice(0, 10);
+      const startStr = getLocalDateISO(startDt);
+      const endStr = getLocalDateISO(endDt);
 
       recordsToExport = sortedRecordsAsc.filter(r => r.tanggal >= startStr && r.tanggal <= endStr);
       periodLabel = `Mingguan (${startStr} s.d. ${endStr})`;

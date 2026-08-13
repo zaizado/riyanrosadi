@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { QrCode, User, Home, Users, Wallet, Sparkles } from 'lucide-react';
+import { QrCode, User, Home, Users, Calculator, Sparkles } from 'lucide-react';
 import { ActiveTab } from './Sidebar';
 
 interface FloatingBottomNavProps {
@@ -75,24 +75,24 @@ export const FloatingBottomNav: React.FC<FloatingBottomNavProps> = ({
           </span>
         </motion.button>
 
-        {/* 4. Keuangan */}
+        {/* 4. PKB */}
         <motion.button 
           whileTap={{ scale: 0.9 }}
-          onClick={() => onNavigate('finance')}
+          onClick={() => onNavigate('severance')}
           className={`relative flex flex-col items-center transition-all cursor-pointer py-1 px-2.5 rounded-xl ${
-            activeTab === 'finance' 
+            activeTab === 'severance' 
               ? 'text-red-400 font-bold' 
               : 'text-slate-400 hover:text-slate-200'
           }`}
         >
-          {activeTab === 'finance' && (
+          {activeTab === 'severance' && (
             <motion.div 
               layoutId="activeTabGlow"
               className="absolute inset-0 bg-red-600/20 rounded-xl border border-red-500/40 glow-red-sm" 
             />
           )}
-          <Wallet className="w-5 h-5 relative z-10" />
-          <span className="text-[9px] font-bold tracking-wider uppercase mt-0.5 relative z-10">Kas</span>
+          <Calculator className="w-5 h-5 relative z-10" />
+          <span className="text-[9px] font-bold tracking-wider uppercase mt-0.5 relative z-10">PKB</span>
         </motion.button>
 
         {/* 5. Profil */}

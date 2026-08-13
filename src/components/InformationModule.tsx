@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CalendarDays, Gift, Scale, HeartPulse, Car, Plus, Search, Info, Trash2, CheckCircle2 } from 'lucide-react';
 import { OrganizationAgenda, SembakoEvent, AdvocacyCase, SickVisit, VehicleLog, UserAccount, checkIsSuperAdmin } from '../types';
+import { getLocalDateTimeISO } from '../utils/dateUtils';
 
 interface InformationModuleProps {
   agendas: OrganizationAgenda[];
@@ -60,7 +61,7 @@ export const InformationModule: React.FC<InformationModuleProps> = ({
       id: `agd-${Date.now()}`,
       judul: newJudul,
       jenis: 'Rapat',
-      tanggalWaktu: newWaktu || new Date().toISOString().slice(0, 16),
+      tanggalWaktu: newWaktu || getLocalDateTimeISO(),
       lokasi: newLokasi || 'Kantor Serikat SBN KASBI VCI',
       penanggungJawab: currentUser.name,
       deskripsi: newDeskripsi || 'Agenda Kegiatan Serikat',

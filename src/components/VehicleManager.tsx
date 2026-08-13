@@ -18,6 +18,7 @@ import {
   Key
 } from 'lucide-react';
 import { VehicleLog, VehicleType, VehicleStatus, ParkingLocation, Member, UserAccount } from '../types';
+import { getLocalDateISO } from '../utils/dateUtils';
 import { MemberSearchSelect } from './MemberSearchSelect';
 import { ModalPortal } from './ModalPortal';
 
@@ -61,9 +62,9 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
   const [petugasMemberId, setPetugasMemberId] = useState('');
   const [petugasSerahTerima, setPetugasSerahTerima] = useState('');
   const [tujuan, setTujuan] = useState('');
-  const [tanggalMulai, setTanggalMulai] = useState(() => new Date().toISOString().slice(0, 10));
+  const [tanggalMulai, setTanggalMulai] = useState(() => getLocalDateISO());
   const [jamMulai, setJamMulai] = useState('08:00');
-  const [tanggalSelesai, setTanggalSelesai] = useState(() => new Date().toISOString().slice(0, 10));
+  const [tanggalSelesai, setTanggalSelesai] = useState(() => getLocalDateISO());
   const [jamSelesai, setJamSelesai] = useState('17:00');
   const [kondisiAwal, setKondisiAwal] = useState('BBM 3/4 Tank, AC Normal, Body Bersih, Surat-surat Lengkap (STNK Ada)');
   const [status, setStatus] = useState<VehicleStatus>('Sedang Digunakan');
@@ -130,7 +131,7 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
     }
 
     setTujuan('');
-    const today = new Date().toISOString().slice(0, 10);
+    const today = getLocalDateISO();
     setTanggalMulai(today);
     setTanggalSelesai(today);
     setJamMulai('08:00');

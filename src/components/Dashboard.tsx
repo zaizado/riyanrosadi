@@ -46,6 +46,7 @@ import {
 } from '../types';
 import { formatRupiah } from '../lib/storage';
 import { ActiveTab } from './Sidebar';
+import { calculateFinanceSummary } from '../utils/financeUtils';
 
 interface DashboardProps {
   members: Member[];
@@ -82,24 +83,35 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
   const isSuperAdmin = checkIsSuperAdmin(currentUser);
 
-  // Calculations
-  const activeMembersCount = members.filter(m => m.statusKeanggotaan === 'Aktif').length || 524;
-  const pengurusCount = members.filter(m => m.jabatanOrganisasi && m.jabatanOrganisasi !== 'Anggota').length || 36;
-  const totalDanaCos = financeRecords.reduce((sum, rec) => sum + (rec.uangCosMasuk || 0), 0);
-  const totalPengeluaran = financeRecords.reduce((sum, rec) => {
-    return sum + rec.pengeluaranItems.reduce((acc, item) => acc + item.nominal, 0);
-  }, 0);
-  const saldoKas = totalDanaCos - totalPengeluaran;
+  // Real Calculations without mock fallbacks
+  const activeMembersCount = members.filter(m => m.statusKeanggotaan === 'Aktif').length;
+  const pengurusCount = members.filter(m => m.jabatanOrganisasi && m.jabatanOrganisasi !== 'Anggota').length;
+  
+  const financeSummary = calculateFinanceSummary(financeRecords);
+  const totalDanaCos = financeSummary.totalPemasukanCos;
+  const totalPengeluaran = financeSummary.totalPengeluaran;
+  const saldoKas = financeSummary.saldoAkhir;
 
-  // Chart Mock Activity Data for Futuristic Visualizer
-  const activityData = [
-    { month: 'Jan', anggota: 480, kasus: 3, agenda: 5 },
-    { month: 'Feb', anggota: 492, kasus: 2, agenda: 7 },
-    { month: 'Mar', anggota: 505, kasus: 4, agenda: 6 },
-    { month: 'Apr', anggota: 512, kasus: 1, agenda: 8 },
-    { month: 'Mei', anggota: 518, kasus: 3, agenda: 9 },
-    { month: 'Jun', anggota: activeMembersCount, kasus: advocacyCases.length || 2, agenda: agendas.length || 6 },
-  ];
+  // Real Historical Chart Activity Data
+  const monthsList = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+  const currentMonthIdx = new Date().getMonth();
+  const currentYear = new Date().getFullYear();
+
+  const activityData = monthsList.slice(0, currentMonthIdx + 1).map((mName, mIdx) => {
+    const monthStr = String(mIdx + 1).padStart(2, '0');
+    const monthPrefix = `${currentYear}-${monthStr}`;
+
+    const anggotaInMonth = members.filter(m => (m.tanggalBergabung || '').startsWith(monthPrefix)).length;
+    const kasusInMonth = advocacyCases.filter(c => (c.tanggalLapor || '').startsWith(monthPrefix)).length;
+    const agendaInMonth = agendas.filter(a => (a.tanggal || '').startsWith(monthPrefix)).length;
+
+    return {
+      month: mName,
+      anggota: anggotaInMonth,
+      kasus: kasusInMonth,
+      agenda: agendaInMonth
+    };
+  });
 
   const quickNavItems = [
     { id: 'members' as ActiveTab, label: 'Data Anggota', subtitle: 'Pusat Database KTA', icon: Users, color: 'from-red-600 to-red-800' },

@@ -31,7 +31,6 @@ import { INITIAL_USERS } from '../data/initialData';
 import { auth } from '../lib/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { FsbnLogo } from './FsbnLogo';
-import fsbnLogo from '../assets/images/fsbn_logo_emblem_1785338169849.jpg';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 
 import { syncManager, GlobalSyncDetails, SyncState } from '../lib/syncManager';
@@ -216,16 +215,6 @@ export const Header: React.FC<HeaderProps> = ({
               </motion.button>
 
               <div className="flex items-center gap-2.5 min-w-0">
-                <motion.div
-                  whileHover={{ rotate: 5, scale: 1.05 }}
-                  className="relative shrink-0"
-                >
-                  <FsbnLogo className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl object-contain bg-slate-950 p-0.5 border border-red-500/60 shadow-lg glow-red-sm shrink-0" />
-                  <span className="absolute -bottom-1 -right-1 flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
-                  </span>
-                </motion.div>
                 <div className="flex flex-col min-w-0">
                   <h1 className="text-xs sm:text-sm font-black text-white tracking-wider uppercase truncate leading-tight flex items-center gap-1.5 drop-shadow-[0_2px_8px_rgba(220,38,38,0.5)]">
                     PORTAL KOORDINASI

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Search, UserCheck, AlertCircle, RefreshCw, Briefcase, Calendar, Building, DollarSign } from 'lucide-react';
 import { Member } from '../../types';
 import { calculateServicePeriod } from '../../utils/servicePeriodCalculator';
+import { getLocalDateISO } from '../../utils/dateUtils';
 import { formatRupiah } from '../../utils/currencyFormatter';
 
 interface EmployeeSearchProps {
@@ -64,7 +65,7 @@ export const EmployeeSearch: React.FC<EmployeeSearchProps> = ({
   };
 
   const currentPeriod = selectedMember
-    ? calculateServicePeriod(selectedMember.tanggalBergabung, terminationDate || new Date().toISOString().slice(0, 10))
+    ? calculateServicePeriod(selectedMember.tanggalBergabung, terminationDate || getLocalDateISO())
     : null;
 
   const hasSalaryData = selectedMember && ((selectedMember.upahPokok && selectedMember.upahPokok > 0) || (selectedMember.tunjanganTetap && selectedMember.tunjanganTetap > 0));

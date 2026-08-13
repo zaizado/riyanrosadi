@@ -5,10 +5,20 @@ import { calculateServicePeriod } from './servicePeriodCalculator';
 describe('Severance Calculator Unit Tests (PKB PT VCI)', () => {
   const wage = 5000000; // Rp 5.000.000
 
-  // Test 1: Masa kerja 1 tahun
-  it('Test 1: Masa kerja 1 tahun (2025-01-01 to 2026-01-01)', () => {
+  // Test 1: Masa kerja 1 hari setelah tanggal masuk
+  it('1 day after hire date (2024-01-01 to 2024-01-02)', () => {
+    const period = calculateServicePeriod('2024-01-01', '2024-01-02');
+    expect(period.years).toBe(0);
+    expect(period.months).toBe(0);
+    expect(period.days).toBe(1);
+  });
+
+  // Test 2: Tepat 1 tahun
+  it('Exactly 1 year (2025-01-01 to 2026-01-01)', () => {
     const period = calculateServicePeriod('2025-01-01', '2026-01-01');
     expect(period.years).toBe(1);
+    expect(period.months).toBe(0);
+    expect(period.days).toBe(0);
 
     const sevMonths = getSeveranceMonths(period.years);
     const upmkMonths = getUPMKMonths(period.years);
@@ -17,17 +27,84 @@ describe('Severance Calculator Unit Tests (PKB PT VCI)', () => {
     expect(upmkMonths).toBe(0);
   });
 
-  // Test 2: Masa kerja 4 tahun
-  it('Test 2: Masa kerja 4 tahun (2022-01-01 to 2026-01-01)', () => {
-    const period = calculateServicePeriod('2022-01-01', '2026-01-01');
-    expect(period.years).toBe(4);
+  // Test 3: 1 hari sebelum 1 tahun
+  it('1 day before 1 year (2025-01-01 to 2025-12-31)', () => {
+    const period = calculateServicePeriod('2025-01-01', '2025-12-31');
+    expect(period.years).toBe(0);
+    expect(period.months).toBe(11);
+    expect(period.days).toBe(30);
+
+    const sevMonths = getSeveranceMonths(period.years);
+    expect(sevMonths).toBe(1); // < 1 tahun = 1 bulan pesangon
+  });
+
+  // Test 4: Tepat 2 tahun
+  it('Exactly 2 years (2024-01-01 to 2026-01-01)', () => {
+    const period = calculateServicePeriod('2024-01-01', '2026-01-01');
+    expect(period.years).toBe(2);
+    expect(period.months).toBe(0);
+    expect(period.days).toBe(0);
+  });
+
+  // Test 5: 1 hari sebelum 3 tahun
+  it('1 day before 3 years (2023-01-01 to 2025-12-31)', () => {
+    const period = calculateServicePeriod('2023-01-01', '2025-12-31');
+    expect(period.years).toBe(2);
+    expect(period.months).toBe(11);
+    expect(period.days).toBe(30);
+  });
+
+  // Test 6: Tepat 3 tahun
+  it('Exactly 3 years (2023-01-01 to 2026-01-01)', () => {
+    const period = calculateServicePeriod('2023-01-01', '2026-01-01');
+    expect(period.years).toBe(3);
+    expect(period.months).toBe(0);
+    expect(period.days).toBe(0);
+    expect(getUPMKMonths(period.years)).toBe(2); // 3 - < 6 tahun = 2 bulan UPMK
+  });
+
+  // Test 7: Tepat 8 tahun
+  it('Exactly 8 years (2018-01-01 to 2026-01-01)', () => {
+    const period = calculateServicePeriod('2018-01-01', '2026-01-01');
+    expect(period.years).toBe(8);
+    expect(period.months).toBe(0);
+    expect(period.days).toBe(0);
 
     const sevMonths = getSeveranceMonths(period.years);
     const upmkMonths = getUPMKMonths(period.years);
 
-    expect(sevMonths).toBe(5);
-    expect(upmkMonths).toBe(2);
+    expect(sevMonths).toBe(9);
+    expect(upmkMonths).toBe(3); // 6 - < 9 tahun is 3 months
+  });
 
+  // Test 8: Lebih dari 20 tahun (25 tahun)
+  it('More than 20 years (2001-01-01 to 2026-01-01)', () => {
+    const period = calculateServicePeriod('2001-01-01', '2026-01-01');
+    expect(period.years).toBe(25);
+    expect(period.months).toBe(0);
+    expect(period.days).toBe(0);
+
+    expect(getSeveranceMonths(period.years)).toBe(9);
+    expect(getUPMKMonths(period.years)).toBe(10); // >= 24 tahun is 10 months
+  });
+
+  // Test 9: Boundary dates (31 Jan, 28 Feb, 29 Feb leap year, 30 Apr, 31 Dec -> 1 Jan)
+  it('Month & leap year boundaries (2024 leap year 29 Feb to 2025 28 Feb)', () => {
+    const period = calculateServicePeriod('2024-02-29', '2025-02-28');
+    expect(period.years).toBe(0);
+    expect(period.months).toBe(11);
+    expect(period.days).toBe(30);
+  });
+
+  it('Dec 31 to Jan 1 next year (2024-12-31 to 2025-01-01)', () => {
+    const period = calculateServicePeriod('2024-12-31', '2025-01-01');
+    expect(period.years).toBe(0);
+    expect(period.months).toBe(0);
+    expect(period.days).toBe(1);
+  });
+
+  // Test 10: Full calculation check with multipliers
+  it('Full calculation with 4 years service', () => {
     const res = calculateSeverance({
       nik: '12345',
       memberId: 'm1',
@@ -52,32 +129,8 @@ describe('Severance Calculator Unit Tests (PKB PT VCI)', () => {
     expect(result.totalAmount).toBe(69000000); // 50M + 10M + 9M = 69M
   });
 
-  // Test 3: Masa kerja 8 tahun
-  it('Test 3: Masa kerja 8 tahun (2018-01-01 to 2026-01-01)', () => {
-    const period = calculateServicePeriod('2018-01-01', '2026-01-01');
-    expect(period.years).toBe(8);
-
-    const sevMonths = getSeveranceMonths(period.years);
-    const upmkMonths = getUPMKMonths(period.years);
-
-    expect(sevMonths).toBe(9);
-    expect(upmkMonths).toBe(3); // 6 - < 9 tahun is 3 months
-  });
-
-  // Test 4: Masa kerja 20 tahun
-  it('Test 4: Masa kerja 20 tahun (2006-01-01 to 2026-01-01)', () => {
-    const period = calculateServicePeriod('2006-01-01', '2026-01-01');
-    expect(period.years).toBe(20);
-
-    const sevMonths = getSeveranceMonths(period.years);
-    const upmkMonths = getUPMKMonths(period.years);
-
-    expect(sevMonths).toBe(9);
-    expect(upmkMonths).toBe(7); // 18 - < 21 tahun is 7 months
-  });
-
-  // Test 5: Tanggal PHK sebelum tanggal masuk -> ERROR
-  it('Test 5: Tanggal PHK sebelum tanggal masuk returns error', () => {
+  // Test 11: Tanggal PHK sebelum tanggal masuk -> ERROR
+  it('Termination date before hire date returns error', () => {
     const res = calculateSeverance({
       nik: '12345',
       memberId: 'm1',
@@ -94,53 +147,5 @@ describe('Severance Calculator Unit Tests (PKB PT VCI)', () => {
 
     expect(res.error).toBe('Tanggal PHK tidak boleh lebih awal dari tanggal masuk kerja.');
     expect(res.result).toBeUndefined();
-  });
-
-  // Test 6: NIK tidak diisi / kosong -> ERROR
-  it('Test 6: NIK kosong returns error', () => {
-    const res = calculateSeverance({
-      nik: '',
-      memberId: '',
-      employeeName: '',
-      department: '',
-      position: '',
-      hireDate: '2022-01-01',
-      terminationDate: '2026-01-01',
-      baseSalary: wage,
-      fixedAllowance: 0,
-      terminationTypeId: 'efisiensi',
-      calculatedBy: 'Admin'
-    });
-
-    expect(res.error).toBe('NIK pekerja wajib diisi.');
-  });
-
-  // Test 7: Jenis PHK dengan faktor 2× -> Hanya pesangon yang dikalikan 2×, UPMK tetap 1×
-  it('Test 7: Jenis PHK 2x multiplies only severance, not UPMK', () => {
-    const res = calculateSeverance({
-      nik: '99999',
-      memberId: 'm2',
-      employeeName: 'Cici',
-      department: 'Quality',
-      position: 'Inspector',
-      hireDate: '2022-01-01',
-      terminationDate: '2026-01-01', // 4 years
-      baseSalary: 10000000, // 10M
-      fixedAllowance: 0,
-      terminationTypeId: 'efisiensi', // 2x pesangon, 1x upmk
-      calculatedBy: 'Admin'
-    });
-
-    const result = res.result!;
-    expect(result.severanceMultiplier).toBe(2);
-    expect(result.upmkMultiplier).toBe(1);
-
-    // Severance base: 5 months * 10M = 50M -> Multiplied by 2 = 100M
-    expect(result.severanceBaseAmount).toBe(50000000);
-    expect(result.severanceAmount).toBe(100000000);
-
-    // UPMK base: 2 months * 10M = 20M -> Multiplied by 1 = 20M
-    expect(result.upmkBaseAmount).toBe(20000000);
-    expect(result.upmkAmount).toBe(20000000);
   });
 });

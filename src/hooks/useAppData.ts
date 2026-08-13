@@ -18,7 +18,7 @@ import {
 import { repositories } from '../repositories';
 import { auditLogRepository } from '../repositories/auditLogRepository';
 import { sortAuditLogsNewestFirst } from '../lib/storage';
-import { SeveranceCalculationResult } from '../types/severance';
+import { SeveranceCalculationResult, PkbRuleConfig } from '../types/severance';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { syncManager, SyncState, GlobalSyncDetails } from '../lib/syncManager';
 
@@ -36,6 +36,7 @@ export const useAppData = () => {
   const [fundraisingCampaigns, setFundraisingCampaigns] = useState<FundraisingCampaign[]>([]);
   const [users, setUsers] = useState<UserAccount[]>([]);
   const [severanceCalculations, setSeveranceCalculations] = useState<SeveranceCalculationResult[]>([]);
+  const [pkbRules, setPkbRules] = useState<PkbRuleConfig[]>([]);
   
   const [syncDetails, setSyncDetails] = useState<GlobalSyncDetails>(() => syncManager.getDetails());
 
@@ -124,6 +125,10 @@ export const useAppData = () => {
         setSeveranceCalculations(items);
       }, handleErr));
 
+      unsubs.push(repositories.severanceRules.subscribe([], (items) => {
+        setPkbRules(items);
+      }, handleErr));
+
       unsubs.push(auditLogRepository.subscribe([], (items) => {
         setAuditLogs(sortAuditLogsNewestFirst(items));
       }, handleErr));
@@ -151,6 +156,7 @@ export const useAppData = () => {
     fundraisingCampaigns, setFundraisingCampaigns,
     users, setUsers,
     severanceCalculations, setSeveranceCalculations,
+    pkbRules, setPkbRules,
     isSyncOffline,
     syncState,
     syncDetails

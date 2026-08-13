@@ -13,6 +13,7 @@ import {
 import { Member, UserAccount, checkIsSuperAdmin } from '../../types';
 import { SeveranceCalculationInput, SeveranceCalculationResult, PkbRuleConfig, DEFAULT_PKB_RULE } from '../../types/severance';
 import { calculateSeverance } from '../../utils/severanceCalculator';
+import { selectActivePkbRule } from '../../utils/pkbRuleSelector';
 import { EmployeeSearch } from './EmployeeSearch';
 import { SeveranceForm } from './SeveranceForm';
 import { SeveranceResultCard } from './SeveranceResultCard';
@@ -21,24 +22,27 @@ import { SeveranceTableModal } from './SeveranceTableModal';
 import { AdminRuleManagementModal } from './AdminRuleManagementModal';
 import { SeveranceService } from '../../services/severanceService';
 import { SectionHeader, PrimaryButton, SecondaryButton } from '../ui/DesignSystem';
+import { getLocalDateISO } from '../../utils/dateUtils';
 
 interface SeveranceModuleProps {
   members: Member[];
   historyItems: SeveranceCalculationResult[];
   currentUser: UserAccount;
+  pkbRules?: PkbRuleConfig[];
 }
 
 export const SeveranceModule: React.FC<SeveranceModuleProps> = ({
   members,
   historyItems,
-  currentUser
+  currentUser,
+  pkbRules = []
 }) => {
   const [activeTab, setActiveTab] = useState<'calculator' | 'history' | 'rules'>('calculator');
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
   const [calcResult, setCalcResult] = useState<SeveranceCalculationResult | null>(null);
   const [calcError, setCalcError] = useState<string | null>(null);
 
-  const [activeRule, setActiveRule] = useState<PkbRuleConfig>(DEFAULT_PKB_RULE);
+  const [customActiveRule, setCustomActiveRule] = useState<PkbRuleConfig | null>(null);
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [showTableModal, setShowTableModal] = useState(false);
 
@@ -47,13 +51,22 @@ export const SeveranceModule: React.FC<SeveranceModuleProps> = ({
 
   const isSuperAdmin = checkIsSuperAdmin(currentUser);
 
+  const getEffectiveRuleForDate = (dateStr: string): PkbRuleConfig => {
+    if (customActiveRule) return customActiveRule;
+    return selectActivePkbRule(pkbRules, dateStr);
+  };
+
+  const activeRule = getEffectiveRuleForDate(getLocalDateISO());
+
   const handleCalculate = (input: SeveranceCalculationInput) => {
     setCalcError(null);
     setIsSaved(false);
 
+    const ruleToUse = getEffectiveRuleForDate(input.terminationDate);
+
     const res = calculateSeverance({
       ...input,
-      pkbRule: activeRule,
+      pkbRule: ruleToUse,
       calculatedBy: currentUser.name
     });
 
@@ -169,7 +182,7 @@ export const SeveranceModule: React.FC<SeveranceModuleProps> = ({
               setCalcError(null);
             }}
             selectedMember={selectedMember}
-            terminationDate={new Date().toISOString().slice(0, 10)}
+            terminationDate={getLocalDateISO()}
           />
 
           {/* Step 2: Form */}
@@ -225,7 +238,7 @@ export const SeveranceModule: React.FC<SeveranceModuleProps> = ({
         isOpen={showAdminModal}
         onClose={() => setShowAdminModal(false)}
         activeRule={activeRule}
-        onRuleUpdated={(updated) => setActiveRule(updated)}
+        onRuleUpdated={(updated) => setCustomActiveRule(updated)}
         currentUser={currentUser}
       />
     </div>

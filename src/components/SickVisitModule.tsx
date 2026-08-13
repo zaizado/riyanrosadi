@@ -19,6 +19,7 @@ import {
 import { SickVisit, SickVisitStatus, Member, UserAccount, SickVisitLog } from '../types';
 import { MemberSearchSelect } from './MemberSearchSelect';
 import { exportSickVisitToExcel } from '../lib/excelExport';
+import { getLocalDateISO } from '../utils/dateUtils';
 
 interface SickVisitModuleProps {
   sickVisits: SickVisit[];
@@ -104,13 +105,13 @@ export const SickVisitModule: React.FC<SickVisitModuleProps> = ({
       jenisLokasi,
       diagnosaSingkat,
       catatanAwal,
-      tanggalKunjunganAwal: new Date().toISOString().slice(0, 10),
+      tanggalKunjunganAwal: getLocalDateISO(),
       status: 'Menunggu Kunjungan',
       pengurusPenanggungJawab: pengurusPJ,
       riwayatKunjungan: [
         {
           id: `slog-${Date.now()}`,
-          tanggal: new Date().toISOString().slice(0, 10),
+          tanggal: getLocalDateISO(),
           penulis: currentUser.name,
           catatan: `Pendampingan anggota sakit dicatat: ${catatanAwal}`,
           kondisiTerbaru: diagnosaSingkat || 'Dalam perawatan awal'
@@ -133,7 +134,7 @@ export const SickVisitModule: React.FC<SickVisitModuleProps> = ({
 
     const newLogItem: SickVisitLog = {
       id: `slog-${Date.now()}`,
-      tanggal: new Date().toISOString().slice(0, 10),
+      tanggal: getLocalDateISO(),
       penulis: currentUser.name,
       catatan: logCatatan,
       kondisiTerbaru: logKondisi || 'Kondisi stabil'

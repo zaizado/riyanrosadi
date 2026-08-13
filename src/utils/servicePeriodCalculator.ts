@@ -1,4 +1,24 @@
 import { ServicePeriodResult } from '../types/severance';
+import { parseLocalDate } from './dateUtils';
+
+interface ParsedYMD {
+  year: number;
+  month: number;
+  day: number;
+}
+
+function parseYMD(dateStr: string): ParsedYMD | null {
+  if (!dateStr || typeof dateStr !== 'string') return null;
+  const match = dateStr.trim().match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!match) return null;
+  const year = parseInt(match[1], 10);
+  const month = parseInt(match[2], 10);
+  const day = parseInt(match[3], 10);
+  if (isNaN(year) || isNaN(month) || isNaN(day) || month < 1 || month > 12 || day < 1 || day > 31) {
+    return null;
+  }
+  return { year, month, day };
+}
 
 export function calculateServicePeriod(hireDateStr: string, terminationDateStr: string): ServicePeriodResult {
   if (!hireDateStr || !terminationDateStr) {
@@ -12,10 +32,10 @@ export function calculateServicePeriod(hireDateStr: string, terminationDateStr: 
     };
   }
 
-  const hireDate = new Date(hireDateStr);
-  const terminationDate = new Date(terminationDateStr);
+  const hireYMD = parseYMD(hireDateStr);
+  const termYMD = parseYMD(terminationDateStr);
 
-  if (isNaN(hireDate.getTime()) || isNaN(terminationDate.getTime())) {
+  if (!hireYMD || !termYMD) {
     return {
       years: 0,
       months: 0,
@@ -26,11 +46,11 @@ export function calculateServicePeriod(hireDateStr: string, terminationDateStr: 
     };
   }
 
-  // Set times to midnight UTC to prevent timezone offsets affecting calculation
-  const hire = new Date(Date.UTC(hireDate.getFullYear(), hireDate.getMonth(), hireDate.getDate()));
-  const term = new Date(Date.UTC(terminationDate.getFullYear(), terminationDate.getMonth(), terminationDate.getDate()));
+  // Check if term < hire
+  const hireVal = hireYMD.year * 10000 + hireYMD.month * 100 + hireYMD.day;
+  const termVal = termYMD.year * 10000 + termYMD.month * 100 + termYMD.day;
 
-  if (term < hire) {
+  if (termVal < hireVal) {
     return {
       years: 0,
       months: 0,
@@ -41,15 +61,17 @@ export function calculateServicePeriod(hireDateStr: string, terminationDateStr: 
     };
   }
 
-  let years = term.getUTCFullYear() - hire.getUTCFullYear();
-  let months = term.getUTCMonth() - hire.getUTCMonth();
-  let days = term.getUTCDate() - hire.getUTCDate();
+  let years = termYMD.year - hireYMD.year;
+  let months = termYMD.month - hireYMD.month;
+  let days = termYMD.day - hireYMD.day;
 
   if (days < 0) {
     months--;
-    // Get total days in previous month
-    const prevMonthLastDay = new Date(Date.UTC(term.getUTCFullYear(), term.getUTCMonth(), 0)).getUTCDate();
-    days += prevMonthLastDay;
+    // Get days in previous month relative to termination month
+    const prevMonthYear = termYMD.month === 1 ? termYMD.year - 1 : termYMD.year;
+    const prevMonth = termYMD.month === 1 ? 12 : termYMD.month - 1;
+    const daysInPrevMonth = new Date(prevMonthYear, prevMonth, 0).getDate();
+    days += daysInPrevMonth;
   }
 
   if (months < 0) {

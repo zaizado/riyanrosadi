@@ -111,7 +111,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     },
     {
       id: 'severance' as ActiveTab,
-      label: 'Simulasi Pesangon',
+      label: 'Simulasi Pesangon & PKB',
       subtitle: 'Kalkulator Hak PHK & PKB',
       icon: Calculator,
       badge: 'BARU',
@@ -210,7 +210,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <div className="p-4 border-b border-white/10 flex items-center justify-between bg-gradient-to-r from-red-950/90 via-red-900/80 to-slate-900 text-white relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(220,38,38,0.25),transparent_70%)] pointer-events-none" />
               <div className="flex items-center space-x-3 relative z-10">
-                <FsbnLogo className="w-10 h-10 rounded-xl shadow-lg border border-red-500/40 glow-red-sm shrink-0" />
                 <div>
                   <h2 className="font-black text-sm tracking-wider text-white uppercase flex items-center gap-1">
                     SBN KASBI VCI

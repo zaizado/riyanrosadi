@@ -23,6 +23,7 @@ import { AdvocacyCase, AdvocacyStatus, Member, UserAccount, AdvocacyUpdate } fro
 import { MemberSearchSelect } from './MemberSearchSelect';
 import { exportAdvocacyToExcel } from '../lib/excelExport';
 import { ModalPortal } from './ModalPortal';
+import { getLocalDateISO } from '../utils/dateUtils';
 import { SectionHeader, PrimaryButton, SecondaryButton } from './ui/DesignSystem';
 
 interface AdvocacyModuleProps {
@@ -114,14 +115,14 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
       departemen: selectedMbr.departemen,
       judulKasus: newCaseJudul,
       kategori: newCaseKategori,
-      tanggalDibuat: new Date().toISOString().slice(0, 10),
+      tanggalDibuat: getLocalDateISO(),
       status: 'Baru',
       pendampingUtama: newCasePendamping,
       deskripsiMasalah: newCaseDeskripsi,
       riwayatPerkembangan: [
         {
           id: `upd-${Date.now()}`,
-          tanggal: new Date().toISOString().slice(0, 10),
+          tanggal: getLocalDateISO(),
           penulis: currentUser.name,
           catatan: `Laporan advokasi kasus baru berhasil dibuat. Deskripsi: ${newCaseDeskripsi}`,
           statusSebelumnya: 'Baru',
@@ -144,7 +145,7 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
 
     const newUpdate: AdvocacyUpdate = {
       id: `upd-${Date.now()}`,
-      tanggal: new Date().toISOString().slice(0, 10),
+      tanggal: getLocalDateISO(),
       penulis: currentUser.name,
       catatan: updateNotes,
       statusSebelumnya: selectedCaseDetail.status,

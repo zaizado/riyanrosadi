@@ -30,6 +30,7 @@ import confetti from 'canvas-confetti';
 import * as XLSX from 'xlsx';
 import { Html5Qrcode } from 'html5-qrcode';
 import { SembakoEvent, SembakoClaim, Member, UserAccount, checkIsSuperAdmin } from '../types';
+import { getLocalDateISO } from '../utils/dateUtils';
 import { ConfirmModal } from './ConfirmModal';
 
 interface SembakoModuleProps {
@@ -96,7 +97,7 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
 
   // New Event Form State
   const [newEventNama, setNewEventNama] = useState('');
-  const [newEventTanggal, setNewEventTanggal] = useState(new Date().toISOString().slice(0, 10));
+  const [newEventTanggal, setNewEventTanggal] = useState(getLocalDateISO());
   const [newEventLokasi, setNewEventLokasi] = useState('Sekretariat SBN KASBI PT VCI');
   const [newEventJenisPaket, setNewEventJenisPaket] = useState('Paket Beras 10kg + Minyak Goreng 2L + Gula 1kg');
   const [newEventKeterangan, setNewEventKeterangan] = useState('Khusus Anggota Aktif SBN KASBI PT Victory Chingluh Indonesia.');

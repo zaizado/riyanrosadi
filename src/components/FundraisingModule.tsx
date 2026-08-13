@@ -34,6 +34,7 @@ import {
   HealthCondition, 
   CampaignStatus 
 } from '../types';
+import { getLocalDateISO } from '../utils/dateUtils';
 import { MemberSearchSelect } from './MemberSearchSelect';
 import { ConfirmModal } from './ConfirmModal';
 
@@ -96,7 +97,7 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
   const [picNama, setPicNama] = useState(currentUser.name || '');
   const [picNik, setPicNik] = useState(currentUser.nik || '');
 
-  const [tanggalDigalang, setTanggalDigalang] = useState(() => new Date().toISOString().slice(0, 10));
+  const [tanggalDigalang, setTanggalDigalang] = useState(() => getLocalDateISO());
   const [jumlahTerkumpulStr, setJumlahTerkumpulStr] = useState('');
   const [isDidampingiKeRs, setIsDidampingiKeRs] = useState(true);
   const [status, setStatus] = useState<CampaignStatus>('Sedang Berjalan');
@@ -112,7 +113,7 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
     setPicMemberId('');
     setPicNama(currentUser.name || '');
     setPicNik(currentUser.nik || '');
-    setTanggalDigalang(new Date().toISOString().slice(0, 10));
+    setTanggalDigalang(getLocalDateISO());
     setJumlahTerkumpulStr('');
     setIsDidampingiKeRs(true);
     setStatus('Sedang Berjalan');
@@ -133,7 +134,7 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
     setPicMemberId(camp.picMemberId || '');
     setPicNama(camp.picNama);
     setPicNik(camp.picNik);
-    setTanggalDigalang(camp.tanggalDigalang || new Date().toISOString().slice(0, 10));
+    setTanggalDigalang(camp.tanggalDigalang || getLocalDateISO());
     setJumlahTerkumpulStr(camp.jumlahTerkumpul ? camp.jumlahTerkumpul.toLocaleString('id-ID') : '');
     setIsDidampingiKeRs(camp.isDidampingiKeRs ?? true);
     setStatus(camp.status);

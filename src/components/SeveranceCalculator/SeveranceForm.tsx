@@ -3,6 +3,7 @@ import { Calculator, Calendar, AlertTriangle, DollarSign, FileText, ChevronDown,
 import { Member } from '../../types';
 import { DEFAULT_TERMINATION_TYPES, SeveranceCalculationInput, TerminationTypeConfig } from '../../types/severance';
 import { parseRupiahNum, formatRupiah } from '../../utils/currencyFormatter';
+import { getLocalDateISO } from '../../utils/dateUtils';
 
 interface SeveranceFormProps {
   selectedMember: Member;
@@ -15,7 +16,7 @@ export const SeveranceForm: React.FC<SeveranceFormProps> = ({
   onCalculate,
   calculatedBy
 }) => {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = getLocalDateISO();
 
   const [terminationDate, setTerminationDate] = useState(today);
   const [terminationTypeId, setTerminationTypeId] = useState<string>('efisiensi');

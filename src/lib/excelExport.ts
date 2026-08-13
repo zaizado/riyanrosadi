@@ -1,6 +1,7 @@
 import * as XLSX from 'xlsx';
 import { AdvocacyCase, SickVisit } from '../types';
 import { exportWorkbookToExcel } from '../utils/exportAndPrintUtils';
+import { getLocalDateISO } from '../utils/dateUtils';
 
 /**
  * Export Sick Visit (Pendampingan Sakit) data to Excel (.xlsx)
@@ -83,7 +84,7 @@ export const exportSickVisitToExcel = (sickVisits: SickVisit[]) => {
   XLSX.utils.book_append_sheet(workbook, worksheetSummary, 'Ringkasan Eksekutif');
 
   // Trigger Download
-  const fileName = `Laporan_Anggota_Sakit_SBN_VCI_${new Date().toISOString().slice(0, 10)}.xlsx`;
+  const fileName = `Laporan_Anggota_Sakit_SBN_VCI_${getLocalDateISO()}.xlsx`;
   exportWorkbookToExcel(workbook, fileName);
 };
 
@@ -170,6 +171,6 @@ export const exportAdvocacyToExcel = (advocacyCases: AdvocacyCase[]) => {
   XLSX.utils.book_append_sheet(workbook, worksheetSummary, 'Ringkasan Kasus');
 
   // Download
-  const fileName = `Laporan_Advokasi_SBN_VCI_${new Date().toISOString().slice(0, 10)}.xlsx`;
+  const fileName = `Laporan_Advokasi_SBN_VCI_${getLocalDateISO()}.xlsx`;
   exportWorkbookToExcel(workbook, fileName);
 };

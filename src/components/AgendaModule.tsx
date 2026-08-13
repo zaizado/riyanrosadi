@@ -40,6 +40,7 @@ import {
   NotulensiHistoryItem,
   NotulensiFileItem
 } from '../types';
+import { getLocalDateISO, getLocalDateTimeISO } from '../utils/dateUtils';
 import { ConfirmModal } from './ConfirmModal';
 import { ModalPortal } from './ModalPortal';
 import { SectionHeader, PrimaryButton } from './ui/DesignSystem';
@@ -142,7 +143,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
   }>({
     task: '',
     pic: '',
-    deadline: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10),
+    deadline: getLocalDateISO(new Date(Date.now() + 7 * 86400000)),
     status: 'Belum Dimulai',
     notes: ''
   });
@@ -151,7 +152,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
   const [formData, setFormData] = useState<Partial<OrganizationAgenda>>({
     judul: '',
     jenis: 'Rapat',
-    tanggalWaktu: new Date(Date.now() + 86400000).toISOString().slice(0, 16),
+    tanggalWaktu: getLocalDateTimeISO(new Date(Date.now() + 86400000)),
     lokasi: 'Sekretariat SBN KASBI PT VCI',
     penanggungJawab: currentUser.name,
     deskripsi: '',
@@ -242,7 +243,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
     setFormData({
       judul: '',
       jenis: 'Rapat',
-      tanggalWaktu: new Date(Date.now() + 86400000).toISOString().slice(0, 16),
+      tanggalWaktu: getLocalDateTimeISO(new Date(Date.now() + 86400000)),
       lokasi: 'Sekretariat SBN KASBI PT VCI',
       penanggungJawab: currentUser.name,
       deskripsi: '',
@@ -613,7 +614,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
       id: `tl-${Date.now()}`,
       task: decisionText,
       pic: selectedAgenda.notulensi.pimpinanRapat || selectedAgenda.penanggungJawab,
-      deadline: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10),
+      deadline: getLocalDateISO(new Date(Date.now() + 7 * 86400000)),
       status: 'Belum Dimulai',
       notes: 'Otomatis dibuat dari Keputusan Rapat'
     };
@@ -666,7 +667,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
     setNewFollowUp({
       task: '',
       pic: '',
-      deadline: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10),
+      deadline: getLocalDateISO(new Date(Date.now() + 7 * 86400000)),
       status: 'Belum Dimulai',
       notes: ''
     });

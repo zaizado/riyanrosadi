@@ -13,6 +13,7 @@ import {
 } from '../types';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { downloadBlob } from '../utils/exportAndPrintUtils';
+import { getLocalDateISO } from '../utils/dateUtils';
 
 const STORAGE_KEYS = {
   CURRENT_USER: 'sbn_vci_current_user_v3',
@@ -135,5 +136,5 @@ export const exportFullBackup = (data?: ExportBackupData) => {
   };
   const jsonStr = JSON.stringify(backupData, null, 2);
   const blob = new Blob([jsonStr], { type: 'application/json' });
-  downloadBlob(blob, `SBN_VCI_Backup_${new Date().toISOString().slice(0,10)}.json`);
+  downloadBlob(blob, `SBN_VCI_Backup_${getLocalDateISO()}.json`);
 };

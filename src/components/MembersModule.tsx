@@ -38,6 +38,7 @@ import { SectionHeader, PrimaryButton, SecondaryButton } from './ui/DesignSystem
 import { CameraCaptureModal } from './CameraCaptureModal';
 
 import { exportWorkbookToExcel } from '../utils/exportAndPrintUtils';
+import { getLocalDateISO } from '../utils/dateUtils';
 import { saveFirestoreDoc } from '../lib/firebase';
 import { AuditService } from '../services/auditService';
 
@@ -252,7 +253,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
 
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Data Anggota SBN');
-    exportWorkbookToExcel(workbook, `Data_Anggota_Resmi_SBN_KASBI_${new Date().toISOString().slice(0, 10)}.xlsx`);
+    exportWorkbookToExcel(workbook, `Data_Anggota_Resmi_SBN_KASBI_${getLocalDateISO()}.xlsx`);
   };
 
   // HANDLE FILE UPLOAD FOR EXCEL SYNCHRONIZATION
@@ -428,7 +429,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
         gedung: rawGedung,
         lokasi: rawLokasi,
         departemen: rawDept || 'Assembly',
-        tanggalBergabung: formattedJoinDate || new Date().toISOString().slice(0, 10),
+        tanggalBergabung: formattedJoinDate || getLocalDateISO(),
         jabatanKerja: rawPosisi || 'OPERATOR',
         unionName: rawUnion || 'SBN-KASBI',
         alamat: rawAlamat || '-'
@@ -717,7 +718,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
     bagian: '',
     jabatanKerja: 'Operator',
     statusKeanggotaan: 'Aktif',
-    tanggalBergabung: new Date().toISOString().slice(0, 10),
+    tanggalBergabung: getLocalDateISO(),
     fotoUrl: cheAvatar
   });
 
@@ -737,7 +738,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
       bagian: 'Line 01',
       jabatanKerja: 'OPERATOR',
       statusKeanggotaan: 'Aktif',
-      tanggalBergabung: new Date().toISOString().slice(0, 10),
+      tanggalBergabung: getLocalDateISO(),
       fotoUrl: cheAvatar
     });
     setIsAddEditModalOpen(true);
@@ -778,7 +779,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
         bagian: formData.bagian || 'Line',
         jabatanKerja: formData.jabatanKerja || 'OPERATOR',
         statusKeanggotaan: (formData.statusKeanggotaan as MemberStatus) || 'Aktif',
-        tanggalBergabung: formData.tanggalBergabung || new Date().toISOString().slice(0, 10),
+        tanggalBergabung: formData.tanggalBergabung || getLocalDateISO(),
         fotoUrl: formData.fotoUrl || cheAvatar
       };
       onAddMember(newMbr);
@@ -1178,11 +1179,6 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
               <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
                 <p className="text-[10px] text-slate-400 font-semibold">Serikat / Union</p>
                 <p className="font-bold text-slate-200">{selectedMember.unionName || 'SBN-KASBI'}</p>
-              </div>
-
-              <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
-                <p className="text-[10px] text-slate-400 font-semibold">Tempat / Tanggal Lahir</p>
-                <p className="font-bold text-slate-200">{selectedMember.tempatLahir}{selectedMember.tanggalLahir ? `, ${selectedMember.tanggalLahir}` : ''}</p>
               </div>
 
               <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
