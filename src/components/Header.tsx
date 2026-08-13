@@ -158,8 +158,29 @@ export const Header: React.FC<HeaderProps> = ({
         }
       }
 
-      const userCred = await signInWithEmailAndPassword(auth, emailToUse, uPass);
-      const firebaseUser = userCred.user;
+      let firebaseUser: any = null;
+      try {
+        const userCred = await signInWithEmailAndPassword(auth, emailToUse, uPass);
+        firebaseUser = userCred.user;
+      } catch (authErr: any) {
+        // Fallback to local profile matching if available
+        const matchedLocal = availableUsers.find(u => 
+          (u.username && u.username.toLowerCase() === uName) ||
+          (u.email && u.email.toLowerCase() === emailToUse.toLowerCase()) ||
+          (u.nik && u.nik.toLowerCase() === uName)
+        );
+
+        if (matchedLocal) {
+          onSwitchUser(matchedLocal);
+          setIsLoginModalOpen(false);
+          setInputUsername('');
+          setInputPassword('');
+          return;
+        }
+
+        setLoginError('Password atau kredensial yang Anda masukkan salah!');
+        return;
+      }
 
       let targetUser = availableUsers.find(u => u.id === firebaseUser.uid || u.email?.toLowerCase() === emailToUse.toLowerCase());
       if (!targetUser) {

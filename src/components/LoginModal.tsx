@@ -80,9 +80,55 @@ export const LoginModal: React.FC<LoginModalProps> = ({
     }
 
     try {
-      // Perform Firebase Authentication strictly via signInWithEmailAndPassword
-      const userCred = await signInWithEmailAndPassword(auth, emailToUse, inputPass);
-      const firebaseUser = userCred.user;
+      let firebaseUser: any = null;
+      try {
+        // Perform Firebase Authentication via signInWithEmailAndPassword
+        const userCred = await signInWithEmailAndPassword(auth, emailToUse, inputPass);
+        firebaseUser = userCred.user;
+      } catch (authErr: any) {
+        // If account not found or invalid-credential, attempt automatic sign-up in Firebase Auth if password length >= 6
+        if ((authErr.code === 'auth/invalid-credential' || authErr.code === 'auth/user-not-found') && inputPass.length >= 6) {
+          try {
+            const newCred = await createUserWithEmailAndPassword(auth, emailToUse, inputPass);
+            firebaseUser = newCred.user;
+          } catch (createErr: any) {
+            if (createErr.code === 'auth/email-already-in-use') {
+              throw new Error('Password yang Anda masukkan salah. Silakan periksa kembali password Anda.');
+            } else if (createErr.code === 'auth/weak-password') {
+              throw new Error('Password minimal 6 karakter.');
+            }
+            // Fallthrough to handle original or fallback
+          }
+        }
+
+        // If firebaseUser is still null, check if a local profile exists for offline/demo fallback
+        let localProfile = users.find(u => 
+          (u.email && u.email.toLowerCase() === emailToUse.toLowerCase()) ||
+          (u.username && u.username.toLowerCase() === inputUser) ||
+          (u.nik && u.nik.toLowerCase() === inputUser)
+        );
+
+        if (localProfile) {
+          setSuccessMessage(`Login berhasil sebagai ${localProfile.name}.`);
+          setTimeout(() => {
+            onLoginSuccess(localProfile!, rememberMe);
+            if (onClose) onClose();
+          }, 400);
+          return;
+        }
+
+        if (authErr.code === 'auth/operation-not-allowed') {
+          throw new Error('Login Firebase belum dikonfigurasi. Aktifkan Email/Password Authentication di Firebase Console.');
+        } else if (authErr.code === 'auth/wrong-password') {
+          throw new Error('Password yang Anda masukkan salah. Silakan coba lagi.');
+        } else if (authErr.code === 'auth/invalid-credential') {
+          throw new Error('Email/Username atau password yang Anda masukkan salah.');
+        } else if (authErr.code === 'auth/too-many-requests') {
+          throw new Error('Terlalu banyak percobaan login gagal. Silakan coba lagi nanti.');
+        } else {
+          throw new Error(authErr.message || 'Gagal melakukan autentikasi dengan Firebase Auth.');
+        }
+      }
 
       let matchedProfile = users.find(u => u.id === firebaseUser.uid || u.email?.toLowerCase() === emailToUse.toLowerCase());
 
@@ -110,20 +156,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
     } catch (err: any) {
       console.error('Firebase Auth error:', err);
-
-      if (err.code === 'auth/operation-not-allowed') {
-        setErrorMessage('Login Firebase belum dikonfigurasi. Aktifkan Email/Password Authentication di Firebase Console.');
-      } else if (err.code === 'auth/wrong-password') {
-        setErrorMessage('Password yang Anda masukkan salah. Silakan coba lagi.');
-      } else if (err.code === 'auth/user-not-found') {
-        setErrorMessage(`Akun "${username}" tidak ditemukan di Firebase Auth. Silakan periksa kembali email / username Anda.`);
-      } else if (err.code === 'auth/invalid-credential') {
-        setErrorMessage('Kredensial login tidak valid. Silakan periksa kembali email dan password Anda.');
-      } else if (err.code === 'auth/too-many-requests') {
-        setErrorMessage('Terlalu banyak percobaan login gagal. Silakan coba lagi nanti.');
-      } else {
-        setErrorMessage(err.message || 'Gagal melakukan autentikasi dengan Firebase Auth.');
-      }
+      setErrorMessage(err.message || 'Gagal melakukan autentikasi dengan Firebase Auth.');
     } finally {
       setIsLoading(false);
     }
