@@ -1,4 +1,5 @@
 import { BaseRepository } from './baseRepository';
+import { orderBy, limit } from 'firebase/firestore';
 import { 
   Member, 
   AdvocacyCase, 
@@ -21,11 +22,31 @@ export class AgendaRepository extends BaseRepository<OrganizationAgenda> { const
 export class NotulensiRepository extends BaseRepository<NotulensiFileItem> { constructor() { super('notulensi'); } }
 export class SembakoEventRepository extends BaseRepository<SembakoEvent> { constructor() { super('sembakoEvents'); } }
 export class SembakoClaimRepository extends BaseRepository<SembakoClaim> { constructor() { super('sembakoClaims'); } }
-export class VehicleLogRepository extends BaseRepository<VehicleLog> { constructor() { super('vehicleLogs'); } }
+export class VehicleLogRepository extends BaseRepository<VehicleLog> { 
+  constructor() { super('vehicleLogs'); }
+  public subscribeRecent(
+    initialItems: VehicleLog[],
+    onUpdate: (items: VehicleLog[]) => void,
+    onError?: (err: Error) => void,
+    limitCount: number = 100
+  ): () => void {
+    return this.subscribe(initialItems, onUpdate, onError, [orderBy('tanggal', 'desc'), limit(limitCount)]);
+  }
+}
 export class FinanceRepository extends BaseRepository<FinanceDailyRecord> { constructor() { super('financeRecords'); } }
 export class UserRepository extends BaseRepository<UserAccount> { constructor() { super('users'); } }
 export class FundraisingRepository extends BaseRepository<FundraisingCampaign> { constructor() { super('fundraising'); } }
-export class SeveranceCalculationRepository extends BaseRepository<SeveranceCalculationResult> { constructor() { super('severanceCalculations'); } }
+export class SeveranceCalculationRepository extends BaseRepository<SeveranceCalculationResult> { 
+  constructor() { super('severanceCalculations'); }
+  public subscribeRecent(
+    initialItems: SeveranceCalculationResult[],
+    onUpdate: (items: SeveranceCalculationResult[]) => void,
+    onError?: (err: Error) => void,
+    limitCount: number = 50
+  ): () => void {
+    return this.subscribe(initialItems, onUpdate, onError, [orderBy('calculatedAt', 'desc'), limit(limitCount)]);
+  }
+}
 export class SeveranceRuleRepository extends BaseRepository<PkbRuleConfig> { constructor() { super('severanceRules'); } }
 
 export interface UserClearedNotifs {

@@ -105,9 +105,9 @@ export const useAppData = () => {
         setSembakoClaims(items);
       }, handleErr));
 
-      unsubs.push(repositories.vehicles.subscribe([], (items) => {
+      unsubs.push(repositories.vehicles.subscribeRecent([], (items) => {
         setVehicleLogs(items);
-      }, handleErr));
+      }, handleErr, 100));
 
       unsubs.push(repositories.finance.subscribe([], (items) => {
         setFinanceRecords(items);
@@ -121,9 +121,9 @@ export const useAppData = () => {
         setUsers(formatted);
       }, handleErr));
 
-      unsubs.push(repositories.severanceCalculations.subscribe([], (items) => {
+      unsubs.push(repositories.severanceCalculations.subscribeRecent([], (items) => {
         setSeveranceCalculations(items);
-      }, handleErr));
+      }, handleErr, 50));
 
       unsubs.push(repositories.severanceRules.subscribe([], (items) => {
         setPkbRules(items);
