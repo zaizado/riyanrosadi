@@ -162,22 +162,16 @@ export const Header: React.FC<HeaderProps> = ({
         const userCred = await signInWithEmailAndPassword(auth, emailToUse, uPass);
         firebaseUser = userCred.user;
       } catch (authErr: any) {
-        // Fallback to local profile matching if available
-        const matchedLocal = availableUsers.find(u => 
-          (u.username && u.username.toLowerCase() === uName) ||
-          (u.email && u.email.toLowerCase() === emailToUse.toLowerCase()) ||
-          (u.nik && u.nik.toLowerCase() === uName)
-        );
-
-        if (matchedLocal) {
-          onSwitchUser(matchedLocal);
-          setIsLoginModalOpen(false);
-          setInputUsername('');
-          setInputPassword('');
-          return;
+        console.warn('Header Auth switch failed:', authErr.code, authErr.message);
+        if (authErr.code === 'auth/wrong-password' || authErr.code === 'auth/invalid-credential') {
+          setLoginError('Username atau Password yang Anda masukkan salah.');
+        } else if (authErr.code === 'auth/user-not-found') {
+          setLoginError('Akun tidak ditemukan di server.');
+        } else if (authErr.code === 'auth/too-many-requests') {
+          setLoginError('Terlalu banyak percobaan login gagal. Coba lagi nanti.');
+        } else {
+          setLoginError(authErr.message || 'Gagal melakukan autentikasi dengan server.');
         }
-
-        setLoginError('Password atau kredensial yang Anda masukkan salah!');
         return;
       }
 
