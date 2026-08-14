@@ -15,7 +15,7 @@ import { FsbnLogo } from './FsbnLogo';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { ModalPortal } from './ModalPortal';
 import { auth } from '../lib/firebase';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { repositories } from '../repositories';
 
 interface LoginModalProps {
@@ -82,52 +82,32 @@ export const LoginModal: React.FC<LoginModalProps> = ({
     try {
       let firebaseUser: any = null;
       try {
-        // Perform Firebase Authentication via signInWithEmailAndPassword
+        // Perform standard Firebase Authentication via signInWithEmailAndPassword
         const userCred = await signInWithEmailAndPassword(auth, emailToUse, inputPass);
         firebaseUser = userCred.user;
       } catch (authErr: any) {
-        // If account not found or invalid-credential, attempt automatic sign-up in Firebase Auth if password length >= 6
-        if ((authErr.code === 'auth/invalid-credential' || authErr.code === 'auth/user-not-found') && inputPass.length >= 6) {
-          try {
-            const newCred = await createUserWithEmailAndPassword(auth, emailToUse, inputPass);
-            firebaseUser = newCred.user;
-          } catch (createErr: any) {
-            if (createErr.code === 'auth/email-already-in-use') {
-              throw new Error('Password yang Anda masukkan salah. Silakan periksa kembali password Anda.');
-            } else if (createErr.code === 'auth/weak-password') {
-              throw new Error('Password minimal 6 karakter.');
-            }
-            // Fallthrough to handle original or fallback
-          }
-        }
+        console.warn('Firebase signInWithEmailAndPassword failed:', authErr.code, authErr.message);
 
-        // If firebaseUser is still null, check if a local profile exists for offline/demo fallback
-        let localProfile = users.find(u => 
-          (u.email && u.email.toLowerCase() === emailToUse.toLowerCase()) ||
-          (u.username && u.username.toLowerCase() === inputUser) ||
-          (u.nik && u.nik.toLowerCase() === inputUser)
-        );
-
-        if (localProfile) {
-          setSuccessMessage(`Login berhasil sebagai ${localProfile.name}.`);
-          setTimeout(() => {
-            onLoginSuccess(localProfile!, rememberMe);
-            if (onClose) onClose();
-          }, 400);
-          return;
-        }
-
-        if (authErr.code === 'auth/operation-not-allowed') {
-          throw new Error('Login Firebase belum dikonfigurasi. Aktifkan Email/Password Authentication di Firebase Console.');
-        } else if (authErr.code === 'auth/wrong-password') {
-          throw new Error('Password yang Anda masukkan salah. Silakan coba lagi.');
-        } else if (authErr.code === 'auth/invalid-credential') {
-          throw new Error('Email/Username atau password yang Anda masukkan salah.');
+        // Map Firebase Auth error codes strictly to clear, user-friendly messages without auto-signup or local bypass
+        if (authErr.code === 'auth/wrong-password' || authErr.code === 'auth/invalid-credential' || authErr.code === 'auth/invalid-login-credentials') {
+          throw new Error('Username/Email atau Password yang Anda masukkan salah. Silakan periksa kembali.');
+        } else if (authErr.code === 'auth/user-not-found') {
+          throw new Error('Akun tidak ditemukan. Silakan hubungi Super Admin untuk pendaftaran akun.');
+        } else if (authErr.code === 'auth/user-disabled') {
+          throw new Error('Akun telah dinonaktifkan oleh administrator. Silakan hubungi Super Admin.');
         } else if (authErr.code === 'auth/too-many-requests') {
-          throw new Error('Terlalu banyak percobaan login gagal. Silakan coba lagi nanti.');
+          throw new Error('Terlalu banyak percobaan login gagal. Silakan coba beberapa saat lagi.');
+        } else if (authErr.code === 'auth/network-request-failed') {
+          throw new Error('Koneksi jaringan terputus atau tidak stabil. Periksa koneksi internet Anda.');
+        } else if (authErr.code === 'auth/operation-not-allowed') {
+          throw new Error('Metode login Email/Password belum diaktifkan di Firebase Console.');
         } else {
-          throw new Error(authErr.message || 'Gagal melakukan autentikasi dengan Firebase Auth.');
+          throw new Error(authErr.message || 'Gagal melakukan autentikasi dengan server Firebase.');
         }
+      }
+
+      if (!firebaseUser) {
+        throw new Error('Autentikasi Firebase tidak menghasilkan sesi pengguna yang valid.');
       }
 
       let matchedProfile = users.find(u => u.id === firebaseUser.uid || u.email?.toLowerCase() === emailToUse.toLowerCase());
@@ -145,7 +125,11 @@ export const LoginModal: React.FC<LoginModalProps> = ({
           isSuperAdmin: isSA,
           avatarUrl: cheAvatar
         };
-        await repositories.users.save(matchedProfile);
+        try {
+          await repositories.users.save(matchedProfile);
+        } catch (saveErr) {
+          console.warn('Failed to save matched profile to Firestore:', saveErr);
+        }
       }
 
       setSuccessMessage(`Login berhasil! Selamat datang, ${matchedProfile.name}.`);
@@ -155,8 +139,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({
       }, 400);
 
     } catch (err: any) {
-      console.error('Firebase Auth error:', err);
-      setErrorMessage(err.message || 'Gagal melakukan autentikasi dengan Firebase Auth.');
+      console.error('Login error:', err);
+      setErrorMessage(err.message || 'Gagal melakukan autentikasi.');
     } finally {
       setIsLoading(false);
     }

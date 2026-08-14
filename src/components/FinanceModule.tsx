@@ -110,6 +110,16 @@ const FinanceChart = React.memo<FinanceChartProps>(({ data }) => {
     return null;
   };
 
+  if (!data || data.length === 0) {
+    return (
+      <div className="w-full h-56 flex flex-col items-center justify-center text-slate-500 text-xs italic bg-slate-950/40 rounded-xl border border-slate-800/60 p-6">
+        <BarChart3 className="w-8 h-8 text-slate-600 mb-2 opacity-50" />
+        <p className="font-semibold text-slate-400">Belum ada rekam transaksi keuangan</p>
+        <p className="text-[11px] text-slate-500 mt-1">Grafik batang bulanan akan terbentuk otomatis setelah transaksi kas diinput.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full h-72 pt-2">
       <ResponsiveContainer width="100%" height="100%">
@@ -336,22 +346,7 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
     const sortedMonths = Array.from(monthMap.values()).sort((a, b) => a.monthKey.localeCompare(b.monthKey));
 
     if (sortedMonths.length === 0) {
-      const now = new Date();
-      const mockData = [];
-      const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-      for (let i = 5; i >= 0; i--) {
-        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-        const year = d.getFullYear();
-        const monthStr = String(d.getMonth() + 1).padStart(2, '0');
-        mockData.push({
-          monthKey: `${year}-${monthStr}`,
-          monthLabel: `${monthNames[d.getMonth()]} ${year}`,
-          Pendapatan: 0,
-          Pengeluaran: 0,
-          Selisih: 0,
-        });
-      }
-      return mockData;
+      return [];
     }
 
     return sortedMonths.map(item => ({
