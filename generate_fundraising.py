@@ -1,4 +1,6 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import os
+
+content = """import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   HeartHandshake, Plus, Search, X, Calendar, UserCheck, 
@@ -130,7 +132,7 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
   
   // Total Terkumpul: if dist exists, sum them. Else manual.
   const [manualJumlahTerkumpulStr, setManualJumlahTerkumpulStr] = useState('');
-  const calculatedJumlahTerkumpul = distribusiDepartemen.reduce((acc, curr) => acc + (Number(curr.jumlahDana) || 0), 0);
+  const calculatedJumlahTerkumpul = distribusiDepartemen.reduce((acc, curr) => acc + curr.jumlahDana, 0);
   const jumlahTerkumpul = distribusiDepartemen.length > 0 ? calculatedJumlahTerkumpul : parseRupiahInput(manualJumlahTerkumpulStr);
   
   const statusMinimum: StatusMinimumSop = 
@@ -191,15 +193,15 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
     setStatusVerifikasiKeluarga(camp.statusVerifikasiKeluarga || 'Belum Diverifikasi');
     setKondisi(camp.kondisi);
     setIsRawatInap(camp.isRawatInap ?? (camp.kondisi === 'Sakit')); // fallback
-    setKeterangan(camp.keterangan || '');
+    setKeterangan(camp.keterangan);
     setTanggalDigalang(camp.tanggalDigalang || getLocalDateISO());
     setSickVisitId(camp.sickVisitId || '');
     setNomorPendampingan(camp.nomorPendampingan || '');
     setIsDidampingiKeRs(camp.isDidampingiKeRs ?? false);
     setSumberDana(camp.sumberDana || ['Sukarela Karyawan']);
     setPicMemberId(camp.picMemberId || '');
-    setPicNama(camp.picNama || '');
-    setPicNik(camp.picNik || '');
+    setPicNama(camp.picNama);
+    setPicNik(camp.picNik);
     setMapSosialisasi(camp.mapSosialisasi || { dibuat: false, checklistDiisi: false, diedarkan: false, dikembalikan: false });
     setDistribusiDepartemen(camp.distribusiDepartemen || []);
     setStatusVerifikasiDdu(camp.statusVerifikasiDdu || 'Belum Diverifikasi');
@@ -235,6 +237,18 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
       if (sv.kebutuhanPendampingan?.toLowerCase().includes('inap') || sv.kondisiTerbaru?.toLowerCase().includes('inap')) {
           setIsRawatInap(true);
       }
+    }
+  };
+
+  const handleSelectPicMember = (mbr: Member | null) => {
+    if (mbr) {
+      setPicMemberId(mbr.id);
+      setPicNama(mbr.namaLengkap);
+      setPicNik(mbr.nik);
+    } else {
+      setPicMemberId('');
+      setPicNama(currentUser.name);
+      setPicNik(currentUser.nik);
     }
   };
 
@@ -360,6 +374,10 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
     return tahap;
   };
 
+  // The rest of UI components
+"""
+
+content += """
   return (
     <div className="space-y-6 max-w-7xl mx-auto pb-24">
       {/* Header Module */}
@@ -544,8 +562,11 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
         </AnimatePresence>
       </div>
 
-      {/* Modal Detail Receipt */}
-      {selectedReceipt && (
+"""
+
+content += """
+      {/* Modal Detail Receipt */
+      selectedReceipt && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in text-white">
           <div className="bg-slate-900 rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl border border-slate-800 flex flex-col max-h-[90vh]">
             <div className="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-900 sticky top-0 z-10">
@@ -622,6 +643,9 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
                   </div>
                 </div>
               </div>
+              
+              {/* Other detail sections like Map, DDU can go here similarly */}
+              
             </div>
             
             <div className="p-4 border-t border-slate-800 bg-slate-900 sticky bottom-0 text-center">
@@ -649,7 +673,9 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
         onCancel={() => setDeleteCampaignId(null)}
         isDestructive
       />
+"""
 
+content += """
       {/* FORM MODAL - V2 */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm transition-all text-white">
@@ -761,15 +787,7 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
                     <label className="block text-xs font-semibold text-slate-400 mb-1.5">Kondisi</label>
                     <select
                       value={kondisi}
-                      onChange={(e) => {
-                         setKondisi(e.target.value as HealthCondition);
-                         if (e.target.value === 'Meninggal') {
-                            setIsRawatInap(false);
-                            setIsDidampingiKeRs(false);
-                            setSickVisitId('');
-                            setNomorPendampingan('');
-                         }
-                      }}
+                      onChange={(e) => setKondisi(e.target.value as HealthCondition)}
                       className="w-full bg-slate-950 border border-slate-700 text-white rounded-xl px-3 py-2.5 text-sm focus:border-red-500 focus:ring-1 focus:ring-red-500"
                     >
                       <option value="Sakit">Sakit</option>
@@ -845,7 +863,7 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
               )}
 
               {/* SOP CARD CALCULATION */}
-              <section className="bg-slate-800 border border-slate-700 p-4 rounded-2xl relative overflow-hidden shadow-lg">
+              <section className="bg-slate-800 border border-slate-700 p-4 rounded-2xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 blur-3xl" />
                 <h4 className="text-xs font-black text-slate-300 uppercase mb-3 flex items-center gap-1.5 relative z-10">
                   <BadgeDollarSign className="w-4 h-4 text-emerald-400" />
@@ -864,55 +882,10 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
                 </div>
               </section>
 
-              {/* SECTION 4: MAP SOSIALISASI */}
+              {/* SECTION: DEPARTEMEN & PENGUMPULAN */}
               <section className="space-y-4">
                 <h3 className="text-sm font-black text-indigo-400 uppercase tracking-wider flex items-center gap-2 border-b border-slate-800 pb-2">
-                  4. Map Sosialisasi
-                </h3>
-                <div className="grid grid-cols-2 gap-3">
-                  <label className="flex items-center gap-3 bg-slate-950 p-3 rounded-xl border border-slate-800 cursor-pointer">
-                    <input 
-                      type="checkbox"
-                      checked={mapSosialisasi.dibuat}
-                      onChange={e => setMapSosialisasi({...mapSosialisasi, dibuat: e.target.checked, tanggalDibuat: e.target.checked ? new Date().toISOString() : undefined })}
-                      className="w-4 h-4 rounded bg-slate-900 border-slate-600 text-indigo-500"
-                    />
-                    <span className="text-xs font-bold text-slate-300">Map Dibuat</span>
-                  </label>
-                  <label className="flex items-center gap-3 bg-slate-950 p-3 rounded-xl border border-slate-800 cursor-pointer">
-                    <input 
-                      type="checkbox"
-                      checked={mapSosialisasi.checklistDiisi}
-                      onChange={e => setMapSosialisasi({...mapSosialisasi, checklistDiisi: e.target.checked })}
-                      className="w-4 h-4 rounded bg-slate-900 border-slate-600 text-indigo-500"
-                    />
-                    <span className="text-xs font-bold text-slate-300">Checklist Diisi</span>
-                  </label>
-                  <label className="flex items-center gap-3 bg-slate-950 p-3 rounded-xl border border-slate-800 cursor-pointer">
-                    <input 
-                      type="checkbox"
-                      checked={mapSosialisasi.diedarkan}
-                      onChange={e => setMapSosialisasi({...mapSosialisasi, diedarkan: e.target.checked, tanggalDiedarkan: e.target.checked ? new Date().toISOString() : undefined })}
-                      className="w-4 h-4 rounded bg-slate-900 border-slate-600 text-indigo-500"
-                    />
-                    <span className="text-xs font-bold text-slate-300">Map Diedarkan</span>
-                  </label>
-                  <label className="flex items-center gap-3 bg-slate-950 p-3 rounded-xl border border-slate-800 cursor-pointer">
-                    <input 
-                      type="checkbox"
-                      checked={mapSosialisasi.dikembalikan}
-                      onChange={e => setMapSosialisasi({...mapSosialisasi, dikembalikan: e.target.checked, tanggalDikembalikan: e.target.checked ? new Date().toISOString() : undefined })}
-                      className="w-4 h-4 rounded bg-slate-900 border-slate-600 text-indigo-500"
-                    />
-                    <span className="text-xs font-bold text-slate-300">Map Dikembalikan</span>
-                  </label>
-                </div>
-              </section>
-
-              {/* SECTION 5: DEPARTEMEN & PENGUMPULAN */}
-              <section className="space-y-4">
-                <h3 className="text-sm font-black text-indigo-400 uppercase tracking-wider flex items-center gap-2 border-b border-slate-800 pb-2">
-                  5. Distribusi Departemen & Pengumpulan Dana
+                  4. Distribusi Departemen & Pengumpulan Dana
                 </h3>
 
                 <div className="space-y-3">
@@ -954,21 +927,7 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
                       </button>
                     </div>
                   ))}
-                  
-                  {distribusiDepartemen.length === 0 && (
-                    <div className="mb-3">
-                       <label className="block text-xs font-semibold text-slate-400 mb-1.5">Jumlah Terkumpul (Manual - Legacy)</label>
-                       <input
-                          type="text"
-                          value={manualJumlahTerkumpulStr}
-                          onChange={e => setManualJumlahTerkumpulStr(e.target.value)}
-                          placeholder="Rp..."
-                          className="w-full bg-slate-950 border border-slate-700 text-emerald-400 font-bold rounded-xl px-3 py-2.5 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
-                        />
-                    </div>
-                  )}
-
-                  <button type="button" onClick={addDepartmentDist} className="w-full py-2.5 border border-dashed border-slate-700 text-indigo-400 font-bold text-xs rounded-xl hover:bg-slate-800 transition-colors flex items-center justify-center gap-1.5">
+                  <button type="button" onClick={addDepartmentDist} className="w-full py-2 border border-dashed border-slate-700 text-indigo-400 font-bold text-xs rounded-xl hover:bg-slate-800 transition-colors flex items-center justify-center gap-1.5">
                     <Plus className="w-4 h-4" /> Tambah Distribusi Departemen
                   </button>
                 </div>
@@ -979,10 +938,10 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
                 </div>
               </section>
 
-              {/* SECTION 6: PIC & WORKFLOW STATUS */}
+              {/* SECTION: PIC & WORKFLOW STATUS */}
               <section className="space-y-4">
                 <h3 className="text-sm font-black text-indigo-400 uppercase tracking-wider flex items-center gap-2 border-b border-slate-800 pb-2">
-                  6. Proses & Status
+                  5. Proses & Status
                 </h3>
                 
                 <div className="grid grid-cols-2 gap-3">
@@ -1013,48 +972,29 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
                       <option value="SIAP DISERAHKAN">SIAP DISERAHKAN</option>
                       <option value="SUDAH DISERAHKAN">SUDAH DISERAHKAN</option>
                       <option value="SELESAI">SELESAI</option>
-                      {tahapProses === 'LEGACY' && <option value="LEGACY">LEGACY</option>}
                     </select>
                   </div>
                 </div>
-
-                <div>
-                   <label className="flex items-center gap-3 bg-slate-950 p-3 rounded-xl border border-slate-800 cursor-pointer">
-                      <input 
-                        type="checkbox"
-                        checked={statusVerifikasiDdu === 'Diverifikasi DDU'}
-                        onChange={e => setStatusVerifikasiDdu(e.target.checked ? 'Diverifikasi DDU' : 'Belum Diverifikasi')}
-                        className="w-4 h-4 rounded bg-slate-900 border-slate-600 text-amber-500"
-                      />
-                      <span className="text-xs font-bold text-amber-400">Telah Diverifikasi DDU</span>
-                    </label>
-                </div>
                 
-                {tahapProses === 'SUDAH DISERAHKAN' || tahapProses === 'SELESAI' || penyerahanDana.status === 'Sudah Diserahkan' ? (
+                {tahapProses === 'SUDAH DISERAHKAN' || tahapProses === 'SELESAI' ? (
                   <div className="bg-slate-950 border border-emerald-500/30 p-4 rounded-xl space-y-3">
                     <h4 className="text-xs font-bold text-emerald-400 uppercase">Catatan Penyerahan Dana</h4>
                     <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-[10px] text-slate-500 uppercase mb-1">Status Penyerahan</label>
-                        <select
-                          value={penyerahanDana.status}
-                          onChange={e => setPenyerahanDana({ ...penyerahanDana, status: e.target.value as any })}
-                          className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-2 py-2 text-sm"
-                        >
-                          <option value="Belum Diserahkan">Belum Diserahkan</option>
-                          <option value="Sudah Diserahkan">Sudah Diserahkan</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-[10px] text-slate-500 uppercase mb-1">Penerima Dana</label>
-                        <input
-                          type="text"
-                          placeholder="Nama Penerima Dana"
-                          value={penyerahanDana.penerimaNama || ''}
-                          onChange={e => setPenyerahanDana({ ...penyerahanDana, penerimaNama: e.target.value })}
-                          className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-2 py-2 text-sm"
-                        />
-                      </div>
+                      <select
+                        value={penyerahanDana.status}
+                        onChange={e => setPenyerahanDana({ ...penyerahanDana, status: e.target.value as any })}
+                        className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-2 py-2 text-sm"
+                      >
+                        <option value="Belum Diserahkan">Belum Diserahkan</option>
+                        <option value="Sudah Diserahkan">Sudah Diserahkan</option>
+                      </select>
+                      <input
+                        type="text"
+                        placeholder="Nama Penerima Dana"
+                        value={penyerahanDana.penerimaNama || ''}
+                        onChange={e => setPenyerahanDana({ ...penyerahanDana, penerimaNama: e.target.value })}
+                        className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-2 py-2 text-sm"
+                      />
                     </div>
                   </div>
                 ) : null}
@@ -1110,3 +1050,7 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
     </div>
   );
 };
+"""
+
+with open("src/components/FundraisingModule.tsx", "w") as f:
+    f.write(content)

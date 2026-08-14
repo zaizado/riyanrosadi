@@ -1,4 +1,6 @@
-import React, { useState, useMemo, useEffect } from 'react';
+const fs = require('fs');
+
+const content = `import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   HeartHandshake, Plus, Search, X, Calendar, UserCheck, 
@@ -281,8 +283,8 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
 
     const payload: FundraisingCampaign = {
       ...(editingCampaign || {}),
-      id: editingCampaign ? editingCampaign.id : `DANA-${Date.now()}`,
-      nomorPenggalangan: editingCampaign ? editingCampaign.nomorPenggalangan : `DANA-${new Date().getFullYear()}-${Math.floor(Math.random()*1000).toString().padStart(3, '0')}`,
+      id: editingCampaign ? editingCampaign.id : \`DANA-\${Date.now()}\`,
+      nomorPenggalangan: editingCampaign ? editingCampaign.nomorPenggalangan : \`DANA-\${new Date().getFullYear()}-\${Math.floor(Math.random()*1000).toString().padStart(3, '0')}\`,
       memberId: selectedMemberObj.id,
       namaAnggota: selectedMemberObj.namaLengkap,
       nikAnggota: selectedMemberObj.nik,
@@ -452,11 +454,11 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
                     <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 font-mono border border-slate-700">
                       {camp.nomorPenggalangan}
                     </span>
-                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-md uppercase tracking-wider ${
+                    <span className={\`text-[10px] font-black px-2 py-0.5 rounded-md uppercase tracking-wider \${
                       camp.status === 'Selesai' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' :
                       camp.status === 'Ditutup' ? 'bg-slate-800 text-slate-400 border border-slate-700' :
                       'bg-red-500/10 text-red-400 border border-red-500/30'
-                    }`}>
+                    }\`}>
                       {camp.status}
                     </span>
                   </div>
@@ -469,11 +471,11 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
                   </div>
                 </div>
                 
-                <div className={`p-2.5 rounded-xl border shadow-inner ${
+                <div className={\`p-2.5 rounded-xl border shadow-inner \${
                   camp.kondisi === 'Sakit' 
                     ? 'bg-amber-500/10 border-amber-500/20 text-amber-500' 
                     : 'bg-slate-800 border-slate-700 text-slate-300'
-                }`}>
+                }\`}>
                   <Hospital className="w-5 h-5" />
                 </div>
               </div>
@@ -566,13 +568,13 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
                 </div>
                 <h3 className="text-2xl font-black text-white">{getPasienName(selectedReceipt)}</h3>
                 <p className="text-sm text-slate-400">
-                  {selectedReceipt.hubungan === 'Anggota' ? 'Anggota' : `Keluarga (${selectedReceipt.hubungan}) dari ${selectedReceipt.namaAnggota}`}
+                  {selectedReceipt.hubungan === 'Anggota' ? 'Anggota' : \`Keluarga (\${selectedReceipt.hubungan}) dari \${selectedReceipt.namaAnggota}\`}
                 </p>
-                <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase mt-2 ${
+                <span className={\`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase mt-2 \${
                   selectedReceipt.status === 'Selesai' ? 'bg-emerald-500/20 text-emerald-400' :
                   selectedReceipt.status === 'Ditutup' ? 'bg-slate-800 text-slate-400' :
                   'bg-amber-500/20 text-amber-400'
-                }`}>
+                }\`}>
                   Status: {selectedReceipt.status}
                 </span>
               </div>
@@ -614,11 +616,11 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-slate-400">Status Minimum</span>
-                    <span className={`text-xs font-bold px-2 py-1 rounded-md ${
+                    <span className={\`text-xs font-bold px-2 py-1 rounded-md \${
                       selectedReceipt.statusMinimum === 'Memenuhi Minimum SOP' ? 'bg-emerald-500/20 text-emerald-400' :
                       selectedReceipt.statusMinimum === 'Belum Memenuhi Minimum SOP' ? 'bg-rose-500/20 text-rose-400' :
                       'bg-amber-500/20 text-amber-400'
-                    }`}>{selectedReceipt.statusMinimum || 'Legacy'}</span>
+                    }\`}>{selectedReceipt.statusMinimum || 'Legacy'}</span>
                   </div>
                 </div>
               </div>
@@ -1110,3 +1112,6 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
     </div>
   );
 };
+`;
+
+fs.writeFileSync('src/components/FundraisingModule.tsx', content);

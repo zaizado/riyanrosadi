@@ -482,6 +482,64 @@ export type FamilyRelationship = 'Anggota' | 'Anak' | 'Istri' | 'Suami' | 'Orang
 export type HealthCondition = 'Sakit' | 'Meninggal';
 export type CampaignStatus = 'Sedang Berjalan' | 'Selesai' | 'Ditutup';
 
+// --- REFACTOR V2 PENGGALANGAN DANA ---
+export type FundraisingTahapProses = 
+  | "DRAFT" 
+  | "VERIFIKASI" 
+  | "MAP DIBUAT" 
+  | "MAP DIEDARKAN" 
+  | "PENGUMPULAN" 
+  | "MAP DIKEMBALIKAN" 
+  | "VERIFIKASI DDU" 
+  | "SIAP DISERAHKAN" 
+  | "SUDAH DISERAHKAN" 
+  | "SELESAI"
+  | "LEGACY";
+
+export type StatusMinimumSop = 
+  | "Memenuhi Minimum SOP" 
+  | "Belum Memenuhi Minimum SOP" 
+  | "Perlu Verifikasi Pengurus";
+
+export type SumberDanaFundraising = "Sukarela Karyawan" | "COS Organisasi";
+
+export interface FundraisingMapSosialisasi {
+  dibuat: boolean;
+  tanggalDibuat?: string;
+  dibuatOleh?: string;
+  checklistDiisi: boolean;
+  tanggalChecklist?: string;
+  diedarkan: boolean;
+  tanggalDiedarkan?: string;
+  dikembalikan: boolean;
+  tanggalDikembalikan?: string;
+  dikembalikanOleh?: string;
+  catatan?: string;
+}
+
+export interface FundraisingDistribusiDepartemen {
+  id: string;
+  namaDepartemen: string;
+  statusMap: "Belum Diedarkan" | "Sudah Diedarkan" | "Sudah Dikembalikan";
+  petugas?: string;
+  tanggalDiedarkan?: string;
+  tanggalDikembalikan?: string;
+  jumlahDana: number;
+  catatan?: string;
+}
+
+export interface FundraisingPenyerahanDana {
+  status: "Belum Diserahkan" | "Sudah Diserahkan";
+  penerimaNama?: string;
+  penerimaMemberId?: string;
+  jumlahDiserahkan?: number;
+  tanggalPenyerahan?: string;
+  tempatPenyerahan?: "Perusahaan" | "Rumah" | "Lainnya";
+  diserahkanOleh?: string;
+  catatan?: string;
+}
+// ------------------------------------
+
 export interface FundraisingCampaign {
   id: string;
   nomorPenggalangan: string; // e.g. DANA-2026-001
@@ -503,6 +561,44 @@ export interface FundraisingCampaign {
   dibuatOleh: string;
   createdAt: string;
   updatedAt?: string;
+
+  // --- REFACTOR V2 BARU ---
+  
+  // TAHAP 1 — IDENTITAS MUSIBAH
+  jenisPenerima?: 'Anggota' | 'Keluarga';
+  namaPasien?: string;
+  hubunganPasien?: FamilyRelationship | string;
+  statusVerifikasiKeluarga?: 'Belum Diverifikasi' | 'Valid' | 'Perlu Verifikasi Pengurus';
+  
+  // TAHAP 2 & 3 — VALIDASI KONDISI & SICK VISIT
+  isRawatInap?: boolean;
+  sickVisitId?: string;
+  nomorPendampingan?: string;
+
+  // TAHAP 4 — MINIMUM PENGGALANGAN
+  minimumSesuaiSop?: number;
+  statusMinimum?: StatusMinimumSop;
+
+  // TAHAP 5 — SUMBER DANA
+  sumberDana?: SumberDanaFundraising[];
+
+  // TAHAP 6 — MAP SOSIALISASI
+  mapSosialisasi?: FundraisingMapSosialisasi;
+
+  // TAHAP 7 — DISTRIBUSI DEPARTEMEN
+  distribusiDepartemen?: FundraisingDistribusiDepartemen[];
+
+  // TAHAP 9 — DDU
+  penanggungJawabDduNama?: string;
+  penanggungJawabDduId?: string;
+  tanggalVerifikasiDdu?: string;
+  statusVerifikasiDdu?: 'Belum Diverifikasi' | 'Diverifikasi DDU';
+
+  // TAHAP 10 — WORKFLOW STATUS
+  tahapProses?: FundraisingTahapProses;
+
+  // TAHAP 12 — PENYERAHAN DANA
+  penyerahanDana?: FundraisingPenyerahanDana;
 }
 
 export type VehicleType = 'Mitsubishi Xpander' | 'Daihatsu Xenia' | string;

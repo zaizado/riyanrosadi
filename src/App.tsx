@@ -23,6 +23,7 @@ import { NotificationsModal } from './components/NotificationsModal';
 import { LoginModal } from './components/LoginModal';
 import { PkbModal } from './components/PkbModal';
 import { ModalPortal } from './components/ModalPortal';
+import { FloatingBottomNav } from './components/FloatingBottomNav';
 import { playNotificationSound } from './lib/audio';
 import cheAvatar from './assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { compressImage } from './lib/imageUtils';
@@ -916,6 +917,7 @@ export default function App() {
                 <FundraisingModule
                   campaigns={fundraisingCampaigns}
                   members={members}
+                  sickVisits={sickVisits}
                   currentUser={currentUser}
                   onAddCampaign={handleAddFundraisingCampaign}
                   onUpdateCampaign={handleUpdateFundraisingCampaign}
@@ -1028,6 +1030,15 @@ export default function App() {
           </AnimatePresence>
         </div>
       </main>
+
+      {/* Global Floating Bottom Navigation Bar (Home, PKB, Profil) */}
+      <FloatingBottomNav
+        activeTab={activeTab}
+        onNavigate={(tab) => {
+          setActiveTab(tab);
+        }}
+        onOpenPkb={() => setIsPkbModalOpen(true)}
+      />
 
       {/* Printable / Downloadable Member Card Modal */}
       {selectedCardMember && (
