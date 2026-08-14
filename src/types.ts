@@ -138,7 +138,53 @@ export interface AdvocacyCase {
   riwayatPerkembangan: AdvocacyUpdate[];
 }
 
-export type SickVisitStatus = 'Menunggu Kunjungan' | 'Sedang Didampingi' | 'Selesai';
+export type SickVisitStatus = 
+  | 'Dilaporkan'
+  | 'Menunggu Koordinasi'
+  | 'Disetujui'
+  | 'Ditugaskan'
+  | 'Dalam Pendampingan'
+  | 'Selesai'
+  | 'Ditolak'
+  | 'Menunggu Kunjungan' // Legacy compatibility
+  | 'Sedang Didampingi'; // Legacy compatibility
+
+export type PasienRelation = 'Anggota Sendiri' | 'Anak' | 'Suami/Istri' | 'Orang Tua' | 'Lainnya';
+export type LokasiAwalType = 'Perusahaan' | 'Tempat tinggal anggota' | 'Lainnya';
+export type TransportasiType = 'Mobil Operasional' | 'Motor Pribadi' | 'Kendaraan Pribadi' | 'Grab' | 'Lainnya';
+export type HasilPendampinganType = 'RAWAT INAP' | 'DIPULANGKAN' | 'Belum Ditentukan';
+export type WilayahTujuan = 'Tangerang' | 'Di luar Tangerang';
+
+export interface SickVisitAkomodasi {
+  jenisTransportasi: TransportasiType;
+  wilayah: WilayahTujuan;
+  jumlahPetugas: number;
+  isLuarJamKerja: boolean;
+  isLuarRsKerjaSama: boolean;
+  isDariKlinikPabrik: boolean;
+  tarifPerOrang: number;
+  tambahanLuarJam: number;
+  totalAkomodasi: number;
+  keteranganPerhitungan: string;
+  statusVerifikasi: 'Otomatis Sesuai SOP' | 'Perlu Verifikasi Pengurus' | 'Terverifikasi';
+}
+
+export interface SickVisitPenjemputan {
+  isDibutuhkan: boolean;
+  tanggalPenjemputan?: string;
+  petugasPenjemputan?: string;
+  transportasi?: TransportasiType;
+  status: 'Belum Dijemput' | 'Sudah Dijemput' | 'Tidak Membutuhkan Penjemputan';
+  catatan?: string;
+  updatedAt?: string;
+}
+
+export interface SickVisitChecklistBantuan {
+  administrasiRs: boolean;
+  prosesPendaftaran: boolean;
+  koordinasiRsKeluarga: boolean;
+  lainnya?: string;
+}
 
 export interface SickVisitLog {
   id: string;
@@ -147,6 +193,8 @@ export interface SickVisitLog {
   catatan: string;
   kondisiTerbaru: string;
   fotoUrl?: string;
+  waktu?: string;
+  tahap?: string;
 }
 
 export interface SickVisit {
@@ -157,6 +205,84 @@ export interface SickVisit {
   nikAnggota: string;
   departemen: string;
   nomorHp: string;
+
+  // Identitas Pasien (SOP Tahap 1)
+  jenisPasien?: 'Anggota' | 'Keluarga';
+  hubunganPasien?: PasienRelation;
+  namaPasien?: string;
+  keteranganHubunganLain?: string;
+  statusVerifikasiPasien?: 'Valid SOP' | 'Perlu Verifikasi Pengurus';
+
+  // Kondisi & Urgensi (SOP Tahap 2)
+  isUrgent?: boolean;
+  deskripsiKondisi?: string;
+  kebutuhanPendampingan?: string;
+
+  // Lokasi Pasien (SOP Tahap 3)
+  lokasiAwal?: LokasiAwalType;
+  catatanLokasiLain?: string;
+  statusVerifikasiLokasi?: 'Valid SOP' | 'Perlu Keputusan Pengurus';
+
+  // Rumah Sakit Tujuan (SOP Tahap 4)
+  rumahSakitTujuan?: string;
+  alamatRs?: string;
+  isRsKerjaSama?: boolean;
+  waktuKeberangkatan?: string;
+  kebutuhanPelayanan?: string;
+
+  // Alur Persetujuan & Koordinasi (SOP Tahap 5)
+  dikoordinasikanDengan?: string;
+  catatanKoordinasi?: string;
+  disetujuiOleh?: string;
+  tanggalDisetujui?: string;
+  alasanPenolakan?: string;
+  ditolakOleh?: string;
+  tanggalDitolak?: string;
+
+  // Penugasan Petugas (SOP Tahap 6)
+  petugas1?: string;
+  petugas2?: string;
+  ditugaskanOleh?: string;
+  waktuPenugasan?: string;
+  catatanPenugasan?: string;
+  isMenggunakanKoorlap?: boolean;
+  alasanPenggunaanKoorlap?: string;
+
+  // Transportasi (SOP Tahap 7)
+  transportasi?: TransportasiType;
+  kendaraanOperasionalDigunakan?: string;
+  alasanGrab?: string;
+
+  // Pelaksanaan (SOP Tahap 8)
+  waktuBerangkat?: string;
+  waktuTiba?: string;
+  catatanPelaksanaan?: string;
+  checklistBantuan?: SickVisitChecklistBantuan;
+
+  // Hasil Pendampingan (SOP Tahap 9)
+  hasilPendampingan?: HasilPendampinganType;
+  waktuHasil?: string;
+  ruangPerawatan?: string;
+  catatanHasil?: string;
+  petugasPenyelesaiAwal?: string;
+
+  // Penjemputan Pasca Rawat Inap (SOP Tahap 10)
+  penjemputanPascaRawatInap?: SickVisitPenjemputan;
+
+  // Perhitungan Akomodasi (SOP Tahap 11)
+  akomodasi?: SickVisitAkomodasi;
+
+  // Gratifikasi (SOP Tahap 12)
+  pernyataanBebasGratifikasi?: boolean;
+  pernyataanOleh?: string;
+  waktuPernyataan?: string;
+
+  // Laporan Akhir & Grup PTP (SOP Tahap 13)
+  sudahLaporGrupPtp?: boolean;
+  waktuLaporGrupPtp?: string;
+  pelaporGrupPtp?: string;
+
+  // Legacy & Standard fields for full compatibility
   lokasi: string; // Nama RS atau Alamat Rumah
   jenisLokasi: 'Rumah Sakit' | 'Rumah';
   diagnosaSingkat?: string;
@@ -166,6 +292,11 @@ export interface SickVisit {
   pengurusPenanggungJawab: string;
   fotoDokumentasiUrl?: string[];
   riwayatKunjungan: SickVisitLog[];
+
+  updatedAt?: string;
+  updatedBy?: string;
+  createdAt?: string;
+  createdBy?: string;
 }
 
 export type AgendaType = 
@@ -357,30 +488,126 @@ export interface FundraisingCampaign {
   updatedAt?: string;
 }
 
-export type VehicleType = 'Mitsubishi Xpander' | 'Daihatsu Xenia';
-export type VehicleStatus = 'Sedang Digunakan' | 'Sudah Kembali' | 'Dibatalkan';
+export type VehicleType = 'Mitsubishi Xpander' | 'Daihatsu Xenia' | string;
+export type VehicleConditionStatus = 'Tersedia' | 'Sedang Digunakan' | 'Perlu Diperiksa' | 'Dalam Perbaikan';
+export type VehicleLogStatus = 
+  | 'Menunggu Persetujuan' 
+  | 'Disetujui' 
+  | 'Siap Digunakan' 
+  | 'Sedang Digunakan' 
+  | 'Sudah Kembali' 
+  | 'Selesai' 
+  | 'Ditolak' 
+  | 'Dibatalkan' 
+  | 'Perlu Diperiksa';
+
+// Keep VehicleStatus as alias / union for full backwards compatibility
+export type VehicleStatus = VehicleLogStatus;
+
 export type ParkingLocation = 'Mabes' | 'JV A' | 'JV B';
+
+export interface VehicleChecklistItems {
+  ban: 'Baik' | 'Bermasalah';
+  rem: 'Baik' | 'Bermasalah';
+  lampu: 'Baik' | 'Bermasalah';
+  oli: 'Baik' | 'Bermasalah';
+  airRadiator: 'Baik' | 'Bermasalah';
+  bbm: string; // e.g. "Full", "3/4", "1/2", "1/4"
+  kebersihan: 'Bersih' | 'Perlu Dicuci';
+  perlengkapan: 'Lengkap' | 'Kurang';
+  dokumen: 'Lengkap (STNK Ada)' | 'Bermasalah';
+  kondisiFisik: 'Baik' | 'Ada Baret/Penyok';
+  catatan?: string;
+}
+
+export interface VehicleReturnChecklist {
+  kondisiKendaraan: 'Baik' | 'Bermasalah';
+  kebersihan: 'Bersih' | 'Perlu Dicuci';
+  bbm: string;
+  adaKerusakan: boolean;
+  penjelasanKerusakan?: string;
+  fotoKerusakanUrl?: string;
+  kmAkhir: number;
+  fotoKendaraanUrl?: string;
+  catatan?: string;
+}
 
 export interface VehicleLog {
   id: string;
   nomorLog: string; // e.g. MOB-2026-001
   kendaraan: VehicleType;
-  platNomor: string; // e.g. B 1928 SBN
+  platNomor?: string; // e.g. B 1928 SBN
   lokasiParkir?: ParkingLocation; // Mabes, JV A, JV B
+  
+  // Data Pemohon
   memberId: string;
-  namaPemakai: string; // Siapa yang memakai
+  namaPemakai: string; // Siapa yang mengajukan/memakai
   departemenPemakai: string;
-  petugasSerahTerima: string; // Serah terima oleh pengurus/petugas
-  tujuan: string; // Tujuan penggunaan
-  tanggalMulai: string;
-  jamMulai: string;
-  tanggalSelesai: string;
-  jamSelesai: string;
-  kondisiAwal: string; // Kondisi saat serah terima
+  kontakPemakai?: string;
+  strukturUnit?: string;
+
+  // Tujuan & Kegiatan
+  kegiatan?: string;
+  tujuan: string; // Tujuan / Lokasi
+  keteranganSingkat?: string;
+  isUntukOrganisasi?: boolean;
+  jumlahPenumpang?: number;
+
+  // Urgensi
+  jenisPenggunaan?: 'Biasa' | 'Urgensi';
+  isUrgent?: boolean;
+  alasanUrgensi?: string;
+
+  // Waktu Jadwal
+  tanggalMulai: string; // YYYY-MM-DD
+  jamMulai: string; // HH:mm
+  tanggalSelesai: string; // YYYY-MM-DD
+  jamSelesai: string; // HH:mm
+
+  // Driver / Petugas
+  driverNama?: string;
+  driverKontak?: string;
+  petugasSerahTerima?: string; // Serah terima oleh pengurus/petugas
+
+  // Status Siklus Hidup (SOP)
+  status: VehicleLogStatus;
+
+  // Persetujuan
+  disetujuiOleh?: string;
+  tanggalDisetujui?: string;
+  alasanPenolakan?: string;
+  ditolakOleh?: string;
+  tanggalDitolak?: string;
+
+  // Cek Kendaraan Sebelum Berangkat
+  checklistAwal?: VehicleChecklistItems;
+  kmAwal?: number;
+  fotoAwalUrl?: string;
+  kondisiAwal?: string; // Legacy & text representation
+  waktuMulaiPerjalanan?: string;
+
+  // Cek Kendaraan Saat Kembali
+  checklistAkhir?: VehicleReturnChecklist;
+  kmAkhir?: number;
+  jarakTempuhKm?: number;
+  adaKerusakan?: boolean;
+  penjelasanKerusakan?: string;
+  fotoAkhirUrl?: string;
   kondisiKembali?: string;
-  status: VehicleStatus;
+  waktuKembali?: string;
+
+  // Serah Terima Kembali
+  diserahkanOleh?: string;
+  diterimaOleh?: string;
+
   catatan?: string;
+  isArchived?: boolean;
+  alasanPenghapusan?: string;
+  dihapusOleh?: string;
+
   updatedAt: string;
+  createdAt?: string;
 }
+
 
 

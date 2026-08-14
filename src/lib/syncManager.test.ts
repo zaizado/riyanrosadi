@@ -61,12 +61,17 @@ describe('SyncManager State & Partial Sync Tests', () => {
     expect(details.syncState).toBe('connecting');
   });
 
-  it('fatal error -> ERROR', () => {
+  it('fatal error -> PARTIAL_ERROR or ERROR', () => {
     syncManager.reportListenerUpdate('col1', false);
     syncManager.reportListenerError('col2', new Error('permission-denied: insufficient permissions'));
 
     const details = syncManager.getDetails();
-    expect(details.syncState).toBe('error');
+    expect(details.syncState).toBe('partial_error');
     expect(details.permissionErrorListeners).toBe(1);
+
+    // If all collections error out -> ERROR
+    syncManager.reportListenerError('col1', new Error('permission-denied: col1 failed'));
+    const detailsAllError = syncManager.getDetails();
+    expect(detailsAllError.syncState).toBe('error');
   });
 });

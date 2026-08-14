@@ -423,11 +423,15 @@ export default function App() {
     await createLog('Anggota Sakit', 'Catat Pendampingan Sakit', `Pencatatan pendampingan sakit ${newVisit.nomorPendampingan} untuk ${newVisit.namaAnggota} di ${newVisit.lokasi}.`);
   };
 
-  const handleUpdateSickVisit = async (updatedVisit: SickVisit) => {
+  const handleUpdateSickVisit = async (updatedVisit: SickVisit, actionName?: string, auditDetail?: string) => {
     const updated = sickVisits.map(v => v.id === updatedVisit.id ? updatedVisit : v);
     setSickVisits(updated);
     await AppService.updateSickVisit(updatedVisit);
-    await createLog('Anggota Sakit', 'Update Visite Kesehatan', `Memperbarui log pendampingan ${updatedVisit.nomorPendampingan} (${updatedVisit.namaAnggota}).`);
+    await createLog(
+      'Anggota Sakit', 
+      actionName || 'Update Pendampingan SOP', 
+      auditDetail || `Memperbarui status/data pendampingan ${updatedVisit.nomorPendampingan} (${updatedVisit.namaAnggota}). Status: ${updatedVisit.status}`
+    );
   };
 
   const handleDeleteSickVisit = async (visitId: string) => {
