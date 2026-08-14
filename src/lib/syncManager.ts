@@ -1,4 +1,4 @@
-export type SyncState = 'connecting' | 'synced' | 'offline' | 'error';
+export type SyncState = 'connecting' | 'synced' | 'partial_error' | 'quota' | 'error' | 'offline';
 
 export interface ListenerDetail {
   collectionName: string;
@@ -6,7 +6,7 @@ export interface ListenerDetail {
   hasServerConfirmation: boolean;
   isFromCache: boolean;
   lastError: Error | null;
-  errorType: 'network' | 'permission' | 'unauthenticated' | 'other' | null;
+  errorType: 'network' | 'permission' | 'unauthenticated' | 'quota' | 'other' | null;
   errorMessage?: string;
   lastUpdated?: number;
 }
@@ -21,9 +21,32 @@ export interface GlobalSyncDetails {
   errorListeners: number;
   offlineListeners: number;
   permissionErrorListeners: number;
+  failingCollections: string[];
+  statusMessage: string;
 }
 
 export type SyncListenerCallback = (details: GlobalSyncDetails) => void;
+
+const getFriendlyCollectionName = (name: string): string => {
+  const map: Record<string, string> = {
+    members: 'Data Anggota',
+    advocacyCases: 'Advokasi',
+    sickVisits: 'Kunjungan Sakit',
+    agendas: 'Agenda Serikat',
+    notulensi: 'Notulensi',
+    sembakoEvents: 'Event Sembako',
+    sembakoClaims: 'Klaim Sembako',
+    vehicleLogs: 'Log Kendaraan',
+    financeRecords: 'Keuangan',
+    users: 'Akun Pengurus',
+    fundraising: 'Dana Gotong Royong',
+    severanceCalculations: 'Kalkulator Pesangon',
+    severanceRules: 'Aturan PKB',
+    auditLogs: 'Audit Log',
+    userClearedNotifs: 'Notifikasi User',
+  };
+  return map[name] || name;
+};
 
 class SyncManager {
   private isOnline: boolean = typeof navigator !== 'undefined' ? navigator.onLine : true;
@@ -76,8 +99,15 @@ class SyncManager {
     const errorCode = error?.code || '';
     const errorLower = errorMsg.toLowerCase();
 
-    let errorType: 'network' | 'permission' | 'unauthenticated' | 'other' = 'other';
+    let errorType: 'network' | 'permission' | 'unauthenticated' | 'quota' | 'other' = 'other';
     if (
+      errorCode === 'resource-exhausted' ||
+      errorLower.includes('quota') ||
+      errorLower.includes('resource exhausted') ||
+      errorLower.includes('limit exceeded')
+    ) {
+      errorType = 'quota';
+    } else if (
       errorCode === 'unavailable' ||
       errorCode === 'cancelled' ||
       errorCode === 'deadline-exceeded' ||
@@ -130,10 +160,16 @@ class SyncManager {
     let errorCount = 0;
     let offlineCount = 0;
     let permissionErrorCount = 0;
+    let quotaErrorCount = 0;
+    const failingCollections: string[] = [];
 
-    for (const [, info] of this.listenersMap) {
+    for (const [colName, info] of this.listenersMap) {
       if (info.lastError) {
-        if (info.errorType === 'network') {
+        failingCollections.push(colName);
+        if (info.errorType === 'quota') {
+          quotaErrorCount++;
+          errorCount++;
+        } else if (info.errorType === 'network') {
           offlineCount++;
         } else if (info.errorType === 'permission' || info.errorType === 'unauthenticated') {
           permissionErrorCount++;
@@ -151,18 +187,32 @@ class SyncManager {
     }
 
     let calculatedState: SyncState = 'connecting';
+    let statusMessage = 'Menyinkronkan data database Firestore...';
 
-    if (!this.isOnline || offlineCount > 0) {
+    if (quotaErrorCount > 0) {
+      calculatedState = 'quota';
+      statusMessage = 'KUOTA FIRESTORE TERCAPAI (Quota Exceeded) — Mode data lokal aktif. Kuota harian reset otomatis besok.';
+    } else if (!this.isOnline || (total > 0 && offlineCount === total)) {
       calculatedState = 'offline';
+      statusMessage = 'OFFLINE — Menunggu koneksi internet. Data lokal tetap dapat diakses.';
     } else if (total === 0) {
       calculatedState = 'connecting';
+      statusMessage = 'Menghubungkan ke database Firestore...';
     } else if (errorCount > 0) {
-      calculatedState = 'error';
+      if (synced > 0) {
+        calculatedState = 'partial_error';
+        const friendlyNames = failingCollections.map(getFriendlyCollectionName).join(', ');
+        statusMessage = `Sinkronisasi sebagian bermasalah — ${friendlyNames} belum tersinkron.`;
+      } else {
+        calculatedState = 'error';
+        statusMessage = 'SINKRONISASI BERMASALAH — Memeriksa koneksi database Firestore.';
+      }
     } else if (synced === total && total > 0) {
       calculatedState = 'synced';
+      statusMessage = 'Online • Data tersinkron';
     } else {
-      // Partial sync or still waiting for all listeners to get server confirmation
       calculatedState = 'connecting';
+      statusMessage = 'Menyinkronkan data database Firestore...';
     }
 
     return {
@@ -175,6 +225,8 @@ class SyncManager {
       errorListeners: errorCount,
       offlineListeners: offlineCount,
       permissionErrorListeners: permissionErrorCount,
+      failingCollections,
+      statusMessage,
     };
   }
 

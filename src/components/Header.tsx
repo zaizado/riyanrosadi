@@ -270,12 +270,36 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
               )}
 
-              {currentSyncState === 'error' && (
+              {currentSyncState === 'quota' && (
                 <div 
                   className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-black uppercase rounded-full border shadow-md transition-all bg-amber-950/90 text-amber-300 border-amber-500/60"
-                  title="Status Firestore: Sinkronisasi bermasalah"
+                  title="Kuota harian Firestore tercapai. Aplikasi menggunakan cache lokal."
                 >
                   <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
+                  <span className="hidden xs:inline tracking-wide">Mode Cache (Kuota Firestore)</span>
+                </div>
+              )}
+
+              {currentSyncState === 'partial_error' && (
+                <div 
+                  className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-black uppercase rounded-full border shadow-md transition-all bg-amber-950/90 text-amber-300 border-amber-500/60"
+                  title={syncDetails.statusMessage || "Sinkronisasi sebagian bermasalah"}
+                >
+                  <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
+                  <span className="hidden xs:inline tracking-wide">
+                    {syncDetails.failingCollections && syncDetails.failingCollections.length > 0
+                      ? `${syncDetails.failingCollections.length} Modul Tertunda`
+                      : 'Sinkron Sebagian'}
+                  </span>
+                </div>
+              )}
+
+              {currentSyncState === 'error' && (
+                <div 
+                  className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-black uppercase rounded-full border shadow-md transition-all bg-rose-950/90 text-rose-300 border-rose-500/60"
+                  title={syncDetails.statusMessage || "Status Firestore: Sinkronisasi bermasalah"}
+                >
+                  <ShieldAlert className="w-3.5 h-3.5 text-rose-400" />
                   <span className="hidden xs:inline tracking-wide">Sinkronisasi bermasalah</span>
                 </div>
               )}

@@ -9,12 +9,16 @@ export class AuditService {
     aksi: string,
     detail: string,
     deletedMemberAudit?: DeletedMemberAudit
-  ): Promise<void> {
+  ): Promise<AuditLog> {
     const now = new Date();
     const timestampStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
     
+    const uniqueSuffix = typeof crypto !== 'undefined' && crypto.randomUUID
+      ? crypto.randomUUID().replace(/-/g, '').slice(0, 10)
+      : Math.random().toString(36).substring(2, 11);
+
     const newLog: AuditLog = {
-      id: `log-${Date.now()}-${Math.floor(Math.random()*1000)}`,
+      id: `log-${Date.now()}-${uniqueSuffix}`,
       timestamp: timestampStr,
       userNama,
       userRole,
@@ -26,8 +30,11 @@ export class AuditService {
 
     try {
       await auditLogRepository.save(newLog);
-    } catch (e) {
-      console.warn('Failed to save audit log to firestore', e);
+      return newLog;
+    } catch (err) {
+      console.error('AuditService: Gagal menyimpan audit log ke Firestore:', err);
+      throw err;
     }
   }
 }
+

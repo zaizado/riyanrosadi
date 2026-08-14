@@ -1,4 +1,5 @@
 import { saveFirestoreDoc, deleteFirestoreDoc, saveFullCollection, subscribeCollection } from '../lib/firebase';
+import { QueryConstraint } from 'firebase/firestore';
 
 export abstract class BaseRepository<T extends { id: string }> {
   protected constructor(protected collectionName: string) {}
@@ -18,8 +19,9 @@ export abstract class BaseRepository<T extends { id: string }> {
   public subscribe(
     initialItems: T[], 
     onUpdate: (items: T[]) => void, 
-    onError?: (err: Error) => void
+    onError?: (err: Error) => void,
+    queryConstraints?: QueryConstraint[]
   ): () => void {
-    return subscribeCollection<T>(this.collectionName, initialItems, onUpdate, onError);
+    return subscribeCollection<T>(this.collectionName, initialItems, onUpdate, onError, queryConstraints);
   }
 }

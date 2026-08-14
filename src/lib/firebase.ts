@@ -8,7 +8,9 @@ import {
   setDoc, 
   deleteDoc, 
   writeBatch,
-  getDocs 
+  getDocs,
+  query,
+  QueryConstraint
 } from 'firebase/firestore';
 import {
   getAuth,
@@ -157,13 +159,16 @@ export const subscribeCollection = <T extends { id: string }>(
   collectionName: string,
   initialItems: T[],
   onUpdate: (items: T[]) => void,
-  onError?: (err: Error) => void
+  onError?: (err: Error) => void,
+  queryConstraints?: QueryConstraint[]
 ) => {
   const colRef = collection(db, collectionName);
+  const firestoreQuery = queryConstraints && queryConstraints.length > 0
+    ? query(colRef, ...queryConstraints)
+    : colRef;
 
   const unsubscribe = onSnapshot(
-    colRef,
-    { includeMetadataChanges: true },
+    firestoreQuery,
     (snapshot) => {
       const isFromCache = snapshot.metadata.fromCache;
       syncManager.reportListenerUpdate(collectionName, isFromCache);
@@ -209,7 +214,6 @@ export const subscribeDocument = <T extends { id: string }>(
 
   const unsubscribe = onSnapshot(
     documentRef,
-    { includeMetadataChanges: true },
     (docSnap) => {
       const isFromCache = docSnap.metadata.fromCache;
       syncManager.reportListenerUpdate(`${collectionName}/${docId}`, isFromCache);

@@ -1,16 +1,18 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { QrCode, User, Home, Users, Calculator, Sparkles } from 'lucide-react';
+import { QrCode, User, Home, Users, BookOpen, Sparkles } from 'lucide-react';
 import { ActiveTab } from './Sidebar';
 
 interface FloatingBottomNavProps {
   activeTab: ActiveTab;
   onNavigate: (tab: ActiveTab) => void;
+  onOpenPkb?: () => void;
 }
 
 export const FloatingBottomNav: React.FC<FloatingBottomNavProps> = ({
   activeTab,
   onNavigate,
+  onOpenPkb,
 }) => {
   return (
     <nav className="shrink-0 w-full bg-slate-950/95 border-t border-white/10 backdrop-blur-xl z-30 pt-1.5 pb-[max(0.5rem,var(--sab))] px-2 flex justify-center items-center shadow-[0_-10px_30px_rgba(0,0,0,0.8)] select-none">
@@ -75,23 +77,19 @@ export const FloatingBottomNav: React.FC<FloatingBottomNavProps> = ({
           </span>
         </motion.button>
 
-        {/* 4. PKB */}
+        {/* 4. PKB & Peraturan */}
         <motion.button 
           whileTap={{ scale: 0.9 }}
-          onClick={() => onNavigate('severance')}
-          className={`relative flex flex-col items-center transition-all cursor-pointer py-1 px-2.5 rounded-xl ${
-            activeTab === 'severance' 
-              ? 'text-red-400 font-bold' 
-              : 'text-slate-400 hover:text-slate-200'
-          }`}
+          onClick={() => {
+            if (onOpenPkb) {
+              onOpenPkb();
+            } else {
+              onNavigate('severance');
+            }
+          }}
+          className={`relative flex flex-col items-center transition-all cursor-pointer py-1 px-2.5 rounded-xl text-slate-400 hover:text-slate-200`}
         >
-          {activeTab === 'severance' && (
-            <motion.div 
-              layoutId="activeTabGlow"
-              className="absolute inset-0 bg-red-600/20 rounded-xl border border-red-500/40 glow-red-sm" 
-            />
-          )}
-          <Calculator className="w-5 h-5 relative z-10" />
+          <BookOpen className="w-5 h-5 relative z-10 text-slate-400 hover:text-amber-400" />
           <span className="text-[9px] font-bold tracking-wider uppercase mt-0.5 relative z-10">PKB</span>
         </motion.button>
 

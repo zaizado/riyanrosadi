@@ -68,6 +68,8 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
   const [deleteAccConfirmObj, setDeleteAccConfirmObj] = useState<UserAccount | null>(null);
   const [resetPassModalAccount, setResetPassModalAccount] = useState<UserAccount | null>(null);
   const [quickNewPass, setQuickNewPass] = useState('');
+  const [isSubmittingAccount, setIsSubmittingAccount] = useState(false);
+  const [accountError, setAccountError] = useState<string | null>(null);
 
   // Form data for creating/editing accounts
   const [accountForm, setAccountForm] = useState<{
@@ -150,6 +152,7 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
   // Handler: Open Add Account Modal
   const handleOpenAddAccount = () => {
     setEditingAccount(null);
+    setAccountError(null);
     setAccountForm({
       name: '',
       username: '',
@@ -166,6 +169,7 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
   // Handler: Open Edit Account Modal
   const handleOpenEditAccount = (acc: UserAccount) => {
     setEditingAccount(acc);
+    setAccountError(null);
     setAccountForm({
       name: acc.name,
       username: acc.username || '',
@@ -179,44 +183,51 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
   };
 
   // Handler: Save Add/Edit Account
-  const handleSaveAccount = (e: React.FormEvent) => {
+  const handleSaveAccount = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!accountForm.name || !accountForm.username) return;
 
-    if (editingAccount) {
-      const updated: UserAccount = {
-        ...editingAccount,
-        name: accountForm.name,
-        username: accountForm.username.trim(),
-        nik: accountForm.nik,
-        role: accountForm.role,
-        department: accountForm.department,
-        phoneNumber: accountForm.phoneNumber,
-        email: accountForm.email || `${accountForm.username}@sbn-kasbi-vci.or.id`
-      };
-      onUpdateUser(updated);
-      if (onLogAudit) {
-        onLogAudit('Sistem', 'Edit Akun Pengurus', `Super Admin memperbarui akun pengurus ${updated.name} (${updated.username}).`);
-      }
-    } else {
-      const newAcc: UserAccount = {
-        id: `usr-${Date.now()}`,
-        name: accountForm.name,
-        username: accountForm.username.trim(),
-        nik: accountForm.nik,
-        role: accountForm.role,
-        department: accountForm.department,
-        phoneNumber: accountForm.phoneNumber,
-        email: accountForm.email || `${accountForm.username.trim()}@sbn-kasbi-vci.or.id`,
-        avatarUrl: cheAvatar
-      };
-      onAddUser(newAcc);
-      if (onLogAudit) {
-        onLogAudit('Sistem', 'Buat Akun Pengurus Baru', `Super Admin membuat akun pengurus baru ${newAcc.name} (${newAcc.username}).`);
-      }
-    }
+    setIsSubmittingAccount(true);
+    setAccountError(null);
 
-    setIsAddAccountModalOpen(false);
+    try {
+      if (editingAccount) {
+        const updated: UserAccount = {
+          ...editingAccount,
+          name: accountForm.name.trim(),
+          username: accountForm.username.trim(),
+          nik: accountForm.nik.trim(),
+          role: accountForm.role,
+          department: accountForm.department,
+          phoneNumber: accountForm.phoneNumber.trim(),
+          email: accountForm.email.trim() || `${accountForm.username.trim()}@sbn-kasbi-vci.or.id`
+        };
+        await onUpdateUser(updated);
+      } else {
+        const uniqueSuffix = typeof crypto !== 'undefined' && crypto.randomUUID 
+          ? crypto.randomUUID().replace(/-/g, '').slice(0, 8)
+          : Math.random().toString(36).substring(2, 10);
+
+        const newAcc: UserAccount = {
+          id: `usr-${Date.now()}-${uniqueSuffix}`,
+          name: accountForm.name.trim(),
+          username: accountForm.username.trim(),
+          nik: accountForm.nik.trim(),
+          role: accountForm.role,
+          department: accountForm.department,
+          phoneNumber: accountForm.phoneNumber.trim(),
+          email: accountForm.email.trim() || `${accountForm.username.trim()}@sbn-kasbi-vci.or.id`,
+          avatarUrl: cheAvatar
+        };
+        await onAddUser(newAcc);
+      }
+      setIsAddAccountModalOpen(false);
+    } catch (err: any) {
+      console.error('SuperAdminModule: Gagal menyimpan data akun:', err);
+      setAccountError(err?.message || 'Gagal menyimpan data akun pengurus ke Firestore.');
+    } finally {
+      setIsSubmittingAccount(false);
+    }
   };
 
   // Handler: Quick Reset Password Info
@@ -651,6 +662,12 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
             </div>
 
             <form onSubmit={handleSaveAccount} className="space-y-4">
+              {accountError && (
+                <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+                  <span>{accountError}</span>
+                </div>
+              )}
               
               {/* Dropdown pilih NIK dari Struktur Pengurus (Point 11 requirement) */}
               {!editingAccount && (
@@ -776,16 +793,25 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
               <div className="pt-3 flex justify-end gap-2">
                 <button
                   type="button"
+                  disabled={isSubmittingAccount}
                   onClick={() => setIsAddAccountModalOpen(false)}
-                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-xl"
+                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-xl disabled:opacity-50"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs rounded-xl shadow-lg shadow-amber-500/20"
+                  disabled={isSubmittingAccount}
+                  className="px-5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs rounded-xl shadow-lg shadow-amber-500/20 disabled:opacity-50 flex items-center gap-1.5"
                 >
-                  Simpan Akun
+                  {isSubmittingAccount ? (
+                    <>
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                      <span>Menyimpan...</span>
+                    </>
+                  ) : (
+                    <span>Simpan Akun</span>
+                  )}
                 </button>
               </div>
             </form>

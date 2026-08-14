@@ -13,7 +13,9 @@ import {
   Key, 
   UserPlus, 
   ShieldAlert,
-  FileSpreadsheet
+  FileSpreadsheet,
+  AlertCircle,
+  RefreshCw
 } from 'lucide-react';
 import { UserAccount, UserRole, AuditLog, checkIsSuperAdmin } from '../types';
 import { sortAuditLogsNewestFirst } from '../lib/storage';
@@ -46,6 +48,8 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
   const [activeTab, setActiveTab] = useState<'users' | 'audit_logs' | 'backup'>('users');
   const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<UserAccount | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [userFormError, setUserFormError] = useState<string | null>(null);
 
   // Deletion and reset modal state
   const [deleteUserConfirmObj, setDeleteUserConfirmObj] = useState<UserAccount | null>(null);
@@ -69,6 +73,7 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
 
   const handleOpenAddUser = () => {
     setEditingUser(null);
+    setUserFormError(null);
     setFormData({
       name: '',
       email: '',
@@ -83,35 +88,49 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
 
   const handleOpenEditUser = (usr: UserAccount) => {
     setEditingUser(usr);
+    setUserFormError(null);
     setFormData({ ...usr });
     setIsAddUserModalOpen(true);
   };
 
-  const handleSaveUser = (e: React.FormEvent) => {
+  const handleSaveUser = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email) return;
 
-    if (editingUser) {
-      onUpdateUser({
-        ...editingUser,
-        ...formData
-      } as UserAccount);
-    } else {
-      const newUsr: UserAccount = {
-        id: `usr-${Date.now()}`,
-        username: (formData.name ? formData.name.toLowerCase().replace(/\s+/g, '_') : 'user'),
-        name: formData.name || 'User',
-        email: formData.email || 'user@sbn.or.id',
-        nik: formData.nik || 'VCI-00000',
-        role: (formData.role as UserRole) || 'Pengurus',
-        department: formData.department || 'Assembly',
-        phoneNumber: formData.phoneNumber || '-',
-        avatarUrl: formData.avatarUrl || cheAvatar
-      };
-      onAddUser(newUsr);
-    }
+    setIsSubmitting(true);
+    setUserFormError(null);
 
-    setIsAddUserModalOpen(false);
+    try {
+      if (editingUser) {
+        await onUpdateUser({
+          ...editingUser,
+          ...formData
+        } as UserAccount);
+      } else {
+        const uniqueSuffix = typeof crypto !== 'undefined' && crypto.randomUUID 
+          ? crypto.randomUUID().replace(/-/g, '').slice(0, 8)
+          : Math.random().toString(36).substring(2, 10);
+
+        const newUsr: UserAccount = {
+          id: `usr-${Date.now()}-${uniqueSuffix}`,
+          username: (formData.name ? formData.name.toLowerCase().replace(/\s+/g, '_') : 'user'),
+          name: formData.name || 'User',
+          email: formData.email || 'user@sbn.or.id',
+          nik: formData.nik || 'VCI-00000',
+          role: (formData.role as UserRole) || 'Pengurus',
+          department: formData.department || 'Assembly',
+          phoneNumber: formData.phoneNumber || '-',
+          avatarUrl: formData.avatarUrl || cheAvatar
+        };
+        await onAddUser(newUsr);
+      }
+      setIsAddUserModalOpen(false);
+    } catch (err: any) {
+      console.error('UserManagementModule: Gagal menyimpan data user:', err);
+      setUserFormError(err?.message || 'Gagal menyimpan data akun pengurus ke Firestore.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isSuperAdmin = currentUser.role === 'Super Admin' || currentUser.username === 'superadmin' || currentUser.isSuperAdmin;
@@ -344,6 +363,12 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
               </h2>
 
               <form onSubmit={handleSaveUser} className="space-y-3.5 text-xs">
+                {userFormError && (
+                  <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+                    <span>{userFormError}</span>
+                  </div>
+                )}
                 <div>
                   <label className="block text-slate-400 mb-1 font-semibold">Nama Lengkap Pengurus</label>
                   <input
@@ -421,16 +446,25 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
                 <div className="pt-4 border-t border-slate-800 flex justify-end space-x-2">
                   <button
                     type="button"
+                    disabled={isSubmitting}
                     onClick={() => setIsAddUserModalOpen(false)}
-                    className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 font-semibold cursor-pointer"
+                    className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 font-semibold cursor-pointer disabled:opacity-50"
                   >
                     Batal
                   </button>
                   <button
                     type="submit"
-                    className="px-5 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold cursor-pointer"
+                    disabled={isSubmitting}
+                    className="px-5 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold cursor-pointer disabled:opacity-50 flex items-center gap-1.5"
                   >
-                    Simpan User
+                    {isSubmitting ? (
+                      <>
+                        <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                        <span>Menyimpan...</span>
+                      </>
+                    ) : (
+                      <span>Simpan User</span>
+                    )}
                   </button>
                 </div>
 

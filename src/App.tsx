@@ -21,6 +21,7 @@ import { SeveranceModule } from './components/SeveranceCalculator/SeveranceModul
 import { MemberIdCardModal } from './components/MemberIdCardModal';
 import { NotificationsModal } from './components/NotificationsModal';
 import { LoginModal } from './components/LoginModal';
+import { PkbModal } from './components/PkbModal';
 import { ModalPortal } from './components/ModalPortal';
 import { FloatingBottomNav } from './components/FloatingBottomNav';
 import { playNotificationSound } from './lib/audio';
@@ -87,15 +88,18 @@ export default function App() {
 
   const [currentUser, setCurrentUserAccount] = useState<UserAccount>(() => getCurrentUser());
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const usersRef = React.useRef(users);
+  usersRef.current = users;
 
-  // Subscribe to Firebase Authentication state
+  // Subscribe to Firebase Authentication state - single subscription on mount
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         setIsLoggedIn(true);
         // Match user profile in loaded users array or construct profile
         const emailLower = firebaseUser.email?.toLowerCase() || '';
-        let matched = users.find(u => u.id === firebaseUser.uid || u.email?.toLowerCase() === emailLower);
+        const currentUsers = usersRef.current;
+        let matched = currentUsers.find(u => u.id === firebaseUser.uid || u.email?.toLowerCase() === emailLower);
         if (!matched) {
           const isSA = emailLower === 'superadmin@sbn-kasbi-vci.or.id';
           matched = {
@@ -119,7 +123,7 @@ export default function App() {
     });
 
     return () => unsubscribe();
-  }, [users]);
+  }, []);
 
   const handleLoginSuccess = (user: UserAccount) => {
     setCurrentUserAccount(user);
@@ -202,6 +206,7 @@ export default function App() {
   const [selectedCardMember, setSelectedCardMember] = useState<Member | null>(null);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isScanModalOpen, setIsScanModalOpen] = useState(false);
+  const [isPkbModalOpen, setIsPkbModalOpen] = useState(false);
 
 // Helper to log audit with sound tone
   const createLog = async (modul: AuditLog['modul'], aksi: string, detail: string) => {
@@ -210,7 +215,11 @@ export default function App() {
     if (modul !== 'Keuangan' || isSuper) {
       playNotificationSound();
     }
-    await AuditService.createLog(currentUser.name, currentUser.role, modul, aksi, detail);
+    try {
+      await AuditService.createLog(currentUser.name, currentUser.role, modul, aksi, detail);
+    } catch (err) {
+      console.error('App.tsx: Gagal mencatat audit log ke Firestore:', err);
+    }
   };
 
 // Helper to derive stable, personal user key for notification tracking
@@ -638,9 +647,14 @@ export default function App() {
       const compressed = await compressImage(userToSave.avatarUrl, 300, 300, 0.75);
       userToSave = { ...userToSave, avatarUrl: compressed };
     }
-    const updated = [userToSave, ...users];
-    setUsers(updated);
+    
+    // 1. Write to Firestore first to ensure persistence
     await AppService.addUser(userToSave);
+
+    // 2. Functional state updater to prevent race conditions during bulk consecutive creations
+    setUsers(prev => [userToSave, ...prev.filter(u => u.id !== userToSave.id)]);
+
+    // 3. Write audit log
     await createLog('Sistem', 'Tambah User Pengurus', `Menambahkan akun pengurus baru ${userToSave.name} (${userToSave.role}).`);
   };
 
@@ -650,9 +664,13 @@ export default function App() {
       const compressed = await compressImage(userToSave.avatarUrl, 300, 300, 0.75);
       userToSave = { ...userToSave, avatarUrl: compressed };
     }
-    const updated = users.map(u => u.id === userToSave.id ? userToSave : u);
-    setUsers(updated);
-    await AppService.addUser(userToSave);
+
+    // 1. Update in Firestore
+    await AppService.updateUser(userToSave);
+
+    // 2. Functional state updater
+    setUsers(prev => prev.map(u => u.id === userToSave.id ? userToSave : u));
+
     if (currentUser.id === userToSave.id) {
       setCurrentUserAccount(userToSave);
       setCurrentUser(userToSave);
@@ -675,8 +693,7 @@ export default function App() {
           ...(userToSave.phoneNumber ? { nomorHp: userToSave.phoneNumber } : {}),
           ...(userToSave.email ? { email: userToSave.email } : {})
         };
-        const updatedMembers = members.map(m => m.id === updatedMember.id ? updatedMember : m);
-        setMembers(updatedMembers);
+        setMembers(prev => prev.map(m => m.id === updatedMember.id ? updatedMember : m));
         await AppService.updateMember(updatedMember);
       }
     }
@@ -686,9 +703,8 @@ export default function App() {
 
   const handleDeleteUser = async (userId: string) => {
     const target = users.find(u => u.id === userId);
-    const updated = users.filter(u => u.id !== userId);
-    setUsers(updated);
     await AppService.deleteUser(userId);
+    setUsers(prev => prev.filter(u => u.id !== userId));
     if (target) {
       await createLog('Sistem', 'Hapus Akun Pengurus', `Menghapus akun pengurus ${target.name} (@${target.username}).`);
     }
@@ -741,9 +757,15 @@ export default function App() {
           <span>🔴 OFFLINE — Menunggu koneksi internet. Data lokal tetap dapat diakses.</span>
         </div>
       )}
-      {syncState === 'error' && (
-        <div className="bg-amber-950/90 border-b border-amber-500/50 text-amber-200 px-4 py-2 text-xs font-bold text-center flex items-center justify-center gap-2 z-20 shadow-md">
+      {syncState === 'quota' && (
+        <div className="bg-amber-950/95 border-b border-amber-500/50 text-amber-200 px-4 py-2 text-xs font-bold text-center flex items-center justify-center gap-2 z-20 shadow-md">
           <ShieldAlert className="w-4 h-4 text-amber-400 shrink-0" />
+          <span>⚡ KUOTA FIRESTORE TERCAPAI (Quota Exceeded) — Aplikasi berjalan dalam mode data lokal (cache). Kuota akan otomatis di-reset besok.</span>
+        </div>
+      )}
+      {syncState === 'error' && (
+        <div className="bg-rose-950/90 border-b border-rose-500/50 text-rose-200 px-4 py-2 text-xs font-bold text-center flex items-center justify-center gap-2 z-20 shadow-md">
+          <ShieldAlert className="w-4 h-4 text-rose-400 shrink-0" />
           <span>⚠️ SINKRONISASI BERMASALAH — Memeriksa koneksi database Firestore.</span>
         </div>
       )}
@@ -756,6 +778,7 @@ export default function App() {
         onSelectTab={(tab) => setActiveTab(tab)}
         currentUser={currentUser}
         onLogout={handleLogout}
+        onOpenPkb={() => setIsPkbModalOpen(true)}
       />
 
       {/* Main Content Area (supports optional Android device frame mode) */}
@@ -1002,6 +1025,14 @@ export default function App() {
         onNavigate={(tab) => {
           setActiveTab(tab);
         }}
+        onOpenPkb={() => setIsPkbModalOpen(true)}
+      />
+
+      {/* PKB & Peraturan Modal */}
+      <PkbModal
+        isOpen={isPkbModalOpen}
+        onClose={() => setIsPkbModalOpen(false)}
+        currentUser={currentUser}
       />
 
       {/* Global Scan KTA Modal */}

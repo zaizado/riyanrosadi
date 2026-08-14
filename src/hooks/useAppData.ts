@@ -129,9 +129,9 @@ export const useAppData = () => {
         setPkbRules(items);
       }, handleErr));
 
-      unsubs.push(auditLogRepository.subscribe([], (items) => {
+      unsubs.push(auditLogRepository.subscribeRecent([], (items) => {
         setAuditLogs(sortAuditLogsNewestFirst(items));
-      }, handleErr));
+      }, handleErr, 100));
     });
 
     return () => {

@@ -8,6 +8,7 @@ import {
   CalendarDays, 
   Gift, 
   ShieldCheck, 
+  BookOpen, 
   FileSpreadsheet, 
   Database, 
   X,
@@ -55,6 +56,7 @@ interface SidebarProps {
   onSelectTab: (tab: ActiveTab) => void;
   currentUser: UserAccount;
   onLogout?: () => void;
+  onOpenPkb?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -64,6 +66,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onSelectTab,
   currentUser,
   onLogout,
+  onOpenPkb,
 }) => {
   const [showLogoutConfirm, setShowLogoutConfirm] = React.useState(false);
   const isSuperAdmin = checkIsSuperAdmin(currentUser);
@@ -110,9 +113,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
       color: 'text-red-500'
     },
     {
+      id: 'pkb_modal' as any,
+      label: 'PKB & Peraturan',
+      subtitle: 'Buku Pedoman Kerja & Peraturan',
+      icon: BookOpen,
+      badge: 'RESMI',
+      color: 'text-amber-400',
+      isPkb: true
+    },
+    {
       id: 'severance' as ActiveTab,
-      label: 'Simulasi Pesangon & PKB',
-      subtitle: 'Kalkulator Hak PHK & PKB',
+      label: 'Simulasi Pesangon',
+      subtitle: 'Kalkulator Hak PHK & Kompensasi',
       icon: Calculator,
       badge: 'BARU',
       color: 'text-amber-400'
@@ -275,7 +287,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     whileHover={{ scale: 1.02, x: 4 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => {
-                      onSelectTab(item.id);
+                      if ((item as any).isPkb && onOpenPkb) {
+                        onOpenPkb();
+                      } else {
+                        onSelectTab(item.id);
+                      }
                       onClose();
                     }}
                     className={`w-full text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between transition-all group cursor-pointer ${
