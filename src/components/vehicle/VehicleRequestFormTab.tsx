@@ -22,6 +22,7 @@ interface VehicleRequestFormTabProps {
   vehicleLogs: VehicleLog[];
   members: Member[];
   currentUser: UserAccount;
+  initialDraft?: Partial<VehicleLog> | null;
   onSubmitRequest: (newLog: VehicleLog) => Promise<void>;
   onCancel: () => void;
 }
@@ -30,6 +31,7 @@ export const VehicleRequestFormTab: React.FC<VehicleRequestFormTabProps> = ({
   vehicleLogs,
   members,
   currentUser,
+  initialDraft,
   onSubmitRequest,
   onCancel,
 }) => {
@@ -39,27 +41,29 @@ export const VehicleRequestFormTab: React.FC<VehicleRequestFormTabProps> = ({
     currentUser.role === 'Admin';
 
   // Form State
-  const [namaKegiatan, setNamaKegiatan] = useState('');
-  const [tujuanLokasi, setTujuanLokasi] = useState('');
-  const [keteranganSingkat, setKeteranganSingkat] = useState('');
+  const [namaKegiatan, setNamaKegiatan] = useState(initialDraft?.kegiatan || '');
+  const [tujuanLokasi, setTujuanLokasi] = useState(initialDraft?.tujuan || '');
+  const [keteranganSingkat, setKeteranganSingkat] = useState(initialDraft?.keteranganSingkat || '');
   const [isUntukOrganisasi, setIsUntukOrganisasi] = useState<boolean | null>(true);
 
   // Jadwal
   const todayStr = useMemo(() => getLocalDateISO(), []);
-  const [tanggal, setTanggal] = useState(todayStr);
-  const [jamBerangkat, setJamBerangkat] = useState('08:00');
-  const [jamKembali, setJamKembali] = useState('17:00');
+  const [tanggal, setTanggal] = useState(initialDraft?.tanggalMulai || todayStr);
+  const [jamBerangkat, setJamBerangkat] = useState(initialDraft?.jamMulai || '08:00');
+  const [jamKembali, setJamKembali] = useState(initialDraft?.jamSelesai || '17:00');
 
   // Pemohon
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
   const [namaPemohon, setNamaPemohon] = useState(currentUser.name || '');
   const [departemenPemohon, setDepartemenPemohon] = useState(currentUser.department || 'PTP SBN KASBI');
   const [kontakPemohon, setKontakPemohon] = useState(currentUser.phone || '');
-  const [jumlahPenumpang, setJumlahPenumpang] = useState<number>(2);
+  const [jumlahPenumpang, setJumlahPenumpang] = useState<number>(initialDraft?.jumlahPenumpang || 2);
 
   // Urgensi
-  const [jenisPenggunaan, setJenisPenggunaan] = useState<'Biasa' | 'Urgensi'>('Biasa');
-  const [alasanUrgensi, setAlasanUrgensi] = useState('');
+  const [jenisPenggunaan, setJenisPenggunaan] = useState<'Biasa' | 'Urgensi'>(
+    initialDraft?.isUrgent || initialDraft?.jenisPenggunaan === 'Urgensi' ? 'Urgensi' : 'Biasa'
+  );
+  const [alasanUrgensi, setAlasanUrgensi] = useState(initialDraft?.alasanUrgensi || '');
 
   // Selected Vehicle
   const [selectedVehicle, setSelectedVehicle] = useState<string>('Mitsubishi Xpander');
@@ -68,6 +72,22 @@ export const VehicleRequestFormTab: React.FC<VehicleRequestFormTabProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedSuccess, setSubmittedSuccess] = useState(false);
   const [validationError, setValidationError] = useState('');
+
+  // Sync when initialDraft changes
+  useEffect(() => {
+    if (initialDraft) {
+      if (initialDraft.kegiatan) setNamaKegiatan(initialDraft.kegiatan);
+      if (initialDraft.tujuan) setTujuanLokasi(initialDraft.tujuan);
+      if (initialDraft.keteranganSingkat) setKeteranganSingkat(initialDraft.keteranganSingkat);
+      if (initialDraft.tanggalMulai) setTanggal(initialDraft.tanggalMulai);
+      if (initialDraft.jamMulai) setJamBerangkat(initialDraft.jamMulai);
+      if (initialDraft.jamSelesai) setJamKembali(initialDraft.jamSelesai);
+      if (initialDraft.isUrgent) {
+        setJenisPenggunaan('Urgensi');
+        if (initialDraft.alasanUrgensi) setAlasanUrgensi(initialDraft.alasanUrgensi);
+      }
+    }
+  }, [initialDraft]);
 
   // If currentUser has matched member profile
   useEffect(() => {
@@ -187,6 +207,8 @@ export const VehicleRequestFormTab: React.FC<VehicleRequestFormTabProps> = ({
         jenisPenggunaan,
         isUrgent: jenisPenggunaan === 'Urgensi',
         alasanUrgensi: jenisPenggunaan === 'Urgensi' ? alasanUrgensi.trim() : undefined,
+        sickVisitId: initialDraft?.sickVisitId,
+        nomorPendampingan: initialDraft?.nomorPendampingan,
         tanggalMulai: tanggal,
         jamMulai: jamBerangkat,
         tanggalSelesai: tanggal,
@@ -261,6 +283,19 @@ export const VehicleRequestFormTab: React.FC<VehicleRequestFormTabProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Auto-filled from Sick Visit Alert */}
+      {initialDraft?.nomorPendampingan && (
+        <div className="p-4 rounded-2xl bg-blue-950/70 border border-blue-600/60 text-blue-200 text-xs flex items-start gap-3 shadow-lg animate-fade-in">
+          <Info className="w-5 h-5 shrink-0 text-blue-400 mt-0.5" />
+          <div>
+            <p className="font-bold text-white">Terhubung dengan Pendampingan Anggota Sakit ({initialDraft.nomorPendampingan})</p>
+            <p className="text-blue-300/80 text-[11px] mt-0.5">
+              Data tujuan, waktu, dan keperluan telah otomatis diisi dari laporan pendampingan. Anda tinggal memilih armada yang siap digunakan.
+            </p>
+          </div>
+        </div>
+      )}
 
       {validationError && (
         <div className="p-4 rounded-2xl bg-red-950/60 border border-red-800/80 text-red-300 text-xs flex items-start gap-3 shadow-md">

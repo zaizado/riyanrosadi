@@ -9,9 +9,10 @@ import {
   Clock, 
   AlertTriangle, 
   X,
-  ShieldCheck 
+  ShieldCheck,
+  ShieldAlert
 } from 'lucide-react';
-import { VehicleLog, UserAccount } from '../../types';
+import { VehicleLog, UserAccount, canApproveRequests } from '../../types';
 
 interface VehicleApproveModalProps {
   log: VehicleLog;
@@ -36,8 +37,22 @@ export const VehicleApproveModal: React.FC<VehicleApproveModalProps> = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
+  const hasApprovalAuthority = canApproveRequests(currentUser);
+  const isSelf = 
+    log.namaPemakai === currentUser.name || 
+    log.memberId === currentUser.id || 
+    (currentUser.memberId && log.memberId === currentUser.memberId);
+
   const handleApproveSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!hasApprovalAuthority) {
+      setErrorMsg('Anda tidak memiliki kewenangan menyetujui pengajuan (Khusus Superadmin, Ketua, Sekretaris).');
+      return;
+    }
+    if (isSelf) {
+      setErrorMsg('Sesuai SOP, Anda tidak dapat menyetujui pengajuan yang Anda buat sendiri. Harus disetujui pengurus berwenang lain.');
+      return;
+    }
     if (!driverNama.trim()) {
       setErrorMsg('Harap tentukan nama pengemudi/driver penanggung jawab.');
       return;
@@ -57,6 +72,10 @@ export const VehicleApproveModal: React.FC<VehicleApproveModalProps> = ({
 
   const handleRejectSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!hasApprovalAuthority) {
+      setErrorMsg('Anda tidak memiliki kewenangan menolak pengajuan (Khusus Superadmin, Ketua, Sekretaris).');
+      return;
+    }
     if (!alasanPenolakan.trim()) {
       setErrorMsg('Harap isi alasan penolakan penggunaan kendaraan.');
       return;
@@ -86,7 +105,7 @@ export const VehicleApproveModal: React.FC<VehicleApproveModalProps> = ({
             </div>
             <div>
               <h2 className="text-lg font-black text-white">Persetujuan Peminjaman Mobil</h2>
-              <p className="text-xs text-slate-400">Verifikasi penanggung jawab & tentukan pengemudi</p>
+              <p className="text-xs text-slate-400">Kewenangan: Superadmin, Ketua, & Sekretaris</p>
             </div>
           </div>
           <button
@@ -98,21 +117,40 @@ export const VehicleApproveModal: React.FC<VehicleApproveModalProps> = ({
           </button>
         </div>
 
+        {/* Self-Approval Warning */}
+        {isSelf && (
+          <div className="p-3.5 bg-amber-950/70 border border-amber-600/70 rounded-2xl text-amber-200 text-xs flex items-start gap-2.5">
+            <ShieldAlert className="w-5 h-5 shrink-0 text-amber-400 mt-0.5" />
+            <div>
+              <p className="font-bold">Pencegahan Self-Approval (SOP Organisasi)</p>
+              <p className="text-[11px] text-amber-300/80 mt-0.5">
+                Anda adalah pemohon pengajuan ini. Sesuai SOP, persetujuan harus dilakukan oleh pengurus berwenang lain (Superadmin / Ketua / Sekretaris).
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Log Info Card */}
         <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2 text-xs">
           <div className="flex items-center justify-between text-slate-400">
             <span className="font-mono">{log.nomorLog}</span>
-            <span className="font-bold text-white">{log.kendaraan}</span>
+            <span className="font-bold text-white">{log.kendaraan} ({log.platNomor || '-'})</span>
           </div>
           <p className="text-white font-bold text-sm">
             {log.kegiatan || log.tujuan}
           </p>
           <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-400 pt-1 border-t border-slate-800">
             <p>Pemohon: <strong className="text-slate-200">{log.namaPemakai}</strong></p>
-            <p>Dept: <strong className="text-slate-200">{log.departemenPemakai}</strong></p>
+            <p>Dept/Unit: <strong className="text-slate-200">{log.departemenPemakai}</strong></p>
             <p>Tanggal: <strong className="text-slate-200">{log.tanggalMulai}</strong></p>
-            <p>Waktu: <strong className="text-slate-200">{log.jamMulai}–{log.jamSelesai}</strong></p>
+            <p>Waktu: <strong className="text-slate-200">{log.jamMulai} – {log.jamSelesai}</strong></p>
           </div>
+          {log.nomorPendampingan && (
+            <div className="p-2 bg-blue-950/60 border border-blue-800/60 rounded-xl text-blue-300 text-[11px] flex items-center gap-1.5">
+              <span className="font-bold">Terkait Pendampingan Sakit:</span>
+              <span className="font-mono">{log.nomorPendampingan}</span>
+            </div>
+          )}
           {log.isUrgent && (
             <div className="p-2.5 bg-red-950/60 border border-red-800 rounded-xl text-red-300 text-[11px] flex items-start gap-1.5 mt-1">
               <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5 text-red-400" />
@@ -211,8 +249,9 @@ export const VehicleApproveModal: React.FC<VehicleApproveModalProps> = ({
               </button>
               <button
                 type="submit"
-                disabled={isProcessing}
-                className="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white text-xs font-black shadow-lg shadow-emerald-950/50 flex items-center gap-2 cursor-pointer"
+                disabled={isProcessing || isSelf || !hasApprovalAuthority}
+                className="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-black shadow-lg shadow-emerald-950/50 flex items-center gap-2 cursor-pointer transition-all"
+                title={isSelf ? 'Tidak dapat menyetujui pengajuan sendiri' : 'Setujui Pengajuan'}
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>{isProcessing ? 'Memproses...' : 'SETUJUI & TUGASKAN DRIVER'}</span>
@@ -251,7 +290,7 @@ export const VehicleApproveModal: React.FC<VehicleApproveModalProps> = ({
               </button>
               <button
                 type="submit"
-                disabled={isProcessing || !alasanPenolakan.trim()}
+                disabled={isProcessing || !alasanPenolakan.trim() || !hasApprovalAuthority}
                 className="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white text-xs font-black shadow-lg shadow-red-950/50 flex items-center gap-2 cursor-pointer"
               >
                 <XCircle className="w-4 h-4" />

@@ -58,62 +58,43 @@ export const VehicleDashboardTab: React.FC<VehicleDashboardTabProps> = ({
   return (
     <div className="space-y-6 animate-fade-in text-white">
       
-      {/* Top Banner with Main CTA */}
-      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 p-6 sm:p-7 rounded-3xl border border-slate-700/80 shadow-xl relative overflow-hidden">
-        <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-        
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 relative z-10">
-          <div className="space-y-1.5 max-w-xl">
-            <div className="flex items-center gap-2.5">
-              <span className="p-2.5 rounded-2xl bg-indigo-600/30 text-indigo-300 border border-indigo-500/40 shadow-inner">
-                <Car className="w-6 h-6" />
-              </span>
-              <div>
-                <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                  Kendaraan Operasional Serikat
-                </h1>
-                <p className="text-xs text-slate-300">
-                  Alur Mudah SOP: <strong>Ajukan → Disetujui → Pakai → Kembali → Selesai</strong>
-                </p>
-              </div>
-            </div>
-            <p className="text-xs text-slate-400 leading-relaxed pt-1">
-              Kendaraan inventaris PTP SBN KASBI PT VCI khusus digunakan untuk program kerja, koordinasi, dan kebutuhan mendesak organisasi.
+      {/* SOP Status Bar & Quick Actions */}
+      <div className="bg-slate-900/80 p-4 sm:p-5 rounded-2xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
+        <div className="flex items-center gap-2.5">
+          <div className="p-2 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 shrink-0">
+            <Activity className="w-5 h-5" />
+          </div>
+          <div>
+            <span className="text-xs font-bold text-slate-200">
+              Alur SOP: Ajukan → Disetujui → Pakai → Kembali → Selesai
+            </span>
+            <p className="text-[11px] text-slate-400">
+              Khusus operasional organisasi, koordinasi advokasi, dan pengawalan anggota sakit
             </p>
           </div>
+        </div>
 
-          <div className="flex items-center gap-3 flex-wrap">
-            {isSuperAdminOrPengurus && (
-              <button
-                type="button"
-                onClick={onOpenManageFleet}
-                className="px-4 py-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:shadow-md"
-              >
-                <SlidersHorizontal className="w-4 h-4 text-indigo-400" />
-                <span>Kelola Kendaraan</span>
-              </button>
-            )}
-
+        <div className="flex items-center gap-2.5 flex-wrap shrink-0">
+          {isSuperAdminOrPengurus && (
             <button
               type="button"
-              onClick={() => exportVehicleLogsToExcel(vehicleLogs)}
-              className="px-4 py-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:shadow-md"
-              title="Ekspor Seluruh Riwayat ke Format Excel (.xlsx)"
+              onClick={onOpenManageFleet}
+              className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm"
             >
-              <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
-              <span className="hidden sm:inline">Ekspor Excel</span>
+              <SlidersHorizontal className="w-4 h-4 text-indigo-400" />
+              <span>Kelola Armada</span>
             </button>
+          )}
 
-            {/* BIG ACTION BUTTON */}
-            <button
-              type="button"
-              onClick={() => onNavigateTab('request')}
-              className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-red-600 via-rose-600 to-indigo-600 hover:from-red-500 hover:to-indigo-500 text-white font-black text-sm tracking-wide shadow-lg shadow-red-950/60 flex items-center gap-2.5 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <Plus className="w-5 h-5 stroke-[2.5]" />
-              <span>+ AJUKAN KENDARAAN</span>
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => exportVehicleLogsToExcel(vehicleLogs)}
+            className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm"
+            title="Ekspor Seluruh Riwayat ke Format Excel (.xlsx)"
+          >
+            <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
+            <span>Ekspor Excel</span>
+          </button>
         </div>
       </div>
 

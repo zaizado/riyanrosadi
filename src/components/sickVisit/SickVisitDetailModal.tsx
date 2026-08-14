@@ -48,6 +48,7 @@ interface SickVisitDetailModalProps {
   onUpdate: (updatedVisit: SickVisit, actionName: string, auditDetail: string) => void;
   onDelete?: (id: string) => void;
   currentUser: UserAccount;
+  onRequestVehicle?: (draft: any) => void;
 }
 
 type TabType = 'ringkasan' | 'koordinasi' | 'penugasan' | 'pelaksanaan' | 'hasil' | 'akomodasi' | 'log';
@@ -59,6 +60,7 @@ export const SickVisitDetailModal: React.FC<SickVisitDetailModalProps> = ({
   onUpdate,
   onDelete,
   currentUser,
+  onRequestVehicle,
 }) => {
   const [activeTab, setActiveTab] = useState<TabType>('ringkasan');
 
@@ -868,7 +870,7 @@ export const SickVisitDetailModal: React.FC<SickVisitDetailModalProps> = ({
                   </div>
 
                   {transportasi === 'Mobil Operasional' && (
-                    <div className="pt-2">
+                    <div className="pt-2 space-y-2">
                       <label className="block text-slate-400 mb-1 font-semibold">Kendaraan Operasional Digunakan</label>
                       <input
                         type="text"
@@ -877,6 +879,40 @@ export const SickVisitDetailModal: React.FC<SickVisitDetailModalProps> = ({
                         placeholder="Mitsubishi Xpander / Daihatsu Xenia"
                         className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-white"
                       />
+                      {onRequestVehicle && (
+                        <div className="p-3 bg-indigo-950/50 border border-indigo-800/60 rounded-xl flex items-center justify-between gap-2 flex-wrap">
+                          <div className="flex items-center gap-2 text-xs text-indigo-200">
+                            <Car className="w-4 h-4 text-indigo-400 shrink-0" />
+                            <span>
+                              {visit.nomorLogKendaraan ? (
+                                <span>Terhubung ke Log: <strong className="font-mono text-white">{visit.nomorLogKendaraan}</strong></span>
+                              ) : (
+                                <span>Butuh peminjaman mobil untuk kunjungan ini?</span>
+                              )}
+                            </span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              onClose();
+                              onRequestVehicle({
+                                sickVisitId: visit.id,
+                                nomorPendampingan: visit.nomorPendampingan,
+                                kegiatan: `Pendampingan Sakit: ${visit.namaPasien || visit.namaAnggota} (${visit.hubunganPasien || 'Anggota'})`,
+                                tujuan: visit.rumahSakitTujuan || visit.lokasi || 'Rumah Sakit',
+                                keteranganSingkat: `Pendampingan sakit ${visit.namaAnggota} (${visit.nikAnggota}) di ${visit.rumahSakitTujuan || visit.lokasi}. Petugas: ${petugas1}${petugas2 ? ', ' + petugas2 : ''}.`,
+                                tanggalMulai: visit.tanggal || new Date().toISOString().split('T')[0],
+                                isUrgent: visit.isUrgensi || false,
+                                alasanUrgensi: visit.isUrgensi ? (visit.alasanUrgensi || 'Pendampingan darurat anggota sakit') : undefined,
+                              });
+                            }}
+                            className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 cursor-pointer shadow"
+                          >
+                            <span>🚗 Buka di Menu Kendaraan</span>
+                            <ArrowRight className="w-3 h-3" />
+                          </button>
+                        </div>
+                      )}
                     </div>
                   )}
 

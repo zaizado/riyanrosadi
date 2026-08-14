@@ -34,6 +34,7 @@ interface SickVisitModuleProps {
   onUpdateVisit: (updatedVisit: SickVisit, actionName?: string, auditDetail?: string) => void;
   onDeleteVisit?: (visitId: string) => void;
   currentUser: UserAccount;
+  onRequestVehicle?: (draft: any) => void;
 }
 
 export const SickVisitModule: React.FC<SickVisitModuleProps> = ({
@@ -43,6 +44,7 @@ export const SickVisitModule: React.FC<SickVisitModuleProps> = ({
   onUpdateVisit,
   onDeleteVisit,
   currentUser,
+  onRequestVehicle,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState<string>('All');
@@ -341,6 +343,7 @@ export const SickVisitModule: React.FC<SickVisitModuleProps> = ({
         members={members}
         currentUser={currentUser}
         existingCount={sickVisits.length}
+        onRequestVehicle={onRequestVehicle}
       />
 
       {/* Detail Modal */}
@@ -352,6 +355,7 @@ export const SickVisitModule: React.FC<SickVisitModuleProps> = ({
           onUpdate={handleUpdate}
           onDelete={onDeleteVisit}
           currentUser={currentUser}
+          onRequestVehicle={onRequestVehicle}
         />
       )}
 

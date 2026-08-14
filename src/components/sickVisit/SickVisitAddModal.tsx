@@ -10,7 +10,9 @@ import {
   CheckCircle2, 
   Info, 
   Activity, 
-  ShieldAlert 
+  ShieldAlert,
+  Car,
+  ArrowRight
 } from 'lucide-react';
 import { 
   Member, 
@@ -35,6 +37,7 @@ interface SickVisitAddModalProps {
   members: Member[];
   currentUser: UserAccount;
   existingCount: number;
+  onRequestVehicle?: (draft: any) => void;
 }
 
 export const SickVisitAddModal: React.FC<SickVisitAddModalProps> = ({
@@ -44,6 +47,7 @@ export const SickVisitAddModal: React.FC<SickVisitAddModalProps> = ({
   members,
   currentUser,
   existingCount,
+  onRequestVehicle,
 }) => {
   // Form State
   const [selectedMemberId, setSelectedMemberId] = useState('');
@@ -55,6 +59,9 @@ export const SickVisitAddModal: React.FC<SickVisitAddModalProps> = ({
   // Kondisi & Urgensi
   const [isUrgent, setIsUrgent] = useState(true);
   const [deskripsiKondisi, setDeskripsiKondisi] = useState('');
+
+  // Kebutuhan Kendaraan
+  const [butuhKendaraan, setButuhKendaraan] = useState(false);
 
   // Lokasi Pasien
   const [lokasiAwal, setLokasiAwal] = useState<LokasiAwalType>('Tempat tinggal anggota');
@@ -184,6 +191,9 @@ export const SickVisitAddModal: React.FC<SickVisitAddModalProps> = ({
         }
       ],
 
+      // Kebutuhan Kendaraan
+      butuhKendaraan: butuhKendaraan,
+
       createdAt: new Date().toISOString(),
       createdBy: currentUser.name,
       updatedAt: new Date().toISOString(),
@@ -192,6 +202,19 @@ export const SickVisitAddModal: React.FC<SickVisitAddModalProps> = ({
 
     onSubmit(newSickVisit);
     onClose();
+
+    if (butuhKendaraan && onRequestVehicle) {
+      onRequestVehicle({
+        sickVisitId: newSickVisit.id,
+        nomorPendampingan: newSickVisit.nomorPendampingan,
+        kegiatan: `Pendampingan Sakit: ${finalPasienName} (${finalHubungan})`,
+        tujuan: finalRsNama || 'Rumah Sakit',
+        keteranganSingkat: `Pendampingan sakit ${selectedMember.namaLengkap} (${selectedMember.nik}) ke ${finalRsNama}. Pasien: ${finalPasienName}.`,
+        tanggalMulai: todayDate,
+        isUrgent: isUrgent,
+        alasanUrgensi: isUrgent ? `Urgensi pendampingan ${finalPasienName} di ${finalRsNama}` : undefined,
+      });
+    }
   };
 
   return (
@@ -568,6 +591,62 @@ export const SickVisitAddModal: React.FC<SickVisitAddModalProps> = ({
                 />
               </div>
             </div>
+          </div>
+
+          {/* TAHAP 4: KEBUTUHAN KENDARAAN OPERASIONAL */}
+          <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="font-bold text-slate-200 flex items-center gap-2 text-sm">
+                <Car className="w-4 h-4 text-amber-400" />
+                <span>4. Kebutuhan Kendaraan Operasional</span>
+              </h3>
+              <span className="text-[10px] text-slate-500 font-mono">INTEGRASI</span>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-slate-300 font-medium text-xs">
+                Apakah pendampingan ini membutuhkan peminjaman mobil operasional organisasi?
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => setButuhKendaraan(false)}
+                  className={`p-3 rounded-xl border text-center transition-all cursor-pointer ${
+                    !butuhKendaraan
+                      ? 'bg-slate-800 border-slate-600 text-white font-bold'
+                      : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'
+                  }`}
+                >
+                  <p className="text-xs font-bold">Tidak Perlu Mobil</p>
+                  <p className="text-[10px] text-slate-500">Kendaraan pribadi / mandiri</p>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setButuhKendaraan(true)}
+                  className={`p-3 rounded-xl border text-center transition-all cursor-pointer ${
+                    butuhKendaraan
+                      ? 'bg-indigo-600 border-indigo-500 text-white font-bold shadow-lg shadow-indigo-900/40'
+                      : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'
+                  }`}
+                >
+                  <p className="text-xs font-black flex items-center justify-center gap-1.5">
+                    <Car className="w-3.5 h-3.5 text-amber-300" />
+                    <span>Ya, Butuh Mobil</span>
+                  </p>
+                  <p className="text-[10px] text-indigo-200">Otomatis isi form kendaraan</p>
+                </button>
+              </div>
+            </div>
+
+            {butuhKendaraan && (
+              <div className="p-3 bg-indigo-950/40 rounded-xl border border-indigo-800/40 text-xs text-indigo-200 flex items-center gap-2">
+                <Info className="w-4 h-4 text-indigo-400 shrink-0" />
+                <span>
+                  Setelah laporan disimpan, sistem akan otomatis membuka form permohonan kendaraan dengan data terisi lengkap (tanpa perlu ketik ulang).
+                </span>
+              </div>
+            )}
           </div>
 
           {/* SOP Workflow Notice Banner */}

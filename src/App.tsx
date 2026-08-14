@@ -23,7 +23,6 @@ import { NotificationsModal } from './components/NotificationsModal';
 import { LoginModal } from './components/LoginModal';
 import { PkbModal } from './components/PkbModal';
 import { ModalPortal } from './components/ModalPortal';
-import { FloatingBottomNav } from './components/FloatingBottomNav';
 import { playNotificationSound } from './lib/audio';
 import cheAvatar from './assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { compressImage } from './lib/imageUtils';
@@ -196,6 +195,14 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('dashboard');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobilePreview, setIsMobilePreview] = useState(false);
+  const [draftVehicleRequest, setDraftVehicleRequest] = useState<Partial<VehicleLog> | null>(null);
+
+  const handleNavigateToVehicleRequest = (draft?: Partial<VehicleLog>) => {
+    if (draft) {
+      setDraftVehicleRequest(draft);
+    }
+    setActiveTab('vehicles');
+  };
 
 // Auto scroll to top when changing active menu/tab
   useEffect(() => {
@@ -589,6 +596,23 @@ export default function App() {
     setVehicleLogs(updated);
     await AppService.addVehicleLog(newLog);
     await createLog('Kendaraan', 'Catat Pemakaian Kendaraan', `Mencatat jurnal ${newLog.nomorLog} untuk ${newLog.kendaraan} (${newLog.platNomor}) oleh ${newLog.namaPemakai}.`);
+
+    // Auto-link with SickVisit if this vehicle request belongs to a sick visit
+    if (newLog.sickVisitId) {
+      const targetVisit = sickVisits.find(v => v.id === newLog.sickVisitId);
+      if (targetVisit) {
+        const updatedVisit: SickVisit = {
+          ...targetVisit,
+          butuhKendaraan: true,
+          vehicleLogId: newLog.id,
+          nomorLogKendaraan: newLog.nomorLog,
+          updatedAt: new Date().toISOString(),
+        };
+        const updatedVisitsList = sickVisits.map(v => v.id === updatedVisit.id ? updatedVisit : v);
+        setSickVisits(updatedVisitsList);
+        await AppService.updateSickVisit(updatedVisit);
+      }
+    }
   };
 
   const handleUpdateVehicleLog = async (updatedLog: VehicleLog) => {
@@ -883,6 +907,7 @@ export default function App() {
                   onUpdateVisit={handleUpdateSickVisit}
                   onDeleteVisit={handleDeleteSickVisit}
                   currentUser={currentUser}
+                  onRequestVehicle={handleNavigateToVehicleRequest}
                 />
               )}
 
@@ -931,6 +956,8 @@ export default function App() {
                   members={members}
                   users={users}
                   currentUser={currentUser}
+                  draftRequest={draftVehicleRequest}
+                  onClearDraftRequest={() => setDraftVehicleRequest(null)}
                   onAddLog={handleAddVehicleLog}
                   onUpdateLog={handleUpdateVehicleLog}
                   onDeleteLog={handleDeleteVehicleLog}
@@ -1022,15 +1049,6 @@ export default function App() {
           onSelectTab={(tab) => setActiveTab(tab)}
         />
       )}
-
-      {/* Global Floating Bottom Navigation Bar (Home, Informasi, Scan, Profil) */}
-      <FloatingBottomNav
-        activeTab={activeTab}
-        onNavigate={(tab) => {
-          setActiveTab(tab);
-        }}
-        onOpenPkb={() => setIsPkbModalOpen(true)}
-      />
 
       {/* PKB & Peraturan Modal */}
       <PkbModal

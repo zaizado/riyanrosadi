@@ -30,6 +30,20 @@ export const checkIsSuperAdmin = (user?: UserAccount | null): boolean => {
   );
 };
 
+export const canApproveRequests = (user?: UserAccount | null): boolean => {
+  if (!user) return false;
+  return (
+    user.role === 'Super Admin' ||
+    user.role === 'Ketua' ||
+    user.role === 'Sekretaris' ||
+    user.role === 'Administrator' ||
+    user.isSuperAdmin === true ||
+    user.username === 'sbnkasbivci1' ||
+    user.username === 'superadmin' ||
+    user.id === 'usr-superadmin'
+  );
+};
+
 export type Gender = 'Laki-laki' | 'Perempuan';
 export type MemberStatus = 'Aktif' | 'Tidak Aktif' | 'Non-Aktif';
 export type EmploymentStatus = 'PKWTT' | 'PKWT' | 'Training';
@@ -252,6 +266,9 @@ export interface SickVisit {
   transportasi?: TransportasiType;
   kendaraanOperasionalDigunakan?: string;
   alasanGrab?: string;
+  butuhKendaraan?: boolean;
+  vehicleLogId?: string;
+  nomorLogKendaraan?: string;
 
   // Pelaksanaan (SOP Tahap 8)
   waktuBerangkat?: string;
@@ -552,6 +569,10 @@ export interface VehicleLog {
   keteranganSingkat?: string;
   isUntukOrganisasi?: boolean;
   jumlahPenumpang?: number;
+
+  // Integrasi Pendampingan
+  sickVisitId?: string;
+  nomorPendampingan?: string;
 
   // Urgensi
   jenisPenggunaan?: 'Biasa' | 'Urgensi';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Car, 
   PlusCircle, 
@@ -6,7 +6,9 @@ import {
   History, 
   SlidersHorizontal, 
   CheckCircle2, 
-  Info 
+  Info,
+  ShieldCheck,
+  UserCheck
 } from 'lucide-react';
 import { 
   VehicleLog, 
@@ -14,12 +16,15 @@ import {
   UserAccount, 
   VehicleConditionStatus,
   VehicleChecklistItems,
-  VehicleReturnChecklist
+  VehicleReturnChecklist,
+  canApproveRequests
 } from '../types';
 import { calculateDistanceKm } from '../utils/vehicleUtils';
 import { VehicleDashboardTab } from './vehicle/VehicleDashboardTab';
 import { VehicleRequestFormTab } from './vehicle/VehicleRequestFormTab';
+import { VehicleMyRequestsTab } from './vehicle/VehicleMyRequestsTab';
 import { VehicleScheduleTab } from './vehicle/VehicleScheduleTab';
+import { VehicleApprovalsTab } from './vehicle/VehicleApprovalsTab';
 import { VehicleHistoryTab } from './vehicle/VehicleHistoryTab';
 import { VehicleChecklistModal } from './vehicle/VehicleChecklistModal';
 import { VehicleReturnModal } from './vehicle/VehicleReturnModal';
@@ -32,22 +37,37 @@ interface VehicleManagerProps {
   members: Member[];
   users: UserAccount[];
   currentUser: UserAccount;
+  draftRequest?: Partial<VehicleLog> | null;
+  onClearDraftRequest?: () => void;
   onAddLog: (log: VehicleLog) => Promise<void>;
   onUpdateLog: (log: VehicleLog) => Promise<void>;
   onDeleteLog: (id: string) => Promise<void>;
 }
+
+export type VehicleTabType = 'dashboard' | 'request' | 'my_requests' | 'schedule' | 'approvals' | 'history';
 
 export const VehicleManager: React.FC<VehicleManagerProps> = ({
   vehicleLogs,
   members,
   users,
   currentUser,
+  draftRequest,
+  onClearDraftRequest,
   onAddLog,
   onUpdateLog,
   onDeleteLog,
 }) => {
-  // 4 Primary Menu Tabs
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'request' | 'schedule' | 'history'>('dashboard');
+  const hasApprovalAuthority = canApproveRequests(currentUser);
+
+  // Active Tab
+  const [activeTab, setActiveTab] = useState<VehicleTabType>('dashboard');
+
+  // If a draft request arrives from SickVisit, auto navigate to 'request' tab
+  useEffect(() => {
+    if (draftRequest) {
+      setActiveTab('request');
+    }
+  }, [draftRequest]);
 
   // Interactive Modals State
   const [selectedDetailLog, setSelectedDetailLog] = useState<VehicleLog | null>(null);
@@ -69,6 +89,7 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
   // Workflow Action 1: Submit Request (AJUKAN -> Menunggu Persetujuan)
   const handleSubmitRequest = async (newLog: VehicleLog) => {
     await onAddLog(newLog);
+    if (onClearDraftRequest) onClearDraftRequest();
     showToast(`Pengajuan kendaraan nomor ${newLog.nomorLog} berhasil dibuat.`);
   };
 
@@ -179,7 +200,6 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
     conditionStatus: VehicleConditionStatus, 
     catatan?: string
   ) => {
-    // If setting to 'Tersedia', resolve any existing 'Perlu Diperiksa' logs for this vehicle
     if (conditionStatus === 'Tersedia') {
       const activeIssueLog = vehicleLogs.find(
         l => l.kendaraan === vehicleName && (l.status === 'Perlu Diperiksa' || l.adaKerusakan) && !l.isArchived
@@ -203,8 +223,15 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
     showToast('Catatan berhasil dihapus dari sistem.');
   };
 
+  const pendingApprovalsCount = vehicleLogs.filter(l => l.status === 'Menunggu Persetujuan' && !l.isArchived).length;
+  const myActiveRequestsCount = vehicleLogs.filter(l => 
+    !l.isArchived && 
+    (l.namaPemakai === currentUser.name || l.memberId === currentUser.id || (currentUser.memberId && l.memberId === currentUser.memberId)) &&
+    (l.status === 'Menunggu Persetujuan' || l.status === 'Disetujui' || l.status === 'Sedang Digunakan')
+  ).length;
+
   return (
-    <div className="space-y-6 max-w-7xl mx-auto px-2 sm:px-4">
+    <div className="space-y-5 max-w-7xl mx-auto px-2 sm:px-4 text-white pb-12">
       
       {/* Toast Banner */}
       {toastMessage && (
@@ -216,74 +243,146 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
           <button 
             type="button" 
             onClick={() => setToastMessage(null)}
-            className="text-emerald-400 hover:text-white text-xs px-2 py-1"
+            className="text-emerald-400 hover:text-white text-xs px-2 py-1 cursor-pointer"
           >
             Tutup
           </button>
         </div>
       )}
 
-      {/* 4 Main Tabs Navigation Bar */}
-      <div className="bg-slate-900/90 p-2 sm:p-2.5 rounded-3xl border border-slate-800 shadow-xl backdrop-blur-md sticky top-16 z-30">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
-          {/* Tab 1: Kendaraan */}
+      {/* 1. HEADER UTAMA: JUDUL & DESKRIPSI (Normal Document Flow) */}
+      <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl relative overflow-hidden">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
+            <div className="p-3.5 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-700 text-slate-950 shadow-lg shadow-amber-950/50 shrink-0">
+              <Car className="w-7 h-7" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                  Kendaraan Operasional
+                </h1>
+                <span className="hidden sm:inline-flex px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-950 text-amber-300 border border-amber-800/60 font-mono">
+                  Armada SBN KASBI
+                </span>
+              </div>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Peminjaman Armada &amp; Pengawalan Pasien SBN KASBI PT Victory Chingluh Indonesia
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2.5 shrink-0">
+            <button
+              type="button"
+              onClick={() => setActiveTab('request')}
+              className="w-full sm:w-auto px-5 py-3 rounded-2xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-red-950/50 transition-all cursor-pointer"
+            >
+              <PlusCircle className="w-4 h-4" />
+              <span>+ Ajukan Kendaraan</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. NAVIGASI MODULE DALAM NORMAL FLOW (NO STICKY / NO FIXED / NO FLOATING) */}
+      <div className="bg-slate-900/90 p-2 rounded-2xl border border-slate-800 shadow-md">
+        <div className={`grid gap-1.5 ${hasApprovalAuthority ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6' : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'}`}>
+          {/* Tab 1: Kendaraan (Utama) */}
           <button
             type="button"
             onClick={() => setActiveTab('dashboard')}
-            className={`py-3 px-4 rounded-2xl text-xs sm:text-sm font-black flex items-center justify-center gap-2 transition-all cursor-pointer ${
+            className={`py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
               activeTab === 'dashboard'
-                ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-950/60 ring-1 ring-indigo-400'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                ? 'bg-amber-500 text-slate-950 font-black shadow-md'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800'
             }`}
           >
-            <Car className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
-            <span>🚗 Kendaraan</span>
+            <Car className="w-4 h-4 shrink-0" />
+            <span>Kendaraan</span>
           </button>
 
-          {/* Tab 2: Ajukan Kendaraan */}
+          {/* Tab 2: Ajukan */}
           <button
             type="button"
             onClick={() => setActiveTab('request')}
-            className={`py-3 px-4 rounded-2xl text-xs sm:text-sm font-black flex items-center justify-center gap-2 transition-all cursor-pointer ${
+            className={`py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
               activeTab === 'request'
-                ? 'bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-lg shadow-red-950/60 ring-1 ring-red-400'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                ? 'bg-red-600 text-white font-black shadow-md'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800'
             }`}
           >
-            <PlusCircle className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
-            <span>📝 Ajukan Kendaraan</span>
+            <PlusCircle className="w-4 h-4 shrink-0" />
+            <span>Ajukan</span>
           </button>
 
           {/* Tab 3: Jadwal */}
           <button
             type="button"
             onClick={() => setActiveTab('schedule')}
-            className={`py-3 px-4 rounded-2xl text-xs sm:text-sm font-black flex items-center justify-center gap-2 transition-all cursor-pointer relative ${
+            className={`py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
               activeTab === 'schedule'
-                ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-950/60 ring-1 ring-indigo-400'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                ? 'bg-indigo-600 text-white font-black shadow-md'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800'
             }`}
           >
-            <Calendar className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
-            <span>📅 Jadwal</span>
-            {vehicleLogs.filter(l => l.status === 'Menunggu Persetujuan' && !l.isArchived).length > 0 && (
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping absolute top-2 right-2" />
-            )}
+            <Calendar className="w-4 h-4 shrink-0" />
+            <span>Jadwal</span>
           </button>
 
           {/* Tab 4: Riwayat */}
           <button
             type="button"
             onClick={() => setActiveTab('history')}
-            className={`py-3 px-4 rounded-2xl text-xs sm:text-sm font-black flex items-center justify-center gap-2 transition-all cursor-pointer ${
+            className={`py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
               activeTab === 'history'
-                ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-950/60 ring-1 ring-indigo-400'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                ? 'bg-indigo-600 text-white font-black shadow-md'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800'
             }`}
           >
-            <History className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
-            <span>📋 Riwayat</span>
+            <History className="w-4 h-4 shrink-0" />
+            <span>Riwayat</span>
           </button>
+
+          {/* Tab 5: Pengajuan Saya */}
+          <button
+            type="button"
+            onClick={() => setActiveTab('my_requests')}
+            className={`py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer relative ${
+              activeTab === 'my_requests'
+                ? 'bg-indigo-600 text-white font-black shadow-md'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800'
+            }`}
+          >
+            <UserCheck className="w-4 h-4 shrink-0" />
+            <span>Saya</span>
+            {myActiveRequestsCount > 0 && (
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-rose-600 text-white font-bold font-mono">
+                {myActiveRequestsCount}
+              </span>
+            )}
+          </button>
+
+          {/* Tab 6: Persetujuan (Hanya Tampil Jika Punya Hak Otoritas) */}
+          {hasApprovalAuthority && (
+            <button
+              type="button"
+              onClick={() => setActiveTab('approvals')}
+              className={`py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer relative ${
+                activeTab === 'approvals'
+                  ? 'bg-amber-500 text-slate-950 font-black shadow-md'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <ShieldCheck className="w-4 h-4 shrink-0" />
+              <span>Persetujuan</span>
+              {pendingApprovalsCount > 0 && (
+                <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-amber-400 text-slate-950 font-black font-mono">
+                  {pendingApprovalsCount}
+                </span>
+              )}
+            </button>
+          )}
         </div>
       </div>
 
@@ -292,7 +391,7 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
         <VehicleDashboardTab
           vehicleLogs={vehicleLogs}
           currentUser={currentUser}
-          onNavigateTab={(t) => setActiveTab(t)}
+          onNavigateTab={(t) => setActiveTab(t as VehicleTabType)}
           onOpenChecklistModal={(log) => setChecklistModalLog(log)}
           onOpenReturnModal={(log) => setReturnModalLog(log)}
           onOpenApproveModal={(log) => setApproveModalLog(log)}
@@ -307,12 +406,28 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
           vehicleLogs={vehicleLogs}
           members={members}
           currentUser={currentUser}
+          initialDraft={draftRequest}
           onSubmitRequest={handleSubmitRequest}
-          onCancel={() => setActiveTab('dashboard')}
+          onCancel={() => {
+            if (onClearDraftRequest) onClearDraftRequest();
+            setActiveTab('dashboard');
+          }}
         />
       )}
 
-      {/* Tab 3: Jadwal (Schedule & Approvals) */}
+      {/* Tab 3: Pengajuan Saya */}
+      {activeTab === 'my_requests' && (
+        <VehicleMyRequestsTab
+          vehicleLogs={vehicleLogs}
+          currentUser={currentUser}
+          onOpenChecklistModal={(log) => setChecklistModalLog(log)}
+          onOpenReturnModal={(log) => setReturnModalLog(log)}
+          onSelectLogDetail={(log) => setSelectedDetailLog(log)}
+          onNavigateToRequest={() => setActiveTab('request')}
+        />
+      )}
+
+      {/* Tab 4: Jadwal (Schedule) */}
       {activeTab === 'schedule' && (
         <VehicleScheduleTab
           vehicleLogs={vehicleLogs}
@@ -325,7 +440,17 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
         />
       )}
 
-      {/* Tab 4: Riwayat (History & Excel Export) */}
+      {/* Tab 5: Persetujuan Kendaraan (Superadmin/Ketua/Sekretaris Only) */}
+      {activeTab === 'approvals' && hasApprovalAuthority && (
+        <VehicleApprovalsTab
+          vehicleLogs={vehicleLogs}
+          currentUser={currentUser}
+          onOpenApproveModal={(log) => setApproveModalLog(log)}
+          onSelectLogDetail={(log) => setSelectedDetailLog(log)}
+        />
+      )}
+
+      {/* Tab 6: Riwayat (History & Excel Export) */}
       {activeTab === 'history' && (
         <VehicleHistoryTab
           vehicleLogs={vehicleLogs}
