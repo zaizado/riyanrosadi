@@ -547,7 +547,7 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
   };
 
   // Save record
-  const handleSaveForm = (e: React.FormEvent) => {
+  const handleSaveForm = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!formData.tanggal) {
@@ -591,8 +591,13 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
       updatedAt: new Date().toISOString()
     };
 
-    onSaveRecord(recordToSave);
-    setIsRecordModalOpen(false);
+    try {
+      await onSaveRecord(recordToSave);
+      setIsRecordModalOpen(false);
+    } catch (err: any) {
+      console.error('Failed to save finance record:', err);
+      alert('Gagal menyimpan transaksi kas: ' + (err?.message || 'Kesalahan jaringan/database'));
+    }
   };
 
   // Format currency Helper
@@ -1631,10 +1636,15 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
         cancelText="Batal"
         type="danger"
         icon="trash"
-        onConfirm={() => {
+        onConfirm={async () => {
           if (deleteConfirmId) {
-            onDeleteRecord(deleteConfirmId);
-            setDeleteConfirmId(null);
+            try {
+              await onDeleteRecord(deleteConfirmId);
+              setDeleteConfirmId(null);
+            } catch (err: any) {
+              console.error('Failed to delete finance record:', err);
+              alert('Gagal menghapus transaksi kas: ' + (err?.message || 'Kesalahan jaringan/database'));
+            }
           }
         }}
         onCancel={() => setDeleteConfirmId(null)}

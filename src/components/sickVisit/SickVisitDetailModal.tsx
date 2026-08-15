@@ -131,6 +131,15 @@ export const SickVisitDetailModal: React.FC<SickVisitDetailModalProps> = ({
     isLuarRsKerjaSama: isLuarMitra
   });
 
+  const safeUpdate = async (updated: SickVisit, actionName: string, auditDetail: string) => {
+    try {
+      await onUpdate(updated, actionName, auditDetail);
+    } catch (err: any) {
+      console.error('Failed to update sick visit:', err);
+      alert('Gagal memperbarui pendampingan sakit: ' + (err?.message || 'Kesalahan jaringan/database'));
+    }
+  };
+
   // Action: Simpan Koordinasi / Ajukan Persetujuan
   const handleSaveKoordinasi = (e: React.FormEvent) => {
     e.preventDefault();
@@ -142,7 +151,7 @@ export const SickVisitDetailModal: React.FC<SickVisitDetailModalProps> = ({
       updatedAt: new Date().toISOString(),
       updatedBy: currentUser.name
     };
-    onUpdate(updated, 'COORDINATE', `Koordinasi pendampingan diajukan kepada: ${dikoordinasikanDengan}`);
+    safeUpdate(updated, 'COORDINATE', `Koordinasi pendampingan diajukan kepada: ${dikoordinasikanDengan}`);
   };
 
   // Action: Setujui Pendampingan (Tahap 5)
@@ -166,7 +175,7 @@ export const SickVisitDetailModal: React.FC<SickVisitDetailModalProps> = ({
         ...visit.riwayatKunjungan
       ]
     };
-    onUpdate(updated, 'APPROVE', `Pendampingan sakit ${visit.nomorPendampingan} DISETUJUI`);
+    safeUpdate(updated, 'APPROVE', `Pendampingan sakit ${visit.nomorPendampingan} DISETUJUI`);
   };
 
   // Action: Tolak Pendampingan (Tahap 5)
@@ -196,7 +205,7 @@ export const SickVisitDetailModal: React.FC<SickVisitDetailModalProps> = ({
         ...visit.riwayatKunjungan
       ]
     };
-    onUpdate(updated, 'REJECT', `Pendampingan ${visit.nomorPendampingan} ditolak. Alasan: ${alasanPenolakan}`);
+    safeUpdate(updated, 'REJECT', `Pendampingan ${visit.nomorPendampingan} ditolak. Alasan: ${alasanPenolakan}`);
     setShowRejectForm(false);
   };
 
@@ -256,7 +265,7 @@ export const SickVisitDetailModal: React.FC<SickVisitDetailModalProps> = ({
         ...visit.riwayatKunjungan
       ]
     };
-    onUpdate(updated, 'ASSIGN', `Penugasan petugas untuk kasus ${visit.nomorPendampingan}`);
+    safeUpdate(updated, 'ASSIGN', `Penugasan petugas untuk kasus ${visit.nomorPendampingan}`);
   };
 
   // Action: Mulai Pendampingan & Simpan Pelaksanaan (Tahap 8)
@@ -283,7 +292,7 @@ export const SickVisitDetailModal: React.FC<SickVisitDetailModalProps> = ({
         ...visit.riwayatKunjungan
       ]
     };
-    onUpdate(updated, 'UPDATE_PROGRESS', `Update pelaksanaan pendampingan di ${visit.rumahSakitTujuan || visit.lokasi}`);
+    safeUpdate(updated, 'UPDATE_PROGRESS', `Update pelaksanaan pendampingan di ${visit.rumahSakitTujuan || visit.lokasi}`);
   };
 
   // Action: Simpan Hasil Pendampingan (Tahap 9)
@@ -320,7 +329,7 @@ export const SickVisitDetailModal: React.FC<SickVisitDetailModalProps> = ({
         ...visit.riwayatKunjungan
       ]
     };
-    onUpdate(updated, 'HOSPITAL_RESULT', `Pencatatan hasil pendampingan: ${hasilPendampingan}`);
+    safeUpdate(updated, 'HOSPITAL_RESULT', `Pencatatan hasil pendampingan: ${hasilPendampingan}`);
   };
 
   // Action: Simpan Penjemputan Pasca Rawat Inap (Tahap 10)
@@ -351,7 +360,7 @@ export const SickVisitDetailModal: React.FC<SickVisitDetailModalProps> = ({
         ...visit.riwayatKunjungan
       ]
     };
-    onUpdate(updated, 'PICKUP_UPDATE', `Update penjemputan pasca rawat inap (${statusPenjemputan})`);
+    safeUpdate(updated, 'PICKUP_UPDATE', `Update penjemputan pasca rawat inap (${statusPenjemputan})`);
   };
 
   // Action: Selesaikan Pendampingan (Tahap 12 & 13)
@@ -395,7 +404,7 @@ export const SickVisitDetailModal: React.FC<SickVisitDetailModalProps> = ({
       ]
     };
 
-    onUpdate(updated, 'COMPLETE', `Pendampingan sakit ${visit.nomorPendampingan} SELESAI & Deklarasi Gratifikasi diverifikasi`);
+    safeUpdate(updated, 'COMPLETE', `Pendampingan sakit ${visit.nomorPendampingan} SELESAI & Deklarasi Gratifikasi diverifikasi`);
   };
 
   // Action: Tambah Log Baru
@@ -419,7 +428,7 @@ export const SickVisitDetailModal: React.FC<SickVisitDetailModalProps> = ({
       updatedBy: currentUser.name
     };
 
-    onUpdate(updated, 'LOG_ENTRY', `Menambahkan log kunjungan untuk kasus ${visit.nomorPendampingan}`);
+    safeUpdate(updated, 'LOG_ENTRY', `Menambahkan log kunjungan untuk kasus ${visit.nomorPendampingan}`);
     setNewLogCatatan('');
     setNewLogKondisi('');
   };
@@ -1456,10 +1465,15 @@ export const SickVisitDetailModal: React.FC<SickVisitDetailModalProps> = ({
             {onDelete && currentUser.isSuperAdmin && (
               <button
                 type="button"
-                onClick={() => {
+                onClick={async () => {
                   if (confirm(`Yakin ingin menghapus data pendampingan ${visit.nomorPendampingan}?`)) {
-                    onDelete(visit.id);
-                    onClose();
+                    try {
+                      await onDelete(visit.id);
+                      onClose();
+                    } catch (err: any) {
+                      console.error('Failed to delete sick visit:', err);
+                      alert('Gagal menghapus pendampingan sakit: ' + (err?.message || 'Kesalahan jaringan/database'));
+                    }
                   }
                 }}
                 className="px-3 py-1.5 rounded-lg bg-red-950/80 hover:bg-red-900 text-red-400 border border-red-800/60 font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"

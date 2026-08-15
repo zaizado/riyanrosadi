@@ -268,64 +268,69 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
     const nowIso = new Date().toISOString();
     const dtInfo = parseDateTimeFields(formData.tanggalWaktu);
 
-    if (editingAgenda) {
-      const updated: OrganizationAgenda = {
-        ...editingAgenda,
-        ...formData,
-        tanggal: dtInfo.tanggal,
-        waktu: dtInfo.waktu,
-        updatedAt: nowIso,
-        updatedBy: currentUser.name
-      } as OrganizationAgenda;
+    try {
+      if (editingAgenda) {
+        const updated: OrganizationAgenda = {
+          ...editingAgenda,
+          ...formData,
+          tanggal: dtInfo.tanggal,
+          waktu: dtInfo.waktu,
+          updatedAt: nowIso,
+          updatedBy: currentUser.name
+        } as OrganizationAgenda;
 
-      onUpdateAgenda(updated);
+        await onUpdateAgenda(updated);
 
-      await AuditService.createLog(
-        currentUser.name,
-        currentUser.role,
-        'Agenda',
-        'Mengubah Agenda',
-        `Mengubah agenda "${updated.judul}" status: ${updated.status}.`
-      );
+        await AuditService.createLog(
+          currentUser.name,
+          currentUser.role,
+          'Agenda',
+          'Mengubah Agenda',
+          `Mengubah agenda "${updated.judul}" status: ${updated.status}.`
+        );
 
-      if (selectedAgenda && selectedAgenda.id === updated.id) {
-        setSelectedAgenda(updated);
+        if (selectedAgenda && selectedAgenda.id === updated.id) {
+          setSelectedAgenda(updated);
+        }
+        setAgendaNotification(`Agenda "${updated.judul}" berhasil diperbarui.`);
+      } else {
+        const newAgd: OrganizationAgenda = {
+          id: `agd-${Date.now()}`,
+          judul: formData.judul || 'Agenda Baru',
+          jenis: (formData.jenis as AgendaType) || 'Rapat',
+          tanggalWaktu: formData.tanggalWaktu || nowIso,
+          tanggal: dtInfo.tanggal,
+          waktu: dtInfo.waktu,
+          lokasi: formData.lokasi || 'Sekretariat',
+          penanggungJawab: formData.penanggungJawab || currentUser.name,
+          deskripsi: formData.deskripsi || '',
+          daftarPeserta: formData.daftarPeserta || ['Pengurus Harian SBN KASBI'],
+          status: (formData.status as any) || 'Akan Datang',
+          notifikasiTerkirim: true,
+          createdAt: nowIso,
+          createdBy: currentUser.name,
+          updatedAt: nowIso,
+          updatedBy: currentUser.name
+        };
+
+        await onAddAgenda(newAgd);
+
+        await AuditService.createLog(
+          currentUser.name,
+          currentUser.role,
+          'Agenda',
+          'Membuat Agenda Baru',
+          `Membuat agenda kegiatan baru "${newAgd.judul}" (${newAgd.tanggalWaktu}).`
+        );
+
+        setAgendaNotification(`Agenda "${newAgd.judul}" berhasil dibuat.`);
       }
-      setAgendaNotification(`Agenda "${updated.judul}" berhasil diperbarui.`);
-    } else {
-      const newAgd: OrganizationAgenda = {
-        id: `agd-${Date.now()}`,
-        judul: formData.judul || 'Agenda Baru',
-        jenis: (formData.jenis as AgendaType) || 'Rapat',
-        tanggalWaktu: formData.tanggalWaktu || nowIso,
-        tanggal: dtInfo.tanggal,
-        waktu: dtInfo.waktu,
-        lokasi: formData.lokasi || 'Sekretariat',
-        penanggungJawab: formData.penanggungJawab || currentUser.name,
-        deskripsi: formData.deskripsi || '',
-        daftarPeserta: formData.daftarPeserta || ['Pengurus Harian SBN KASBI'],
-        status: (formData.status as any) || 'Akan Datang',
-        notifikasiTerkirim: true,
-        createdAt: nowIso,
-        createdBy: currentUser.name,
-        updatedAt: nowIso,
-        updatedBy: currentUser.name
-      };
 
-      onAddAgenda(newAgd);
-
-      await AuditService.createLog(
-        currentUser.name,
-        currentUser.role,
-        'Agenda',
-        'Membuat Agenda Baru',
-        `Membuat agenda kegiatan baru "${newAgd.judul}" (${newAgd.tanggalWaktu}).`
-      );
-
-      setAgendaNotification(`Agenda "${newAgd.judul}" berhasil dibuat.`);
+      setIsAddModalOpen(false);
+    } catch (err: any) {
+      console.error('Failed to save agenda:', err);
+      alert('Gagal menyimpan agenda: ' + (err?.message || 'Kesalahan jaringan/database'));
     }
-
-    setIsAddModalOpen(false);
   };
 
   // Delete Agenda Confirm Handler
@@ -337,7 +342,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
 
     try {
       // 1. Delete agenda from Firestore
-      onDeleteAgenda(target.id);
+      await onDeleteAgenda(target.id);
 
       // 2. Cleanup all associated notulensi files from Storage & Firestore
       const filesToDelete = notulensiFiles.filter(f => f.agendaId === target.id);

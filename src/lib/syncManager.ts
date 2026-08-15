@@ -215,15 +215,16 @@ class SyncManager {
         calculatedState = 'error';
         statusMessage = 'SINKRONISASI BERMASALAH — Memeriksa koneksi database Firestore.';
       }
-    } else if (pendingWritesCount > 0) {
-      calculatedState = 'pending';
-      statusMessage = 'Menyimpan perubahan ke server...';
     } else if (synced === total && total > 0) {
       calculatedState = 'synced';
       statusMessage = 'Online • Data tersinkron';
     } else {
       calculatedState = 'connecting';
-      statusMessage = 'Menyinkronkan data database Firestore...';
+      if (pendingWritesCount > 0) {
+        statusMessage = 'Menyimpan perubahan ke server...';
+      } else {
+        statusMessage = 'Menyinkronkan data database Firestore...';
+      }
     }
 
     return {

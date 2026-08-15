@@ -664,7 +664,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
   };
 
   // CONFIRM DELETE MEMBER WITH AUDIT TRAIL
-  const handleConfirmDeleteWithAudit = () => {
+  const handleConfirmDeleteWithAudit = async () => {
     if (!memberToDelete) return;
 
     if (!deleteNotesManual.trim()) {
@@ -686,21 +686,25 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
       deletedAt: new Date().toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })
     };
 
-    const updatedAudits = [auditRecord, ...deletedAudits];
-    setDeletedAudits(updatedAudits);
-
     // Save deletion log permanently to Firestore auditLogs collection
     const detailMsg = `Hapus Anggota: ${memberToDelete.namaLengkap} (${memberToDelete.nik}) | Dept: ${memberToDelete.departemen} | Alasan: ${deleteReason} | Detail: ${deleteNotesManual.trim()}`;
     AuditService.createLog(currentUser.name, currentUser.role, 'Data Anggota', 'Hapus Anggota', detailMsg, auditRecord).catch(err => {
       console.warn('Gagal menyimpan audit log hapus anggota ke Firestore:', err);
     });
 
-    // Execute member deletion
-    onDeleteMember(memberToDelete.id);
+    try {
+      // Execute member deletion (Firestore write)
+      await onDeleteMember(memberToDelete.id);
 
-    setMemberToDelete(null);
-    setDeleteNotesManual('');
-    setDeleteError(null);
+      const updatedAudits = [auditRecord, ...deletedAudits];
+      setDeletedAudits(updatedAudits);
+      setMemberToDelete(null);
+      setDeleteNotesManual('');
+      setDeleteError(null);
+    } catch (err: any) {
+      console.error('MembersModule: Gagal menghapus anggota:', err);
+      setDeleteError('Gagal menghapus anggota dari Firestore: ' + (err?.message || 'Kesalahan jaringan/database'));
+    }
   };
 
   // Add / Edit Member Form State
@@ -750,42 +754,47 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
     setIsAddEditModalOpen(true);
   };
 
-  const handleSaveMember = (e: React.FormEvent) => {
+  const handleSaveMember = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.namaLengkap || !formData.nik) {
       alert('Nama Lengkap dan NIK wajib diisi!');
       return;
     }
 
-    if (editingMember) {
-      onUpdateMember({
-        ...editingMember,
-        ...formData,
-        updatedAt: new Date().toISOString()
-      } as Member);
-    } else {
-      const newMbr: Member = {
-        id: formData.nik || `mbr-${Date.now()}`,
-        nomorAnggota: formData.nomorAnggota || `SBN-VCI-${Math.floor(1000 + Math.random() * 9000)}`,
-        nik: formData.nik || `VCI-0000`,
-        namaLengkap: formData.namaLengkap || 'Nama',
-        jenisKelamin: (formData.jenisKelamin as Gender) || 'Laki-laki',
-        tempatLahir: formData.tempatLahir || 'Tangerang',
-        tanggalLahir: formData.tanggalLahir || '',
-        alamat: formData.alamat || '-',
-        nomorHp: formData.nomorHp || '-',
-        email: formData.email || '',
-        departemen: formData.departemen || 'Assembly',
-        bagian: formData.bagian || 'Line',
-        jabatanKerja: formData.jabatanKerja || 'OPERATOR',
-        statusKeanggotaan: (formData.statusKeanggotaan as MemberStatus) || 'Aktif',
-        tanggalBergabung: formData.tanggalBergabung || getLocalDateISO(),
-        fotoUrl: formData.fotoUrl || cheAvatar
-      };
-      onAddMember(newMbr);
-    }
+    try {
+      if (editingMember) {
+        await onUpdateMember({
+          ...editingMember,
+          ...formData,
+          updatedAt: new Date().toISOString()
+        } as Member);
+      } else {
+        const newMbr: Member = {
+          id: formData.nik || `mbr-${Date.now()}`,
+          nomorAnggota: formData.nomorAnggota || `SBN-VCI-${Math.floor(1000 + Math.random() * 9000)}`,
+          nik: formData.nik || `VCI-0000`,
+          namaLengkap: formData.namaLengkap || 'Nama',
+          jenisKelamin: (formData.jenisKelamin as Gender) || 'Laki-laki',
+          tempatLahir: formData.tempatLahir || 'Tangerang',
+          tanggalLahir: formData.tanggalLahir || '',
+          alamat: formData.alamat || '-',
+          nomorHp: formData.nomorHp || '-',
+          email: formData.email || '',
+          departemen: formData.departemen || 'Assembly',
+          bagian: formData.bagian || 'Line',
+          jabatanKerja: formData.jabatanKerja || 'OPERATOR',
+          statusKeanggotaan: (formData.statusKeanggotaan as MemberStatus) || 'Aktif',
+          tanggalBergabung: formData.tanggalBergabung || getLocalDateISO(),
+          fotoUrl: formData.fotoUrl || cheAvatar
+        };
+        await onAddMember(newMbr);
+      }
 
-    setIsAddEditModalOpen(false);
+      setIsAddEditModalOpen(false);
+    } catch (err: any) {
+      console.error('Failed to save member:', err);
+      alert('Gagal menyimpan data anggota: ' + (err?.message || 'Kesalahan jaringan/database'));
+    }
   };
 
   return (

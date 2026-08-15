@@ -14,6 +14,8 @@ import {
 } from 'firebase/firestore';
 import {
   getAuth,
+  setPersistence,
+  browserLocalPersistence,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut as firebaseSignOut,
@@ -49,6 +51,13 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 // Initialize Firebase Auth
 export const auth = getAuth(app);
 
+// Explicitly ensure browser local persistence for persistent web sessions across page reloads
+if (typeof window !== 'undefined') {
+  setPersistence(auth, browserLocalPersistence).catch(err => {
+    console.warn('Firebase setPersistence error:', err);
+  });
+}
+
 // Initialize Firebase Storage
 export const storage = getStorage(app);
 
@@ -76,12 +85,12 @@ export const deleteFileFromStorage = async (storagePath: string): Promise<void> 
   }
 };
 
-// Initialize Firestore with auto detect long polling for stable container sandbox connectivity
+// Initialize Firestore with forced long polling for stable container sandbox and iframe connectivity
 export const db = (() => {
   try {
     return firebaseConfig.firestoreDatabaseId 
-      ? initializeFirestore(app, { experimentalAutoDetectLongPolling: true }, firebaseConfig.firestoreDatabaseId)
-      : initializeFirestore(app, { experimentalAutoDetectLongPolling: true });
+      ? initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId)
+      : initializeFirestore(app, { experimentalForceLongPolling: true });
   } catch (err) {
     return firebaseConfig.firestoreDatabaseId 
       ? getFirestore(app, firebaseConfig.firestoreDatabaseId)

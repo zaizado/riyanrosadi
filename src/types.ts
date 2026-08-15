@@ -16,6 +16,7 @@ export interface UserAccount {
   department?: string;
   phoneNumber?: string;
   isSuperAdmin?: boolean;
+  isAdmin?: boolean;
   lastActive?: string;
 }
 
@@ -27,6 +28,30 @@ export const checkIsSuperAdmin = (user?: UserAccount | null): boolean => {
     user.username === 'sbnkasbivci1' ||
     user.username === 'superadmin' ||
     user.id === 'usr-superadmin'
+  );
+};
+
+export const checkIsAdmin = (user?: UserAccount | null, fbUser?: { email?: string | null } | null): boolean => {
+  const emailLower = (user?.email || fbUser?.email || '').toLowerCase();
+  const superAdminEmails = [
+    'superadmin@sbn-kasbi-vci.or.id',
+    'riyanrosadi@sbn-kasbi-vci.or.id',
+    'riyanrosadi@gmail.com'
+  ];
+  if (emailLower && superAdminEmails.includes(emailLower)) {
+    return true;
+  }
+
+  if (!user) return false;
+
+  if (checkIsSuperAdmin(user)) {
+    return true;
+  }
+
+  const adminRoles = ['Ketua', 'Sekretaris', 'Administrator', 'Admin', 'Bendahara'];
+  return (
+    adminRoles.includes(user.role) ||
+    user.isAdmin === true
   );
 };
 

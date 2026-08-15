@@ -98,7 +98,7 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
     return matchSearch && matchStatus && matchCategory;
   });
 
-  const handleCreateCase = (e: React.FormEvent) => {
+  const handleCreateCase = async (e: React.FormEvent) => {
     e.preventDefault();
     const selectedMbr = members.find(m => m.id === newCaseMemberId);
     if (!selectedMbr) {
@@ -131,15 +131,20 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
       ]
     };
 
-    onAddCase(newCaseObj);
-    setIsAddModalOpen(false);
-    // Reset form
-    setNewCaseMemberId('');
-    setNewCaseJudul('');
-    setNewCaseDeskripsi('');
+    try {
+      await onAddCase(newCaseObj);
+      setIsAddModalOpen(false);
+      // Reset form
+      setNewCaseMemberId('');
+      setNewCaseJudul('');
+      setNewCaseDeskripsi('');
+    } catch (err: any) {
+      console.error('Failed to add advocacy case:', err);
+      alert('Gagal membuat kasus advokasi: ' + (err?.message || 'Kesalahan jaringan/database'));
+    }
   };
 
-  const handleAddProgressUpdate = (e: React.FormEvent) => {
+  const handleAddProgressUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedCaseDetail || !updateNotes.trim()) return;
 
@@ -158,10 +163,15 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
       riwayatPerkembangan: [newUpdate, ...selectedCaseDetail.riwayatPerkembangan]
     };
 
-    onUpdateCase(updatedCase);
-    setSelectedCaseDetail(updatedCase);
-    setIsUpdateModalOpen(false);
-    setUpdateNotes('');
+    try {
+      await onUpdateCase(updatedCase);
+      setSelectedCaseDetail(updatedCase);
+      setIsUpdateModalOpen(false);
+      setUpdateNotes('');
+    } catch (err: any) {
+      console.error('Failed to update advocacy case:', err);
+      alert('Gagal memperbarui kasus advokasi: ' + (err?.message || 'Kesalahan jaringan/database'));
+    }
   };
 
   return (

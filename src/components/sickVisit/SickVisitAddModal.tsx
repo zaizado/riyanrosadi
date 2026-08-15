@@ -91,7 +91,7 @@ export const SickVisitAddModal: React.FC<SickVisitAddModalProps> = ({
   const statusVerifikasiPasien = isKeluargaValid ? 'Valid SOP' : 'Perlu Verifikasi Pengurus';
   const statusVerifikasiLokasi = lokasiAwal === 'Lainnya' ? 'Perlu Keputusan Pengurus' : 'Valid SOP';
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!selectedMember) {
@@ -200,20 +200,25 @@ export const SickVisitAddModal: React.FC<SickVisitAddModalProps> = ({
       updatedBy: currentUser.name
     };
 
-    onSubmit(newSickVisit);
-    onClose();
+    try {
+      await onSubmit(newSickVisit);
+      onClose();
 
-    if (butuhKendaraan && onRequestVehicle) {
-      onRequestVehicle({
-        sickVisitId: newSickVisit.id,
-        nomorPendampingan: newSickVisit.nomorPendampingan,
-        kegiatan: `Pendampingan Sakit: ${finalPasienName} (${finalHubungan})`,
-        tujuan: finalRsNama || 'Rumah Sakit',
-        keteranganSingkat: `Pendampingan sakit ${selectedMember.namaLengkap} (${selectedMember.nik}) ke ${finalRsNama}. Pasien: ${finalPasienName}.`,
-        tanggalMulai: todayDate,
-        isUrgent: isUrgent,
-        alasanUrgensi: isUrgent ? `Urgensi pendampingan ${finalPasienName} di ${finalRsNama}` : undefined,
-      });
+      if (butuhKendaraan && onRequestVehicle) {
+        onRequestVehicle({
+          sickVisitId: newSickVisit.id,
+          nomorPendampingan: newSickVisit.nomorPendampingan,
+          kegiatan: `Pendampingan Sakit: ${finalPasienName} (${finalHubungan})`,
+          tujuan: finalRsNama || 'Rumah Sakit',
+          keteranganSingkat: `Pendampingan sakit ${selectedMember.namaLengkap} (${selectedMember.nik}) ke ${finalRsNama}. Pasien: ${finalPasienName}.`,
+          tanggalMulai: todayDate,
+          isUrgent: isUrgent,
+          alasanUrgensi: isUrgent ? `Urgensi pendampingan ${finalPasienName} di ${finalRsNama}` : undefined,
+        });
+      }
+    } catch (err: any) {
+      console.error('Failed to submit sick visit:', err);
+      alert('Gagal menyimpan laporan pendampingan: ' + (err?.message || 'Kesalahan jaringan/database'));
     }
   };
 

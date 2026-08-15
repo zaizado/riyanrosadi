@@ -259,7 +259,7 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
   }, [isScannerOpen]);
 
   // Create Event Handler
-  const handleCreateEvent = (e: React.FormEvent) => {
+  const handleCreateEvent = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isSuperAdmin || !newEventNama) return;
 
@@ -292,12 +292,17 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
       status: 'Belum Ambil'
     }));
 
-    onAddEvent(newEventObj, initialClaimsList);
-    setSelectedEventId(eventId);
-    setIsCreateEventModalOpen(false);
+    try {
+      await onAddEvent(newEventObj, initialClaimsList);
+      setSelectedEventId(eventId);
+      setIsCreateEventModalOpen(false);
 
-    // Reset Form
-    setNewEventNama('');
+      // Reset Form
+      setNewEventNama('');
+    } catch (err: any) {
+      console.error('Failed to create sembako event:', err);
+      alert('Gagal membuat event sembako: ' + (err?.message || 'Kesalahan jaringan/database'));
+    }
   };
 
   // Export Distribution Report
@@ -951,10 +956,15 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
         cancelText="Batal"
         type="danger"
         icon="trash"
-        onConfirm={() => {
+        onConfirm={async () => {
           if (deleteEventConfirmObj && onDeleteEvent) {
-            onDeleteEvent(deleteEventConfirmObj.id);
-            setDeleteEventConfirmObj(null);
+            try {
+              await onDeleteEvent(deleteEventConfirmObj.id);
+              setDeleteEventConfirmObj(null);
+            } catch (err: any) {
+              console.error('Failed to delete sembako event:', err);
+              alert('Gagal menghapus event sembako: ' + (err?.message || 'Kesalahan jaringan/database'));
+            }
           }
         }}
         onCancel={() => setDeleteEventConfirmObj(null)}
@@ -969,10 +979,15 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
         cancelText="Batal"
         type="danger"
         icon="trash"
-        onConfirm={() => {
+        onConfirm={async () => {
           if (deleteClaimConfirmObj && onDeleteClaim) {
-            onDeleteClaim(deleteClaimConfirmObj.id);
-            setDeleteClaimConfirmObj(null);
+            try {
+              await onDeleteClaim(deleteClaimConfirmObj.id);
+              setDeleteClaimConfirmObj(null);
+            } catch (err: any) {
+              console.error('Failed to delete sembako claim:', err);
+              alert('Gagal menghapus klaim sembako: ' + (err?.message || 'Kesalahan jaringan/database'));
+            }
           }
         }}
         onCancel={() => setDeleteClaimConfirmObj(null)}
@@ -987,15 +1002,20 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
         cancelText="Batal"
         type="warning"
         icon="warning"
-        onConfirm={() => {
+        onConfirm={async () => {
           if (resetClaimConfirmObj) {
-            onUpdateClaim({
-              ...resetClaimConfirmObj,
-              status: 'Belum Ambil',
-              waktuPengambilan: undefined,
-              petugasScan: undefined,
-            });
-            setResetClaimConfirmObj(null);
+            try {
+              await onUpdateClaim({
+                ...resetClaimConfirmObj,
+                status: 'Belum Ambil',
+                waktuPengambilan: undefined,
+                petugasScan: undefined,
+              });
+              setResetClaimConfirmObj(null);
+            } catch (err: any) {
+              console.error('Failed to reset sembako claim:', err);
+              alert('Gagal mereset klaim sembako: ' + (err?.message || 'Kesalahan jaringan/database'));
+            }
           }
         }}
         onCancel={() => setResetClaimConfirmObj(null)}

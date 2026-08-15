@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import {
@@ -14,15 +14,17 @@ import {
   AuditLog,
   FundraisingCampaign,
   NotulensiFileItem,
+  checkIsAdmin
 } from '../types';
 import { repositories } from '../repositories';
 import { auditLogRepository } from '../repositories/auditLogRepository';
-import { sortAuditLogsNewestFirst } from '../lib/storage';
+import { sortAuditLogsNewestFirst, getCurrentUser } from '../lib/storage';
+import { resolveUserProfile } from '../lib/authSession';
 import { SeveranceCalculationResult, PkbRuleConfig } from '../types/severance';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { syncManager, SyncState, GlobalSyncDetails } from '../lib/syncManager';
 
-export const useAppData = () => {
+export const useAppData = (currentUserParam?: UserAccount | null) => {
   const [members, setMembers] = useState<Member[]>([]);
   const [advocacyCases, setAdvocacyCases] = useState<AdvocacyCase[]>([]);
   const [sickVisits, setSickVisits] = useState<SickVisit[]>([]);
@@ -40,6 +42,9 @@ export const useAppData = () => {
   
   const [syncDetails, setSyncDetails] = useState<GlobalSyncDetails>(() => syncManager.getDetails());
 
+  const usersRef = useRef<UserAccount[]>([]);
+  usersRef.current = users;
+
   useEffect(() => {
     const unsubSync = syncManager.subscribe((details) => {
       setSyncDetails(details);
@@ -50,19 +55,40 @@ export const useAppData = () => {
   const syncState: SyncState = syncDetails.syncState;
   const isSyncOffline = syncDetails.syncState === 'offline';
 
+  // Resolved user for collection access evaluation
+  const [resolvedUser, setResolvedUser] = useState<UserAccount | null>(() => currentUserParam || getCurrentUser());
+
+  useEffect(() => {
+    if (currentUserParam) {
+      setResolvedUser(currentUserParam);
+    }
+  }, [currentUserParam]);
+
+  // Main listener for general collections (available to all signed-in pengurus)
   useEffect(() => {
     let unsubs: (() => void)[] = [];
 
-    const unsubscribeAuth = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribeAuth = onAuthStateChanged(auth, (fbUser) => {
       // Clean up any existing collection listeners when auth state changes
       unsubs.forEach(fn => {
         try { fn(); } catch (e) { /* ignore cleanup errors */ }
       });
       unsubs = [];
 
-      if (!currentUser) {
+      if (!fbUser) {
         // User is logged out / unauthenticated - do not subscribe to protected collections
+        setResolvedUser(null);
         return;
+      }
+
+      // Resolve user profile for permissions
+      const { matchedUser } = resolveUserProfile({
+        firebaseUser: fbUser,
+        users: usersRef.current,
+        cachedUser: getCurrentUser()
+      });
+      if (matchedUser) {
+        setResolvedUser(matchedUser);
       }
 
       const handleErr = (err: Error) => {
@@ -109,16 +135,24 @@ export const useAppData = () => {
         setVehicleLogs(items);
       }, handleErr, 100));
 
-      unsubs.push(repositories.finance.subscribe([], (items) => {
-        setFinanceRecords(items);
-      }, handleErr));
-
       unsubs.push(repositories.users.subscribe([], (items) => {
         const formatted = items.map(u => ({
           ...u,
           avatarUrl: u.avatarUrl || cheAvatar
         }));
         setUsers(formatted);
+
+        const currentFbUser = auth.currentUser;
+        if (currentFbUser) {
+          const { matchedUser: updatedMatched } = resolveUserProfile({
+            firebaseUser: currentFbUser,
+            users: formatted,
+            cachedUser: getCurrentUser()
+          });
+          if (updatedMatched) {
+            setResolvedUser(updatedMatched);
+          }
+        }
       }, handleErr));
 
       unsubs.push(repositories.severanceCalculations.subscribeRecent([], (items) => {
@@ -141,6 +175,44 @@ export const useAppData = () => {
       unsubscribeAuth();
     };
   }, []);
+
+  // Dedicated conditional subscription for financeRecords (ONLY for Admin / Bendahara / Super Admin)
+  useEffect(() => {
+    let unsubFinance: (() => void) | null = null;
+    const currentFbUser = auth.currentUser;
+    const effectiveUser = currentUserParam || resolvedUser || getCurrentUser();
+
+    // Strict role check matching firestore.rules: isAdmin()
+    const isAuthorizedForFinance = checkIsAdmin(effectiveUser, currentFbUser);
+
+    if (currentFbUser && isAuthorizedForFinance) {
+      const handleErr = (err: Error) => {
+        console.warn('Firestore finance subscription warning:', err.message);
+      };
+
+      unsubFinance = repositories.finance.subscribe([], (items) => {
+        setFinanceRecords(items);
+      }, handleErr);
+    } else {
+      // Clear finance records if user is not authorized or logged out
+      setFinanceRecords([]);
+    }
+
+    return () => {
+      if (unsubFinance) {
+        try { unsubFinance(); } catch (e) { /* ignore cleanup errors */ }
+      }
+    };
+  }, [
+    currentUserParam?.id,
+    currentUserParam?.role,
+    currentUserParam?.isSuperAdmin,
+    currentUserParam?.isAdmin,
+    resolvedUser?.id,
+    resolvedUser?.role,
+    resolvedUser?.isSuperAdmin,
+    resolvedUser?.isAdmin
+  ]);
 
   return {
     members, setMembers,
