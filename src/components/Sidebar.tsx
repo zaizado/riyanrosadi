@@ -256,7 +256,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-slate-950 rounded-full animate-pulse" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-black text-sm text-white truncate">{currentUser.name}</p>
+                  <p className="font-black text-sm text-white truncate">
+                    {currentUser.name || (currentUser as any).nama || (currentUser as any).displayName || currentUser.username || 'Pengurus SBN'}
+                  </p>
                   <div className="flex items-center gap-1.5 mt-1">
                     <span className="px-2 py-0.5 text-[10px] font-bold bg-red-600/30 text-red-300 border border-red-500/40 rounded-full uppercase tracking-wider">
                       {currentUser.role}

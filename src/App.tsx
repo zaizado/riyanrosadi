@@ -165,9 +165,23 @@ export default function App() {
     return () => clearInterval(presenceInterval);
   }, [isLoggedIn, currentUser?.id]);
 
-  // Realtime Sync: Keep active currentUser state in sync with Firestore users collection
+  // Realtime Sync: Keep active currentUser state in sync with Firestore users collection and Firebase Auth
   useEffect(() => {
-    if (isLoggedIn && currentUser?.id && users && users.length > 0) {
+    const fbUser = auth.currentUser;
+    if (fbUser && users && users.length > 0) {
+      const { matchedUser } = resolveUserProfile({
+        firebaseUser: fbUser,
+        users,
+        cachedUser: currentUser
+      });
+
+      if (matchedUser) {
+        setIsLoggedIn(true);
+        setAuthState('authenticated');
+        setCurrentUserAccount(matchedUser);
+        setCurrentUser(matchedUser);
+      }
+    } else if (isLoggedIn && currentUser?.id && users && users.length > 0) {
       const freshUser = users.find(u => 
         u.id === currentUser.id || 
         (u.username && currentUser.username && u.username.toLowerCase() === currentUser.username.toLowerCase()) ||
@@ -188,7 +202,7 @@ export default function App() {
         }
       }
     }
-  }, [users, isLoggedIn, currentUser?.id, currentUser?.username, currentUser?.nik]);
+  }, [users]);
 
 // Ensure default light theme
   useEffect(() => {
@@ -237,14 +251,15 @@ export default function App() {
   const getUserNotifKey = (user?: UserAccount | null): string => {
     const authUid = auth.currentUser?.uid;
     if (authUid) return authUid;
-    if (user?.id) return user.id;
-    return 'guest';
+    if (isLoggedIn && user?.id) return user.id;
+    return '';
   };
 
   const userNotifKey = getUserNotifKey(currentUser);
 
   // Track cleared notification IDs per user account (stored locally & synced to Firestore doc per user)
   const [clearedNotifIds, setClearedNotifIds] = useState<string[]>(() => {
+    if (!userNotifKey) return [];
     try {
       const stored = localStorage.getItem(`sbn_cleared_notifs_${userNotifKey}`);
       if (stored) return JSON.parse(stored);
@@ -261,12 +276,16 @@ export default function App() {
 
   // Re-sync cleared notifications when active user account changes or Firestore updates
   useEffect(() => {
-    if (!userNotifKey) return;
+    const authUid = auth.currentUser?.uid;
+    if (!isLoggedIn || !authUid) {
+      setClearedNotifIds([]);
+      return;
+    }
 
     // 1. Load from localStorage with backward-compatible fallback
     let localCleared: string[] = [];
     try {
-      const stored = localStorage.getItem(`sbn_cleared_notifs_${userNotifKey}`);
+      const stored = localStorage.getItem(`sbn_cleared_notifs_${authUid}`);
       if (stored) {
         localCleared = JSON.parse(stored);
       } else if (currentUser?.username) {
@@ -274,7 +293,7 @@ export default function App() {
         const legacyStored = localStorage.getItem(`sbn_cleared_notifs_${legacyKey}`);
         if (legacyStored) {
           localCleared = JSON.parse(legacyStored);
-          localStorage.setItem(`sbn_cleared_notifs_${userNotifKey}`, legacyStored);
+          localStorage.setItem(`sbn_cleared_notifs_${authUid}`, legacyStored);
         }
       }
     } catch {
@@ -282,20 +301,20 @@ export default function App() {
     }
     setClearedNotifIds(localCleared);
 
-// 2. Realtime sync with Firestore userClearedNotifs document based on UID
-    const unsub = subscribeDocument<{ id: string; clearedIds?: string[] }>('userClearedNotifs', userNotifKey, (userDoc) => {
+    // 2. Realtime sync with Firestore userClearedNotifs document based on UID
+    const unsub = subscribeDocument<{ id: string; clearedIds?: string[] }>('userClearedNotifs', authUid, (userDoc) => {
       if (userDoc && Array.isArray(userDoc.clearedIds)) {
         const merged = Array.from(new Set([...localCleared, ...userDoc.clearedIds]));
         setClearedNotifIds(merged);
         try {
-          localStorage.setItem(`sbn_cleared_notifs_${userNotifKey}`, JSON.stringify(merged));
+          localStorage.setItem(`sbn_cleared_notifs_${authUid}`, JSON.stringify(merged));
         } catch {
         }
       }
     });
 
     return () => unsub();
-  }, [userNotifKey]);
+  }, [isLoggedIn, currentUser?.id]);
 
 // Active notifications for current user account
   const isSuperAdminUser = checkIsSuperAdmin(currentUser);

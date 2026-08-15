@@ -136,10 +136,25 @@ export const useAppData = (currentUserParam?: UserAccount | null) => {
       }, handleErr, 100));
 
       unsubs.push(repositories.users.subscribe([], (items) => {
-        const formatted = items.map(u => ({
-          ...u,
-          avatarUrl: u.avatarUrl || cheAvatar
-        }));
+        const formatted: UserAccount[] = items.map(u => {
+          const raw = u as any;
+          const emailLower = (raw.email || '').toLowerCase();
+          return {
+            ...u,
+            id: raw.id || raw.uid || '',
+            name: raw.name || raw.nama || raw.displayName || raw.fullName || raw.username || 'Pengurus SBN',
+            username: raw.username || raw.userName || (emailLower ? emailLower.split('@')[0] : 'user'),
+            email: raw.email || '',
+            nik: raw.nik || raw.noKtp || raw.nip || '-',
+            role: raw.role || raw.jabatan || 'Pengurus',
+            department: raw.department || raw.departemen || raw.divisi || 'PT Victory Chingluh Indonesia',
+            phoneNumber: raw.phoneNumber || raw.phone || raw.nomorHp || raw.noHp || '-',
+            avatarUrl: raw.avatarUrl || raw.fotoUrl || cheAvatar,
+            isSuperAdmin: raw.role === 'Super Admin' || raw.isSuperAdmin === true || false,
+            isAdmin: raw.isAdmin || false,
+            lastActive: raw.lastActive || undefined
+          };
+        });
         setUsers(formatted);
 
         const currentFbUser = auth.currentUser;

@@ -180,4 +180,74 @@ describe('Production Hardening & Final Security Suite', () => {
       expect(checkIsAdmin(superAdminUser)).toBe(true);
     });
   });
+
+  describe('REGRESSION TESTS — SYNC SPINNER & PROFILE FIXES', () => {
+    it('REG 1: Auth user + valid Firestore profile -> nama sidebar profile tersedia', () => {
+      const indonesianUserDoc = {
+        id: 'uid-ade-001',
+        nama: 'Ade Kurniawan',
+        email: 'ade@sbn-kasbi-vci.or.id',
+        role: 'Pengurus'
+      } as any;
+
+      const res = resolveUserProfile({
+        firebaseUser: { uid: 'uid-ade-001', email: 'ade@sbn-kasbi-vci.or.id' },
+        users: [indonesianUserDoc],
+        cachedUser: null
+      });
+
+      expect(res.authState).toBe('authenticated');
+      expect(res.matchedUser?.name).toBe('Ade Kurniawan');
+      expect(res.matchedUser?.id).toBe('uid-ade-001');
+    });
+
+    it('REG 2: Profile snapshot fromCache -> bukan SYNCED', () => {
+      syncManager.reportListenerUpdate('users', true, false);
+      const details = syncManager.getDetails();
+      expect(details.syncState).toBe('connecting');
+      expect(details.cacheListeners).toBe(1);
+      expect(details.syncedListeners).toBe(0);
+    });
+
+    it('REG 3: Profile server-confirmed -> listener menjadi SYNCED', () => {
+      syncManager.reportListenerUpdate('users', false, false);
+      const details = syncManager.getDetails();
+      expect(details.syncState).toBe('synced');
+      expect(details.syncedListeners).toBe(1);
+      expect(details.cacheListeners).toBe(0);
+    });
+
+    it('REG 4: Semua listener server-confirmed -> global SYNCED', () => {
+      const allCols = ['members', 'advocacyCases', 'users', 'vehicleLogs', 'agendas'];
+      allCols.forEach(c => syncManager.reportListenerUpdate(c, false, false));
+      const details = syncManager.getDetails();
+      expect(details.totalListeners).toBe(allCols.length);
+      expect(details.syncedListeners).toBe(allCols.length);
+      expect(details.syncState).toBe('synced');
+    });
+
+    it('REG 5: Pengurus -> finance listener tidak dibuat', () => {
+      expect(checkIsAdmin(pengurusUser)).toBe(false);
+    });
+
+    it('REG 6: Listener unsubscribe -> listener registry tidak menyimpan zombie listener', () => {
+      syncManager.reportListenerUpdate('tempCol', false, false);
+      expect(syncManager.getDetails().totalListeners).toBe(1);
+      
+      syncManager.reportListenerUnsubscribe('tempCol');
+      expect(syncManager.getDetails().totalListeners).toBe(0);
+      expect(syncManager.getDetails().syncedListeners).toBe(0);
+    });
+
+    it('REG 7: Profile tidak ditemukan -> UNPROVISIONED / ACCESS DENIED, bukan infinite CONNECTING', () => {
+      const res = resolveUserProfile({
+        firebaseUser: { uid: 'uid-unregistered-999', email: 'intruder@external.com' },
+        users: [pengurusUser, superAdminUser],
+        cachedUser: null
+      });
+
+      expect(res.authState).toBe('unauthenticated');
+      expect(res.matchedUser).toBeNull();
+    });
+  });
 });

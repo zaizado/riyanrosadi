@@ -300,7 +300,9 @@ export const Header: React.FC<HeaderProps> = ({
 
               {/* Current Active User Info */}
               <div className="hidden lg:flex flex-col text-right">
-                <span className="text-xs font-bold text-white leading-tight">{currentUser.name}</span>
+                <span className="text-xs font-bold text-white leading-tight">
+                  {currentUser.name || (currentUser as any).nama || (currentUser as any).displayName || currentUser.username || 'Pengurus SBN'}
+                </span>
                 <span className="text-[10px] text-red-400 font-semibold">{currentUser.role}</span>
               </div>
 
