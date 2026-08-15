@@ -207,7 +207,7 @@ describe('REAL Firebase Emulator Security Rules Integration Tests', () => {
     // Non-superadmin deleting auditLog -> DENIED
     await assertFails(deleteDoc(doc(dbAdmin, 'auditLogs/log-999')));
 
-    // SuperAdmin deleting auditLog -> SUCCEEDS
-    await assertSucceeds(deleteDoc(doc(dbSuperAdmin, 'auditLogs/log-999')));
+    // SuperAdmin deleting auditLog is also STRICTLY DENIED (Audit Log is append-only for all roles)
+    await assertFails(deleteDoc(doc(dbSuperAdmin, 'auditLogs/log-999')));
   });
 });

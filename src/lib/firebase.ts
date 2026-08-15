@@ -280,14 +280,18 @@ export const saveFirestoreDoc = async <T extends { id: string }>(
   }
 };
 
-// Batch merge collection without destructive total wipes
+// Batch merge collection without destructive total wipes (PATCH 11)
 export const saveFullCollection = async <T extends { id: string }>(
   collectionName: string,
   items: T[]
 ) => {
+  if (!items || items.length === 0) return;
   const colRef = collection(db, collectionName);
+  const totalBatches = Math.ceil(items.length / 400);
+  let completedBatches = 0;
 
   for (let i = 0; i < items.length; i += 400) {
+    const batchIndex = Math.floor(i / 400) + 1;
     const chunk = items.slice(i, i + 400);
     const batch = writeBatch(db);
     chunk.forEach(item => {
@@ -307,9 +311,11 @@ export const saveFullCollection = async <T extends { id: string }>(
     });
     try {
       await batch.commit();
-    } catch (error) {
+      completedBatches++;
+    } catch (error: any) {
       handleFirestoreError(error, OperationType.WRITE, collectionName);
-      throw error;
+      const customErr = new Error(`Bulk write '${collectionName}' gagal pada batch ${batchIndex}/${totalBatches} (${completedBatches} batch berhasil tersimpan, ${totalBatches - completedBatches} batch tersisa gagal): ${error?.message || error}`);
+      throw customErr;
     }
   }
 };

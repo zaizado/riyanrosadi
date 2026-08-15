@@ -18,7 +18,7 @@ import {
 } from '../types';
 import { repositories } from '../repositories';
 import { auditLogRepository } from '../repositories/auditLogRepository';
-import { sortAuditLogsNewestFirst, getCurrentUser } from '../lib/storage';
+import { sortAuditLogsNewestFirst, getCurrentUser, setCurrentUser } from '../lib/storage';
 import { resolveUserProfile } from '../lib/authSession';
 import { SeveranceCalculationResult, PkbRuleConfig } from '../types/severance';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
@@ -151,6 +151,7 @@ export const useAppData = (currentUserParam?: UserAccount | null) => {
           });
           if (updatedMatched) {
             setResolvedUser(updatedMatched);
+            setCurrentUser(updatedMatched);
           }
         }
       }, handleErr));

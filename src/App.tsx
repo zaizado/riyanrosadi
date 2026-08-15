@@ -98,7 +98,6 @@ export default function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
-        setIsLoggedIn(true);
         const { matchedUser } = resolveUserProfile({
           firebaseUser,
           users: usersRef.current,
@@ -106,13 +105,18 @@ export default function App() {
         });
 
         if (matchedUser) {
+          setIsLoggedIn(true);
           setCurrentUserAccount(matchedUser);
           setCurrentUser(matchedUser);
           if (matchedUser.isSuperAdmin && matchedUser.id === firebaseUser.uid) {
             saveFirestoreDoc('users', matchedUser).catch(err => console.warn('Could not auto-save user profile to firestore', err));
           }
+          setAuthState('authenticated');
+        } else {
+          console.warn('onAuthStateChanged: Authenticated Firebase user has no matched authorization profile:', firebaseUser.email);
+          setAuthState('unauthenticated');
+          setIsLoggedIn(false);
         }
-        setAuthState('authenticated');
       } else {
         setAuthState('unauthenticated');
         setIsLoggedIn(false);
@@ -229,35 +233,50 @@ export default function App() {
     }
   };
 
-// Helper to derive stable, personal user key for notification tracking
+  // Helper to derive stable personal user key for notification tracking based on Firebase Auth UID (PATCH 8)
   const getUserNotifKey = (user?: UserAccount | null): string => {
-    if (!user) return 'guest';
-    const raw = user.username || user.nik || user.id || user.name || 'guest';
-    const clean = raw.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '_');
-    return clean || 'guest';
+    const authUid = auth.currentUser?.uid;
+    if (authUid) return authUid;
+    if (user?.id) return user.id;
+    return 'guest';
   };
 
   const userNotifKey = getUserNotifKey(currentUser);
 
-// Track cleared notification IDs per user account (stored locally & synced to Firestore doc per user)
+  // Track cleared notification IDs per user account (stored locally & synced to Firestore doc per user)
   const [clearedNotifIds, setClearedNotifIds] = useState<string[]>(() => {
     try {
       const stored = localStorage.getItem(`sbn_cleared_notifs_${userNotifKey}`);
-      return stored ? JSON.parse(stored) : [];
+      if (stored) return JSON.parse(stored);
+      if (currentUser?.username) {
+        const legacyKey = currentUser.username.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '_');
+        const legacyStored = localStorage.getItem(`sbn_cleared_notifs_${legacyKey}`);
+        if (legacyStored) return JSON.parse(legacyStored);
+      }
+      return [];
     } catch {
       return [];
     }
   });
 
-// Re-sync cleared notifications when active user account changes or Firestore updates
+  // Re-sync cleared notifications when active user account changes or Firestore updates
   useEffect(() => {
     if (!userNotifKey) return;
 
-// 1. Load from localStorage
+    // 1. Load from localStorage with backward-compatible fallback
     let localCleared: string[] = [];
     try {
       const stored = localStorage.getItem(`sbn_cleared_notifs_${userNotifKey}`);
-      if (stored) localCleared = JSON.parse(stored);
+      if (stored) {
+        localCleared = JSON.parse(stored);
+      } else if (currentUser?.username) {
+        const legacyKey = currentUser.username.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '_');
+        const legacyStored = localStorage.getItem(`sbn_cleared_notifs_${legacyKey}`);
+        if (legacyStored) {
+          localCleared = JSON.parse(legacyStored);
+          localStorage.setItem(`sbn_cleared_notifs_${userNotifKey}`, legacyStored);
+        }
+      }
     } catch {
       localCleared = [];
     }

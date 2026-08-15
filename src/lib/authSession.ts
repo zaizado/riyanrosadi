@@ -35,13 +35,15 @@ export function resolveUserProfile({
 
   // 3. Fallback for Super Admin bootstrap
   if (!matched) {
-    const isSA = emailLower === 'superadmin@sbn-kasbi-vci.or.id';
+    const isSA = emailLower === 'superadmin@sbn-kasbi-vci.or.id' || 
+                 emailLower === 'riyanrosadi@sbn-kasbi-vci.or.id' || 
+                 emailLower === 'riyanrosadi@gmail.com';
     if (isSA) {
       matched = {
         id: firebaseUser.uid,
         username: 'sbnkasbivci1',
         name: 'Super Admin SBN KASBI',
-        email: 'superadmin@sbn-kasbi-vci.or.id',
+        email: firebaseUser.email || 'superadmin@sbn-kasbi-vci.or.id',
         nik: 'SA-00001',
         role: 'Super Admin',
         department: 'Dewan Pimpinan Utama',
@@ -49,17 +51,10 @@ export function resolveUserProfile({
         avatarUrl: cheAvatar
       };
     } else {
-      // Unprovisioned account: default role
-      matched = {
-        id: firebaseUser.uid,
-        username: emailLower ? emailLower.split('@')[0] : 'user',
-        name: firebaseUser.displayName || 'Pengurus SBN KASBI',
-        email: firebaseUser.email || 'user@sbn-kasbi-vci.or.id',
-        nik: '000000',
-        role: 'Pengurus',
-        department: 'PT Victory Chingluh Indonesia',
-        isSuperAdmin: false,
-        avatarUrl: cheAvatar
+      // Strict Security Hardening (PATCH 2): Unprovisioned accounts have no default Pengurus role
+      return {
+        authState: 'unauthenticated',
+        matchedUser: null
       };
     }
   }

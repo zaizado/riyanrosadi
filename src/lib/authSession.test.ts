@@ -181,4 +181,35 @@ describe('Auth Session Lifecycle & Anti False-Logout Tests', () => {
     expect(result.matchedUser?.nik).toBe('2104001');
     expect(result.matchedUser?.name).toBe('Ade Kurniawan');
   });
+
+  it('TEST 11: Valid Firebase Auth + Unprovisioned account (no profile & not superadmin) -> DENIED (unauthenticated & null profile)', () => {
+    const result = resolveUserProfile({
+      firebaseUser: { uid: 'uid-unregistered-999', email: 'intruder@unknown-domain.com' },
+      users: [mockPengurusUser, mockSuperAdminUser],
+      cachedUser: null
+    });
+
+    expect(result.authState).toBe('unauthenticated');
+    expect(result.matchedUser).toBeNull();
+  });
+
+  it('TEST 12: Source of Truth check: Firestore profile role OVERRIDES cachedUser role', () => {
+    const cachedModifiedUser: UserAccount = {
+      ...mockPengurusUser,
+      role: 'Super Admin', // modified locally in cache
+      isSuperAdmin: true
+    };
+
+    // Firestore has the genuine role 'Ketua'
+    const result = resolveUserProfile({
+      firebaseUser: { uid: 'uid-pengurus-123', email: 'ade.kurniawan@sbn-kasbi-vci.or.id' },
+      users: [mockPengurusUser], // Genuine Firestore profile
+      cachedUser: cachedModifiedUser
+    });
+
+    expect(result.authState).toBe('authenticated');
+    // Live Firestore profile role wins over spoofed cached role
+    expect(result.matchedUser?.role).toBe('Ketua');
+    expect(result.matchedUser?.isSuperAdmin).toBe(false);
+  });
 });

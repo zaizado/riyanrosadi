@@ -34,38 +34,43 @@ service firebase.storage {
     // User avatars - strictly owned by the authenticated user (UID)
     match /avatars/{userId}/{fileName} {
       allow read: if isSignedIn();
-      allow write: if isSignedIn() && request.auth.uid == userId && isWithin5MB() && isImage();
+      allow create, update: if isSignedIn() && request.auth.uid == userId && isWithin5MB() && isImage();
       allow delete: if isSignedIn() && request.auth.uid == userId;
     }
 
     // Member photos
     match /members/{memberId}/{fileName} {
       allow read: if isSignedIn();
-      allow write: if isSignedIn() && isWithin5MB() && isImage();
+      allow create, update: if isSignedIn() && isWithin5MB() && isImage();
+      allow delete: if isSignedIn();
     }
 
     // Agenda & minute attachments
     match /notulensi/{agendaId}/{attachmentId}/{fileName} {
       allow read: if isSignedIn();
-      allow write: if isSignedIn() && isWithin20MB() && (isImage() || isDocument());
+      allow create, update: if isSignedIn() && isWithin20MB() && (isImage() || isDocument());
+      allow delete: if isSignedIn();
     }
 
     // Advocacy attachments
     match /advocacy/{caseId}/{fileName} {
       allow read: if isSignedIn();
-      allow write: if isSignedIn() && isWithin20MB() && (isImage() || isDocument());
+      allow create, update: if isSignedIn() && isWithin20MB() && (isImage() || isDocument());
+      allow delete: if isSignedIn();
     }
 
     // Sick visit attachments
     match /sickVisits/{visitId}/{fileName} {
       allow read: if isSignedIn();
-      allow write: if isSignedIn() && isWithin20MB() && (isImage() || isDocument());
+      allow create, update: if isSignedIn() && isWithin20MB() && (isImage() || isDocument());
+      allow delete: if isSignedIn();
     }
 
     // General uploads
     match /uploads/{folder}/{fileName} {
       allow read: if isSignedIn();
-      allow write: if isSignedIn() && isWithin20MB() && (isImage() || isDocument());
+      allow create, update: if isSignedIn() && isWithin20MB() && (isImage() || isDocument());
+      allow delete: if isSignedIn();
     }
   }
 }
