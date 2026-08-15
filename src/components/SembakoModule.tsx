@@ -32,6 +32,7 @@ import { Html5Qrcode } from 'html5-qrcode';
 import { SembakoEvent, SembakoClaim, Member, UserAccount, checkIsSuperAdmin } from '../types';
 import { getLocalDateISO } from '../utils/dateUtils';
 import { ConfirmModal } from './ConfirmModal';
+import { AppService } from '../services/appService';
 
 interface SembakoModuleProps {
   sembakoEvents: SembakoEvent[];
@@ -177,31 +178,31 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
       return;
     }
 
-    // Success claim update
-    const now = new Date();
-    const formattedTimestamp = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+    // Execute atomic transactional claim to prevent race condition / double-claiming
+    AppService.claimSembakoTransactional(targetClaim.id, currentUser.name)
+      .then((updatedClaim) => {
+        onUpdateClaim(updatedClaim);
 
-    const updatedClaim: SembakoClaim = {
-      ...targetClaim,
-      status: 'Sudah Ambil',
-      waktuPengambilan: formattedTimestamp,
-      petugasScan: currentUser.name
-    };
+        // Trigger Celebration Confetti
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
 
-    onUpdateClaim(updatedClaim);
-
-    // Trigger Celebration Confetti
-    confetti({
-      particleCount: 80,
-      spread: 70,
-      origin: { y: 0.6 }
-    });
-
-    setScanResultFeedback({
-      type: 'success',
-      claim: updatedClaim,
-      message: `BERHASIL! Sembako diserahkan kepada ${updatedClaim.namaLengkap} (${updatedClaim.nomorAnggota}).`
-    });
+        setScanResultFeedback({
+          type: 'success',
+          claim: updatedClaim,
+          message: `BERHASIL! Sembako diserahkan kepada ${updatedClaim.namaLengkap} (${updatedClaim.nomorAnggota}).`
+        });
+      })
+      .catch((err: any) => {
+        setScanResultFeedback({
+          type: 'already_claimed',
+          claim: targetClaim,
+          message: err?.message || 'Gagal memproses klaim sembako. Terjadi kendala sinkronisasi.'
+        });
+      });
   };
 
   // HTML5 Camera Scanner Integration

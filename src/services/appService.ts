@@ -12,7 +12,8 @@ import {
   NotulensiFileItem
 } from '../types';
 import { repositories } from '../repositories';
-import { deleteFileFromStorage } from '../lib/firebase';
+import { db, deleteFileFromStorage } from '../lib/firebase';
+import { doc, runTransaction } from 'firebase/firestore';
 import { AuditService } from './auditService';
 import { UserRole } from '../types';
 
@@ -52,6 +53,31 @@ export class AppService {
 
   static async updateSembakoClaim(item: SembakoClaim) { await repositories.sembakoClaims.save(item); }
   static async saveAllSembakoClaims(items: SembakoClaim[]) { await repositories.sembakoClaims.saveAll(items); }
+
+  static async claimSembakoTransactional(claimId: string, petugasNama: string): Promise<SembakoClaim> {
+    const claimDocRef = doc(db, 'sembakoClaims', claimId);
+    return await runTransaction(db, async (transaction) => {
+      const snap = await transaction.get(claimDocRef);
+      if (!snap.exists()) {
+        throw new Error('Data klaim sembako tidak ditemukan di database.');
+      }
+      const existingData = snap.data() as SembakoClaim;
+      if (existingData.status === 'Sudah Ambil') {
+        throw new Error(`PERINGATAN: Sembako sudah pernah diambil sebelumnya pada ${existingData.waktuPengambilan || '-'} oleh Petugas: ${existingData.petugasScan || '-'}`);
+      }
+      const now = new Date();
+      const formattedTimestamp = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+      const updated: SembakoClaim = {
+        ...existingData,
+        status: 'Sudah Ambil',
+        waktuPengambilan: formattedTimestamp,
+        petugasScan: petugasNama,
+        updatedAt: new Date().toISOString()
+      };
+      transaction.set(claimDocRef, updated, { merge: true });
+      return updated;
+    });
+  }
 
   static async addVehicleLog(item: VehicleLog) { await repositories.vehicles.save(item); }
   static async updateVehicleLog(item: VehicleLog) { await repositories.vehicles.save(item); }

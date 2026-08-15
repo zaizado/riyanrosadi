@@ -31,10 +31,11 @@ service firebase.storage {
       return request.resource.size < 20 * 1024 * 1024;
     }
 
-    // User avatars
+    // User avatars - strictly owned by the authenticated user (UID)
     match /avatars/{userId}/{fileName} {
       allow read: if isSignedIn();
-      allow write: if isSignedIn() && isWithin5MB() && isImage();
+      allow write: if isSignedIn() && request.auth.uid == userId && isWithin5MB() && isImage();
+      allow delete: if isSignedIn() && request.auth.uid == userId;
     }
 
     // Member photos

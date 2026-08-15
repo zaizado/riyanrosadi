@@ -171,7 +171,8 @@ export const subscribeCollection = <T extends { id: string }>(
     firestoreQuery,
     (snapshot) => {
       const isFromCache = snapshot.metadata.fromCache;
-      syncManager.reportListenerUpdate(collectionName, isFromCache);
+      const hasPendingWrites = snapshot.metadata.hasPendingWrites;
+      syncManager.reportListenerUpdate(collectionName, isFromCache, hasPendingWrites);
 
       if (snapshot.empty) {
         onUpdate([]);
@@ -216,7 +217,8 @@ export const subscribeDocument = <T extends { id: string }>(
     documentRef,
     (docSnap) => {
       const isFromCache = docSnap.metadata.fromCache;
-      syncManager.reportListenerUpdate(`${collectionName}/${docId}`, isFromCache);
+      const hasPendingWrites = docSnap.metadata.hasPendingWrites;
+      syncManager.reportListenerUpdate(`${collectionName}/${docId}`, isFromCache, hasPendingWrites);
 
       if (docSnap.exists()) {
         const item = {

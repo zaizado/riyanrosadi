@@ -102,18 +102,33 @@ export default function App() {
         let matched = currentUsers.find(u => u.id === firebaseUser.uid || u.email?.toLowerCase() === emailLower);
         if (!matched) {
           const isSA = emailLower === 'superadmin@sbn-kasbi-vci.or.id';
-          matched = {
-            id: firebaseUser.uid,
-            username: isSA ? 'sbnkasbivci1' : (emailLower ? emailLower.split('@')[0] : 'user'),
-            name: isSA ? 'Super Admin SBN KASBI' : (firebaseUser.displayName || 'Pengurus SBN KASBI'),
-            email: firebaseUser.email || 'user@sbn-kasbi-vci.or.id',
-            nik: isSA ? 'SA-00001' : '010000',
-            role: isSA ? 'Super Admin' : 'Pengurus',
-            department: isSA ? 'Dewan Pimpinan Utama' : 'PT Victory Chingluh Indonesia',
-            isSuperAdmin: isSA,
-            avatarUrl: cheAvatar
-          };
-          saveFirestoreDoc('users', matched).catch(err => console.warn('Could not auto-save user profile to firestore', err));
+          if (isSA) {
+            matched = {
+              id: firebaseUser.uid,
+              username: 'sbnkasbivci1',
+              name: 'Super Admin SBN KASBI',
+              email: 'superadmin@sbn-kasbi-vci.or.id',
+              nik: 'SA-00001',
+              role: 'Super Admin',
+              department: 'Dewan Pimpinan Utama',
+              isSuperAdmin: true,
+              avatarUrl: cheAvatar
+            };
+            saveFirestoreDoc('users', matched).catch(err => console.warn('Could not auto-save user profile to firestore', err));
+          } else {
+            // Unprovisioned account: Do NOT elevate to Pengurus
+            matched = {
+              id: firebaseUser.uid,
+              username: emailLower ? emailLower.split('@')[0] : 'user',
+              name: firebaseUser.displayName || 'Anggota SBN KASBI',
+              email: firebaseUser.email || 'user@sbn-kasbi-vci.or.id',
+              nik: '000000',
+              role: 'Anggota',
+              department: 'PT Victory Chingluh Indonesia',
+              isSuperAdmin: false,
+              avatarUrl: cheAvatar
+            };
+          }
         }
         setCurrentUserAccount(matched);
         setCurrentUser(matched);

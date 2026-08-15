@@ -114,21 +114,26 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
       if (!matchedProfile) {
         const isSA = emailToUse.toLowerCase() === 'superadmin@sbn-kasbi-vci.or.id' || inputUser === 'sbnkasbivci1';
-        matchedProfile = {
-          id: firebaseUser.uid,
-          username: inputUser.includes('@') ? inputUser.split('@')[0] : inputUser,
-          name: isSA ? 'Super Admin SBN KASBI' : (inputUser.charAt(0).toUpperCase() + inputUser.slice(1)),
-          email: emailToUse,
-          nik: isSA ? 'SA-00001' : '010000',
-          role: isSA ? 'Super Admin' : 'Pengurus',
-          department: isSA ? 'Dewan Pimpinan Utama' : 'PT Victory Chingluh Indonesia',
-          isSuperAdmin: isSA,
-          avatarUrl: cheAvatar
-        };
-        try {
-          await repositories.users.save(matchedProfile);
-        } catch (saveErr) {
-          console.warn('Failed to save matched profile to Firestore:', saveErr);
+        if (isSA) {
+          matchedProfile = {
+            id: firebaseUser.uid,
+            username: 'sbnkasbivci1',
+            name: 'Super Admin SBN KASBI',
+            email: 'superadmin@sbn-kasbi-vci.or.id',
+            nik: 'SA-00001',
+            role: 'Super Admin',
+            department: 'Dewan Pimpinan Utama',
+            isSuperAdmin: true,
+            avatarUrl: cheAvatar
+          };
+          try {
+            await repositories.users.save(matchedProfile);
+          } catch (saveErr) {
+            console.warn('Failed to save Super Admin profile to Firestore:', saveErr);
+          }
+        } else {
+          // Strict Security Directive: DO NOT escalate unprovisioned users to Pengurus
+          throw new Error('Akun Anda berhasil diautentikasi namun belum memiliki profil otorisasi pengurus yang valid. Silakan hubungi Super Admin untuk aktivasi hak akses.');
         }
       }
 

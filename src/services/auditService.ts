@@ -1,5 +1,6 @@
 import { AuditLog, UserRole, DeletedMemberAudit } from '../types';
 import { auditLogRepository } from '../repositories/auditLogRepository';
+import { auth } from '../lib/firebase';
 
 export class AuditService {
   public static async createLog(
@@ -17,11 +18,15 @@ export class AuditService {
       ? crypto.randomUUID().replace(/-/g, '').slice(0, 10)
       : Math.random().toString(36).substring(2, 11);
 
+    const currentUid = auth.currentUser?.uid || '';
+
     const newLog: AuditLog = {
       id: `log-${Date.now()}-${uniqueSuffix}`,
       timestamp: timestampStr,
       userNama,
       userRole,
+      userId: currentUid,
+      actorUid: currentUid,
       modul,
       aksi,
       detail,

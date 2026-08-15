@@ -74,4 +74,26 @@ describe('SyncManager State & Partial Sync Tests', () => {
     const detailsAllError = syncManager.getDetails();
     expect(detailsAllError.syncState).toBe('error');
   });
+
+  it('handles hasPendingWrites correctly -> state is PENDING', () => {
+    // 9 synced, 1 with pending writes
+    for (let i = 1; i <= 9; i++) {
+      syncManager.reportListenerUpdate(`col${i}`, false, false);
+    }
+    syncManager.reportListenerUpdate('col10', false, true);
+
+    const details = syncManager.getDetails();
+    expect(details.totalListeners).toBe(10);
+    expect(details.syncedListeners).toBe(9);
+    expect(details.pendingWriteListeners).toBe(1);
+    expect(details.syncState).toBe('pending');
+  });
+
+  it('handles quota exceeded error -> state is QUOTA', () => {
+    syncManager.reportListenerUpdate('col1', false);
+    syncManager.reportListenerError('col2', { code: 'resource-exhausted', message: 'Quota exceeded for firestore' });
+
+    const details = syncManager.getDetails();
+    expect(details.syncState).toBe('quota');
+  });
 });

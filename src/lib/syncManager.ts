@@ -1,10 +1,11 @@
-export type SyncState = 'connecting' | 'synced' | 'partial_error' | 'quota' | 'error' | 'offline';
+export type SyncState = 'connecting' | 'synced' | 'pending' | 'partial_error' | 'quota' | 'error' | 'offline';
 
 export interface ListenerDetail {
   collectionName: string;
   hasReceivedSnapshot: boolean;
   hasServerConfirmation: boolean;
   isFromCache: boolean;
+  hasPendingWrites: boolean;
   lastError: Error | null;
   errorType: 'network' | 'permission' | 'unauthenticated' | 'quota' | 'other' | null;
   errorMessage?: string;
@@ -18,6 +19,7 @@ export interface GlobalSyncDetails {
   syncedListeners: number;
   connectingListeners: number;
   cacheListeners: number;
+  pendingWriteListeners: number;
   errorListeners: number;
   offlineListeners: number;
   permissionErrorListeners: number;
@@ -79,12 +81,14 @@ class SyncManager {
     this.recalculateState();
   }
 
-  public reportListenerUpdate(collectionName: string, isFromCache: boolean) {
+  public reportListenerUpdate(collectionName: string, isFromCache: boolean, hasPendingWrites: boolean = false) {
+    const hasServerConfirmation = !isFromCache && !hasPendingWrites;
     this.listenersMap.set(collectionName, {
       collectionName,
       hasReceivedSnapshot: true,
-      hasServerConfirmation: !isFromCache,
+      hasServerConfirmation,
       isFromCache,
+      hasPendingWrites,
       lastError: null,
       errorType: null,
       errorMessage: undefined,
@@ -138,6 +142,7 @@ class SyncManager {
       hasReceivedSnapshot: existing ? existing.hasReceivedSnapshot : false,
       hasServerConfirmation: false,
       isFromCache: true,
+      hasPendingWrites: existing ? existing.hasPendingWrites : false,
       lastError: error instanceof Error ? error : new Error(errorMsg),
       errorType,
       errorMessage: errorMsg,
@@ -157,6 +162,7 @@ class SyncManager {
     let synced = 0;
     let connecting = 0;
     let cacheOnly = 0;
+    let pendingWritesCount = 0;
     let errorCount = 0;
     let offlineCount = 0;
     let permissionErrorCount = 0;
@@ -179,6 +185,8 @@ class SyncManager {
         }
       } else if (!info.hasReceivedSnapshot) {
         connecting++;
+      } else if (info.hasPendingWrites) {
+        pendingWritesCount++;
       } else if (!info.hasServerConfirmation) {
         cacheOnly++;
       } else {
@@ -207,6 +215,9 @@ class SyncManager {
         calculatedState = 'error';
         statusMessage = 'SINKRONISASI BERMASALAH — Memeriksa koneksi database Firestore.';
       }
+    } else if (pendingWritesCount > 0) {
+      calculatedState = 'pending';
+      statusMessage = 'Menyimpan perubahan ke server...';
     } else if (synced === total && total > 0) {
       calculatedState = 'synced';
       statusMessage = 'Online • Data tersinkron';
@@ -222,6 +233,7 @@ class SyncManager {
       syncedListeners: synced,
       connectingListeners: connecting,
       cacheListeners: cacheOnly,
+      pendingWriteListeners: pendingWritesCount,
       errorListeners: errorCount,
       offlineListeners: offlineCount,
       permissionErrorListeners: permissionErrorCount,

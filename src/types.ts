@@ -443,6 +443,7 @@ export interface SembakoClaim {
   status: 'Belum Ambil' | 'Sudah Ambil';
   waktuPengambilan?: string;
   petugasScan?: string;
+  updatedAt?: string;
 }
 
 export interface DailyExpenseItem {
@@ -472,6 +473,8 @@ export interface AuditLog {
   timestamp: string;
   userNama: string;
   userRole: UserRole;
+  userId?: string;
+  actorUid?: string;
   modul: 'Data Anggota' | 'Advokasi' | 'Anggota Sakit' | 'Agenda' | 'Sembako' | 'Kendaraan' | 'Keuangan' | 'Penggalangan Dana' | 'Simulasi Pesangon' | 'Sistem';
   aksi: string;
   detail: string;
