@@ -17,6 +17,7 @@ import { ModalPortal } from './ModalPortal';
 import { auth } from '../lib/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { repositories } from '../repositories';
+import { resolveUserProfile } from '../lib/authSession';
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -72,7 +73,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
       );
       if (foundUser && foundUser.email) {
         emailToUse = foundUser.email;
-      } else if (inputUser === 'sbnkasbivci1' || inputUser === 'superadmin') {
+      } else if (inputUser === 'administrator' || inputUser === 'admin' || inputUser === 'sbnkasbivci1' || inputUser === 'superadmin') {
         emailToUse = 'superadmin@sbn-kasbi-vci.or.id';
       } else {
         emailToUse = `${inputUser}@sbn-kasbi-vci.or.id`;
@@ -110,31 +111,22 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         throw new Error('Autentikasi Firebase tidak menghasilkan sesi pengguna yang valid.');
       }
 
-      let matchedProfile = users.find(u => u.id === firebaseUser.uid || u.email?.toLowerCase() === emailToUse.toLowerCase());
+      const { matchedUser } = resolveUserProfile({
+        firebaseUser,
+        users,
+        cachedUser: null
+      });
+
+      let matchedProfile = matchedUser;
 
       if (!matchedProfile) {
-        const isSA = emailToUse.toLowerCase() === 'superadmin@sbn-kasbi-vci.or.id' || inputUser === 'sbnkasbivci1';
-        if (isSA) {
-          matchedProfile = {
-            id: firebaseUser.uid,
-            username: 'sbnkasbivci1',
-            name: 'Super Admin SBN KASBI',
-            email: 'superadmin@sbn-kasbi-vci.or.id',
-            nik: 'SA-00001',
-            role: 'Super Admin',
-            department: 'Dewan Pimpinan Utama',
-            isSuperAdmin: true,
-            avatarUrl: cheAvatar
-          };
-          try {
-            await repositories.users.save(matchedProfile);
-          } catch (saveErr) {
-            console.warn('Failed to save Super Admin profile to Firestore:', saveErr);
-          }
-        } else {
-          // Strict Security Directive: DO NOT escalate unprovisioned users to Pengurus
-          throw new Error('Akun Anda berhasil diautentikasi namun belum memiliki profil otorisasi pengurus yang valid. Silakan hubungi Super Admin untuk aktivasi hak akses.');
-        }
+        throw new Error('Akun Anda berhasil diautentikasi namun belum memiliki profil otorisasi pengurus yang valid. Silakan hubungi Super Admin untuk aktivasi hak akses.');
+      }
+
+      try {
+        await repositories.users.save(matchedProfile);
+      } catch (saveErr) {
+        console.warn('Could not auto-save user profile to firestore:', saveErr);
       }
 
       setSuccessMessage(`Login berhasil! Selamat datang, ${matchedProfile.name}.`);

@@ -25,6 +25,8 @@ export const checkIsSuperAdmin = (user?: UserAccount | null): boolean => {
   return (
     user.role === 'Super Admin' ||
     user.isSuperAdmin === true ||
+    user.username === 'administrator' ||
+    user.username === 'admin' ||
     user.username === 'sbnkasbivci1' ||
     user.username === 'superadmin' ||
     user.id === 'usr-superadmin'
@@ -63,6 +65,8 @@ export const canApproveRequests = (user?: UserAccount | null): boolean => {
     user.role === 'Sekretaris' ||
     user.role === 'Administrator' ||
     user.isSuperAdmin === true ||
+    user.username === 'administrator' ||
+    user.username === 'admin' ||
     user.username === 'sbnkasbivci1' ||
     user.username === 'superadmin' ||
     user.id === 'usr-superadmin'

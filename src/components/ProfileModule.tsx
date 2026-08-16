@@ -159,14 +159,16 @@ export const ProfileModule: React.FC<ProfileModuleProps> = ({ currentUser, onUpd
         <div className="space-y-1.5 flex-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-red-950/80 border border-red-700/60 text-red-400 text-xs font-black uppercase">
             <BadgeCheck className="w-4 h-4 text-red-500" />
-            {currentUser.role}
+            {currentUser.role || 'Pengurus'}
           </div>
-          <h1 className="text-2xl font-black text-white">{currentUser.name}</h1>
+          <h1 className="text-2xl font-black text-white">
+            {currentUser.name || (currentUser as any).nama || (currentUser as any).displayName || (currentUser as any).fullName || currentUser.username || 'Pengurus SBN'}
+          </h1>
           <p className="text-xs text-gray-300 font-extrabold tracking-wide">
-            NIK KARYAWAN: <span className="text-red-400 font-mono text-sm">{currentUser.nik}</span>
+            NIK KARYAWAN: <span className="text-red-400 font-mono text-sm">{currentUser.nik || '-'}</span>
           </p>
           <p className="text-xs text-gray-400">
-            Departemen: {currentUser.department || 'Operasional VCI'}
+            Departemen: {currentUser.department || 'PT Victory Chingluh Indonesia'}
           </p>
         </div>
 
@@ -193,7 +195,7 @@ export const ProfileModule: React.FC<ProfileModuleProps> = ({ currentUser, onUpd
             <label className="text-[11px] font-bold text-gray-400 uppercase">Nama Lengkap</label>
             <input
               type="text"
-              value={currentUser.name}
+              value={currentUser.name || (currentUser as any).nama || (currentUser as any).displayName || (currentUser as any).fullName || currentUser.username || 'Pengurus SBN'}
               disabled
               className="w-full bg-[#1c1c1c] border border-[#333] rounded-xl px-3 py-2.5 text-xs text-gray-300 cursor-not-allowed font-bold"
             />
@@ -204,7 +206,7 @@ export const ProfileModule: React.FC<ProfileModuleProps> = ({ currentUser, onUpd
             <label className="text-[11px] font-bold text-gray-400 uppercase">NIK Karyawan</label>
             <input
               type="text"
-              value={currentUser.nik}
+              value={currentUser.nik || '-'}
               disabled
               className="w-full bg-[#1c1c1c] border border-[#333] rounded-xl px-3 py-2.5 text-xs text-gray-300 cursor-not-allowed font-mono font-bold"
             />
@@ -215,7 +217,7 @@ export const ProfileModule: React.FC<ProfileModuleProps> = ({ currentUser, onUpd
             <label className="text-[11px] font-bold text-gray-400 uppercase">Jabatan Organisasi</label>
             <input
               type="text"
-              value={currentUser.role}
+              value={currentUser.role || 'Pengurus'}
               disabled
               className="w-full bg-[#1c1c1c] border border-[#333] rounded-xl px-3 py-2.5 text-xs text-red-400 cursor-not-allowed font-bold"
             />

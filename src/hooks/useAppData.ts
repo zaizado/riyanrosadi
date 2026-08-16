@@ -136,7 +136,21 @@ export const useAppData = (currentUserParam?: UserAccount | null) => {
       }, handleErr, 100));
 
       unsubs.push(repositories.users.subscribe([], (items) => {
-        const formatted: UserAccount[] = items.map(u => {
+        // Filter out and cleanup legacy "Dewan Pimpinan Utama" accounts from previous bootstrap
+        const cleanedItems = items.filter(u => {
+          const raw = u as any;
+          const name = (raw.name || raw.nama || '').trim();
+          const dept = (raw.department || raw.departemen || '').trim();
+          if (dept === 'Dewan Pimpinan Utama' || name === 'Dewan Pimpinan Utama' || name === 'Super Admin SBN KASBI') {
+            if (raw.id && raw.id !== 'usr-superadmin') {
+              repositories.users.delete(raw.id).catch(() => {});
+            }
+            return false;
+          }
+          return true;
+        });
+
+        const formatted: UserAccount[] = cleanedItems.map(u => {
           const raw = u as any;
           const emailLower = (raw.email || '').toLowerCase();
           return {

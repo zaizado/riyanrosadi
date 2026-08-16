@@ -49,10 +49,10 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
   const [activeTab, setActiveTab] = useState<'password' | 'manage_accounts' | 'security_info'>('password');
 
   // Find Super Admin Account (or default)
-  const superAdminAccount = users.find(u => u.isSuperAdmin || u.username === 'sbnkasbivci1' || u.role === 'Super Admin') || currentUser;
+  const superAdminAccount = users.find(u => u.isSuperAdmin || u.username === 'administrator' || u.username === 'sbnkasbivci1' || u.role === 'Super Admin') || currentUser;
 
   // Tab 1: Super Admin Password Form State
-  const [saUsername, setSaUsername] = useState(superAdminAccount.username || 'sbnkasbivci1');
+  const [saUsername, setSaUsername] = useState(superAdminAccount.username || 'administrator');
   const [saOldPassword, setSaOldPassword] = useState('');
   const [saNewPassword, setSaNewPassword] = useState('');
   const [saConfirmPassword, setSaConfirmPassword] = useState('');
@@ -124,7 +124,7 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
 
       const updatedSA: UserAccount = {
         ...superAdminAccount,
-        username: saUsername.trim() || 'sbnkasbivci1',
+        username: saUsername.trim() || 'administrator',
         role: 'Super Admin',
         isSuperAdmin: true
       };
@@ -370,9 +370,9 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
                 onChange={(e) => setSaUsername(e.target.value)}
                 required
                 className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-amber-500 font-mono"
-                placeholder="sbnkasbivci1"
+                placeholder="administrator"
               />
-              <p className="text-[10px] text-slate-500 mt-1">Username default: <b>sbnkasbivci1</b></p>
+              <p className="text-[10px] text-slate-500 mt-1">Username default: <b>administrator</b></p>
             </div>
 
             {superAdminAccount.password && (
@@ -498,7 +498,7 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
                     </tr>
                   ) : (
                     filteredUsers.map((acc) => {
-                      const isSuper = acc.isSuperAdmin || acc.role === 'Super Admin' || acc.username === 'sbnkasbivci1';
+                      const isSuper = acc.isSuperAdmin || acc.role === 'Super Admin' || acc.username === 'administrator' || acc.username === 'sbnkasbivci1';
 
                       return (
                         <tr key={acc.id} className="hover:bg-slate-850/60 transition-colors">
@@ -620,7 +620,7 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
                 Super Admin memiliki wewenang tertinggi untuk mengatur password utama, mengedit hak akses pengurus, dan mereset kredensial login.
               </p>
               <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 font-mono text-[11px] text-amber-300">
-                <p>Default Username: <b>sbnkasbivci1</b></p>
+                <p>Default Username: <b>administrator</b></p>
                 <p>Default Password: <b>superadmin1</b></p>
               </div>
             </div>

@@ -2,6 +2,7 @@ import { initializeApp, getApps, getApp, setLogLevel } from 'firebase/app';
 import { 
   getFirestore, 
   initializeFirestore,
+  setLogLevel as setFirestoreLogLevel,
   collection, 
   onSnapshot, 
   doc, 
@@ -32,7 +33,12 @@ import {
 } from 'firebase/storage';
 
 // Silence standard connection retry warnings in console/metadata
-setLogLevel('error');
+setLogLevel('silent');
+try {
+  setFirestoreLogLevel('silent');
+} catch (e) {
+  // ignore
+}
 import firebaseConfig from '../../firebase-applet-config.json';
 import { 
   Member, 
@@ -85,12 +91,12 @@ export const deleteFileFromStorage = async (storagePath: string): Promise<void> 
   }
 };
 
-// Initialize Firestore with forced long polling for stable container sandbox and iframe connectivity
+// Initialize Firestore with auto-detect long polling for stable container sandbox and iframe connectivity
 export const db = (() => {
   try {
     return firebaseConfig.firestoreDatabaseId 
-      ? initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId)
-      : initializeFirestore(app, { experimentalForceLongPolling: true });
+      ? initializeFirestore(app, { experimentalAutoDetectLongPolling: true }, firebaseConfig.firestoreDatabaseId)
+      : initializeFirestore(app, { experimentalAutoDetectLongPolling: true });
   } catch (err) {
     return firebaseConfig.firestoreDatabaseId 
       ? getFirestore(app, firebaseConfig.firestoreDatabaseId)

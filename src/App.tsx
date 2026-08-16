@@ -46,6 +46,12 @@ import {
 
 import { AppService } from './services/appService';
 import { AuditService } from './services/auditService';
+import { 
+  generateNotificationId, 
+  extractEntityId, 
+  NotificationTracker, 
+  deduplicateNotifications 
+} from './lib/notificationIdempotency';
 import { useAppData } from './hooks/useAppData';
 import {
   getCurrentUser,
@@ -108,9 +114,11 @@ export default function App() {
           setIsLoggedIn(true);
           setCurrentUserAccount(matchedUser);
           setCurrentUser(matchedUser);
-          if (matchedUser.isSuperAdmin && matchedUser.id === firebaseUser.uid) {
-            saveFirestoreDoc('users', matchedUser).catch(err => console.warn('Could not auto-save user profile to firestore', err));
-          }
+          const userDocToSave: UserAccount = {
+            ...matchedUser,
+            id: firebaseUser.uid
+          };
+          saveFirestoreDoc('users', userDocToSave).catch(err => console.warn('Could not auto-save user profile to firestore', err));
           setAuthState('authenticated');
         } else {
           console.warn('onAuthStateChanged: Authenticated Firebase user has no matched authorization profile:', firebaseUser.email);
@@ -233,15 +241,41 @@ export default function App() {
   const [isScanModalOpen, setIsScanModalOpen] = useState(false);
   const [isPkbModalOpen, setIsPkbModalOpen] = useState(false);
 
-// Helper to log audit with sound tone
-  const createLog = async (modul: AuditLog['modul'], aksi: string, detail: string) => {
+// Helper to log audit with sound tone and deterministic idempotency
+  const createLog = async (
+    modul: AuditLog['modul'], 
+    aksi: string, 
+    detail: string,
+    entityId?: string,
+    idempotencyKey?: string
+  ) => {
     const isSuper = checkIsSuperAdmin(currentUser);
-// Notifikasi & suara untuk Keuangan hanya aktif untuk Super Admin
-    if (modul !== 'Keuangan' || isSuper) {
-      playNotificationSound();
+    const determinedId = idempotencyKey || generateNotificationId({
+      modul,
+      entityId: entityId || extractEntityId(detail, modul),
+      action: aksi,
+      userId: auth.currentUser?.uid || currentUser.id
+    });
+
+    // Avoid double playing audio notification if the exact same event was just processed
+    if (!NotificationTracker.hasRecentlyProcessed(determinedId)) {
+      // Notifikasi & suara untuk Keuangan hanya aktif untuk Super Admin
+      if (modul !== 'Keuangan' || isSuper) {
+        playNotificationSound();
+      }
     }
+
     try {
-      await AuditService.createLog(currentUser.name, currentUser.role, modul, aksi, detail);
+      await AuditService.createLog(
+        currentUser.name, 
+        currentUser.role, 
+        modul, 
+        aksi, 
+        detail, 
+        undefined, 
+        entityId, 
+        determinedId
+      );
     } catch (err) {
       console.error('App.tsx: Gagal mencatat audit log ke Firestore:', err);
     }
@@ -316,10 +350,10 @@ export default function App() {
     return () => unsub();
   }, [isLoggedIn, currentUser?.id]);
 
-// Active notifications for current user account
+// Active notifications for current user account with idempotency deduplication
   const isSuperAdminUser = checkIsSuperAdmin(currentUser);
   const clearedSet = new Set(clearedNotifIds);
-  const activeNotifications = sortAuditLogsNewestFirst(auditLogs.filter(log => {
+  const activeNotifications = sortAuditLogsNewestFirst(deduplicateNotifications(auditLogs).filter(log => {
     if (!log.id || clearedSet.has(log.id)) return false;
 // Notifikasi keuangan (divisi dana dan usaha) hanya untuk Super Admin
     if (!isSuperAdminUser && log.modul === 'Keuangan') return false;
@@ -381,7 +415,7 @@ export default function App() {
   const handleAddMember = async (newMbr: Member) => {
     await AppService.addMember(newMbr);
     setMembers(prev => [newMbr, ...prev.filter(m => m.id !== newMbr.id)]);
-    await createLog('Data Anggota', 'Tambah Anggota Baru', `Menambahkan anggota ${newMbr.namaLengkap} (${newMbr.nomorAnggota}) Dept ${newMbr.departemen}.`);
+    await createLog('Data Anggota', 'Tambah Anggota Baru', `Menambahkan anggota ${newMbr.namaLengkap} (${newMbr.nomorAnggota}) Dept ${newMbr.departemen}.`, newMbr.id);
   };
 
   const handleUpdateMember = async (updatedMbr: Member) => {
@@ -413,7 +447,7 @@ export default function App() {
       }
     }
 
-    await createLog('Data Anggota', 'Update Data Anggota', `Memperbarui biodata ${updatedMbr.namaLengkap} (${updatedMbr.nomorAnggota}).`);
+    await createLog('Data Anggota', 'Update Data Anggota', `Memperbarui biodata ${updatedMbr.namaLengkap} (${updatedMbr.nomorAnggota}).`, updatedMbr.id);
   };
 
   const handleDeleteMember = async (memberId: string) => {
@@ -421,27 +455,27 @@ export default function App() {
     await AppService.deleteMember(memberId);
     setMembers(prev => prev.filter(m => m.id !== memberId));
     if (target) {
-      await createLog('Data Anggota', 'Hapus Anggota', `Menghapus data anggota ${target.namaLengkap} (${target.nomorAnggota}).`);
+      await createLog('Data Anggota', 'Hapus Anggota', `Menghapus data anggota ${target.namaLengkap} (${target.nomorAnggota}).`, memberId);
     }
   };
 
   const handleImportMembers = async (importedMembers: Member[]) => {
     await AppService.saveAllMembers(importedMembers);
     setMembers(importedMembers);
-    await createLog('Data Anggota', 'Import Spreadsheet Data Anggota', `Berhasil melakukan impor/sinkronisasi ${importedMembers.length} data anggota dari Excel/CSV.`);
+    await createLog('Data Anggota', 'Import Spreadsheet Data Anggota', `Berhasil melakukan impor/sinkronisasi ${importedMembers.length} data anggota dari Excel/CSV.`, `batch_${importedMembers.length}`);
   };
 
 // ADVOCACY HANDLERS
   const handleAddAdvocacyCase = async (newCase: AdvocacyCase) => {
     await AppService.addAdvocacy(newCase);
     setAdvocacyCases(prev => [newCase, ...prev.filter(c => c.id !== newCase.id)]);
-    await createLog('Advokasi', 'Buat Kasus Advokasi Baru', `Dibuat kasus ${newCase.nomorKasus} - ${newCase.judulKasus} untuk ${newCase.namaAnggota}.`);
+    await createLog('Advokasi', 'Buat Kasus Advokasi Baru', `Dibuat kasus ${newCase.nomorKasus} - ${newCase.judulKasus} untuk ${newCase.namaAnggota}.`, newCase.id);
   };
 
   const handleUpdateAdvocacyCase = async (updatedCase: AdvocacyCase) => {
     await AppService.updateAdvocacy(updatedCase);
     setAdvocacyCases(prev => prev.map(c => c.id === updatedCase.id ? updatedCase : c));
-    await createLog('Advokasi', 'Update Status Advokasi', `Memperbarui status kasus ${updatedCase.nomorKasus} menjadi ${updatedCase.status}.`);
+    await createLog('Advokasi', 'Update Status Advokasi', `Memperbarui status kasus ${updatedCase.nomorKasus} menjadi ${updatedCase.status}.`, `${updatedCase.id}_${updatedCase.status}`);
   };
 
   const handleDeleteAdvocacyCase = async (caseId: string) => {
@@ -449,7 +483,7 @@ export default function App() {
     await AppService.deleteAdvocacy(caseId);
     setAdvocacyCases(prev => prev.filter(c => c.id !== caseId));
     if (target) {
-      await createLog('Advokasi', 'Hapus Kasus Advokasi', `Menghapus kasus advokasi ${target.nomorKasus} (${target.judulKasus}).`);
+      await createLog('Advokasi', 'Hapus Kasus Advokasi', `Menghapus kasus advokasi ${target.nomorKasus} (${target.judulKasus}).`, caseId);
     }
   };
 
@@ -457,7 +491,7 @@ export default function App() {
   const handleAddSickVisit = async (newVisit: SickVisit) => {
     await AppService.addSickVisit(newVisit);
     setSickVisits(prev => [newVisit, ...prev.filter(v => v.id !== newVisit.id)]);
-    await createLog('Anggota Sakit', 'Catat Pendampingan Sakit', `Pencatatan pendampingan sakit ${newVisit.nomorPendampingan} untuk ${newVisit.namaAnggota} di ${newVisit.lokasi}.`);
+    await createLog('Anggota Sakit', 'Catat Pendampingan Sakit', `Pencatatan pendampingan sakit ${newVisit.nomorPendampingan} untuk ${newVisit.namaAnggota} di ${newVisit.lokasi}.`, newVisit.id);
   };
 
   const handleUpdateSickVisit = async (updatedVisit: SickVisit, actionName?: string, auditDetail?: string) => {
@@ -466,7 +500,8 @@ export default function App() {
     await createLog(
       'Anggota Sakit', 
       actionName || 'Update Pendampingan SOP', 
-      auditDetail || `Memperbarui status/data pendampingan ${updatedVisit.nomorPendampingan} (${updatedVisit.namaAnggota}). Status: ${updatedVisit.status}`
+      auditDetail || `Memperbarui status/data pendampingan ${updatedVisit.nomorPendampingan} (${updatedVisit.namaAnggota}). Status: ${updatedVisit.status}`,
+      `${updatedVisit.id}_${updatedVisit.status}`
     );
   };
 
@@ -475,7 +510,7 @@ export default function App() {
     await AppService.deleteSickVisit(visitId);
     setSickVisits(prev => prev.filter(v => v.id !== visitId));
     if (target) {
-      await createLog('Anggota Sakit', 'Hapus Data Visite Sakit', `Menghapus data pendampingan sakit ${target.nomorPendampingan} (${target.namaAnggota}).`);
+      await createLog('Anggota Sakit', 'Hapus Data Visite Sakit', `Menghapus data pendampingan sakit ${target.nomorPendampingan} (${target.namaAnggota}).`, visitId);
     }
   };
 
@@ -484,14 +519,14 @@ export default function App() {
     if (!checkIsSuperAdmin(currentUser)) return;
     await AppService.addAgenda(newAgd);
     setAgendas(prev => [newAgd, ...prev.filter(a => a.id !== newAgd.id)]);
-    await createLog('Agenda', 'Tambah Agenda Kegiatan', `Menambahkan agenda baru: ${newAgd.judul} (${newAgd.jenis}) pada ${newAgd.tanggalWaktu}.`);
+    await createLog('Agenda', 'Tambah Agenda Kegiatan', `Menambahkan agenda baru: ${newAgd.judul} (${newAgd.jenis}) pada ${newAgd.tanggalWaktu}.`, newAgd.id);
   };
 
   const handleUpdateAgenda = async (updatedAgd: OrganizationAgenda) => {
     if (!checkIsSuperAdmin(currentUser)) return;
     await AppService.updateAgenda(updatedAgd);
     setAgendas(prev => prev.map(a => a.id === updatedAgd.id ? updatedAgd : a));
-    await createLog('Agenda', 'Update Agenda Kegiatan', `Memperbarui detail agenda ${updatedAgd.judul}.`);
+    await createLog('Agenda', 'Update Agenda Kegiatan', `Memperbarui detail agenda ${updatedAgd.judul}.`, `${updatedAgd.id}_${updatedAgd.status || 'updated'}`);
   };
 
   const handleDeleteAgenda = async (agendaId: string) => {
@@ -500,7 +535,7 @@ export default function App() {
     await AppService.deleteAgenda(agendaId);
     setAgendas(prev => prev.filter(a => a.id !== agendaId));
     if (target) {
-      await createLog('Agenda', 'Hapus Agenda Kegiatan', `Menghapus agenda ${target.judul}.`);
+      await createLog('Agenda', 'Hapus Agenda Kegiatan', `Menghapus agenda ${target.judul}.`, agendaId);
     }
   };
 
@@ -511,7 +546,8 @@ export default function App() {
     await createLog(
       'Penggalangan Dana',
       'Buat Penggalangan Dana Baru',
-      `Membuat penggalangan dana ${newCamp.nomorPenggalangan} untuk ${newCamp.namaAnggota} (${newCamp.nikAnggota}) - Hubungan: ${newCamp.hubungan}, Kondisi: ${newCamp.kondisi}.`
+      `Membuat penggalangan dana ${newCamp.nomorPenggalangan} untuk ${newCamp.namaAnggota} (${newCamp.nikAnggota}) - Hubungan: ${newCamp.hubungan}, Kondisi: ${newCamp.kondisi}.`,
+      newCamp.id
     );
   };
 
@@ -521,7 +557,8 @@ export default function App() {
     await createLog(
       'Penggalangan Dana',
       'Update Penggalangan Dana',
-      `Memperbarui penggalangan dana ${updatedCamp.nomorPenggalangan} (${updatedCamp.namaAnggota}) - Dana Terkumpul: Rp ${updatedCamp.jumlahTerkumpul.toLocaleString('id-ID')}.`
+      `Memperbarui penggalangan dana ${updatedCamp.nomorPenggalangan} (${updatedCamp.namaAnggota}) - Dana Terkumpul: Rp ${updatedCamp.jumlahTerkumpul.toLocaleString('id-ID')}.`,
+      `${updatedCamp.id}_${updatedCamp.status || 'updated'}`
     );
   };
 
@@ -533,7 +570,8 @@ export default function App() {
       await createLog(
         'Penggalangan Dana',
         'Hapus Penggalangan Dana',
-        `Menghapus penggalangan dana ${target.nomorPenggalangan} untuk ${target.namaAnggota}.`
+        `Menghapus penggalangan dana ${target.nomorPenggalangan} untuk ${target.namaAnggota}.`,
+        id
       );
     }
   };
@@ -546,7 +584,7 @@ export default function App() {
     }
     setSembakoEvents(prev => [newEvent, ...prev.filter(e => e.id !== newEvent.id)]);
     setSembakoClaims(prev => [...initialClaims, ...prev.filter(c => c.eventId !== newEvent.id)]);
-    await createLog('Sembako', 'Buat Event Sembako Baru', `Membuat event ${newEvent.namaEvent} untuk ${newEvent.totalPenerima} anggota aktif.`);
+    await createLog('Sembako', 'Buat Event Sembako Baru', `Membuat event ${newEvent.namaEvent} untuk ${newEvent.totalPenerima} anggota aktif.`, newEvent.id);
   };
 
   const handleUpdateSembakoClaim = async (updatedClaim: SembakoClaim) => {
@@ -563,7 +601,7 @@ export default function App() {
       setSembakoEvents(prev => prev.map(e => e.id === eventObj.id ? updatedEvent : e));
     }
 
-    await createLog('Sembako', 'Update Klaim Sembako', `Pembaruan klaim sembako untuk ${updatedClaim.namaLengkap} (${updatedClaim.nomorAnggota}) status: ${updatedClaim.status}.`);
+    await createLog('Sembako', 'Update Klaim Sembako', `Pembaruan klaim sembako untuk ${updatedClaim.namaLengkap} (${updatedClaim.nomorAnggota}) status: ${updatedClaim.status}.`, `${updatedClaim.id}_${updatedClaim.status}`);
   };
 
   const handleDeleteSembakoEvent = async (eventId: string) => {
@@ -578,7 +616,7 @@ export default function App() {
     setSembakoEvents(prev => prev.filter(e => e.id !== eventId));
     setSembakoClaims(prev => prev.filter(c => c.eventId !== eventId));
 
-    await createLog('Sembako', 'Hapus Event Sembako', `Menghapus event sembako "${eventToDelete?.namaEvent || eventId}" beserta seluruh data klaim anggotanya`);
+    await createLog('Sembako', 'Hapus Event Sembako', `Menghapus event sembako "${eventToDelete?.namaEvent || eventId}" beserta seluruh data klaim anggotanya`, eventId);
   };
 
   const handleDeleteSembakoClaim = async (claimId: string) => {
@@ -599,7 +637,7 @@ export default function App() {
         await AppService.updateSembakoEvent(updatedEv);
         setSembakoEvents(prev => prev.map(e => e.id === eventObj.id ? updatedEv : e));
       }
-      await createLog('Sembako', 'Hapus Klaim Sembako', `Menghapus data sembako penerima ${target.namaLengkap} (${target.nomorAnggota}).`);
+      await createLog('Sembako', 'Hapus Klaim Sembako', `Menghapus data sembako penerima ${target.namaLengkap} (${target.nomorAnggota}).`, claimId);
     }
   };
 
@@ -607,7 +645,7 @@ export default function App() {
   const handleAddVehicleLog = async (newLog: VehicleLog) => {
     await AppService.addVehicleLog(newLog);
     setVehicleLogs(prev => [newLog, ...prev.filter(v => v.id !== newLog.id)]);
-    await createLog('Kendaraan', 'Catat Pemakaian Kendaraan', `Mencatat jurnal ${newLog.nomorLog} untuk ${newLog.kendaraan} (${newLog.platNomor}) oleh ${newLog.namaPemakai}.`);
+    await createLog('Kendaraan', 'Catat Pemakaian Kendaraan', `Mencatat jurnal ${newLog.nomorLog} untuk ${newLog.kendaraan} (${newLog.platNomor}) oleh ${newLog.namaPemakai}.`, newLog.id);
 
     // Auto-link with SickVisit if this vehicle request belongs to a sick visit
     if (newLog.sickVisitId) {
@@ -629,7 +667,7 @@ export default function App() {
   const handleUpdateVehicleLog = async (updatedLog: VehicleLog) => {
     await AppService.updateVehicleLog(updatedLog);
     setVehicleLogs(prev => prev.map(v => v.id === updatedLog.id ? updatedLog : v));
-    await createLog('Kendaraan', 'Update Pemakaian Kendaraan', `Memperbarui jurnal ${updatedLog.nomorLog} (${updatedLog.kendaraan}) status: ${updatedLog.status}.`);
+    await createLog('Kendaraan', 'Update Pemakaian Kendaraan', `Memperbarui jurnal ${updatedLog.nomorLog} (${updatedLog.kendaraan}) status: ${updatedLog.status}.`, `${updatedLog.id}_${updatedLog.status}`);
   };
 
   const handleDeleteVehicleLog = async (id: string) => {
@@ -637,7 +675,7 @@ export default function App() {
     await AppService.deleteVehicleLog(id);
     setVehicleLogs(prev => prev.filter(v => v.id !== id));
     if (target) {
-      await createLog('Kendaraan', 'Hapus Jurnal Kendaraan', `Menghapus jurnal ${target.nomorLog} (${target.kendaraan}).`);
+      await createLog('Kendaraan', 'Hapus Jurnal Kendaraan', `Menghapus jurnal ${target.nomorLog} (${target.kendaraan}).`, id);
     }
   };
 
@@ -663,7 +701,7 @@ export default function App() {
       }
       return [cleanRecord, ...prev];
     });
-    await createLog('Keuangan', 'Update Kas Keuangan', `Catatan kas tanggal ${cleanRecord.tanggal}, COS Masuk: Rp ${cleanRecord.uangCosMasuk.toLocaleString('id-ID')}, Items Pengeluaran: ${cleanRecord.pengeluaranItems.length}.`);
+    await createLog('Keuangan', 'Update Kas Keuangan', `Catatan kas tanggal ${cleanRecord.tanggal}, COS Masuk: Rp ${cleanRecord.uangCosMasuk.toLocaleString('id-ID')}, Items Pengeluaran: ${cleanRecord.pengeluaranItems.length}.`, cleanRecord.id || cleanRecord.tanggal);
   };
 
   const handleDeleteFinanceRecord = async (id: string) => {
@@ -671,7 +709,7 @@ export default function App() {
     await AppService.deleteFinanceRecord(id);
     setFinanceRecords(prev => prev.filter(f => f.id !== id));
     if (target) {
-      await createLog('Keuangan', 'Hapus Transaksi Kas', `Menghapus catatan kas tanggal ${target.tanggal}.`);
+      await createLog('Keuangan', 'Hapus Transaksi Kas', `Menghapus catatan kas tanggal ${target.tanggal}.`, id);
     }
   };
 
@@ -690,7 +728,7 @@ export default function App() {
     setUsers(prev => [userToSave, ...prev.filter(u => u.id !== userToSave.id)]);
 
     // 3. Write audit log
-    await createLog('Sistem', 'Tambah User Pengurus', `Menambahkan akun pengurus baru ${userToSave.name} (${userToSave.role}).`);
+    await createLog('Sistem', 'Tambah User Pengurus', `Menambahkan akun pengurus baru ${userToSave.name} (${userToSave.role}).`, userToSave.id);
   };
 
   const handleUpdateUser = async (updatedUsr: UserAccount) => {
@@ -733,7 +771,7 @@ export default function App() {
       }
     }
 
-    await createLog('Sistem', 'Update Profil Pengguna', `Pengguna ${userToSave.name} (${userToSave.role}) memperbarui data profil akun (Email/WhatsApp/Foto).`);
+    await createLog('Sistem', 'Update Profil Pengguna', `Pengguna ${userToSave.name} (${userToSave.role}) memperbarui data profil akun (Email/WhatsApp/Foto).`, userToSave.id);
   };
 
   const handleDeleteUser = async (userId: string) => {
@@ -741,7 +779,7 @@ export default function App() {
     await AppService.deleteUser(userId);
     setUsers(prev => prev.filter(u => u.id !== userId));
     if (target) {
-      await createLog('Sistem', 'Hapus Akun Pengurus', `Menghapus akun pengurus ${target.name} (@${target.username}).`);
+      await createLog('Sistem', 'Hapus Akun Pengurus', `Menghapus akun pengurus ${target.name} (@${target.username}).`, userId);
     }
   };
 

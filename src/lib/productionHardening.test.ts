@@ -1,18 +1,25 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { UserAccount, checkIsAdmin, checkIsSuperAdmin } from '../types';
+import { UserAccount, AuditLog, checkIsAdmin, checkIsSuperAdmin } from '../types';
 import { resolveUserProfile } from './authSession';
 import { syncManager } from './syncManager';
 import { sortAuditLogsNewestFirst } from './storage';
+import { 
+  generateNotificationId, 
+  deduplicateNotifications, 
+  NotificationTracker, 
+  extractEntityId, 
+  sanitizeNotificationKeyPart 
+} from './notificationIdempotency';
 
 describe('Production Hardening & Final Security Suite', () => {
   const superAdminUser: UserAccount = {
     id: 'uid-sa-001',
-    username: 'sbnkasbivci1',
-    name: 'Super Admin SBN KASBI',
+    username: 'administrator',
+    name: 'Administrator',
     email: 'superadmin@sbn-kasbi-vci.or.id',
     nik: 'SA-00001',
     role: 'Super Admin',
-    department: 'Dewan Pimpinan Utama',
+    department: 'Administrator',
     isSuperAdmin: true
   };
 
@@ -250,4 +257,187 @@ describe('Production Hardening & Final Security Suite', () => {
       expect(res.matchedUser).toBeNull();
     });
   });
+
+  describe('NOTIFICATION DEDUPLICATION & IDEMPOTENCY (PATCH — IDEMPOTENCY)', () => {
+    it('IDEMPOTENCY 1: Double click Konfirmasi TASK-123 -> Menghasilkan 1 deterministic document ID yang sama persis', () => {
+      const id1 = generateNotificationId({
+        modul: 'Agenda',
+        entityId: 'TASK-123',
+        action: 'confirmed'
+      });
+
+      const id2 = generateNotificationId({
+        modul: 'Agenda',
+        entityId: 'TASK-123',
+        action: 'confirmed'
+      });
+
+      expect(id1).toBe(id2);
+      expect(id1).toBe('agenda_task-123_confirmed');
+    });
+
+    it('IDEMPOTENCY 2: 10 concurrent clicks Konfirmasi TASK-123 -> Hanya 1 notification ID yang valid', () => {
+      const generatedIds = Array.from({ length: 10 }).map(() =>
+        generateNotificationId({
+          modul: 'Agenda',
+          entityId: 'TASK-123',
+          action: 'confirmed'
+        })
+      );
+
+      const uniqueIds = new Set(generatedIds);
+      expect(uniqueIds.size).toBe(1);
+      expect(Array.from(uniqueIds)[0]).toBe('agenda_task-123_confirmed');
+    });
+
+    it('IDEMPOTENCY 3: Tindakan berbeda pada task yang sama -> Menghasilkan 2 notification terpisah', () => {
+      const idCreated = generateNotificationId({
+        modul: 'Agenda',
+        entityId: 'TASK-123',
+        action: 'created'
+      });
+
+      const idConfirmed = generateNotificationId({
+        modul: 'Agenda',
+        entityId: 'TASK-123',
+        action: 'confirmed'
+      });
+
+      expect(idCreated).not.toBe(idConfirmed);
+      expect(idCreated).toBe('agenda_task-123_created');
+      expect(idConfirmed).toBe('agenda_task-123_confirmed');
+    });
+
+    it('IDEMPOTENCY 4: Tindakan pada dua entity berbeda (TASK-123 vs TASK-456) -> Menghasilkan 2 notification terpisah', () => {
+      const id1 = generateNotificationId({
+        modul: 'Agenda',
+        entityId: 'TASK-123',
+        action: 'confirmed'
+      });
+
+      const id2 = generateNotificationId({
+        modul: 'Agenda',
+        entityId: 'TASK-456',
+        action: 'confirmed'
+      });
+
+      expect(id1).not.toBe(id2);
+      expect(id1).toBe('agenda_task-123_confirmed');
+      expect(id2).toBe('agenda_task-456_confirmed');
+    });
+
+    it('IDEMPOTENCY 5: deduplicateNotifications menyaring log duplikat dari UI & data', () => {
+      const logs = [
+        {
+          id: 'agenda_task-123_confirmed',
+          timestamp: '2026-08-16 10:00:00',
+          userNama: 'Riyan Rosadi',
+          userRole: 'Super Admin' as const,
+          modul: 'Agenda' as const,
+          aksi: 'Konfirmasi Tugas',
+          detail: 'Konfirmasi penyelesaian tugas TASK-123'
+        },
+        {
+          id: 'agenda_task-123_confirmed', // Identical ID duplicate
+          timestamp: '2026-08-16 10:00:01',
+          userNama: 'Riyan Rosadi',
+          userRole: 'Super Admin' as const,
+          modul: 'Agenda' as const,
+          aksi: 'Konfirmasi Tugas',
+          detail: 'Konfirmasi penyelesaian tugas TASK-123'
+        },
+        {
+          id: 'agenda_task-456_confirmed',
+          timestamp: '2026-08-16 10:05:00',
+          userNama: 'Ade Kurniawan',
+          userRole: 'Pengurus' as const,
+          modul: 'Agenda' as const,
+          aksi: 'Konfirmasi Tugas',
+          detail: 'Konfirmasi penyelesaian tugas TASK-456'
+        }
+      ];
+
+      const deduplicated = deduplicateNotifications(logs);
+      expect(deduplicated.length).toBe(2);
+      expect(deduplicated.map(l => l.id)).toEqual([
+        'agenda_task-123_confirmed',
+        'agenda_task-456_confirmed'
+      ]);
+    });
+
+    it('IDEMPOTENCY 6: NotificationTracker mencegah in-flight duplicate calls', () => {
+      NotificationTracker.clear();
+      const testKey = 'agenda_task-777_confirmed';
+
+      expect(NotificationTracker.hasRecentlyProcessed(testKey)).toBe(false);
+
+      const testLog = {
+        id: testKey,
+        timestamp: '2026-08-16 10:00:00',
+        userNama: 'Test User',
+        userRole: 'Pengurus' as const,
+        modul: 'Agenda' as const,
+        aksi: 'Test Aksi',
+        detail: 'Test Detail'
+      };
+
+      NotificationTracker.markProcessed(testKey, testLog);
+      expect(NotificationTracker.hasRecentlyProcessed(testKey)).toBe(true);
+      expect(NotificationTracker.getExisting(testKey)).toEqual(testLog);
+    });
+
+    it('IDEMPOTENCY 7: extractEntityId mendeteksi berbagai format ID entitas', () => {
+      expect(extractEntityId('Menambahkan anggota (SBN-VCI-0012) ke sistem', 'Data Anggota')).toBe('SBN-VCI-0012');
+      expect(extractEntityId('Pencatatan pendampingan sakit SAK-2026-001 untuk John', 'Anggota Sakit')).toBe('SAK-2026-001');
+      expect(extractEntityId('Konfirmasi tugas TASK-999 selesai', 'Agenda')).toBe('TASK-999');
+      expect(extractEntityId('Penggalangan dana DANA-2026-001 dibuat', 'Penggalangan Dana')).toBe('DANA-2026-001');
+    });
+
+    it('IDEMPOTENCY 8: sanitizeNotificationKeyPart membersihkan karakter berbahaya untuk Firestore ID', () => {
+      expect(sanitizeNotificationKeyPart('  Task / 123 @ Action!  ')).toBe('task_123_action');
+      expect(sanitizeNotificationKeyPart('___Multiple__Underscores___')).toBe('multiple_underscores');
+      expect(sanitizeNotificationKeyPart('')).toBe('na');
+    });
+
+    it('IDEMPOTENCY 9: Custom idempotency key diprioritaskan jika disediakan', () => {
+      const id = generateNotificationId({
+        modul: 'Agenda',
+        action: 'confirmed',
+        customKey: 'custom_idempotent_event_key_123'
+      });
+
+      expect(id).toBe('custom_idempotent_event_key_123');
+    });
+
+    it('IDEMPOTENCY 10: Filter notifikasi keuangan strictly disembunyikan dari non-Super Admin', () => {
+      const mixedLogs: AuditLog[] = [
+        {
+          id: 'log_1',
+          timestamp: '2026-08-16 10:00:00',
+          userNama: 'Bendahara Utama',
+          userRole: 'Super Admin',
+          modul: 'Keuangan',
+          aksi: 'Catat Kas',
+          detail: 'Uang COS masuk'
+        },
+        {
+          id: 'log_2',
+          timestamp: '2026-08-16 10:01:00',
+          userNama: 'Pengurus',
+          userRole: 'Pengurus',
+          modul: 'Data Anggota',
+          aksi: 'Update Anggota',
+          detail: 'Update biodata'
+        }
+      ];
+
+      const forPengurus = deduplicateNotifications(mixedLogs).filter(l => l.modul !== 'Keuangan');
+      expect(forPengurus.length).toBe(1);
+      expect(forPengurus[0].id).toBe('log_2');
+
+      const forSuperAdmin = deduplicateNotifications(mixedLogs);
+      expect(forSuperAdmin.length).toBe(2);
+    });
+  });
 });
+

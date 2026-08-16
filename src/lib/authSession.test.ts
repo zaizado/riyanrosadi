@@ -18,12 +18,12 @@ describe('Auth Session Lifecycle & Anti False-Logout Tests', () => {
 
   const mockSuperAdminUser: UserAccount = {
     id: 'uid-sa-999',
-    username: 'sbnkasbivci1',
-    name: 'Super Admin SBN KASBI',
+    username: 'administrator',
+    name: 'Administrator',
     email: 'superadmin@sbn-kasbi-vci.or.id',
     nik: 'SA-00001',
     role: 'Super Admin',
-    department: 'Dewan Pimpinan Utama',
+    department: 'Administrator',
     isSuperAdmin: true,
     avatarUrl: '/avatar.jpg'
   };
@@ -161,7 +161,7 @@ describe('Auth Session Lifecycle & Anti False-Logout Tests', () => {
 
     expect(result.authState).toBe('authenticated');
     expect(result.matchedUser?.id).toBe('uid-sa-999');
-    expect(result.matchedUser?.name).toBe('Super Admin SBN KASBI');
+    expect(result.matchedUser?.name).toBe('Administrator');
   });
 
   it('TEST 10: Pengurus refresh browser -> tetap authenticated dengan role dan profil yang valid', () => {

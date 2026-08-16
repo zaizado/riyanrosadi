@@ -17,12 +17,12 @@ import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 export const INITIAL_USERS: UserAccount[] = [
   {
     id: 'usr-superadmin',
-    username: 'sbnkasbivci1',
-    name: 'Super Admin SBN KASBI',
+    username: 'administrator',
+    name: 'Administrator',
     email: 'superadmin@sbn-kasbi-vci.or.id',
     nik: 'SA-00001',
     role: 'Super Admin',
-    department: 'Dewan Pimpinan Utama',
+    department: 'Administrator',
     phoneNumber: '081234567890',
     avatarUrl: cheAvatar,
     isSuperAdmin: true

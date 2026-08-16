@@ -204,8 +204,8 @@ class SyncManager {
       calculatedState = 'offline';
       statusMessage = 'OFFLINE — Menunggu koneksi internet. Data lokal tetap dapat diakses.';
     } else if (total === 0) {
-      calculatedState = 'connecting';
-      statusMessage = 'Menghubungkan ke database Firestore...';
+      calculatedState = 'synced';
+      statusMessage = 'Online • Siap terhubung';
     } else if (errorCount > 0) {
       if (synced > 0) {
         calculatedState = 'partial_error';

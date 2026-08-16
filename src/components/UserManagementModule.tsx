@@ -258,7 +258,7 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
                           >
                             <Edit3 className="w-4 h-4" />
                           </button>
-                          {!(usr.isSuperAdmin || usr.username === 'sbnkasbivci1' || usr.id === 'usr-superadmin' || usr.id === currentUser.id) && (
+                          {!(usr.isSuperAdmin || usr.username === 'administrator' || usr.username === 'sbnkasbivci1' || usr.id === 'usr-superadmin' || usr.id === currentUser.id) && (
                             <button
                               onClick={() => setDeleteUserConfirmObj(usr)}
                               className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-950 text-rose-400 border border-slate-700 hover:border-rose-800 cursor-pointer transition-colors"

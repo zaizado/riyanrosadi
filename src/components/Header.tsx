@@ -150,7 +150,7 @@ export const Header: React.FC<HeaderProps> = ({
         );
         if (found && found.email) {
           emailToUse = found.email;
-        } else if (uName === 'sbnkasbivci1' || uName === 'superadmin') {
+        } else if (uName === 'administrator' || uName === 'admin' || uName === 'sbnkasbivci1' || uName === 'superadmin') {
           emailToUse = 'superadmin@sbn-kasbi-vci.or.id';
         } else {
           emailToUse = `${uName}@sbn-kasbi-vci.or.id`;

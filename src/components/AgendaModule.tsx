@@ -281,14 +281,6 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
 
         await onUpdateAgenda(updated);
 
-        await AuditService.createLog(
-          currentUser.name,
-          currentUser.role,
-          'Agenda',
-          'Mengubah Agenda',
-          `Mengubah agenda "${updated.judul}" status: ${updated.status}.`
-        );
-
         if (selectedAgenda && selectedAgenda.id === updated.id) {
           setSelectedAgenda(updated);
         }
@@ -315,14 +307,6 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
 
         await onAddAgenda(newAgd);
 
-        await AuditService.createLog(
-          currentUser.name,
-          currentUser.role,
-          'Agenda',
-          'Membuat Agenda Baru',
-          `Membuat agenda kegiatan baru "${newAgd.judul}" (${newAgd.tanggalWaktu}).`
-        );
-
         setAgendaNotification(`Agenda "${newAgd.judul}" berhasil dibuat.`);
       }
 
@@ -341,7 +325,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
     setIsDeletingAgenda(true);
 
     try {
-      // 1. Delete agenda from Firestore
+      // 1. Delete agenda from Firestore (triggers deterministic audit log in App.tsx)
       await onDeleteAgenda(target.id);
 
       // 2. Cleanup all associated notulensi files from Storage & Firestore
@@ -353,15 +337,6 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
           console.warn("Storage cleanup warning during agenda delete:", err);
         }
       }
-
-      // 3. Audit Log
-      await AuditService.createLog(
-        currentUser.name,
-        currentUser.role,
-        'Agenda',
-        'Menghapus Agenda',
-        `Menghapus agenda "${target.judul}" beserta seluruh data notulensi terkait.`
-      );
 
       setAgendaNotification('Agenda berhasil dihapus.');
       if (selectedAgenda && selectedAgenda.id === target.id) {
