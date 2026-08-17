@@ -59,6 +59,35 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
   const activeEvent = sembakoEvents.find(e => e.status === 'Aktif') || sembakoEvents[0];
   
   const [selectedEventId, setSelectedEventId] = useState<string>(activeEvent?.id || '');
+  const [localClaims, setLocalClaims] = useState<SembakoClaim[]>([]);
+  const [isLoadingClaims, setIsLoadingClaims] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchClaims = async () => {
+      if (!selectedEventId) {
+        setLocalClaims([]);
+        return;
+      }
+      setIsLoadingClaims(true);
+      try {
+        const { getDocs, query, collection, where } = await import('firebase/firestore');
+        const { db } = await import('../lib/firebase');
+        const q = query(collection(db, 'sembakoClaims'), where('eventId', '==', selectedEventId));
+        const snap = await getDocs(q);
+        if (isMounted) {
+          const claims = snap.docs.map(d => d.data() as SembakoClaim);
+          setLocalClaims(claims);
+        }
+      } catch (err) {
+        console.warn('Failed to fetch local claims:', err);
+      } finally {
+        if (isMounted) setIsLoadingClaims(false);
+      }
+    };
+    fetchClaims();
+    return () => { isMounted = false; };
+  }, [selectedEventId]);
 
   useEffect(() => {
     if (sembakoEvents.length > 0 && (!selectedEventId || !sembakoEvents.some(e => e.id === selectedEventId))) {
@@ -105,10 +134,20 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
 
   const currentEventObj = sembakoEvents.find(e => e.id === selectedEventId) || activeEvent;
 
+  // Handle updates manually so we don't have to re-fetch or wait for parent
+  const handleUpdateLocalClaim = async (updatedClaim: SembakoClaim) => {
+    try {
+      await onUpdateClaim(updatedClaim);
+      setLocalClaims(prev => prev.map(c => c.id === updatedClaim.id ? updatedClaim : c));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   // Filtered Claims
   const currentClaims = useMemo(() => {
-    return sembakoClaims.filter(c => c.eventId === currentEventObj?.id);
-  }, [sembakoClaims, currentEventObj?.id]);
+    return localClaims;
+  }, [localClaims]);
 
   const filteredClaims = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -264,21 +303,12 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
     if (!isSuperAdmin || !newEventNama) return;
 
     const eventId = `smb-${Date.now()}`;
-    const activeMembers = members.filter(m => m.statusKeanggotaan === 'Aktif');
+    const { getDocs, query, collection, where } = await import('firebase/firestore');
+    const { db } = await import('../lib/firebase');
+    const q = query(collection(db, 'members'), where('statusKeanggotaan', '==', 'Aktif'));
+    const snap = await getDocs(q);
+    const activeMembers = snap.docs.map(d => ({ ...d.data(), id: d.id } as Member));
 
-    const newEventObj: SembakoEvent = {
-      id: eventId,
-      namaEvent: newEventNama,
-      tanggal: newEventTanggal,
-      lokasi: newEventLokasi,
-      jenisPaket: newEventJenisPaket,
-      keterangan: newEventKeterangan,
-      status: 'Aktif',
-      totalPenerima: activeMembers.length,
-      totalSudahAmbil: 0
-    };
-
-    // Auto-generate claims with unique QR for every active member
     const initialClaimsList: SembakoClaim[] = activeMembers.map((m, idx) => ({
       id: `clm-${Date.now()}-${idx}`,
       eventId,
@@ -291,6 +321,18 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
       qrCode: `${eventId}:${m.nomorAnggota}:${Math.random().toString(36).substring(2, 7).toUpperCase()}`,
       status: 'Belum Ambil'
     }));
+
+    const newEventObj: SembakoEvent = {
+      id: eventId,
+      namaEvent: newEventNama,
+      tanggal: newEventTanggal,
+      lokasi: newEventLokasi,
+      jenisPaket: newEventJenisPaket,
+      keterangan: newEventKeterangan,
+      status: 'Aktif',
+      totalPenerima: initialClaimsList.length,
+      totalSudahAmbil: 0
+    };
 
     try {
       await onAddEvent(newEventObj, initialClaimsList);

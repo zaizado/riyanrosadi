@@ -73,10 +73,16 @@ export function resolveUserProfile({
         roleToAssign = 'Ketua';
       } else if (fromStruktur.jabatan === 'Sekretaris') {
         roleToAssign = 'Sekretaris';
+      } else if (fromStruktur.jabatan === 'Bendahara') {
+        roleToAssign = 'Bendahara';
       } else if (fromStruktur.jabatan === 'Super Admin') {
         roleToAssign = 'Super Admin';
       } else if (fromStruktur.jabatan === 'Administrator') {
         roleToAssign = 'Administrator';
+      } else if (fromStruktur.jabatan === 'Admin') {
+        roleToAssign = 'Admin';
+      } else if (fromStruktur.jabatan === 'Anggota') {
+        roleToAssign = 'Anggota';
       }
 
       matched = {
@@ -146,9 +152,13 @@ export function resolveUserProfile({
   let normalizedRole: UserAccount['role'] = 'Pengurus';
   const rawRole = raw.role || raw.jabatan;
   if (rawRole === 'Super Admin') normalizedRole = 'Super Admin';
+  else if (rawRole === 'Administrator') normalizedRole = 'Administrator';
+  else if (rawRole === 'Admin') normalizedRole = 'Admin';
   else if (rawRole === 'Ketua' || rawRole === 'Wakil Ketua') normalizedRole = 'Ketua';
   else if (rawRole === 'Sekretaris') normalizedRole = 'Sekretaris';
-  else if (rawRole === 'Administrator' || rawRole === 'Admin') normalizedRole = 'Administrator';
+  else if (rawRole === 'Bendahara') normalizedRole = 'Bendahara';
+  else if (rawRole === 'Anggota') normalizedRole = 'Anggota';
+  else if (rawRole === 'Pengurus') normalizedRole = 'Pengurus';
 
   const normalizedUser: UserAccount = {
     ...matched,
@@ -162,7 +172,7 @@ export function resolveUserProfile({
     phoneNumber: raw.phoneNumber || raw.phone || raw.nomorHp || raw.noHp || '-',
     avatarUrl: raw.avatarUrl || raw.fotoUrl || cheAvatar,
     isSuperAdmin: normalizedRole === 'Super Admin' || raw.isSuperAdmin === true || false,
-    isAdmin: raw.isAdmin || normalizedRole === 'Super Admin' || normalizedRole === 'Ketua' || normalizedRole === 'Sekretaris' || normalizedRole === 'Administrator' || false
+    isAdmin: raw.isAdmin || normalizedRole === 'Super Admin' || normalizedRole === 'Ketua' || normalizedRole === 'Sekretaris' || normalizedRole === 'Administrator' || normalizedRole === 'Admin' || normalizedRole === 'Bendahara' || false
   };
 
   return {

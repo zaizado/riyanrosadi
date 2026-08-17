@@ -57,7 +57,7 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
   const [updateStatusBaru, setUpdateStatusBaru] = useState<AdvocacyStatus>('Dalam Pendampingan');
 
   // Form State for New Case
-  const [newCaseMemberId, setNewCaseMemberId] = useState('');
+  const [newCaseMember, setNewCaseMember] = useState<Member | null>(null);
   const [newCaseJudul, setNewCaseJudul] = useState('');
   const [newCaseKategori, setNewCaseKategori] = useState<AdvocacyCase['kategori']>('Hubungan Industrial');
   const [newCasePendamping, setNewCasePendamping] = useState(currentUser.name);
@@ -100,7 +100,7 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
 
   const handleCreateCase = async (e: React.FormEvent) => {
     e.preventDefault();
-    const selectedMbr = members.find(m => m.id === newCaseMemberId);
+    const selectedMbr = newCaseMember;
     if (!selectedMbr) {
       alert('Pilih anggota terlebih dahulu dari database!');
       return;
@@ -135,7 +135,7 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
       await onAddCase(newCaseObj);
       setIsAddModalOpen(false);
       // Reset form
-      setNewCaseMemberId('');
+      setNewCaseMember(null);
       setNewCaseJudul('');
       setNewCaseDeskripsi('');
     } catch (err: any) {
@@ -466,8 +466,8 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
               <div>
                 <MemberSearchSelect
                   members={members}
-                  selectedMemberId={newCaseMemberId}
-                  onSelectMember={(m) => setNewCaseMemberId(m ? m.id : '')}
+                  selectedMemberId={newCaseMember?.id || ''}
+                  onSelectMember={setNewCaseMember}
                   label="Pilih Anggota yang Didampingi"
                   placeholder="Ketik NIK, Nama, atau Departemen Anggota..."
                   required

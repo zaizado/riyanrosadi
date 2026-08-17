@@ -1,66 +1,124 @@
 import React, { useState } from 'react';
-import { Search, UserCheck, AlertCircle, RefreshCw, Briefcase, Calendar, Building, DollarSign } from 'lucide-react';
+import { Search, UserCheck, AlertCircle, RefreshCw, Briefcase, Calendar, Building, DollarSign, Loader2 } from 'lucide-react';
 import { Member } from '../../types';
 import { calculateServicePeriod } from '../../utils/servicePeriodCalculator';
 import { getLocalDateISO } from '../../utils/dateUtils';
 import { formatRupiah } from '../../utils/currencyFormatter';
 
 interface EmployeeSearchProps {
-  members: Member[];
+  members?: Member[];
   onSelectMember: (member: Member | null) => void;
   selectedMember: Member | null;
   terminationDate: string;
 }
 
+export async function searchMemberOnDemand(
+  searchTerm: string, 
+  fallbackMembers?: Member[]
+): Promise<Member | null> {
+  const queryStr = searchTerm.trim();
+  if (!queryStr) return null;
+
+  // 1. Try Firestore on-demand query
+  try {
+    const { getDocs, query, collection, where, limit } = await import('firebase/firestore');
+    const { db } = await import('../../lib/firebase');
+    
+    // Exact NIK
+    const qNik = query(collection(db, 'members'), where('nik', '==', queryStr), limit(1));
+    const snapNik = await getDocs(qNik);
+    if (!snapNik.empty) {
+      const d = snapNik.docs[0];
+      return { ...d.data(), id: d.id } as Member;
+    }
+
+    // Exact Nomor Anggota
+    const qNomor = query(collection(db, 'members'), where('nomorAnggota', '==', queryStr.toUpperCase()), limit(1));
+    const snapNomor = await getDocs(qNomor);
+    if (!snapNomor.empty) {
+      const d = snapNomor.docs[0];
+      return { ...d.data(), id: d.id } as Member;
+    }
+
+    // Name prefix query
+    const capitalizedTerm = queryStr.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+    const qName = query(
+      collection(db, 'members'),
+      where('namaLengkap', '>=', capitalizedTerm),
+      where('namaLengkap', '<=', capitalizedTerm + '\uf8ff'),
+      limit(1)
+    );
+    const snapName = await getDocs(qName);
+    if (!snapName.empty) {
+      const d = snapName.docs[0];
+      return { ...d.data(), id: d.id } as Member;
+    }
+  } catch (err) {
+    console.warn('Firestore on-demand search failed, checking fallback members:', err);
+  }
+
+  // 2. Fallback search on provided array (for testing or offline cache)
+  if (fallbackMembers && fallbackMembers.length > 0) {
+    const lowerQuery = queryStr.toLowerCase();
+    const found = fallbackMembers.find(m => {
+      const nikClean = (m.nik || '').toString().toLowerCase().trim();
+      const namaClean = (m.namaLengkap || '').toLowerCase().trim();
+      const noAnggota = (m.nomorAnggota || '').toLowerCase().trim();
+
+      return (
+        nikClean === lowerQuery ||
+        nikClean.endsWith(lowerQuery) ||
+        namaClean.includes(lowerQuery) ||
+        noAnggota === lowerQuery
+      );
+    });
+    if (found) return found;
+  }
+
+  return null;
+}
+
 export const EmployeeSearch: React.FC<EmployeeSearchProps> = ({
-  members,
+  members = [],
   onSelectMember,
   selectedMember,
   terminationDate
 }) => {
   const [searchInput, setSearchInput] = useState('');
   const [searchError, setSearchError] = useState<string | null>(null);
-  const [isSearched, setIsSearched] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
 
-  const handleSearch = (e?: React.FormEvent) => {
+  const handleSearch = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    const query = searchInput.trim().toLowerCase();
+    const query = searchInput.trim();
 
     if (!query) {
       setSearchError('Silakan masukkan NIK atau nama pekerja terlebih dahulu.');
-      setIsSearched(true);
       return;
     }
 
     setSearchError(null);
-    setIsSearched(true);
+    setIsSearching(true);
 
-    // Matching logic for NIK or Name
-    const found = members.find((m) => {
-      const nikClean = (m.nik || '').toString().toLowerCase().trim();
-      const namaClean = (m.namaLengkap || '').toLowerCase().trim();
-      const noAnggota = (m.nomorAnggota || '').toLowerCase().trim();
-
-      return (
-        nikClean === query ||
-        nikClean.endsWith(query) ||
-        namaClean.includes(query) ||
-        noAnggota === query
-      );
-    });
-
-    if (found) {
-      onSelectMember(found);
-    } else {
+    try {
+      const found = await searchMemberOnDemand(query, members);
+      if (found) {
+        onSelectMember(found);
+      } else {
+        onSelectMember(null);
+        setSearchError(`Pekerja dengan NIK/Nama "${searchInput}" tidak ditemukan dalam database keanggotaan.`);
+      }
+    } catch (err: any) {
       onSelectMember(null);
-      setSearchError(`Pekerja dengan NIK/Nama "${searchInput}" tidak ditemukan dalam database keanggotaan.`);
+      setSearchError(`Gagal melakukan pencarian: ${err?.message || 'Terjadi kesalahan'}`);
+    } finally {
+      setIsSearching(false);
     }
   };
 
   const handleReset = () => {
     setSearchInput('');
     setSearchError(null);
-    setIsSearched(false);
     onSelectMember(null);
   };
 
@@ -105,15 +163,17 @@ export const EmployeeSearch: React.FC<EmployeeSearchProps> = ({
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 placeholder="Masukkan NIK Karyawan (contoh: 00123) atau Nama Pekerja..."
-                className="w-full pl-11 pr-4 py-3 bg-slate-950 border border-white/15 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-medium"
+                disabled={isSearching}
+                className="w-full pl-11 pr-4 py-3 bg-slate-950 border border-white/15 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-medium disabled:opacity-50"
               />
             </div>
             <button
               type="submit"
-              className="px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-lg hover:shadow-red-900/30 transition-all cursor-pointer flex items-center justify-center gap-2 shrink-0"
+              disabled={isSearching}
+              className="px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-lg hover:shadow-red-900/30 transition-all cursor-pointer flex items-center justify-center gap-2 shrink-0 disabled:opacity-50"
             >
-              <Search className="w-4 h-4" />
-              CARI PEKERJA
+              {isSearching ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
+              {isSearching ? 'MENCARI...' : 'CARI PEKERJA'}
             </button>
           </div>
 

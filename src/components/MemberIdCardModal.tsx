@@ -7,7 +7,8 @@ import {
   Sparkles, 
   Maximize2,
   Eye,
-  Check
+  Check,
+  UserSearch
 } from 'lucide-react';
 import { Member } from '../types';
 import { FsbnLogo } from './FsbnLogo';
@@ -15,6 +16,7 @@ import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import fsbnLogo from '../assets/images/fsbn_official_logo_1786608810054.jpg';
 import { compressImage } from '../lib/imageUtils';
 import { ModalPortal } from './ModalPortal';
+import { MemberSearchSelect } from './MemberSearchSelect';
 
 interface MemberIdCardModalProps {
   member: Member;
@@ -77,6 +79,7 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
   // Edit toggles
   const [isEditingKta, setIsEditingKta] = useState(false);
   const [isEditingJabatan, setIsEditingJabatan] = useState(false);
+  const [isChangingMember, setIsChangingMember] = useState(false);
 
   // Sync state when member prop changes
   useEffect(() => {
@@ -88,15 +91,13 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
     );
   }, [initialMember]);
 
-  const handleMemberSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const found = allMembers.find(m => m.id === e.target.value);
-    if (found) {
-      setSelectedMember(found);
-      setCustomSequence(getSequenceNumber(found));
-      setJabatan(found.jabatan || 'ANGGOTA');
-      setFotoUrl(
-        found.fotoUrl || cheAvatar
-      );
+  const handleSelectMember = (newM: Member | null) => {
+    if (newM) {
+      setSelectedMember(newM);
+      setCustomSequence(getSequenceNumber(newM));
+      setJabatan(newM.jabatanKerja || 'ANGGOTA');
+      setFotoUrl(newM.fotoUrl || cheAvatar);
+      setIsChangingMember(false);
     }
   };
 
@@ -487,23 +488,23 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
         <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 space-y-3">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 text-xs">
             
-            {/* Dropdown Select Member */}
-            {allMembers.length > 0 && (
-              <div className="flex-1 flex items-center gap-2">
-                <span className="font-bold text-slate-700 shrink-0">Pilih Anggota:</span>
-                <select
-                  value={selectedMember.id}
-                  onChange={handleMemberSelect}
-                  className="bg-white border border-slate-300 text-slate-900 rounded-xl px-3 py-1.5 w-full font-semibold focus:outline-none focus:border-orange-500 shadow-xs"
-                >
-                  {allMembers.map((m) => (
-                    <option key={m.id} value={m.id}>
-                      {m.namaLengkap} ({m.nomorAnggota}) - {m.departemen}
-                    </option>
-                  ))}
-                </select>
+            {/* Current Member Display & Switcher */}
+            <div className="flex-1 flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-slate-700 shrink-0">Anggota:</span>
+                <span className="font-extrabold text-slate-900 bg-white px-2.5 py-1 rounded-lg border border-slate-200 shadow-xs">
+                  {selectedMember.namaLengkap} ({selectedMember.nomorAnggota || selectedMember.nik})
+                </span>
               </div>
-            )}
+              <button
+                type="button"
+                onClick={() => setIsChangingMember(!isChangingMember)}
+                className="px-2.5 py-1 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-lg font-bold text-xs flex items-center gap-1 transition-colors cursor-pointer"
+              >
+                <UserSearch className="w-3.5 h-3.5 text-orange-600" />
+                <span>{isChangingMember ? 'Tutup Pencarian' : 'Cari/Ganti Anggota'}</span>
+              </button>
+            </div>
 
             {/* View Mode & Toggles */}
             <div className="flex flex-wrap items-center gap-2 shrink-0">
@@ -545,6 +546,18 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
               </button>
             </div>
           </div>
+
+          {/* Member Search Popup when changing member */}
+          {isChangingMember && (
+            <div className="pt-2 border-t border-slate-200 bg-white p-3 rounded-xl border">
+              <MemberSearchSelect
+                selectedMemberId={selectedMember.id}
+                onSelectMember={handleSelectMember}
+                label="Cari Anggota Berdasarkan NIK atau Nama"
+                placeholder="Ketik NIK atau Nama anggota untuk cetak KTA..."
+              />
+            </div>
+          )}
 
           {/* Quick Edit Buttons Bar */}
           <div className="flex items-center gap-2 pt-2 border-t border-slate-200 text-xs">

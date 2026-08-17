@@ -149,8 +149,13 @@ export interface FirestoreErrorInfo {
 
 export function handleFirestoreError(error: unknown, operationType: OperationType, path: string | null) {
   const currentUser = auth.currentUser;
+  const errorMsg = error instanceof Error ? error.message : String(error);
+  const errorCode = (error as any)?.code || '';
+  const isQuota = errorCode === 'resource-exhausted' || errorMsg.toLowerCase().includes('quota') || errorMsg.toLowerCase().includes('limit exceeded');
+  const isNetwork = errorCode === 'unavailable' || errorMsg.toLowerCase().includes('offline');
+
   const errInfo: FirestoreErrorInfo = {
-    error: error instanceof Error ? error.message : String(error),
+    error: errorMsg,
     authInfo: {
       userId: currentUser?.uid,
       email: currentUser?.email,
@@ -165,7 +170,14 @@ export function handleFirestoreError(error: unknown, operationType: OperationTyp
     operationType,
     path
   };
-  console.error('Firestore Error Details:', JSON.stringify(errInfo));
+
+  if (isQuota) {
+    console.warn('Firestore Quota Exceeded (falling back to cache/offline state):', errInfo.path);
+  } else if (isNetwork) {
+    console.warn('Firestore Network/Offline warning:', errInfo.path);
+  } else {
+    console.error('Firestore Error Details:', JSON.stringify(errInfo));
+  }
   return errInfo;
 }
 
@@ -184,6 +196,7 @@ export const subscribeCollection = <T extends { id: string }>(
 
   const unsubscribe = onSnapshot(
     firestoreQuery,
+    { includeMetadataChanges: true },
     (snapshot) => {
       const isFromCache = snapshot.metadata.fromCache;
       const hasPendingWrites = snapshot.metadata.hasPendingWrites;
@@ -230,6 +243,7 @@ export const subscribeDocument = <T extends { id: string }>(
 
   const unsubscribe = onSnapshot(
     documentRef,
+    { includeMetadataChanges: true },
     (docSnap) => {
       const isFromCache = docSnap.metadata.fromCache;
       const hasPendingWrites = docSnap.metadata.hasPendingWrites;

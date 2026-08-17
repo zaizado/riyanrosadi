@@ -1,9 +1,28 @@
 export type UserRole = 
   | 'Super Admin'
+  | 'Administrator'
+  | 'Admin'
   | 'Ketua'
   | 'Sekretaris'
+  | 'Bendahara'
   | 'Pengurus'
-  | 'Administrator';
+  | 'Anggota';
+
+export const VALID_USER_ROLES: UserRole[] = [
+  'Super Admin',
+  'Administrator',
+  'Admin',
+  'Ketua',
+  'Sekretaris',
+  'Bendahara',
+  'Pengurus',
+  'Anggota'
+];
+
+export const isValidUserRole = (role?: string | null): role is UserRole => {
+  if (!role) return false;
+  return VALID_USER_ROLES.includes(role as UserRole);
+};
 
 export interface UserAccount {
   id: string;
@@ -50,11 +69,17 @@ export const checkIsAdmin = (user?: UserAccount | null, fbUser?: { email?: strin
     return true;
   }
 
-  const adminRoles = ['Ketua', 'Sekretaris', 'Administrator', 'Admin', 'Bendahara'];
+  const adminRoles: UserRole[] = ['Ketua', 'Sekretaris', 'Administrator', 'Admin', 'Bendahara', 'Super Admin'];
   return (
     adminRoles.includes(user.role) ||
     user.isAdmin === true
   );
+};
+
+export const isAuthorizedPengurus = (user?: UserAccount | null, fbUser?: { email?: string | null } | null): boolean => {
+  if (!user || !user.role) return false;
+  if (checkIsSuperAdmin(user) || checkIsAdmin(user, fbUser)) return true;
+  return user.role === 'Pengurus';
 };
 
 export const canApproveRequests = (user?: UserAccount | null): boolean => {
@@ -64,6 +89,8 @@ export const canApproveRequests = (user?: UserAccount | null): boolean => {
     user.role === 'Ketua' ||
     user.role === 'Sekretaris' ||
     user.role === 'Administrator' ||
+    user.role === 'Admin' ||
+    user.role === 'Bendahara' ||
     user.isSuperAdmin === true ||
     user.username === 'administrator' ||
     user.username === 'admin' ||

@@ -183,8 +183,22 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
   const handleOpenEditModal = (camp: FundraisingCampaign) => {
     setEditingCampaign(camp);
     setSelectedMemberId(camp.memberId);
-    const targetMbr = members.find(m => m.id === camp.memberId || m.nik === camp.nikAnggota);
-    setSelectedMemberObj(targetMbr || null);
+    const fetchTargetMbr = async () => {
+      try {
+        const { getDocs, query, collection, where } = await import('firebase/firestore');
+        const { db } = await import('../lib/firebase');
+        const q = query(collection(db, 'members'), where('id', '==', camp.memberId));
+        const snap = await getDocs(q);
+        if (!snap.empty) {
+          setSelectedMemberObj(snap.docs[0].data() as Member);
+        } else {
+          setSelectedMemberObj(null);
+        }
+      } catch(e) {
+        console.error(e);
+      }
+    };
+    fetchTargetMbr();
     setJenisPenerima(camp.jenisPenerima || (camp.hubungan === 'Anggota' ? 'Anggota' : 'Keluarga'));
     setNamaPasien(camp.namaPasien || (camp.hubungan === 'Anggota' ? camp.namaAnggota : ''));
     setHubungan(camp.hubungan);

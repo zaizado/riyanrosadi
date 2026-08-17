@@ -68,7 +68,9 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
   const rolesList: UserRole[] = [
     'Ketua',
     'Sekretaris',
-    'Pengurus'
+    'Bendahara',
+    'Pengurus',
+    'Anggota'
   ];
 
   const handleOpenAddUser = () => {

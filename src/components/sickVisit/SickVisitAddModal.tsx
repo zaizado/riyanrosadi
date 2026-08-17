@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, 
   HeartPulse, 
@@ -34,7 +34,7 @@ interface SickVisitAddModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (newVisit: SickVisit) => void;
-  members: Member[];
+  members?: Member[];
   currentUser: UserAccount;
   existingCount: number;
   onRequestVehicle?: (draft: any) => void;
@@ -44,17 +44,50 @@ export const SickVisitAddModal: React.FC<SickVisitAddModalProps> = ({
   isOpen,
   onClose,
   onSubmit,
-  members,
+  members = [],
   currentUser,
   existingCount,
   onRequestVehicle,
 }) => {
   // Form State
   const [selectedMemberId, setSelectedMemberId] = useState('');
+  const [selectedMemberObj, setSelectedMemberObj] = useState<Member | null>(null);
   const [jenisPasien, setJenisPasien] = useState<'Anggota' | 'Keluarga'>('Anggota');
   const [hubunganPasien, setHubunganPasien] = useState<PasienRelation>('Anggota Sendiri');
   const [namaPasien, setNamaPasien] = useState('');
   const [keteranganHubunganLain, setKeteranganHubunganLain] = useState('');
+
+  // Fetch member by ID if selectedMemberId is set but selectedMemberObj is not yet resolved
+  useEffect(() => {
+    if (!selectedMemberId) {
+      setSelectedMemberObj(null);
+      return;
+    }
+    if (selectedMemberObj && selectedMemberObj.id === selectedMemberId) return;
+
+    // Check in props first if available
+    const inProps = members.find(m => m.id === selectedMemberId);
+    if (inProps) {
+      setSelectedMemberObj(inProps);
+      return;
+    }
+
+    let isMounted = true;
+    const fetchMember = async () => {
+      try {
+        const { doc, getDoc } = await import('firebase/firestore');
+        const { db } = await import('../../lib/firebase');
+        const snap = await getDoc(doc(db, 'members', selectedMemberId));
+        if (snap.exists() && isMounted) {
+          setSelectedMemberObj({ ...snap.data(), id: snap.id } as Member);
+        }
+      } catch (err) {
+        console.warn('Failed to resolve member by ID in SickVisitAddModal:', err);
+      }
+    };
+    fetchMember();
+    return () => { isMounted = false; };
+  }, [selectedMemberId, members, selectedMemberObj]);
 
   // Kondisi & Urgensi
   const [isUrgent, setIsUrgent] = useState(true);
@@ -77,7 +110,7 @@ export const SickVisitAddModal: React.FC<SickVisitAddModalProps> = ({
 
   if (!isOpen) return null;
 
-  const selectedMember = members.find(m => m.id === selectedMemberId);
+  const selectedMember = selectedMemberObj || members.find(m => m.id === selectedMemberId) || null;
 
   // Cari detail RS
   const activeRsItem = DAFTAR_RS_RUJUKAN.find(r => r.nama === selectedRsPreset);
@@ -262,6 +295,7 @@ export const SickVisitAddModal: React.FC<SickVisitAddModalProps> = ({
               selectedMemberId={selectedMemberId}
               onSelectMember={(m) => {
                 setSelectedMemberId(m ? m.id : '');
+                setSelectedMemberObj(m);
                 if (m && jenisPasien === 'Anggota') {
                   setNamaPasien(m.namaLengkap);
                 }

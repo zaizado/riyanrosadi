@@ -91,16 +91,32 @@ export const VehicleRequestFormTab: React.FC<VehicleRequestFormTabProps> = ({
 
   // If currentUser has matched member profile
   useEffect(() => {
-    if (currentUser.memberId) {
-      const match = members.find(m => m.id === currentUser.memberId || m.nik === currentUser.nik);
-      if (match) {
-        setSelectedMember(match);
-        setNamaPemohon(match.namaLengkap);
-        setDepartemenPemohon(match.departemen || 'PTP SBN KASBI');
-        if (match.nomorHp) setKontakPemohon(match.nomorHp);
-      }
+    let isMounted = true;
+    if (currentUser.memberId || currentUser.nik) {
+      const fetchMatch = async () => {
+        try {
+          const { getDocs, query, collection, where } = await import('firebase/firestore');
+          const { db } = await import('../../lib/firebase');
+          let q;
+          if (currentUser.memberId) {
+            q = query(collection(db, 'members'), where('id', '==', currentUser.memberId));
+          } else {
+            q = query(collection(db, 'members'), where('nik', '==', currentUser.nik));
+          }
+          const snap = await getDocs(q);
+          if (isMounted && !snap.empty) {
+            const match = snap.docs[0].data() as Member;
+            setSelectedMember(match);
+            setNamaPemohon(match.namaLengkap);
+            setDepartemenPemohon(match.departemen || 'PTP SBN KASBI');
+            if (match.nomorHp) setKontakPemohon(match.nomorHp);
+          }
+        } catch (e) {}
+      };
+      fetchMatch();
     }
-  }, [currentUser, members]);
+    return () => { isMounted = false; };
+  }, [currentUser]);
 
   // When a member is picked via selector (admin mode)
   const handleMemberSelect = (member: Member) => {

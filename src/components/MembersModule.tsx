@@ -189,40 +189,166 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
   }, [members]);
 
   // Reset page when filters change
+  const [serverMembers, setServerMembers] = useState<Member[]>([]);
+  const [lastDoc, setLastDoc] = useState<any>(null);
+  const [isLoadingServer, setIsLoadingServer] = useState(false);
+  const [hasMoreServer, setHasMoreServer] = useState(true);
+
+  // Re-fetch when filters change
   useEffect(() => {
-    setCurrentPage(1);
-  }, [searchQuery, selectedDept, selectedStatus, pageSize]);
+    let isMounted = true;
+    
+    const fetchFirstPage = async () => {
+      setIsLoadingServer(true);
+      try {
+        const { getDocs, query, collection, where, limit, orderBy } = await import('firebase/firestore');
+        const { db } = await import('../lib/firebase');
+        
+        let constraints: any[] = [];
+        const term = searchQuery.trim();
+        
+        if (term) {
+           if (/^\d+$/.test(term)) {
+              constraints.push(where('nik', '>=', term));
+              constraints.push(where('nik', '<=', term + '\uf8ff'));
+              constraints.push(orderBy('nik', 'asc'));
+           } else {
+              const capitalizedTerm = term.replace(/\b\w/g, c => c.toUpperCase());
+              constraints.push(where('namaLengkap', '>=', capitalizedTerm));
+              constraints.push(where('namaLengkap', '<=', capitalizedTerm + '\uf8ff'));
+              constraints.push(orderBy('namaLengkap', 'asc'));
+           }
+        } else {
+           if (selectedStatus === 'Aktif') {
+              constraints.push(where('statusKeanggotaan', '==', 'Aktif'));
+           } else if (selectedStatus === 'Tidak Aktif') {
+              constraints.push(where('statusKeanggotaan', 'in', ['Tidak Aktif', 'Non-Aktif']));
+           }
+           if (selectedDept !== 'All') {
+              constraints.push(where('departemen', '==', selectedDept));
+           }
+        }
+        
+        constraints.push(limit(100)); // Fetch 100 at a time
+        
+        const q = query(collection(db, 'members'), ...constraints);
+        const snap = await getDocs(q);
+        
+        if (isMounted) {
+          const newMembers = snap.docs.map(d => ({ ...d.data(), id: d.id } as Member));
+          
+          // Client-side apply filters if search was used (since search ignores other filters to avoid composite indexes)
+          let finalMembers = newMembers;
+          if (term) {
+            finalMembers = newMembers.filter(m => {
+              const matchDept = selectedDept === 'All' || m.departemen === selectedDept;
+              const isMemberInactive = m.statusKeanggotaan === 'Tidak Aktif' || m.statusKeanggotaan === 'Non-Aktif' || m.isMissingFromExcel === true;
+              const matchStatus = 
+                selectedStatus === 'All' ? true :
+                selectedStatus === 'Aktif' ? (m.statusKeanggotaan === 'Aktif' && !m.isMissingFromExcel) :
+                selectedStatus === 'Tidak Aktif' ? isMemberInactive : true;
+              return matchDept && matchStatus;
+            });
+          }
 
-  // Filtered Members
-  const filteredMembers = useMemo(() => {
-    const query = searchQuery.trim().toLowerCase();
-    return members.filter((m) => {
-      const matchSearch = !query || 
-        (m.namaLengkap && m.namaLengkap.toLowerCase().includes(query)) ||
-        (m.nik && m.nik.toLowerCase().includes(query)) ||
-        (m.nomorAnggota && m.nomorAnggota.toLowerCase().includes(query)) ||
-        (m.bagian && m.bagian.toLowerCase().includes(query)) ||
-        (m.departemen && m.departemen.toLowerCase().includes(query)) ||
-        (m.nomorHp && m.nomorHp.includes(query));
+          setServerMembers(finalMembers);
+          setLastDoc(snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null);
+          setHasMoreServer(snap.docs.length === 100);
+          setCurrentPage(1);
+        }
+      } catch (err) {
+        console.error('Failed to fetch members:', err);
+      } finally {
+        if (isMounted) setIsLoadingServer(false);
+      }
+    };
+    
+    // Debounce initial fetch if searching
+    const timer = setTimeout(() => {
+      fetchFirstPage();
+    }, 500);
+    
+    return () => { isMounted = false; clearTimeout(timer); };
+  }, [searchQuery, selectedDept, selectedStatus]);
 
-      const matchDept = selectedDept === 'All' || m.departemen === selectedDept;
+  const loadMoreMembers = async () => {
+    if (!lastDoc || !hasMoreServer || isLoadingServer) return;
+    setIsLoadingServer(true);
+    try {
+        const { getDocs, query, collection, where, limit, startAfter, orderBy } = await import('firebase/firestore');
+        const { db } = await import('../lib/firebase');
+        
+        let constraints: any[] = [];
+        const term = searchQuery.trim();
+        
+        if (term) {
+           if (/^\d+$/.test(term)) {
+              constraints.push(where('nik', '>=', term));
+              constraints.push(where('nik', '<=', term + '\uf8ff'));
+              constraints.push(orderBy('nik', 'asc'));
+           } else {
+              const capitalizedTerm = term.replace(/\b\w/g, c => c.toUpperCase());
+              constraints.push(where('namaLengkap', '>=', capitalizedTerm));
+              constraints.push(where('namaLengkap', '<=', capitalizedTerm + '\uf8ff'));
+              constraints.push(orderBy('namaLengkap', 'asc'));
+           }
+        } else {
+           if (selectedStatus === 'Aktif') {
+              constraints.push(where('statusKeanggotaan', '==', 'Aktif'));
+           } else if (selectedStatus === 'Tidak Aktif') {
+              constraints.push(where('statusKeanggotaan', 'in', ['Tidak Aktif', 'Non-Aktif']));
+           }
+           if (selectedDept !== 'All') {
+              constraints.push(where('departemen', '==', selectedDept));
+           }
+        }
+        
+        constraints.push(startAfter(lastDoc));
+        constraints.push(limit(100));
+        
+        const q = query(collection(db, 'members'), ...constraints);
+        const snap = await getDocs(q);
+        
+        const newMembers = snap.docs.map(d => ({ ...d.data(), id: d.id } as Member));
+        let finalMembers = newMembers;
+        if (term) {
+          finalMembers = newMembers.filter(m => {
+            const matchDept = selectedDept === 'All' || m.departemen === selectedDept;
+            const isMemberInactive = m.statusKeanggotaan === 'Tidak Aktif' || m.statusKeanggotaan === 'Non-Aktif' || m.isMissingFromExcel === true;
+            const matchStatus = 
+              selectedStatus === 'All' ? true :
+              selectedStatus === 'Aktif' ? (m.statusKeanggotaan === 'Aktif' && !m.isMissingFromExcel) :
+              selectedStatus === 'Tidak Aktif' ? isMemberInactive : true;
+            return matchDept && matchStatus;
+          });
+        }
 
-      const isMemberInactive = m.statusKeanggotaan === 'Tidak Aktif' || m.statusKeanggotaan === 'Non-Aktif' || m.isMissingFromExcel === true;
-      const matchStatus = 
-        selectedStatus === 'All' ? true :
-        selectedStatus === 'Aktif' ? (m.statusKeanggotaan === 'Aktif' && !m.isMissingFromExcel) :
-        selectedStatus === 'Tidak Aktif' ? isMemberInactive : true;
+        setServerMembers(prev => [...prev, ...finalMembers]);
+        setLastDoc(snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null);
+        setHasMoreServer(snap.docs.length === 100);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoadingServer(false);
+    }
+  };
 
-      return matchSearch && matchDept && matchStatus;
-    });
-  }, [members, searchQuery, selectedDept, selectedStatus]);
+  // Filtered Members (now just the serverMembers array)
+  const filteredMembers = serverMembers;
 
   // Paginated Members
-  const totalPages = Math.max(1, Math.ceil(filteredMembers.length / pageSize));
+  const totalPages = Math.max(1, Math.ceil(filteredMembers.length / pageSize) + (hasMoreServer ? 1 : 0));
   const startIndex = (currentPage - 1) * pageSize;
   const paginatedMembers = useMemo(() => {
     return filteredMembers.slice(startIndex, startIndex + pageSize);
   }, [filteredMembers, startIndex, pageSize]);
+
+  // Load more when reaching near the end
+  useEffect(() => {
+    if (currentPage * pageSize >= filteredMembers.length && hasMoreServer) {
+      loadMoreMembers();
+    }
+  }, [currentPage, pageSize, filteredMembers.length, hasMoreServer]);
 
   // EXPORT EXCEL (Exact 10 Official Headers Compatible with Import)
   const handleExportExcel = () => {
@@ -308,7 +434,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
   };
 
   // ANALYZE RAW IMPORT DATA & GENERATE PREVIEW ANALYSIS
-  const analyzeRawImportData = (rows: any[], fileName: string) => {
+  const analyzeRawImportData = async (rows: any[], fileName: string) => {
     if (!rows || rows.length === 0) {
       setImportError('File Excel/CSV tidak berisi baris data.');
       return;
@@ -437,8 +563,13 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
     });
 
     // 3. Categorize against existing Firestore members database
+    const { getDocs, collection } = await import('firebase/firestore');
+    const { db } = await import('../lib/firebase');
+    const existingSnap = await getDocs(collection(db, 'members'));
+    const allMembers = existingSnap.docs.map(d => ({ ...d.data(), id: d.id } as Member));
+
     const existingMembersByNik = new Map<string, Member>();
-    members.forEach(m => {
+    allMembers.forEach(m => {
       if (m.nik && m.nik.trim()) {
         existingMembersByNik.set(m.nik.trim().toLowerCase(), m);
       }
@@ -461,7 +592,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
         const newMbr: Member = {
           id: row.nik,
           nik: row.nik,
-          nomorAnggota: `SBN-VCI-${String(members.length + newMembers.length + 1).padStart(4, '0')}`,
+          nomorAnggota: `SBN-VCI-${String(allMembers.length + newMembers.length + 1).padStart(4, '0')}`,
           namaLengkap: row.namaLengkap,
           jenisKelamin: row.jenisKelamin,
           tempatLahir: 'Tangerang',
@@ -565,7 +696,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
     });
 
     // 🔴 MENJADI TIDAK AKTIF (Members in Firestore but missing in Excel)
-    members.forEach(m => {
+    allMembers.forEach(m => {
       const normNikLower = (m.nik || '').toLowerCase().trim();
       if (!excelNiksSet.has(normNikLower)) {
         const isAlreadyInactive = m.statusKeanggotaan === 'Tidak Aktif' || m.statusKeanggotaan === 'Non-Aktif' || m.isMissingFromExcel === true;

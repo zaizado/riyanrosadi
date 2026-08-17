@@ -78,12 +78,30 @@ export const StructureModule: React.FC<StructureModuleProps> = ({
   };
 
   // Helper to match officer item with Member record by NIK
+  const [pengurusMembers, setPengurusMembers] = useState<Member[]>([]);
+  useEffect(() => {
+    let isMounted = true;
+    const fetchP = async () => {
+      try {
+        const { getDocs, query, collection, where } = await import('firebase/firestore');
+        const { db } = await import('../lib/firebase');
+        const q = query(collection(db, 'members'), where('jabatanOrganisasi', '!=', 'Anggota'));
+        const snap = await getDocs(q);
+        if (isMounted) {
+          setPengurusMembers(snap.docs.map(d => d.data() as Member));
+        }
+      } catch(e) {
+        console.warn(e);
+      }
+    };
+    fetchP();
+    return () => { isMounted = false; };
+  }, []);
+
   const findMatchingMemberForOfficer = (p: PengurusItem): Member | null => {
-    if (!members || members.length === 0) return null;
     const pNik = (p.nik || '').trim();
     if (!pNik) return null;
-
-    return members.find(m => m.nik && matchNik(m.nik, pNik)) || null;
+    return pengurusMembers.find(m => m.nik && matchNik(m.nik, pNik)) || null;
   };
 
   // Unified officer resolution from real-time database state (users & members)

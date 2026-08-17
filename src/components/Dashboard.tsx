@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from 'recharts';
 import { PkbModal } from './PkbModal';
@@ -102,9 +102,45 @@ export const Dashboard: React.FC<DashboardProps> = ({
     });
   }, []);
 
-  // Real Counts
-  const activeMembersCount = members.filter(m => m.statusKeanggotaan === 'Aktif').length;
-  const pengurusCount = members.filter(m => m.jabatanOrganisasi && m.jabatanOrganisasi !== 'Anggota').length;
+  // Real Counts with on-demand Firestore count fallback
+  const [memberCounts, setMemberCounts] = useState<{ active: number; pengurus: number }>({
+    active: members.filter(m => m.statusKeanggotaan === 'Aktif').length,
+    pengurus: members.filter(m => m.jabatanOrganisasi && m.jabatanOrganisasi !== 'Anggota').length
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchRealCounts = async () => {
+      if (members.length > 0) {
+        setMemberCounts({
+          active: members.filter(m => m.statusKeanggotaan === 'Aktif').length,
+          pengurus: members.filter(m => m.jabatanOrganisasi && m.jabatanOrganisasi !== 'Anggota').length
+        });
+        return;
+      }
+      try {
+        const { getCountFromServer, query, collection, where } = await import('firebase/firestore');
+        const { db } = await import('../lib/firebase');
+        const [activeSnap, pengurusSnap] = await Promise.all([
+          getCountFromServer(query(collection(db, 'members'), where('statusKeanggotaan', '==', 'Aktif'))),
+          getCountFromServer(query(collection(db, 'members'), where('jabatanOrganisasi', '!=', 'Anggota')))
+        ]);
+        if (isMounted) {
+          setMemberCounts({
+            active: activeSnap.data().count,
+            pengurus: pengurusSnap.data().count
+          });
+        }
+      } catch (err) {
+        // Quota exceeded or offline - maintain existing/safe count
+      }
+    };
+    fetchRealCounts();
+    return () => { isMounted = false; };
+  }, [members]);
+
+  const activeMembersCount = memberCounts.active;
+  const pengurusCount = memberCounts.pengurus;
 
   // SICK VISITS METRICS
   const sickWaitingCount = sickVisits.filter(

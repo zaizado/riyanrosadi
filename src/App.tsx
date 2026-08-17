@@ -32,6 +32,7 @@ import { STRUKTUR_PENGURUS_DATA } from './data/strukturPengurusData';
 import { 
   UserAccount, 
   Member, 
+  MemberStatus,
   AdvocacyCase, 
   SickVisit, 
   OrganizationAgenda, 
@@ -153,25 +154,6 @@ export default function App() {
     setIsLoggedIn(false);
     playNotificationSound();
   };
-
-  // Presence heartbeat: Ping current user's lastActive timestamp every 60s without overwriting profile fields
-  useEffect(() => {
-    if (!isLoggedIn || !currentUser?.id) return;
-
-    const pingPresence = async () => {
-      const nowIso = new Date().toISOString();
-      try {
-        await saveFirestoreDoc('users', { id: currentUser.id, lastActive: nowIso });
-      } catch (e) {
-        // Silently handle offline
-      }
-    };
-
-    pingPresence();
-    const presenceInterval = setInterval(pingPresence, 60000);
-
-    return () => clearInterval(presenceInterval);
-  }, [isLoggedIn, currentUser?.id]);
 
   // Realtime Sync: Keep active currentUser state in sync with Firestore users collection and Firebase Auth
   useEffect(() => {
@@ -450,13 +432,52 @@ export default function App() {
     await createLog('Data Anggota', 'Update Data Anggota', `Memperbarui biodata ${updatedMbr.namaLengkap} (${updatedMbr.nomorAnggota}).`, updatedMbr.id);
   };
 
+  const handleToggleMemberStatus = async (memberId: string, newStatus?: MemberStatus) => {
+    try {
+      const { doc, getDoc } = await import('firebase/firestore');
+      const { db } = await import('./lib/firebase');
+      const memberDocRef = doc(db, 'members', memberId);
+      const snap = await getDoc(memberDocRef);
+      if (!snap.exists()) {
+        console.warn(`Member ${memberId} not found in Firestore`);
+        return;
+      }
+      const existing = snap.data() as Member;
+      const targetStatus = newStatus || (existing.statusKeanggotaan === 'Aktif' ? 'Tidak Aktif' : 'Aktif');
+      const updated: Member = {
+        ...existing,
+        id: snap.id,
+        statusKeanggotaan: targetStatus
+      };
+      await AppService.updateMember(updated);
+      setMembers(prev => prev.map(m => m.id === updated.id ? updated : m));
+      await createLog('Data Anggota', 'Update Status Anggota', `Mengubah status anggota ${existing.namaLengkap} (${existing.nomorAnggota || '-'}) menjadi ${targetStatus}.`, memberId);
+    } catch (err) {
+      console.error('Failed to toggle member status:', err);
+      throw err;
+    }
+  };
+
   const handleDeleteMember = async (memberId: string) => {
-    const target = members.find(m => m.id === memberId);
+    let targetName = `ID ${memberId}`;
+    let targetNo = '';
+    try {
+      const { doc, getDoc } = await import('firebase/firestore');
+      const { db } = await import('./lib/firebase');
+      const memberDocRef = doc(db, 'members', memberId);
+      const snap = await getDoc(memberDocRef);
+      if (snap.exists()) {
+        const target = snap.data() as Member;
+        targetName = target.namaLengkap || targetName;
+        targetNo = target.nomorAnggota ? ` (${target.nomorAnggota})` : '';
+      }
+    } catch (e) {
+      console.warn('Failed to read member details before deletion:', e);
+    }
+
     await AppService.deleteMember(memberId);
     setMembers(prev => prev.filter(m => m.id !== memberId));
-    if (target) {
-      await createLog('Data Anggota', 'Hapus Anggota', `Menghapus data anggota ${target.namaLengkap} (${target.nomorAnggota}).`, memberId);
-    }
+    await createLog('Data Anggota', 'Hapus Anggota', `Menghapus data anggota ${targetName}${targetNo}.`, memberId);
   };
 
   const handleImportMembers = async (importedMembers: Member[]) => {
@@ -751,23 +772,27 @@ export default function App() {
 
     // Synchronize photo, email, and WhatsApp/phone update by NIK to Members in Firestore
     if (userToSave.nik) {
-      const userNikClean = String(userToSave.nik).trim().toLowerCase().replace(/^0+/, '');
-
-      const targetMember = members.find(m => {
-        if (!m.nik) return false;
-        const mNikClean = String(m.nik).trim().toLowerCase().replace(/^0+/, '');
-        return mNikClean === userNikClean || String(m.nik).trim().toLowerCase() === String(userToSave.nik).trim().toLowerCase();
-      });
-
-      if (targetMember) {
-        const updatedMember: Member = {
-          ...targetMember,
-          ...(userToSave.avatarUrl ? { fotoUrl: userToSave.avatarUrl } : {}),
-          ...(userToSave.phoneNumber ? { nomorHp: userToSave.phoneNumber } : {}),
-          ...(userToSave.email ? { email: userToSave.email } : {})
-        };
-        await AppService.updateMember(updatedMember);
-        setMembers(prev => prev.map(m => m.id === updatedMember.id ? updatedMember : m));
+      try {
+        const { getDocs, query, collection, where } = await import('firebase/firestore');
+        const { db } = await import('./lib/firebase');
+        const q = query(collection(db, 'members'), where('nik', '==', userToSave.nik));
+        const snap = await getDocs(q);
+        
+        if (!snap.empty) {
+          const targetMemberDoc = snap.docs[0];
+          const targetMember = targetMemberDoc.data() as Member;
+          const updatedMember: Member = {
+            ...targetMember,
+            id: targetMemberDoc.id,
+            ...(userToSave.avatarUrl ? { fotoUrl: userToSave.avatarUrl } : {}),
+            ...(userToSave.phoneNumber ? { nomorHp: userToSave.phoneNumber } : {}),
+            ...(userToSave.email ? { email: userToSave.email } : {})
+          };
+          await AppService.updateMember(updatedMember);
+          setMembers(prev => prev.map(m => m.id === updatedMember.id ? updatedMember : m));
+        }
+      } catch (err) {
+        console.warn('Failed to sync member profile:', err);
       }
     }
 

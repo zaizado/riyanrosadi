@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../lib/firebase';
+import { auth, subscribeDocument, db } from '../lib/firebase';
 import {
   Member,
   AdvocacyCase,
@@ -14,7 +14,9 @@ import {
   AuditLog,
   FundraisingCampaign,
   NotulensiFileItem,
-  checkIsAdmin
+  checkIsAdmin,
+  isAuthorizedPengurus,
+  isValidUserRole
 } from '../types';
 import { repositories } from '../repositories';
 import { auditLogRepository } from '../repositories/auditLogRepository';
@@ -23,6 +25,37 @@ import { resolveUserProfile } from '../lib/authSession';
 import { SeveranceCalculationResult, PkbRuleConfig } from '../types/severance';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { syncManager, SyncState, GlobalSyncDetails } from '../lib/syncManager';
+
+export const formatUserAccount = (u: any): UserAccount => {
+  const raw = u as any;
+  const emailLower = (raw.email || '').toLowerCase();
+  const rawRole = raw.role || raw.jabatan;
+  let normalizedRole: UserAccount['role'] = 'Pengurus';
+  if (rawRole === 'Super Admin') normalizedRole = 'Super Admin';
+  else if (rawRole === 'Administrator') normalizedRole = 'Administrator';
+  else if (rawRole === 'Admin') normalizedRole = 'Admin';
+  else if (rawRole === 'Ketua' || rawRole === 'Wakil Ketua') normalizedRole = 'Ketua';
+  else if (rawRole === 'Sekretaris') normalizedRole = 'Sekretaris';
+  else if (rawRole === 'Bendahara') normalizedRole = 'Bendahara';
+  else if (rawRole === 'Anggota') normalizedRole = 'Anggota';
+  else if (rawRole === 'Pengurus') normalizedRole = 'Pengurus';
+
+  return {
+    ...u,
+    id: raw.id || raw.uid || '',
+    name: raw.name || raw.nama || raw.displayName || raw.fullName || raw.username || 'Pengurus SBN',
+    username: raw.username || raw.userName || (emailLower ? emailLower.split('@')[0] : 'user'),
+    email: raw.email || '',
+    nik: raw.nik || raw.noKtp || raw.nip || '-',
+    role: normalizedRole,
+    department: raw.department || raw.departemen || raw.divisi || 'PT Victory Chingluh Indonesia',
+    phoneNumber: raw.phoneNumber || raw.phone || raw.nomorHp || raw.noHp || '-',
+    avatarUrl: raw.avatarUrl || raw.fotoUrl || cheAvatar,
+    isSuperAdmin: normalizedRole === 'Super Admin' || raw.isSuperAdmin === true || false,
+    isAdmin: raw.isAdmin || normalizedRole === 'Super Admin' || normalizedRole === 'Ketua' || normalizedRole === 'Sekretaris' || normalizedRole === 'Administrator' || normalizedRole === 'Admin' || normalizedRole === 'Bendahara' || false,
+    lastActive: raw.lastActive || undefined
+  };
+};
 
 export const useAppData = (currentUserParam?: UserAccount | null) => {
   const [members, setMembers] = useState<Member[]>([]);
@@ -64,174 +97,103 @@ export const useAppData = (currentUserParam?: UserAccount | null) => {
     }
   }, [currentUserParam]);
 
-  // Main listener for general collections (available to all signed-in pengurus)
+  // Effect 1: Auth & Self Profile
   useEffect(() => {
-    let unsubs: (() => void)[] = [];
-
+    let unsubProfile: (() => void) | null = null;
+    
     const unsubscribeAuth = onAuthStateChanged(auth, (fbUser) => {
-      // Clean up any existing collection listeners when auth state changes
-      unsubs.forEach(fn => {
-        try { fn(); } catch (e) { /* ignore cleanup errors */ }
-      });
-      unsubs = [];
+      if (unsubProfile) {
+        try { unsubProfile(); } catch (e) {}
+        unsubProfile = null;
+      }
 
       if (!fbUser) {
-        // User is logged out / unauthenticated - do not subscribe to protected collections
         setResolvedUser(null);
+        setUsers([]);
         return;
       }
 
-      // Resolve user profile for permissions
+      // Synchronous optimistic resolution from cache
       const { matchedUser } = resolveUserProfile({
         firebaseUser: fbUser,
-        users: usersRef.current,
+        users: [],
         cachedUser: getCurrentUser()
       });
-      if (matchedUser) {
-        setResolvedUser(matchedUser);
-      }
+      setResolvedUser(matchedUser || null);
 
-      const handleErr = (err: Error) => {
-        console.warn('Firestore subscription warning:', err.message);
-      };
-
-      unsubs.push(repositories.members.subscribe([], (items) => {
-        const formatted = items.map(m => ({
-          ...m,
-          fotoUrl: m.fotoUrl || cheAvatar
-        }));
-        setMembers(formatted);
-      }, handleErr));
-
-      unsubs.push(repositories.advocacy.subscribe([], (items) => {
-        setAdvocacyCases(items);
-      }, handleErr));
-
-      unsubs.push(repositories.sickVisits.subscribe([], (items) => {
-        setSickVisits(items);
-      }, handleErr));
-
-      unsubs.push(repositories.fundraising.subscribe([], (items) => {
-        setFundraisingCampaigns(items);
-      }, handleErr));
-
-      unsubs.push(repositories.agendas.subscribe([], (items) => {
-        setAgendas(items);
-      }, handleErr));
-
-      unsubs.push(repositories.notulensi.subscribe([], (items) => {
-        setNotulensiFiles(items);
-      }, handleErr));
-
-      unsubs.push(repositories.sembakoEvents.subscribe([], (items) => {
-        setSembakoEvents(items);
-      }, handleErr));
-
-      unsubs.push(repositories.sembakoClaims.subscribe([], (items) => {
-        setSembakoClaims(items);
-      }, handleErr));
-
-      unsubs.push(repositories.vehicles.subscribeRecent([], (items) => {
-        setVehicleLogs(items);
-      }, handleErr, 100));
-
-      unsubs.push(repositories.users.subscribe([], (items) => {
-        // Filter out and cleanup legacy "Dewan Pimpinan Utama" accounts from previous bootstrap
-        const cleanedItems = items.filter(u => {
-          const raw = u as any;
-          const name = (raw.name || raw.nama || '').trim();
-          const dept = (raw.department || raw.departemen || '').trim();
-          if (dept === 'Dewan Pimpinan Utama' || name === 'Dewan Pimpinan Utama' || name === 'Super Admin SBN KASBI') {
-            if (raw.id && raw.id !== 'usr-superadmin') {
-              repositories.users.delete(raw.id).catch(() => {});
-            }
-            return false;
-          }
-          return true;
+      // Subscribe to real profile from Firestore
+      const handleErr = (err: Error) => console.warn('Profile subscription warning:', err.message);
+      unsubProfile = subscribeDocument<any>('users', fbUser.uid, (docData) => {
+        const { matchedUser: updatedMatched } = resolveUserProfile({
+          firebaseUser: fbUser,
+          users: docData ? [formatUserAccount(docData)] : [],
+          cachedUser: getCurrentUser()
         });
 
-        const formatted: UserAccount[] = cleanedItems.map(u => {
-          const raw = u as any;
-          const emailLower = (raw.email || '').toLowerCase();
-          return {
-            ...u,
-            id: raw.id || raw.uid || '',
-            name: raw.name || raw.nama || raw.displayName || raw.fullName || raw.username || 'Pengurus SBN',
-            username: raw.username || raw.userName || (emailLower ? emailLower.split('@')[0] : 'user'),
-            email: raw.email || '',
-            nik: raw.nik || raw.noKtp || raw.nip || '-',
-            role: raw.role || raw.jabatan || 'Pengurus',
-            department: raw.department || raw.departemen || raw.divisi || 'PT Victory Chingluh Indonesia',
-            phoneNumber: raw.phoneNumber || raw.phone || raw.nomorHp || raw.noHp || '-',
-            avatarUrl: raw.avatarUrl || raw.fotoUrl || cheAvatar,
-            isSuperAdmin: raw.role === 'Super Admin' || raw.isSuperAdmin === true || false,
-            isAdmin: raw.isAdmin || false,
-            lastActive: raw.lastActive || undefined
-          };
-        });
-        setUsers(formatted);
-
-        const currentFbUser = auth.currentUser;
-        if (currentFbUser) {
-          const { matchedUser: updatedMatched } = resolveUserProfile({
-            firebaseUser: currentFbUser,
-            users: formatted,
-            cachedUser: getCurrentUser()
-          });
-          if (updatedMatched) {
-            setResolvedUser(updatedMatched);
-            setCurrentUser(updatedMatched);
-          }
+        if (updatedMatched) {
+          setResolvedUser(updatedMatched);
+          setCurrentUser(updatedMatched);
+        } else {
+          setResolvedUser(null);
         }
-      }, handleErr));
-
-      unsubs.push(repositories.severanceCalculations.subscribeRecent([], (items) => {
-        setSeveranceCalculations(items);
-      }, handleErr, 50));
-
-      unsubs.push(repositories.severanceRules.subscribe([], (items) => {
-        setPkbRules(items);
-      }, handleErr));
-
-      unsubs.push(auditLogRepository.subscribeRecent([], (items) => {
-        setAuditLogs(sortAuditLogsNewestFirst(items));
-      }, handleErr, 100));
+      }, handleErr);
     });
 
     return () => {
-      unsubs.forEach(fn => {
-        try { fn(); } catch (e) { /* ignore cleanup errors */ }
-      });
+      if (unsubProfile) {
+        try { unsubProfile(); } catch (e) {}
+      }
       unsubscribeAuth();
     };
   }, []);
 
-  // Dedicated conditional subscription for financeRecords (ONLY for Admin / Bendahara / Super Admin)
+  // Effect 2: Business & Admin Collections
   useEffect(() => {
-    let unsubFinance: (() => void) | null = null;
+    let unsubs: (() => void)[] = [];
     const currentFbUser = auth.currentUser;
-    const effectiveUser = currentUserParam || resolvedUser || getCurrentUser();
 
-    // Strict role check matching firestore.rules: isAdmin()
+    if (!resolvedUser || !isValidUserRole(resolvedUser.role) || !isAuthorizedPengurus(resolvedUser, currentFbUser)) {
+       return () => {}; // Do nothing, cleanup if previously subscribed
+    }
+
+    const handleErr = (err: Error) => {
+      console.warn('Firestore subscription warning:', err.message);
+    };
+
+    // Note: members and sembakoClaims are intentionally NOT subscribed globally to save bandwidth and reads.
+    // They are fetched on-demand by their respective modules.
+    
+    unsubs.push(repositories.advocacy.subscribe([], (items) => { setAdvocacyCases(items); }, handleErr));
+    unsubs.push(repositories.sickVisits.subscribe([], (items) => { setSickVisits(items); }, handleErr));
+    unsubs.push(repositories.fundraising.subscribe([], (items) => { setFundraisingCampaigns(items); }, handleErr));
+    unsubs.push(repositories.agendas.subscribe([], (items) => { setAgendas(items); }, handleErr));
+    unsubs.push(repositories.notulensi.subscribe([], (items) => { setNotulensiFiles(items); }, handleErr));
+    unsubs.push(repositories.sembakoEvents.subscribe([], (items) => { setSembakoEvents(items); }, handleErr));
+    // sembakoClaims removed
+    unsubs.push(repositories.vehicles.subscribeRecent([], (items) => { setVehicleLogs(items); }, handleErr, 50));
+    unsubs.push(repositories.severanceCalculations.subscribeRecent([], (items) => { setSeveranceCalculations(items); }, handleErr, 50));
+    unsubs.push(repositories.severanceRules.subscribe([], (items) => { setPkbRules(items); }, handleErr));
+    unsubs.push(auditLogRepository.subscribeRecent([], (items) => { setAuditLogs(sortAuditLogsNewestFirst(items)); }, handleErr, 15));
+
+    // Admin-only subscriptions
+    const effectiveUser = currentUserParam || resolvedUser;
     const isAuthorizedForFinance = checkIsAdmin(effectiveUser, currentFbUser);
 
-    if (currentFbUser && isAuthorizedForFinance) {
-      const handleErr = (err: Error) => {
-        console.warn('Firestore finance subscription warning:', err.message);
-      };
-
-      unsubFinance = repositories.finance.subscribe([], (items) => {
-        setFinanceRecords(items);
-      }, handleErr);
+    if (isAuthorizedForFinance) {
+      unsubs.push(repositories.finance.subscribe([], (items) => { setFinanceRecords(items); }, handleErr));
+      
+      unsubs.push(repositories.users.subscribe([], (items) => {
+        const formatted = items.map(u => formatUserAccount(u));
+        setUsers(formatted);
+      }, handleErr));
     } else {
-      // Clear finance records if user is not authorized or logged out
       setFinanceRecords([]);
+      // Just put self in users array so UI logic relying on users list doesn't break
+      setUsers([resolvedUser]);
     }
 
     return () => {
-      if (unsubFinance) {
-        try { unsubFinance(); } catch (e) { /* ignore cleanup errors */ }
-      }
+      unsubs.forEach(fn => { try { fn(); } catch (e) {} });
     };
   }, [
     currentUserParam?.id,

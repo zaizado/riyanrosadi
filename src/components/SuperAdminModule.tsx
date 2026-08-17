@@ -94,10 +94,13 @@ export const SuperAdminModule: React.FC<SuperAdminModuleProps> = ({
 
   const rolesList: UserRole[] = [
     'Super Admin',
+    'Administrator',
+    'Admin',
     'Ketua',
     'Sekretaris',
+    'Bendahara',
     'Pengurus',
-    'Administrator'
+    'Anggota'
   ];
 
   // Handler: Update Super Admin Password / Username
