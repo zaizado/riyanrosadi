@@ -33,10 +33,11 @@ import { SembakoEvent, SembakoClaim, Member, UserAccount, checkIsSuperAdmin } fr
 import { getLocalDateISO } from '../utils/dateUtils';
 import { ConfirmModal } from './ConfirmModal';
 import { AppService } from '../services/appService';
+import { repositories } from '../repositories';
 
 interface SembakoModuleProps {
-  sembakoEvents: SembakoEvent[];
-  sembakoClaims: SembakoClaim[];
+  sembakoEvents?: SembakoEvent[];
+  sembakoClaims?: SembakoClaim[];
   members: Member[];
   onAddEvent: (newEvent: SembakoEvent, initialClaims: SembakoClaim[]) => void;
   onUpdateClaim: (updatedClaim: SembakoClaim) => void;
@@ -46,8 +47,8 @@ interface SembakoModuleProps {
 }
 
 export const SembakoModule: React.FC<SembakoModuleProps> = ({
-  sembakoEvents,
-  sembakoClaims,
+  sembakoEvents = [],
+  sembakoClaims = [],
   members,
   onAddEvent,
   onUpdateClaim,
@@ -55,8 +56,28 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
   onDeleteClaim,
   currentUser,
 }) => {
+  const [localEvents, setLocalEvents] = useState<SembakoEvent[]>(sembakoEvents);
+
+  // Scoped on-demand subscription for Sembako Events with unmount cleanup
+  useEffect(() => {
+    let isMounted = true;
+    const unsub = repositories.sembakoEvents.subscribeRecent(
+      sembakoEvents,
+      (items) => {
+        if (isMounted) setLocalEvents(items);
+      },
+      (err) => console.warn('Sembako events subscribe warning:', err.message),
+      50
+    );
+
+    return () => {
+      isMounted = false;
+      unsub();
+    };
+  }, []);
+
   const isSuperAdmin = checkIsSuperAdmin(currentUser);
-  const activeEvent = sembakoEvents.find(e => e.status === 'Aktif') || sembakoEvents[0];
+  const activeEvent = localEvents.find(e => e.status === 'Aktif') || localEvents[0];
   
   const [selectedEventId, setSelectedEventId] = useState<string>(activeEvent?.id || '');
   const [localClaims, setLocalClaims] = useState<SembakoClaim[]>([]);
@@ -117,13 +138,13 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
   }, [selectedEventId]);
 
   useEffect(() => {
-    if (sembakoEvents.length > 0 && (!selectedEventId || !sembakoEvents.some(e => e.id === selectedEventId))) {
-      const defaultEv = sembakoEvents.find(e => e.status === 'Aktif') || sembakoEvents[0];
+    if (localEvents.length > 0 && (!selectedEventId || !localEvents.some(e => e.id === selectedEventId))) {
+      const defaultEv = localEvents.find(e => e.status === 'Aktif') || localEvents[0];
       if (defaultEv) {
         setSelectedEventId(defaultEv.id);
       }
     }
-  }, [sembakoEvents, selectedEventId]);
+  }, [localEvents, selectedEventId]);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'All' | 'Belum Ambil' | 'Sudah Ambil'>('All');
 
@@ -159,7 +180,7 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
   const [newEventJenisPaket, setNewEventJenisPaket] = useState('Paket Beras 10kg + Minyak Goreng 2L + Gula 1kg');
   const [newEventKeterangan, setNewEventKeterangan] = useState('Khusus Anggota Aktif SBN KASBI PT Victory Chingluh Indonesia.');
 
-  const currentEventObj = sembakoEvents.find(e => e.id === selectedEventId) || activeEvent;
+  const currentEventObj = localEvents.find(e => e.id === selectedEventId) || activeEvent;
 
   // Handle updates manually so we don't have to re-fetch or wait for parent
   const handleUpdateLocalClaim = async (updatedClaim: SembakoClaim) => {
@@ -496,7 +517,7 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
 
             {/* Event selector dropdown & Delete button */}
             <div className="flex items-center gap-2 flex-wrap text-xs">
-              {sembakoEvents.length > 1 && (
+              {localEvents.length > 1 && (
                 <div>
                   <label className="block text-slate-400 mb-1 font-semibold">Pilih Event Sembako</label>
                   <select
@@ -504,7 +525,7 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
                     onChange={(e) => setSelectedEventId(e.target.value)}
                     className="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-semibold"
                   >
-                    {sembakoEvents.map(e => <option key={e.id} value={e.id}>{e.namaEvent}</option>)}
+                    {localEvents.map(e => <option key={e.id} value={e.id}>{e.namaEvent}</option>)}
                   </select>
                 </div>
               )}

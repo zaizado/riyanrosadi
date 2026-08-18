@@ -83,7 +83,17 @@ export class VehicleLogRepository extends BaseRepository<VehicleLog> {
     return this.subscribe(initialItems, onUpdate, onError, [orderBy('tanggal', 'desc'), limit(limitCount)]);
   }
 }
-export class FinanceRepository extends BaseRepository<FinanceDailyRecord> { constructor() { super('financeRecords'); } }
+export class FinanceRepository extends BaseRepository<FinanceDailyRecord> { 
+  constructor() { super('financeRecords'); } 
+  public subscribeRecent(
+    initialItems: FinanceDailyRecord[],
+    onUpdate: (items: FinanceDailyRecord[]) => void,
+    onError?: (err: Error) => void,
+    limitCount: number = 50
+  ): () => void {
+    return this.subscribe(initialItems, onUpdate, onError, [orderBy('tanggal', 'desc'), limit(limitCount)]);
+  }
+}
 export class UserRepository extends BaseRepository<UserAccount> { constructor() { super('users'); } }
 export class FundraisingRepository extends BaseRepository<FundraisingCampaign> { 
   constructor() { super('fundraising'); } 
@@ -93,7 +103,7 @@ export class FundraisingRepository extends BaseRepository<FundraisingCampaign> {
     onError?: (err: Error) => void,
     limitCount: number = 50
   ): () => void {
-    return this.subscribe(initialItems, onUpdate, onError, [orderBy('startDate', 'desc'), limit(limitCount)]);
+    return this.subscribe(initialItems, onUpdate, onError, [orderBy('tanggalDigalang', 'desc'), limit(limitCount)]);
   }
 }
 export class SeveranceCalculationRepository extends BaseRepository<SeveranceCalculationResult> { 
@@ -107,7 +117,17 @@ export class SeveranceCalculationRepository extends BaseRepository<SeveranceCalc
     return this.subscribe(initialItems, onUpdate, onError, [orderBy('calculatedAt', 'desc'), limit(limitCount)]);
   }
 }
-export class SeveranceRuleRepository extends BaseRepository<PkbRuleConfig> { constructor() { super('severanceRules'); } }
+export class SeveranceRuleRepository extends BaseRepository<PkbRuleConfig> { 
+  constructor() { super('severanceRules'); } 
+  public subscribeRecent(
+    initialItems: PkbRuleConfig[],
+    onUpdate: (items: PkbRuleConfig[]) => void,
+    onError?: (err: Error) => void,
+    limitCount: number = 20
+  ): () => void {
+    return this.subscribe(initialItems, onUpdate, onError, [limit(limitCount)]);
+  }
+}
 
 export interface UserClearedNotifs {
   id: string;

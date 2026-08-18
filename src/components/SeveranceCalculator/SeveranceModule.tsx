@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Calculator, 
   History, 
@@ -23,20 +23,52 @@ import { AdminRuleManagementModal } from './AdminRuleManagementModal';
 import { SeveranceService } from '../../services/severanceService';
 import { SectionHeader, PrimaryButton, SecondaryButton } from '../ui/DesignSystem';
 import { getLocalDateISO } from '../../utils/dateUtils';
+import { repositories } from '../../repositories';
 
 interface SeveranceModuleProps {
   members: Member[];
-  historyItems: SeveranceCalculationResult[];
+  historyItems?: SeveranceCalculationResult[];
   currentUser: UserAccount;
   pkbRules?: PkbRuleConfig[];
 }
 
 export const SeveranceModule: React.FC<SeveranceModuleProps> = ({
   members,
-  historyItems,
+  historyItems = [],
   currentUser,
   pkbRules = []
 }) => {
+  const [localHistoryItems, setLocalHistoryItems] = useState<SeveranceCalculationResult[]>(historyItems);
+  const [localPkbRules, setLocalPkbRules] = useState<PkbRuleConfig[]>(pkbRules);
+
+  // Scoped on-demand subscription for Severance History & Rules with unmount cleanup
+  useEffect(() => {
+    let isMounted = true;
+    const unsubHistory = repositories.severanceCalculations.subscribeRecent(
+      historyItems,
+      (items) => {
+        if (isMounted) setLocalHistoryItems(items);
+      },
+      (err) => console.warn('Severance history subscribe warning:', err.message),
+      50
+    );
+
+    const unsubRules = repositories.severanceRules.subscribeRecent(
+      pkbRules,
+      (items) => {
+        if (isMounted) setLocalPkbRules(items);
+      },
+      (err) => console.warn('Severance rules subscribe warning:', err.message),
+      20
+    );
+
+    return () => {
+      isMounted = false;
+      unsubHistory();
+      unsubRules();
+    };
+  }, []);
+
   const [activeTab, setActiveTab] = useState<'calculator' | 'history' | 'rules'>('calculator');
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
   const [calcResult, setCalcResult] = useState<SeveranceCalculationResult | null>(null);
@@ -53,7 +85,7 @@ export const SeveranceModule: React.FC<SeveranceModuleProps> = ({
 
   const getEffectiveRuleForDate = (dateStr: string): PkbRuleConfig => {
     if (customActiveRule) return customActiveRule;
-    return selectActivePkbRule(pkbRules, dateStr);
+    return selectActivePkbRule(localPkbRules, dateStr);
   };
 
   const activeRule = getEffectiveRuleForDate(getLocalDateISO());
@@ -166,7 +198,7 @@ export const SeveranceModule: React.FC<SeveranceModuleProps> = ({
           }`}
         >
           <History className="w-4 h-4 text-amber-400" />
-          Histori Simulasi ({historyItems.length})
+          Histori Simulasi ({localHistoryItems.length})
         </button>
       </div>
 
@@ -221,7 +253,7 @@ export const SeveranceModule: React.FC<SeveranceModuleProps> = ({
       {/* TAB CONTENT: HISTORY */}
       {activeTab === 'history' && (
         <SeveranceHistory
-          historyItems={historyItems}
+          historyItems={localHistoryItems}
           onDeleteHistory={handleDeleteHistory}
           currentUser={currentUser}
         />

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { 
   HeartPulse, 
   Plus, 
@@ -26,10 +26,11 @@ import { SickVisitCard } from './sickVisit/SickVisitCard';
 import { SickVisitAddModal } from './sickVisit/SickVisitAddModal';
 import { SickVisitDetailModal } from './sickVisit/SickVisitDetailModal';
 import { exportSickVisitToExcel } from '../lib/excelExport';
+import { repositories } from '../repositories';
 
 interface SickVisitModuleProps {
-  sickVisits: SickVisit[];
-  members: Member[];
+  sickVisits?: SickVisit[];
+  members?: Member[];
   onAddVisit: (newVisit: SickVisit) => void;
   onUpdateVisit: (updatedVisit: SickVisit, actionName?: string, auditDetail?: string) => void;
   onDeleteVisit?: (visitId: string) => void;
@@ -38,16 +39,39 @@ interface SickVisitModuleProps {
 }
 
 export const SickVisitModule: React.FC<SickVisitModuleProps> = ({
-  sickVisits,
-  members,
+  sickVisits = [],
+  members = [],
   onAddVisit,
   onUpdateVisit,
   onDeleteVisit,
   currentUser,
   onRequestVehicle,
 }) => {
+  const [localVisits, setLocalVisits] = useState<SickVisit[]>(sickVisits);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState<string>('All');
+
+  // Scoped on-demand subscription for Sick Visits module with unmount cleanup
+  useEffect(() => {
+    let isMounted = true;
+    const unsub = repositories.sickVisits.subscribeRecent(
+      sickVisits,
+      (items) => {
+        if (isMounted) {
+          setLocalVisits(items);
+        }
+      },
+      (err) => {
+        console.warn('SickVisits on-demand subscribe warning:', err.message);
+      },
+      50
+    );
+
+    return () => {
+      isMounted = false;
+      unsub();
+    };
+  }, []);
 
   // Modals
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -55,23 +79,23 @@ export const SickVisitModule: React.FC<SickVisitModuleProps> = ({
 
   // Selected visit for detail modal
   const selectedVisit = useMemo(() => {
-    return sickVisits.find(v => v.id === selectedVisitId) || null;
-  }, [sickVisits, selectedVisitId]);
+    return localVisits.find(v => v.id === selectedVisitId) || null;
+  }, [localVisits, selectedVisitId]);
 
   // Statistics
-  const totalCount = sickVisits.length;
-  const waitingCoordCount = sickVisits.filter(
+  const totalCount = localVisits.length;
+  const waitingCoordCount = localVisits.filter(
     v => v.status === 'Dilaporkan' || v.status === 'Menunggu Koordinasi' || v.status === 'Menunggu Kunjungan'
   ).length;
-  const inProgressCount = sickVisits.filter(
+  const inProgressCount = localVisits.filter(
     v => v.status === 'Disetujui' || v.status === 'Ditugaskan' || v.status === 'Dalam Pendampingan' || v.status === 'Sedang Didampingi'
   ).length;
-  const rawatInapCount = sickVisits.filter(v => v.hasilPendampingan === 'RAWAT INAP').length;
-  const selesaiCount = sickVisits.filter(v => v.status === 'Selesai').length;
+  const rawatInapCount = localVisits.filter(v => v.hasilPendampingan === 'RAWAT INAP').length;
+  const selesaiCount = localVisits.filter(v => v.status === 'Selesai').length;
 
   // Filtered List
   const filteredVisits = useMemo(() => {
-    return sickVisits.filter((vis) => {
+    return localVisits.filter((vis) => {
       const q = searchQuery.toLowerCase();
       const matchSearch = 
         !q ||
@@ -134,7 +158,7 @@ export const SickVisitModule: React.FC<SickVisitModuleProps> = ({
 
         <div className="flex items-center gap-2.5 flex-wrap">
           <button
-            onClick={() => exportSickVisitToExcel(sickVisits)}
+            onClick={() => exportSickVisitToExcel(localVisits)}
             className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:shadow-md"
             title="Download Laporan Format Excel (.xlsx)"
           >

@@ -17,11 +17,12 @@ import {
 import { getLocalDateISO } from '../utils/dateUtils';
 import { MemberSearchSelect } from './MemberSearchSelect';
 import { ConfirmModal } from './ConfirmModal';
+import { repositories } from '../repositories';
 
 interface FundraisingModuleProps {
-  campaigns: FundraisingCampaign[];
-  members: Member[];
-  sickVisits: SickVisit[];
+  campaigns?: FundraisingCampaign[];
+  members?: Member[];
+  sickVisits?: SickVisit[];
   currentUser: UserAccount;
   onAddCampaign: (campaign: FundraisingCampaign) => Promise<void>;
   onUpdateCampaign: (campaign: FundraisingCampaign) => Promise<void>;
@@ -58,14 +59,34 @@ export const calculateFundraisingMinimum = (
 };
 
 export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
-  campaigns,
-  members,
-  sickVisits,
+  campaigns = [],
+  members = [],
+  sickVisits = [],
   currentUser,
   onAddCampaign,
   onUpdateCampaign,
   onDeleteCampaign
 }) => {
+  const [localCampaigns, setLocalCampaigns] = useState<FundraisingCampaign[]>(campaigns);
+
+  // Scoped on-demand subscription for Fundraising with unmount cleanup
+  useEffect(() => {
+    let isMounted = true;
+    const unsub = repositories.fundraising.subscribeRecent(
+      campaigns,
+      (items) => {
+        if (isMounted) setLocalCampaigns(items);
+      },
+      (err) => console.warn('Fundraising on-demand subscribe warning:', err.message),
+      50
+    );
+
+    return () => {
+      isMounted = false;
+      unsub();
+    };
+  }, []);
+
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCampaign, setEditingCampaign] = useState<FundraisingCampaign | null>(null);
@@ -348,7 +369,7 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
   };
 
   const filteredCampaigns = useMemo(() => {
-    return campaigns.filter(c => {
+    return localCampaigns.filter(c => {
       const matchQuery = c.namaAnggota.toLowerCase().includes(searchQuery.toLowerCase()) || 
                          c.nomorPenggalangan.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          (c.namaPasien || '').toLowerCase().includes(searchQuery.toLowerCase());
@@ -361,7 +382,7 @@ export const FundraisingModule: React.FC<FundraisingModuleProps> = ({
       
       return matchQuery && matchKondisi && matchHubungan && matchPendampingan && matchStatus;
     }).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-  }, [campaigns, searchQuery, filterKondisi, filterHubungan, filterPendampingan, filterStatus]);
+  }, [localCampaigns, searchQuery, filterKondisi, filterHubungan, filterPendampingan, filterStatus]);
 
   // UI rendering helper for fallback
   const getPasienName = (c: FundraisingCampaign) => {

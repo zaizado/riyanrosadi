@@ -147,50 +147,11 @@ export const useAppData = (currentUserParam?: UserAccount | null) => {
     };
   }, []);
 
-  // Effect 2: Business & Admin Collections
+// Effect 2: User profile synchronization - No global business collection listeners
   useEffect(() => {
-    let unsubs: (() => void)[] = [];
-    const currentFbUser = auth.currentUser;
-
-    if (!resolvedUser || !isValidUserRole(resolvedUser.role) || !isAuthorizedPengurus(resolvedUser, currentFbUser)) {
-       return () => {}; // Do nothing, cleanup if previously subscribed
-    }
-
-    const handleErr = (err: Error) => {
-      console.warn('Firestore subscription warning:', err.message);
-    };
-
-    // Note: members and sembakoClaims are intentionally NOT subscribed globally to save bandwidth and reads.
-    // They are fetched on-demand by their respective modules.
-    
-    unsubs.push(repositories.advocacy.subscribeRecent([], (items) => { setAdvocacyCases(items); }, handleErr, 50));
-    unsubs.push(repositories.sickVisits.subscribeRecent([], (items) => { setSickVisits(items); }, handleErr, 50));
-    unsubs.push(repositories.fundraising.subscribeRecent([], (items) => { setFundraisingCampaigns(items); }, handleErr, 50));
-    unsubs.push(repositories.agendas.subscribeRecent([], (items) => { setAgendas(items); }, handleErr, 50));
-    unsubs.push(repositories.notulensi.subscribeRecent([], (items) => { setNotulensiFiles(items); }, handleErr, 50));
-    unsubs.push(repositories.sembakoEvents.subscribeRecent([], (items) => { setSembakoEvents(items); }, handleErr, 50));
-    // sembakoClaims removed
-    unsubs.push(repositories.vehicles.subscribeRecent([], (items) => { setVehicleLogs(items); }, handleErr, 50));
-    unsubs.push(repositories.severanceCalculations.subscribeRecent([], (items) => { setSeveranceCalculations(items); }, handleErr, 50));
-    unsubs.push(repositories.severanceRules.subscribe([], (items) => { setPkbRules(items); }, handleErr));
-    unsubs.push(auditLogRepository.subscribeRecent([], (items) => { setAuditLogs(sortAuditLogsNewestFirst(items)); }, handleErr, 15));
-
-    // Admin-only subscriptions
     const effectiveUser = currentUserParam || resolvedUser;
-    const isAuthorizedForFinance = checkIsAdmin(effectiveUser, currentFbUser);
-
-    if (isAuthorizedForFinance) {
-      unsubs.push(repositories.finance.subscribe([], (items) => { setFinanceRecords(items); }, handleErr));
-    } else {
-      setFinanceRecords([]);
-    }
-
     // Set self in users array so UI logic relying on users list has current authenticated user profile
     setUsers(effectiveUser ? [effectiveUser] : []);
-
-    return () => {
-      unsubs.forEach(fn => { try { fn(); } catch (e) {} });
-    };
   }, [
     currentUserParam?.id,
     currentUserParam?.role,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   CalendarDays, 
   Plus, 
@@ -49,10 +49,11 @@ import { parseUploadedFile } from '../utils/documentParser';
 import { uploadFileToStorage } from '../lib/firebase';
 import { AppService } from '../services/appService';
 import { AuditService } from '../services/auditService';
+import { repositories } from '../repositories';
 
 interface AgendaModuleProps {
-  agendas: OrganizationAgenda[];
-  notulensiFiles: NotulensiFileItem[];
+  agendas?: OrganizationAgenda[];
+  notulensiFiles?: NotulensiFileItem[];
   onAddAgenda: (newAgenda: OrganizationAgenda) => void;
   onUpdateAgenda: (updatedAgenda: OrganizationAgenda) => void;
   onDeleteAgenda: (agendaId: string) => void;
@@ -69,13 +70,49 @@ const formatFileSize = (bytes: number | string): string => {
 };
 
 export const AgendaModule: React.FC<AgendaModuleProps> = ({
-  agendas,
+  agendas = [],
   notulensiFiles = [],
   onAddAgenda,
   onUpdateAgenda,
   onDeleteAgenda,
   currentUser,
 }) => {
+  const [localAgendas, setLocalAgendas] = useState<OrganizationAgenda[]>(agendas);
+  const [localNotulensiFiles, setLocalNotulensiFiles] = useState<NotulensiFileItem[]>(notulensiFiles);
+
+  // Scoped on-demand subscription for Agendas & Notulensi with unmount cleanup
+  useEffect(() => {
+    let isMounted = true;
+    const unsubs: (() => void)[] = [];
+
+    unsubs.push(
+      repositories.agendas.subscribeRecent(
+        agendas,
+        (items) => {
+          if (isMounted) setLocalAgendas(items);
+        },
+        (err) => console.warn('Agendas on-demand subscribe warning:', err.message),
+        50
+      )
+    );
+
+    unsubs.push(
+      repositories.notulensi.subscribeRecent(
+        notulensiFiles,
+        (items) => {
+          if (isMounted) setLocalNotulensiFiles(items);
+        },
+        (err) => console.warn('Notulensi on-demand subscribe warning:', err.message),
+        50
+      )
+    );
+
+    return () => {
+      isMounted = false;
+      unsubs.forEach(fn => { try { fn(); } catch (e) {} });
+    };
+  }, []);
+
   const isSuperAdmin = checkIsSuperAdmin(currentUser);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTypeFilter, setSelectedTypeFilter] = useState<string>('All');
@@ -197,7 +234,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
   };
 
   // Enhanced Global Search across title, date, participants, discussion content, decisions, files
-  const filteredAgendas = agendas.filter((agd) => {
+  const filteredAgendas = localAgendas.filter((agd) => {
     const query = searchQuery.toLowerCase().trim();
     if (!query) {
       const matchType = selectedTypeFilter === 'All' || agd.jenis === selectedTypeFilter;
@@ -206,7 +243,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
     }
 
     const notulensi = agd.notulensi;
-    const files = notulensiFiles.filter(f => f.agendaId === agd.id);
+    const files = localNotulensiFiles.filter(f => f.agendaId === agd.id);
 
     const isMatchInAgenda = 
       agd.judul.toLowerCase().includes(query) ||
@@ -827,7 +864,7 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
           </div>
         ) : (
           filteredAgendas.map((agd) => {
-            const currentFiles = notulensiFiles.filter(f => f.agendaId === agd.id);
+            const currentFiles = localNotulensiFiles.filter(f => f.agendaId === agd.id);
             const hasNotulensiText = !!agd.notulensi;
             const hasFiles = currentFiles.length > 0;
 
@@ -1427,11 +1464,11 @@ export const AgendaModule: React.FC<AgendaModuleProps> = ({
                   <div className="space-y-2">
                     <h4 className="font-bold text-slate-300 text-xs flex items-center gap-1.5">
                       <Paperclip className="w-4 h-4 text-emerald-400" />
-                      Daftar Dokumen Notulensi Terunggah ({notulensiFiles.filter(f => f.agendaId === selectedAgenda.id).length})
+                      Daftar Dokumen Notulensi Terunggah ({localNotulensiFiles.filter(f => f.agendaId === selectedAgenda.id).length})
                     </h4>
 
-                    {notulensiFiles.filter(f => f.agendaId === selectedAgenda.id).length > 0 ? (
-                      notulensiFiles.filter(f => f.agendaId === selectedAgenda.id).map((att) => (
+                    {localNotulensiFiles.filter(f => f.agendaId === selectedAgenda.id).length > 0 ? (
+                      localNotulensiFiles.filter(f => f.agendaId === selectedAgenda.id).map((att) => (
                         <div key={att.id} className="p-3.5 bg-slate-950 rounded-xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                           <div className="flex items-start gap-3 overflow-hidden text-slate-300">
                             <div className="p-2 bg-blue-950/80 border border-blue-800/60 text-blue-400 rounded-lg shrink-0 mt-0.5">

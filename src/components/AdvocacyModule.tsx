@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Scale, 
   Plus, 
@@ -25,10 +25,11 @@ import { exportAdvocacyToExcel } from '../lib/excelExport';
 import { ModalPortal } from './ModalPortal';
 import { getLocalDateISO } from '../utils/dateUtils';
 import { SectionHeader, PrimaryButton, SecondaryButton } from './ui/DesignSystem';
+import { repositories } from '../repositories';
 
 interface AdvocacyModuleProps {
-  advocacyCases: AdvocacyCase[];
-  members: Member[];
+  advocacyCases?: AdvocacyCase[];
+  members?: Member[];
   onAddCase: (newCase: AdvocacyCase) => void;
   onUpdateCase: (updatedCase: AdvocacyCase) => void;
   onDeleteCase?: (caseId: string) => void;
@@ -36,16 +37,39 @@ interface AdvocacyModuleProps {
 }
 
 export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
-  advocacyCases,
-  members,
+  advocacyCases = [],
+  members = [],
   onAddCase,
   onUpdateCase,
   onDeleteCase,
   currentUser,
 }) => {
+  const [localCases, setLocalCases] = useState<AdvocacyCase[]>(advocacyCases);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatusFilter, setSelectedStatusFilter] = useState<string>('All');
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('All');
+
+  // Scoped on-demand subscription for Advocacy module with unmount cleanup
+  useEffect(() => {
+    let isMounted = true;
+    const unsub = repositories.advocacy.subscribeRecent(
+      advocacyCases,
+      (items) => {
+        if (isMounted) {
+          setLocalCases(items);
+        }
+      },
+      (err) => {
+        console.warn('Advocacy on-demand subscribe warning:', err.message);
+      },
+      50
+    );
+
+    return () => {
+      isMounted = false;
+      unsub();
+    };
+  }, []);
 
   // Modals state
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -85,7 +109,7 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
   };
 
   // Filtered cases
-  const filteredCases = advocacyCases.filter((cas) => {
+  const filteredCases = localCases.filter((cas) => {
     const matchSearch = 
       (cas.nomorKasus && cas.nomorKasus.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (cas.judulKasus && cas.judulKasus.toLowerCase().includes(searchQuery.toLowerCase())) ||
@@ -108,7 +132,7 @@ export const AdvocacyModule: React.FC<AdvocacyModuleProps> = ({
 
     const newCaseObj: AdvocacyCase = {
       id: `adv-${Date.now()}`,
-      nomorKasus: `ADV-2026-${String(advocacyCases.length + 1).padStart(3, '0')}`,
+      nomorKasus: `ADV-2026-${String(localCases.length + 1).padStart(3, '0')}`,
       memberId: selectedMbr.id,
       namaAnggota: selectedMbr.namaLengkap,
       nikAnggota: selectedMbr.nik,

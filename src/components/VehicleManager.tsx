@@ -31,11 +31,12 @@ import { VehicleReturnModal } from './vehicle/VehicleReturnModal';
 import { VehicleApproveModal } from './vehicle/VehicleApproveModal';
 import { VehicleDetailModal } from './vehicle/VehicleDetailModal';
 import { VehicleManageFleetModal } from './vehicle/VehicleManageFleetModal';
+import { repositories } from '../repositories';
 
 interface VehicleManagerProps {
-  vehicleLogs: VehicleLog[];
-  members: Member[];
-  users: UserAccount[];
+  vehicleLogs?: VehicleLog[];
+  members?: Member[];
+  users?: UserAccount[];
   currentUser: UserAccount;
   draftRequest?: Partial<VehicleLog> | null;
   onClearDraftRequest?: () => void;
@@ -47,9 +48,9 @@ interface VehicleManagerProps {
 export type VehicleTabType = 'dashboard' | 'request' | 'my_requests' | 'schedule' | 'approvals' | 'history';
 
 export const VehicleManager: React.FC<VehicleManagerProps> = ({
-  vehicleLogs,
-  members,
-  users,
+  vehicleLogs = [],
+  members = [],
+  users = [],
   currentUser,
   draftRequest,
   onClearDraftRequest,
@@ -57,6 +58,26 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
   onUpdateLog,
   onDeleteLog,
 }) => {
+  const [localVehicleLogs, setLocalVehicleLogs] = useState<VehicleLog[]>(vehicleLogs);
+
+  // Scoped on-demand subscription for Vehicles with unmount cleanup
+  useEffect(() => {
+    let isMounted = true;
+    const unsub = repositories.vehicles.subscribeRecent(
+      vehicleLogs,
+      (items) => {
+        if (isMounted) setLocalVehicleLogs(items);
+      },
+      (err) => console.warn('Vehicles on-demand subscribe warning:', err.message),
+      50
+    );
+
+    return () => {
+      isMounted = false;
+      unsub();
+    };
+  }, []);
+
   const hasApprovalAuthority = canApproveRequests(currentUser);
 
   // Active Tab
@@ -100,7 +121,7 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
     driverKontak: string, 
     catatan?: string
   ) => {
-    const target = vehicleLogs.find(v => v.id === logId);
+    const target = localVehicleLogs.find(v => v.id === logId);
     if (!target) return;
 
     const updated: VehicleLog = {
@@ -120,7 +141,7 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
 
   // Workflow Action 2b: Reject (Ditolak)
   const handleRejectLog = async (logId: string, alasanPenolakan: string) => {
-    const target = vehicleLogs.find(v => v.id === logId);
+    const target = localVehicleLogs.find(v => v.id === logId);
     if (!target) return;
 
     const updated: VehicleLog = {
@@ -143,7 +164,7 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
     kmAwal: number, 
     fotoAwalUrl?: string
   ) => {
-    const target = vehicleLogs.find(v => v.id === logId);
+    const target = localVehicleLogs.find(v => v.id === logId);
     if (!target) return;
 
     const updated: VehicleLog = {
@@ -168,7 +189,7 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
     diserahkanOleh: string, 
     diterimaOleh: string
   ) => {
-    const target = vehicleLogs.find(v => v.id === logId);
+    const target = localVehicleLogs.find(v => v.id === logId);
     if (!target) return;
 
     const kmAwal = target.kmAwal || 0;
@@ -201,7 +222,7 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
     catatan?: string
   ) => {
     if (conditionStatus === 'Tersedia') {
-      const activeIssueLog = vehicleLogs.find(
+      const activeIssueLog = localVehicleLogs.find(
         l => l.kendaraan === vehicleName && (l.status === 'Perlu Diperiksa' || l.adaKerusakan) && !l.isArchived
       );
       if (activeIssueLog) {
@@ -223,8 +244,8 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
     showToast('Catatan berhasil dihapus dari sistem.');
   };
 
-  const pendingApprovalsCount = vehicleLogs.filter(l => l.status === 'Menunggu Persetujuan' && !l.isArchived).length;
-  const myActiveRequestsCount = vehicleLogs.filter(l => 
+  const pendingApprovalsCount = localVehicleLogs.filter(l => l.status === 'Menunggu Persetujuan' && !l.isArchived).length;
+  const myActiveRequestsCount = localVehicleLogs.filter(l => 
     !l.isArchived && 
     (l.namaPemakai === currentUser.name || l.memberId === currentUser.id || (currentUser.memberId && l.memberId === currentUser.memberId)) &&
     (l.status === 'Menunggu Persetujuan' || l.status === 'Disetujui' || l.status === 'Sedang Digunakan')
@@ -389,7 +410,7 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
       {/* Tab 1: Kendaraan (Dashboard) */}
       {activeTab === 'dashboard' && (
         <VehicleDashboardTab
-          vehicleLogs={vehicleLogs}
+          vehicleLogs={localVehicleLogs}
           currentUser={currentUser}
           onNavigateTab={(t) => setActiveTab(t as VehicleTabType)}
           onOpenChecklistModal={(log) => setChecklistModalLog(log)}
@@ -403,7 +424,7 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
       {/* Tab 2: Ajukan Kendaraan (Request Form) */}
       {activeTab === 'request' && (
         <VehicleRequestFormTab
-          vehicleLogs={vehicleLogs}
+          vehicleLogs={localVehicleLogs}
           members={members}
           currentUser={currentUser}
           initialDraft={draftRequest}
@@ -418,7 +439,7 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
       {/* Tab 3: Pengajuan Saya */}
       {activeTab === 'my_requests' && (
         <VehicleMyRequestsTab
-          vehicleLogs={vehicleLogs}
+          vehicleLogs={localVehicleLogs}
           currentUser={currentUser}
           onOpenChecklistModal={(log) => setChecklistModalLog(log)}
           onOpenReturnModal={(log) => setReturnModalLog(log)}
@@ -430,7 +451,7 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
       {/* Tab 4: Jadwal (Schedule) */}
       {activeTab === 'schedule' && (
         <VehicleScheduleTab
-          vehicleLogs={vehicleLogs}
+          vehicleLogs={localVehicleLogs}
           currentUser={currentUser}
           onOpenChecklistModal={(log) => setChecklistModalLog(log)}
           onOpenReturnModal={(log) => setReturnModalLog(log)}
@@ -443,7 +464,7 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
       {/* Tab 5: Persetujuan Kendaraan (Superadmin/Ketua/Sekretaris Only) */}
       {activeTab === 'approvals' && hasApprovalAuthority && (
         <VehicleApprovalsTab
-          vehicleLogs={vehicleLogs}
+          vehicleLogs={localVehicleLogs}
           currentUser={currentUser}
           onOpenApproveModal={(log) => setApproveModalLog(log)}
           onSelectLogDetail={(log) => setSelectedDetailLog(log)}
@@ -453,7 +474,7 @@ export const VehicleManager: React.FC<VehicleManagerProps> = ({
       {/* Tab 6: Riwayat (History & Excel Export) */}
       {activeTab === 'history' && (
         <VehicleHistoryTab
-          vehicleLogs={vehicleLogs}
+          vehicleLogs={localVehicleLogs}
           currentUser={currentUser}
           onSelectLogDetail={(log) => setSelectedDetailLog(log)}
           onDeleteLog={handleDeleteWithAudit}

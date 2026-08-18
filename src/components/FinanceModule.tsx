@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { 
   Wallet, 
   TrendingUp, 
@@ -46,6 +46,7 @@ import { getLocalDateISO } from '../utils/dateUtils';
 import { ConfirmModal } from './ConfirmModal';
 import { ModalPortal } from './ModalPortal';
 import { generateEncryptedFinancePDF } from '../utils/pdfGenerator';
+import { repositories } from '../repositories';
 
 // Robust helper to parse any numeric string or formatted number with dots/commas into integer
 export const parseRupiahNum = (val: any): number => {
@@ -153,18 +154,38 @@ const FinanceChart = React.memo<FinanceChartProps>(({ data }) => {
 });
 
 interface FinanceModuleProps {
-  records: FinanceDailyRecord[];
+  records?: FinanceDailyRecord[];
   currentUser: UserAccount;
   onSaveRecord: (record: FinanceDailyRecord) => void;
   onDeleteRecord: (id: string) => void;
 }
 
 export const FinanceModule: React.FC<FinanceModuleProps> = ({
-  records,
+  records = [],
   currentUser,
   onSaveRecord,
   onDeleteRecord
 }) => {
+  const [localRecords, setLocalRecords] = useState<FinanceDailyRecord[]>(records);
+
+  // Scoped on-demand subscription for Finance with unmount cleanup
+  useEffect(() => {
+    let isMounted = true;
+    const unsub = repositories.finance.subscribeRecent(
+      records,
+      (items) => {
+        if (isMounted) setLocalRecords(items);
+      },
+      (err) => console.warn('Finance on-demand subscribe warning:', err.message),
+      50
+    );
+
+    return () => {
+      isMounted = false;
+      unsub();
+    };
+  }, []);
+
   const todayStr = useMemo(() => getLocalDateISO(), []);
 
   // Filter States
@@ -193,8 +214,8 @@ export const FinanceModule: React.FC<FinanceModuleProps> = ({
 
   // Sort records chronologically by date ascending to calculate cascade balances properly
   const sortedRecordsAsc = useMemo(() => {
-    return [...records].sort((a, b) => a.tanggal.localeCompare(b.tanggal));
-  }, [records]);
+    return [...localRecords].sort((a, b) => a.tanggal.localeCompare(b.tanggal));
+  }, [localRecords]);
 
   // Compute cascading balances (saldoAwal of T = saldoAkhir of T-1)
   const cascadedRecordsMap = useMemo(() => {
