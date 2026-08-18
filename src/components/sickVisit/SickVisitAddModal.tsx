@@ -65,13 +65,6 @@ export const SickVisitAddModal: React.FC<SickVisitAddModalProps> = ({
     }
     if (selectedMemberObj && selectedMemberObj.id === selectedMemberId) return;
 
-    // Check in props first if available
-    const inProps = members.find(m => m.id === selectedMemberId);
-    if (inProps) {
-      setSelectedMemberObj(inProps);
-      return;
-    }
-
     let isMounted = true;
     const fetchMember = async () => {
       try {
@@ -87,7 +80,7 @@ export const SickVisitAddModal: React.FC<SickVisitAddModalProps> = ({
     };
     fetchMember();
     return () => { isMounted = false; };
-  }, [selectedMemberId, members, selectedMemberObj]);
+  }, [selectedMemberId, selectedMemberObj]);
 
   // Kondisi & Urgensi
   const [isUrgent, setIsUrgent] = useState(true);
@@ -110,7 +103,7 @@ export const SickVisitAddModal: React.FC<SickVisitAddModalProps> = ({
 
   if (!isOpen) return null;
 
-  const selectedMember = selectedMemberObj || members.find(m => m.id === selectedMemberId) || null;
+  const selectedMember = selectedMemberObj;
 
   // Cari detail RS
   const activeRsItem = DAFTAR_RS_RUJUKAN.find(r => r.nama === selectedRsPreset);

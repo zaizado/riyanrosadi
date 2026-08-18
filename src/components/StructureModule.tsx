@@ -18,6 +18,9 @@ interface StructureModuleProps {
   onNavigateToProfile?: () => void;
 }
 
+let cachedPengurusMembers: Member[] | null = null;
+let cachedPengurusTime = 0;
+
 export const StructureModule: React.FC<StructureModuleProps> = ({
   users = [],
   members = [],
@@ -78,17 +81,24 @@ export const StructureModule: React.FC<StructureModuleProps> = ({
   };
 
   // Helper to match officer item with Member record by NIK
-  const [pengurusMembers, setPengurusMembers] = useState<Member[]>([]);
+  const [pengurusMembers, setPengurusMembers] = useState<Member[]>(cachedPengurusMembers || []);
   useEffect(() => {
     let isMounted = true;
     const fetchP = async () => {
       try {
-        const { getDocs, query, collection, where } = await import('firebase/firestore');
+        if (cachedPengurusMembers && Date.now() - cachedPengurusTime < 5 * 60 * 1000) {
+          if (isMounted) setPengurusMembers(cachedPengurusMembers);
+          return;
+        }
+        const { getDocs, query, collection, where, limit } = await import('firebase/firestore');
         const { db } = await import('../lib/firebase');
-        const q = query(collection(db, 'members'), where('jabatanOrganisasi', '!=', 'Anggota'));
+        const q = query(collection(db, 'members'), where('jabatanOrganisasi', '!=', 'Anggota'), limit(50));
         const snap = await getDocs(q);
         if (isMounted) {
-          setPengurusMembers(snap.docs.map(d => d.data() as Member));
+          const fetched = snap.docs.map(d => d.data() as Member);
+          cachedPengurusMembers = fetched;
+          cachedPengurusTime = Date.now();
+          setPengurusMembers(fetched);
         }
       } catch(e) {
         console.warn(e);

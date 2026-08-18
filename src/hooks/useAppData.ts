@@ -163,12 +163,12 @@ export const useAppData = (currentUserParam?: UserAccount | null) => {
     // Note: members and sembakoClaims are intentionally NOT subscribed globally to save bandwidth and reads.
     // They are fetched on-demand by their respective modules.
     
-    unsubs.push(repositories.advocacy.subscribe([], (items) => { setAdvocacyCases(items); }, handleErr));
-    unsubs.push(repositories.sickVisits.subscribe([], (items) => { setSickVisits(items); }, handleErr));
-    unsubs.push(repositories.fundraising.subscribe([], (items) => { setFundraisingCampaigns(items); }, handleErr));
-    unsubs.push(repositories.agendas.subscribe([], (items) => { setAgendas(items); }, handleErr));
-    unsubs.push(repositories.notulensi.subscribe([], (items) => { setNotulensiFiles(items); }, handleErr));
-    unsubs.push(repositories.sembakoEvents.subscribe([], (items) => { setSembakoEvents(items); }, handleErr));
+    unsubs.push(repositories.advocacy.subscribeRecent([], (items) => { setAdvocacyCases(items); }, handleErr, 50));
+    unsubs.push(repositories.sickVisits.subscribeRecent([], (items) => { setSickVisits(items); }, handleErr, 50));
+    unsubs.push(repositories.fundraising.subscribeRecent([], (items) => { setFundraisingCampaigns(items); }, handleErr, 50));
+    unsubs.push(repositories.agendas.subscribeRecent([], (items) => { setAgendas(items); }, handleErr, 50));
+    unsubs.push(repositories.notulensi.subscribeRecent([], (items) => { setNotulensiFiles(items); }, handleErr, 50));
+    unsubs.push(repositories.sembakoEvents.subscribeRecent([], (items) => { setSembakoEvents(items); }, handleErr, 50));
     // sembakoClaims removed
     unsubs.push(repositories.vehicles.subscribeRecent([], (items) => { setVehicleLogs(items); }, handleErr, 50));
     unsubs.push(repositories.severanceCalculations.subscribeRecent([], (items) => { setSeveranceCalculations(items); }, handleErr, 50));
@@ -181,16 +181,12 @@ export const useAppData = (currentUserParam?: UserAccount | null) => {
 
     if (isAuthorizedForFinance) {
       unsubs.push(repositories.finance.subscribe([], (items) => { setFinanceRecords(items); }, handleErr));
-      
-      unsubs.push(repositories.users.subscribe([], (items) => {
-        const formatted = items.map(u => formatUserAccount(u));
-        setUsers(formatted);
-      }, handleErr));
     } else {
       setFinanceRecords([]);
-      // Just put self in users array so UI logic relying on users list doesn't break
-      setUsers([resolvedUser]);
     }
+
+    // Set self in users array so UI logic relying on users list has current authenticated user profile
+    setUsers(effectiveUser ? [effectiveUser] : []);
 
     return () => {
       unsubs.forEach(fn => { try { fn(); } catch (e) {} });

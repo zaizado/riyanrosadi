@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   ShieldCheck, 
   Users, 
@@ -15,7 +15,8 @@ import {
   ShieldAlert,
   FileSpreadsheet,
   AlertCircle,
-  RefreshCw
+  RefreshCw,
+  Loader2
 } from 'lucide-react';
 import { UserAccount, UserRole, AuditLog, checkIsSuperAdmin } from '../types';
 import { sortAuditLogsNewestFirst } from '../lib/storage';
@@ -25,9 +26,11 @@ import { exportFullBackup, resetAllData } from '../lib/storage';
 import cheAvatar from '../assets/images/pengurus_che_avatar_1785341733072.jpg';
 import { ModalPortal } from './ModalPortal';
 import { SectionHeader, AppCard, ActionCard, PrimaryButton, SecondaryButton, StatusBadge } from './ui/DesignSystem';
+import { repositories } from '../repositories';
+import { formatUserAccount } from '../hooks/useAppData';
 
 interface UserManagementModuleProps {
-  users: UserAccount[];
+  users?: UserAccount[];
   auditLogs: AuditLog[];
   onAddUser: (newUser: UserAccount) => void;
   onUpdateUser: (updatedUser: UserAccount) => void;
@@ -37,7 +40,7 @@ interface UserManagementModuleProps {
 }
 
 export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
-  users,
+  users = [],
   auditLogs,
   onAddUser,
   onUpdateUser,
@@ -50,6 +53,43 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
   const [editingUser, setEditingUser] = useState<UserAccount | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userFormError, setUserFormError] = useState<string | null>(null);
+
+  // On-demand users list for User Management module
+  const [onDemandUsers, setOnDemandUsers] = useState<UserAccount[]>(() => users.length > 0 ? users : [currentUser]);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
+
+  const isSuperAdmin = currentUser.role === 'Super Admin' || currentUser.username === 'superadmin' || currentUser.isSuperAdmin;
+
+  // On-demand fetch users from Firestore when Super Admin views the users tab
+  useEffect(() => {
+    if (!isSuperAdmin) {
+      setOnDemandUsers([currentUser]);
+      return;
+    }
+
+    let isMounted = true;
+    setIsLoadingUsers(true);
+
+    const unsub = repositories.users.subscribe(
+      [],
+      (items) => {
+        if (isMounted) {
+          const formatted = items.map(u => formatUserAccount(u));
+          setOnDemandUsers(formatted);
+          setIsLoadingUsers(false);
+        }
+      },
+      (err) => {
+        console.warn('On-demand users subscription warning:', err.message);
+        if (isMounted) setIsLoadingUsers(false);
+      }
+    );
+
+    return () => {
+      isMounted = false;
+      unsub();
+    };
+  }, [isSuperAdmin, currentUser.id]);
 
   // Deletion and reset modal state
   const [deleteUserConfirmObj, setDeleteUserConfirmObj] = useState<UserAccount | null>(null);
@@ -135,8 +175,7 @@ export const UserManagementModule: React.FC<UserManagementModuleProps> = ({
     }
   };
 
-  const isSuperAdmin = currentUser.role === 'Super Admin' || currentUser.username === 'superadmin' || currentUser.isSuperAdmin;
-  const visibleUsers = isSuperAdmin ? users : users.filter(u => u.id === currentUser.id || u.username === currentUser.username);
+  const visibleUsers = isSuperAdmin ? onDemandUsers : onDemandUsers.filter(u => u.id === currentUser.id || u.username === currentUser.username);
 
   return (
     <div className="space-y-6 pb-12">

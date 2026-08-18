@@ -123,10 +123,14 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         throw new Error('Akun Anda berhasil diautentikasi namun belum memiliki profil otorisasi pengurus yang valid. Silakan hubungi Super Admin untuk aktivasi hak akses.');
       }
 
+      // Check if profile document already exists in Firestore before writing
       try {
-        await repositories.users.save(matchedProfile);
+        const existingDoc = await repositories.users.getById(matchedProfile.id);
+        if (!existingDoc) {
+          await repositories.users.save(matchedProfile);
+        }
       } catch (saveErr) {
-        console.warn('Could not auto-save user profile to firestore:', saveErr);
+        console.warn('Profile read/write check warning:', saveErr);
       }
 
       setSuccessMessage(`Login berhasil! Selamat datang, ${matchedProfile.name}.`);

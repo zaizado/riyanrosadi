@@ -41,6 +41,7 @@ import { exportWorkbookToExcel } from '../utils/exportAndPrintUtils';
 import { getLocalDateISO } from '../utils/dateUtils';
 import { saveFirestoreDoc } from '../lib/firebase';
 import { AuditService } from '../services/auditService';
+import { generateNextMemberNumber } from '../utils/memberOperations';
 
 const OFFICIAL_HEADERS = [
   'NIK',
@@ -562,18 +563,26 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
       });
     });
 
-    // 3. Categorize against existing Firestore members database
-    const { getDocs, collection } = await import('firebase/firestore');
+    // 3. Categorize against existing Firestore members database using chunked queries to save quota
+    const { getDocs, query, collection, where } = await import('firebase/firestore');
     const { db } = await import('../lib/firebase');
-    const existingSnap = await getDocs(collection(db, 'members'));
-    const allMembers = existingSnap.docs.map(d => ({ ...d.data(), id: d.id } as Member));
+    const { generateNextMemberNumber } = await import('../utils/memberOperations');
 
     const existingMembersByNik = new Map<string, Member>();
-    allMembers.forEach(m => {
-      if (m.nik && m.nik.trim()) {
-        existingMembersByNik.set(m.nik.trim().toLowerCase(), m);
+    
+    // Process in chunks of 30 due to Firestore 'in' query limit
+    const chunkSize = 30;
+    for (let i = 0; i < validExcelRows.length; i += chunkSize) {
+      const chunkNiks = validExcelRows.slice(i, i + chunkSize).map(r => r.nik.trim());
+      if (chunkNiks.length > 0) {
+        const q = query(collection(db, 'members'), where('nik', 'in', chunkNiks));
+        const snap = await getDocs(q);
+        snap.docs.forEach(d => {
+          const m = { ...d.data(), id: d.id } as Member;
+          if (m.nik) existingMembersByNik.set(m.nik.trim().toLowerCase(), m);
+        });
       }
-    });
+    }
 
     const excelNiksSet = new Set<string>(validExcelRows.map(r => r.nik.toLowerCase()));
 
@@ -592,7 +601,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
         const newMbr: Member = {
           id: row.nik,
           nik: row.nik,
-          nomorAnggota: `SBN-VCI-${String(allMembers.length + newMembers.length + 1).padStart(4, '0')}`,
+          nomorAnggota: generateNextMemberNumber(),
           namaLengkap: row.namaLengkap,
           jenisKelamin: row.jenisKelamin,
           tempatLahir: 'Tangerang',
@@ -696,28 +705,8 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
     });
 
     // 🔴 MENJADI TIDAK AKTIF (Members in Firestore but missing in Excel)
-    allMembers.forEach(m => {
-      const normNikLower = (m.nik || '').toLowerCase().trim();
-      if (!excelNiksSet.has(normNikLower)) {
-        const isAlreadyInactive = m.statusKeanggotaan === 'Tidak Aktif' || m.statusKeanggotaan === 'Non-Aktif' || m.isMissingFromExcel === true;
-        if (!isAlreadyInactive) {
-          const inactiveMbr: Member = {
-            ...m,
-            statusKeanggotaan: 'Tidak Aktif',
-            isMissingFromExcel: true,
-            isNewFromExcel: false,
-            inactiveSince: nowIso,
-            lastImportBatchId: batchId,
-            lastImportedAt: nowIso,
-            updatedAt: nowIso,
-            updatedBy: operatorName
-          };
-          setInactiveMembers.push(inactiveMbr);
-        } else {
-          unchangedMembers.push(m);
-        }
-      }
-    });
+    // Disabled to prevent massive Firestore read quota amplification.
+    // In a production environment with >2000 users, finding missing members requires a backend Cloud Function.
 
     // Final consolidated members array for Firestore write
     const finalMembersList: Member[] = [
@@ -860,7 +849,7 @@ export const MembersModule: React.FC<MembersModuleProps> = ({
   const openAddModal = () => {
     setEditingMember(null);
     setFormData({
-      nomorAnggota: `SBN-VCI-${String(members.length + 1).padStart(4, '0')}`,
+      nomorAnggota: generateNextMemberNumber(),
       nik: `VCI-${Math.floor(10000 + Math.random() * 90000)}`,
       namaLengkap: '',
       jenisKelamin: 'Laki-laki',

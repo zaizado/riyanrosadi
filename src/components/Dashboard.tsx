@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from 'recharts';
 import { PkbModal } from './PkbModal';
@@ -104,20 +104,17 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
   // Real Counts with on-demand Firestore count fallback
   const [memberCounts, setMemberCounts] = useState<{ active: number; pengurus: number }>({
-    active: members.filter(m => m.statusKeanggotaan === 'Aktif').length,
-    pengurus: members.filter(m => m.jabatanOrganisasi && m.jabatanOrganisasi !== 'Anggota').length
+    active: 0,
+    pengurus: 0
   });
+  const hasFetchedCountRef = useRef(false);
 
   useEffect(() => {
     let isMounted = true;
+    if (hasFetchedCountRef.current) return;
+    hasFetchedCountRef.current = true;
+
     const fetchRealCounts = async () => {
-      if (members.length > 0) {
-        setMemberCounts({
-          active: members.filter(m => m.statusKeanggotaan === 'Aktif').length,
-          pengurus: members.filter(m => m.jabatanOrganisasi && m.jabatanOrganisasi !== 'Anggota').length
-        });
-        return;
-      }
       try {
         const { getCountFromServer, query, collection, where } = await import('firebase/firestore');
         const { db } = await import('../lib/firebase');
@@ -132,7 +129,13 @@ export const Dashboard: React.FC<DashboardProps> = ({
           });
         }
       } catch (err) {
-        // Quota exceeded or offline - maintain existing/safe count
+        // Quota safety fallback
+        if (isMounted && members.length > 0) {
+          setMemberCounts({
+            active: members.filter(m => m.statusKeanggotaan === 'Aktif').length,
+            pengurus: members.filter(m => m.jabatanOrganisasi && m.jabatanOrganisasi !== 'Anggota').length
+          });
+        }
       }
     };
     fetchRealCounts();

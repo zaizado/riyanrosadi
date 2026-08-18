@@ -33,7 +33,6 @@ const getRomanMonth = (monthIndex: number): string => {
 
 export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
   member: initialMember,
-  allMembers = [],
   onClose,
   onUpdateMember
 }) => {
@@ -52,17 +51,12 @@ export const MemberIdCardModal: React.FC<MemberIdCardModalProps> = ({
   const currentMonthRoman = getRomanMonth(new Date().getMonth());
   const currentYear = new Date().getFullYear();
 
-  // Calculate sequence number (e.g. 0001, 0002)
+  // Calculate sequence number (e.g. 0001, 0002) directly from member data
   const getSequenceNumber = (m: Member) => {
-    if (allMembers.length > 0) {
-      const idx = allMembers.findIndex(x => x.id === m.id || x.nomorAnggota === m.nomorAnggota);
-      if (idx >= 0) {
-        return String(idx + 1).padStart(4, '0');
-      }
-    }
-    const digits = m.nomorAnggota?.match(/\d+/);
-    if (digits && digits[0]) {
-      return digits[0].padStart(4, '0');
+    const digits = m.nomorAnggota?.match(/\d+/g);
+    if (digits && digits.length > 0) {
+      const lastDigits = digits[digits.length - 1];
+      return lastDigits.slice(-4).padStart(4, '0');
     }
     return '0001';
   };

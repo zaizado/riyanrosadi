@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Search, X, Check, User, Building2, CheckCircle2, Loader2 } from 'lucide-react';
 import { Member } from '../types';
-import { getDocs, query, collection, where, limit, orderBy } from 'firebase/firestore';
+import { getDocs, getDoc, doc, query, collection, where, limit, orderBy } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
 interface MemberSearchSelectProps {
@@ -27,6 +27,7 @@ export const MemberSearchSelect: React.FC<MemberSearchSelectProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [localSelectedMember, setLocalSelectedMember] = useState<Member | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const searchRequestIdRef = useRef(0);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -45,24 +46,27 @@ export const MemberSearchSelect: React.FC<MemberSearchSelectProps> = ({
       setLocalSelectedMember(null);
       return;
     }
+    let isMounted = true;
     const fetchSelected = async () => {
       try {
-        const q = query(collection(db, 'members'), where('id', '==', selectedMemberId), limit(1));
-        const snap = await getDocs(q);
-        if (!snap.empty) {
-          setLocalSelectedMember(snap.docs[0].data() as Member);
+        const docRef = doc(db, 'members', selectedMemberId);
+        const snap = await getDoc(docRef);
+        if (isMounted && snap.exists()) {
+          setLocalSelectedMember({ ...(snap.data() as Member), id: snap.id });
         }
       } catch (e) {
         console.warn('Failed to load selected member', e);
       }
     };
     fetchSelected();
+    return () => { isMounted = false; };
   }, [selectedMemberId]);
 
   useEffect(() => {
+    if (!isOpen) return;
+
+    const currentRequestId = ++searchRequestIdRef.current;
     const delayDebounceFn = setTimeout(async () => {
-      if (!isOpen) return;
-      
       setIsLoading(true);
       try {
         let q;
@@ -78,13 +82,17 @@ export const MemberSearchSelect: React.FC<MemberSearchSelectProps> = ({
         }
         
         const snap = await getDocs(q);
-        setSearchResults(snap.docs.map(doc => doc.data() as Member));
+        if (searchRequestIdRef.current === currentRequestId) {
+          setSearchResults(snap.docs.map(doc => ({ ...(doc.data() as Member), id: doc.id })));
+        }
       } catch (err) {
         console.error('Search error', err);
       } finally {
-        setIsLoading(false);
+        if (searchRequestIdRef.current === currentRequestId) {
+          setIsLoading(false);
+        }
       }
-    }, 500);
+    }, 400);
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchTerm, isOpen]);

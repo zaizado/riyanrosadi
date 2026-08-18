@@ -54,19 +54,46 @@ export class AppService {
   static async updateSembakoClaim(item: SembakoClaim) { await repositories.sembakoClaims.save(item); }
   static async saveAllSembakoClaims(items: SembakoClaim[]) { await repositories.sembakoClaims.saveAll(items); }
 
-  static async claimSembakoTransactional(claimId: string, petugasNama: string): Promise<SembakoClaim> {
+  static async claimSembakoTransactional(claimData: string | SembakoClaim, petugasNama: string): Promise<SembakoClaim> {
+    const isObject = typeof claimData !== 'string';
+    const claimId = isObject ? (claimData as SembakoClaim).id : (claimData as string);
     const claimDocRef = doc(db, 'sembakoClaims', claimId);
+    
+    // Determine eventId either from object or we must get it from existing doc
+    const eventId = isObject ? (claimData as SembakoClaim).eventId : '';
+
     return await runTransaction(db, async (transaction) => {
       const snap = await transaction.get(claimDocRef);
+      
+      let existingData: SembakoClaim;
+
       if (!snap.exists()) {
-        throw new Error('Data klaim sembako tidak ditemukan di database.');
+        if (!isObject) {
+          throw new Error('Data klaim sembako tidak ditemukan di database.');
+        }
+        existingData = claimData as SembakoClaim;
+      } else {
+        existingData = snap.data() as SembakoClaim;
       }
-      const existingData = snap.data() as SembakoClaim;
+
       if (existingData.status === 'Sudah Ambil') {
         throw new Error(`PERINGATAN: Sembako sudah pernah diambil sebelumnya pada ${existingData.waktuPengambilan || '-'} oleh Petugas: ${existingData.petugasScan || '-'}`);
       }
+
+      // Prepare Event increment
+      const targetEventId = existingData.eventId || eventId;
+      if (targetEventId) {
+        const eventDocRef = doc(db, 'sembakoEvents', targetEventId);
+        const eventSnap = await transaction.get(eventDocRef);
+        if (eventSnap.exists()) {
+           const evData = eventSnap.data() as SembakoEvent;
+           transaction.set(eventDocRef, { totalSudahAmbil: (evData.totalSudahAmbil || 0) + 1 }, { merge: true });
+        }
+      }
+
       const now = new Date();
       const formattedTimestamp = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+      
       const updated: SembakoClaim = {
         ...existingData,
         status: 'Sudah Ambil',
@@ -74,6 +101,7 @@ export class AppService {
         petugasScan: petugasNama,
         updatedAt: new Date().toISOString()
       };
+      
       transaction.set(claimDocRef, updated, { merge: true });
       return updated;
     });

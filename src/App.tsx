@@ -115,11 +115,6 @@ export default function App() {
           setIsLoggedIn(true);
           setCurrentUserAccount(matchedUser);
           setCurrentUser(matchedUser);
-          const userDocToSave: UserAccount = {
-            ...matchedUser,
-            id: firebaseUser.uid
-          };
-          saveFirestoreDoc('users', userDocToSave).catch(err => console.warn('Could not auto-save user profile to firestore', err));
           setAuthState('authenticated');
         } else {
           console.warn('onAuthStateChanged: Authenticated Firebase user has no matched authorization profile:', firebaseUser.email);

@@ -61,32 +61,59 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
   const [selectedEventId, setSelectedEventId] = useState<string>(activeEvent?.id || '');
   const [localClaims, setLocalClaims] = useState<SembakoClaim[]>([]);
   const [isLoadingClaims, setIsLoadingClaims] = useState(false);
+  const [lastVisibleDoc, setLastVisibleDoc] = useState<any>(null);
+  const [hasMoreClaims, setHasMoreClaims] = useState(true);
+  const [realTotalSudahAmbil, setRealTotalSudahAmbil] = useState(0);
+
+  const fetchClaimsPage = async (isLoadMore = false) => {
+    if (!selectedEventId) return;
+    setIsLoadingClaims(true);
+    try {
+      const { getDocs, query, collection, where, limit, startAfter, getCountFromServer } = await import('firebase/firestore');
+      const { db } = await import('../lib/firebase');
+      
+      if (!isLoadMore) {
+        // Fetch accurate count
+        const qCount = query(collection(db, 'sembakoClaims'), where('eventId', '==', selectedEventId), where('status', '==', 'Sudah Ambil'));
+        const countSnap = await getCountFromServer(qCount);
+        setRealTotalSudahAmbil(countSnap.data().count);
+      }
+
+      let q = query(
+        collection(db, 'sembakoClaims'), 
+        where('eventId', '==', selectedEventId), 
+        limit(100)
+      );
+
+      if (isLoadMore && lastVisibleDoc) {
+        q = query(
+          collection(db, 'sembakoClaims'), 
+          where('eventId', '==', selectedEventId), 
+          startAfter(lastVisibleDoc),
+          limit(100)
+        );
+      }
+
+      const snap = await getDocs(q);
+      const claims = snap.docs.map(d => d.data() as SembakoClaim);
+      
+      if (isLoadMore) {
+        setLocalClaims(prev => [...prev, ...claims]);
+      } else {
+        setLocalClaims(claims);
+      }
+
+      setLastVisibleDoc(snap.docs[snap.docs.length - 1] || null);
+      setHasMoreClaims(snap.docs.length === 100);
+    } catch (err) {
+      console.warn('Failed to fetch local claims:', err);
+    } finally {
+      setIsLoadingClaims(false);
+    }
+  };
 
   useEffect(() => {
-    let isMounted = true;
-    const fetchClaims = async () => {
-      if (!selectedEventId) {
-        setLocalClaims([]);
-        return;
-      }
-      setIsLoadingClaims(true);
-      try {
-        const { getDocs, query, collection, where } = await import('firebase/firestore');
-        const { db } = await import('../lib/firebase');
-        const q = query(collection(db, 'sembakoClaims'), where('eventId', '==', selectedEventId));
-        const snap = await getDocs(q);
-        if (isMounted) {
-          const claims = snap.docs.map(d => d.data() as SembakoClaim);
-          setLocalClaims(claims);
-        }
-      } catch (err) {
-        console.warn('Failed to fetch local claims:', err);
-      } finally {
-        if (isMounted) setIsLoadingClaims(false);
-      }
-    };
-    fetchClaims();
-    return () => { isMounted = false; };
+    fetchClaimsPage(false);
   }, [selectedEventId]);
 
   useEffect(() => {
@@ -177,13 +204,13 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
     return filteredClaims.slice(startIndex, startIndex + pageSize);
   }, [filteredClaims, startIndex, pageSize]);
 
-  const totalPenerima = currentClaims.length;
-  const totalSudahAmbil = currentClaims.filter(c => c.status === 'Sudah Ambil').length;
-  const totalBelumAmbil = totalPenerima - totalSudahAmbil;
+  const totalPenerima = currentEventObj?.totalPenerima || 0;
+  const totalSudahAmbil = currentEventObj?.totalSudahAmbil || realTotalSudahAmbil;
+  const totalBelumAmbil = Math.max(0, totalPenerima - totalSudahAmbil);
   const claimPercentage = totalPenerima > 0 ? Math.round((totalSudahAmbil / totalPenerima) * 100) : 0;
 
   // Handle Scanning logic (Works for both camera feed & manual input)
-  const processQrCodeScan = (scannedToken: string) => {
+  const processQrCodeScan = async (scannedToken: string) => {
     if (!currentEventObj) {
       setScanResultFeedback({
         type: 'invalid',
@@ -193,16 +220,76 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
     }
 
     // Search for claim in current event by matching QR code token or member number
-    const targetClaim = currentClaims.find(c => 
+    let targetClaim = currentClaims.find(c => 
       c.qrCode === scannedToken || 
       c.nomorAnggota.toLowerCase() === scannedToken.trim().toLowerCase() ||
       c.nik.toLowerCase() === scannedToken.trim().toLowerCase()
     );
 
     if (!targetClaim) {
+      try {
+        // Not found locally. Try querying sembakoClaims in case it's paginated out.
+        const { getDocs, query, collection, where, limit } = await import('firebase/firestore');
+        const { db } = await import('../lib/firebase');
+        const tokenSearch = scannedToken.trim();
+        
+        let q = query(
+          collection(db, 'sembakoClaims'), 
+          where('eventId', '==', currentEventObj.id), 
+          where('nomorAnggota', '==', tokenSearch.toUpperCase()), 
+          limit(1)
+        );
+        let snap = await getDocs(q);
+        
+        if (snap.empty) {
+           q = query(
+             collection(db, 'sembakoClaims'), 
+             where('eventId', '==', currentEventObj.id), 
+             where('nik', '==', tokenSearch), 
+             limit(1)
+           );
+           snap = await getDocs(q);
+        }
+
+        if (!snap.empty) {
+          targetClaim = snap.docs[0].data() as SembakoClaim;
+        } else {
+          // Attempt to find the member on-demand to create a claim dynamically
+          q = query(collection(db, 'members'), where('nomorAnggota', '==', tokenSearch.toUpperCase()), limit(1));
+          snap = await getDocs(q);
+          
+          if (snap.empty) {
+             q = query(collection(db, 'members'), where('nik', '==', tokenSearch), limit(1));
+             snap = await getDocs(q);
+          }
+
+          if (!snap.empty) {
+            const member = snap.docs[0].data() as Member;
+            if (member.statusKeanggotaan === 'Aktif') {
+               targetClaim = {
+                 id: `clm-${Date.now()}-${member.nomorAnggota}`,
+                 eventId: currentEventObj.id,
+                 memberId: member.id,
+                 nomorAnggota: member.nomorAnggota,
+                 nik: member.nik,
+                 namaLengkap: member.namaLengkap,
+                 departemen: member.departemen,
+                 bagian: member.bagian,
+                 qrCode: `${currentEventObj.id}:${member.nomorAnggota}:${Math.random().toString(36).substring(2, 7).toUpperCase()}`,
+                 status: 'Belum Ambil' 
+               };
+            }
+          }
+        }
+      } catch(e) {
+        console.error('On-demand claim fetch failed', e);
+      }
+    }
+
+    if (!targetClaim) {
       setScanResultFeedback({
         type: 'invalid',
-        message: `QR Code '${scannedToken}' tidak ditemukan pada daftar penerima event ini!`
+        message: `Anggota/QR Code '${scannedToken}' tidak ditemukan atau bukan anggota aktif!`
       });
       return;
     }
@@ -218,7 +305,7 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
     }
 
     // Execute atomic transactional claim to prevent race condition / double-claiming
-    AppService.claimSembakoTransactional(targetClaim.id, currentUser.name)
+    AppService.claimSembakoTransactional(targetClaim, currentUser.name)
       .then((updatedClaim) => {
         onUpdateClaim(updatedClaim);
 
@@ -238,7 +325,7 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
       .catch((err: any) => {
         setScanResultFeedback({
           type: 'already_claimed',
-          claim: targetClaim,
+          claim: targetClaim!,
           message: err?.message || 'Gagal memproses klaim sembako. Terjadi kendala sinkronisasi.'
         });
       });
@@ -303,24 +390,11 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
     if (!isSuperAdmin || !newEventNama) return;
 
     const eventId = `smb-${Date.now()}`;
-    const { getDocs, query, collection, where } = await import('firebase/firestore');
+    const { getCountFromServer, query, collection, where } = await import('firebase/firestore');
     const { db } = await import('../lib/firebase');
     const q = query(collection(db, 'members'), where('statusKeanggotaan', '==', 'Aktif'));
-    const snap = await getDocs(q);
-    const activeMembers = snap.docs.map(d => ({ ...d.data(), id: d.id } as Member));
-
-    const initialClaimsList: SembakoClaim[] = activeMembers.map((m, idx) => ({
-      id: `clm-${Date.now()}-${idx}`,
-      eventId,
-      memberId: m.id,
-      nomorAnggota: m.nomorAnggota,
-      nik: m.nik,
-      namaLengkap: m.namaLengkap,
-      departemen: m.departemen,
-      bagian: m.bagian,
-      qrCode: `${eventId}:${m.nomorAnggota}:${Math.random().toString(36).substring(2, 7).toUpperCase()}`,
-      status: 'Belum Ambil'
-    }));
+    const snap = await getCountFromServer(q);
+    const totalActiveMembers = snap.data().count;
 
     const newEventObj: SembakoEvent = {
       id: eventId,
@@ -330,12 +404,12 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
       jenisPaket: newEventJenisPaket,
       keterangan: newEventKeterangan,
       status: 'Aktif',
-      totalPenerima: initialClaimsList.length,
+      totalPenerima: totalActiveMembers,
       totalSudahAmbil: 0
     };
 
     try {
-      await onAddEvent(newEventObj, initialClaimsList);
+      await onAddEvent(newEventObj, []);
       setSelectedEventId(eventId);
       setIsCreateEventModalOpen(false);
 
@@ -713,6 +787,16 @@ export const SembakoModule: React.FC<SembakoModuleProps> = ({
             >
               <ChevronsRight className="w-4 h-4" />
             </button>
+
+            {hasMoreClaims && (
+               <button
+                 onClick={() => fetchClaimsPage(true)}
+                 disabled={isLoadingClaims}
+                 className="ml-2 px-3 py-1 rounded-lg bg-red-900/60 hover:bg-red-800 text-red-200 border border-red-800/60 font-bold text-xs disabled:opacity-50 transition-colors"
+               >
+                 {isLoadingClaims ? 'Memuat...' : 'Muat Lebih Banyak'}
+               </button>
+            )}
           </div>
         </div>
       </div>
